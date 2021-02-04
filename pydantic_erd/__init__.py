@@ -1,7 +1,8 @@
-from pydantic_erd.erd import draw, EntityRelationshipDiagram, to_dot
+from pydantic_erd.erd import draw, create_erd, to_dot
+import pydantic_erd.pydantic  # noqa:F401
 
 __all__ = [
     "draw",
-    "EntityRelationshipDiagram",
+    "create_erd",
     "to_dot",
 ]

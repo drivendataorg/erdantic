@@ -3,7 +3,7 @@ from typing import List, Optional
 
 from pydantic import BaseModel
 
-from pydantic_erd import EntityRelationshipDiagram
+from pydantic_erd import create_erd
 
 
 class Adventurer(BaseModel):
@@ -33,5 +33,5 @@ class Party(BaseModel):
 
 
 def test_model_crawling():
-    diagram = EntityRelationshipDiagram.from_pydantic_models(Party)
+    diagram = create_erd(Party)
     assert {m.pydantic_model for m in diagram.models} == {Party, Adventurer, Quest, QuestGiver}

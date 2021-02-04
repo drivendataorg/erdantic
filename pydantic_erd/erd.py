@@ -1,41 +1,46 @@
 import os
-from typing import List, Set, Type, Union
+from abc import ABC, abstractmethod
+from typing import Any, List, Set, Union, get_type_hints, get_origin, get_args
 
 import pygraphviz as pgv
-
-from pydantic import BaseModel
-from pydantic.fields import ModelField
 
 
 row_template = """<tr><td>{name}</td><td port="{name}">{type_name}</td></tr>"""
 
 
-class Field(BaseModel):
-    pydantic_field: ModelField
-
-    class Config:
-        arbitrary_types_allowed = True
-
+class Field(ABC):
     @property
+    @abstractmethod
     def name(self) -> str:
-        return self.pydantic_field.name
+        pass
 
     @property
+    @abstractmethod
     def type_name(self) -> str:
-        return self.pydantic_field._type_display()
+        pass
 
     @property
+    @abstractmethod
     def type_obj(self) -> type:
-        return self.pydantic_field.type_
+        pass
+
+    @abstractmethod
+    def is_many(self) -> bool:
+        pass
+
+    @abstractmethod
+    def is_nullable(self) -> bool:
+        pass
+
+    @abstractmethod
+    def __hash__(self) -> int:
+        pass
 
     def dot_row(self) -> str:
         return row_template.format(name=self.name, type_name=self.type_name)
 
-    def __hash__(self):
-        return id(self.pydantic_field)
-
-    def __eq__(self, other):
-        return isinstance(other, type(self)) and self.__hash__ == other.__hash__
+    def __eq__(self, other: Any) -> bool:
+        return isinstance(other, type(self)) and hash(self) == hash(other)
 
 
 table_template = """
@@ -46,71 +51,64 @@ table_template = """
 """
 
 
-class Model(BaseModel):
-    pydantic_model: Type[BaseModel]
-
+class Model(ABC):
     @property
+    @abstractmethod
     def name(self) -> str:
-        return self.pydantic_model.__name__
+        pass
 
     @property
+    @abstractmethod
     def fields(self) -> List[Field]:
-        return [Field(pydantic_field=f) for f in self.pydantic_model.__fields__.values()]
+        pass
+
+    @abstractmethod
+    def __hash__(self):
+        pass
 
     def dot_label(self) -> str:
         rows = "\n".join(field.dot_row() for field in self.fields)
         return table_template.format(name=self.name, rows=rows).replace("\n", "")
 
-    def __hash__(self):
-        return id(self.pydantic_model)
-
     def __eq__(self, other):
         return isinstance(other, type(self)) and hash(self) == hash(other)
 
 
-class Edge(BaseModel):
+class Edge:
     source: Model
     source_field: Field
     target: Model
 
+    def __init__(self, source: Model, source_field: Field, target: Model):
+        if source_field not in set(source.fields):
+            print(hash(source_field))
+            print([hash(f) for f in source.fields])
+            raise ValueError("source_field is not a field of source")
+        self.source = source
+        self.source_field = source_field
+        self.target = target
+
     def dot_arrowhead(self) -> str:
-        is_many = self.source_field.pydantic_field.shape > 1
-        is_nullable = self.source_field.pydantic_field.allow_none
-        cardinality = "crow" if is_many else "nonetee"
-        modality = "odot" if is_nullable or is_many else "tee"
+        cardinality = "crow" if self.source_field.is_many() else "nonetee"
+        modality = (
+            "odot" if self.source_field.is_nullable() or self.source_field.is_many() else "tee"
+        )
         return cardinality + modality
 
-    def __hash__(self):
+    def __hash__(self) -> int:
         return hash((self.source, self.source_field, self.target))
 
-    def __eq__(self, other):
+    def __eq__(self, other: Any) -> bool:
         return isinstance(other, type(self)) and hash(self) == hash(other)
 
 
-class EntityRelationshipDiagram(BaseModel):
+class EntityRelationshipDiagram:
     models: Set[Model]
     edges: Set[Edge]
 
-    @classmethod
-    def from_pydantic_models(cls, *models: Type[BaseModel]):
-        seen_models = set()
-        seen_edges = set()
-        for model in models:
-            cls.search(model, seen_models, seen_edges)
-        return cls(models=seen_models, edges=seen_edges)
-
-    @classmethod
-    def search(
-        cls, pydantic_model: BaseModel, seen_models: Set[Model], seen_edges: Set[Edge]
-    ) -> Model:
-        model = Model(pydantic_model=pydantic_model)
-        if model not in seen_models:
-            seen_models.add(model)
-            for field in model.fields:
-                if issubclass(field.type_obj, BaseModel):
-                    field_model = cls.search(field.type_obj, seen_models, seen_edges)
-                    seen_edges.add(Edge(source=model, source_field=field, target=field_model))
-        return model
+    def __init__(self, models, edges):
+        self.models = models
+        self.edges = edges
 
     def draw(self, path: Union[str, os.PathLike], **kwargs):
         return self.graph().draw(path, prog="dot", **kwargs)
@@ -138,11 +136,39 @@ class EntityRelationshipDiagram(BaseModel):
         return graph.draw(prog="dot", format="svg").decode(graph.encoding)
 
 
-def draw(*models: Type[BaseModel], path: Union[str, os.PathLike], **kwargs):
-    diagram = EntityRelationshipDiagram.from_pydantic_models(*models)
+constructor_registry = {}
+
+
+def register_constructor(fcn):
+    """Decorator to register functions that construct EntityRelationshipDiagram from data model
+    classes.
+    """
+    type_hints = get_type_hints(fcn)
+    models_type = type_hints["models"]
+    if get_origin(models_type) is not type:
+        raise ValueError(f"models must have type typing.Type[...]. Got {models_type}")
+    constructor_registry[id(get_args(models_type)[0])] = fcn
+    return fcn
+
+
+def create_erd(*models: type):
+    key = None
+    for cls in models[0].__mro__:
+        if id(cls) in constructor_registry:
+            key = id(cls)
+            break
+    if key is None:
+        raise ValueError("Passed data model class is not supported.")
+
+    constructor = constructor_registry[key]
+    return constructor(*models)
+
+
+def draw(*models: type, path: Union[str, os.PathLike], **kwargs):
+    diagram = create_erd(*models)
     diagram.draw(path=path, **kwargs)
 
 
-def to_dot(*models: Type[BaseModel]):
-    diagram = EntityRelationshipDiagram.from_pydantic_models(*models)
+def to_dot(*models: type):
+    diagram = create_erd(*models)
     return diagram.to_dot()
