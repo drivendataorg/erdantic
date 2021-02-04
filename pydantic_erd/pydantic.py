@@ -1,16 +1,20 @@
-from typing import List, Set, Type
+from typing import Any, List, Set, Type
 
-try:
-    import pydantic
-    import pydantic.fields
-except ModuleNotFoundError:
-    pass
+import pydantic
+import pydantic.fields
 
-from pydantic_erd.erd import Edge, Field, Model, register_constructor, EntityRelationshipDiagram
+from pydantic_erd.erd import (
+    Edge,
+    EntityRelationshipDiagram,
+    Field,
+    Model,
+    register_constructor,
+    register_type_checker,
+)
 
 
 class PydandicField(Field):
-    pydantic_field: "pydantic.fields.ModelField"
+    pydantic_field: pydantic.fields.ModelField
 
     def __init__(self, pydantic_field):
         if not isinstance(pydantic_field, pydantic.fields.ModelField):
@@ -43,9 +47,9 @@ class PydandicField(Field):
 
 
 class PydanticModel(Model):
-    pydantic_model: Type["pydantic.BaseModel"]
+    pydantic_model: Type[pydantic.BaseModel]
 
-    def __init__(self, pydantic_model: Type["pydantic.BaseModel"]):
+    def __init__(self, pydantic_model: Type[pydantic.BaseModel]):
         if not isinstance(pydantic_model, type) or not issubclass(
             pydantic_model, pydantic.BaseModel
         ):
@@ -67,16 +71,21 @@ class PydanticModel(Model):
         return id(self.pydantic_model)
 
 
-@register_constructor
-def create_erd(*models: Type["pydantic.BaseModel"]) -> EntityRelationshipDiagram:
+@register_type_checker("pydantic")
+def is_pydantic_model(obj: Any):
+    return issubclass(obj, pydantic.BaseModel)
+
+
+@register_constructor("pydantic")
+def create_erd(*models: Type[pydantic.BaseModel]) -> EntityRelationshipDiagram:
     seen_models = set()
     seen_edges = set()
     for model in models:
-        search(model, seen_models, seen_edges)
+        search_composition_graph(model, seen_models, seen_edges)
     return EntityRelationshipDiagram(models=seen_models, edges=seen_edges)
 
 
-def search(
+def search_composition_graph(
     pydantic_model: pydantic.BaseModel, seen_models: Set[Model], seen_edges: Set[Edge]
 ) -> Model:
     model = PydanticModel(pydantic_model=pydantic_model)
@@ -84,6 +93,6 @@ def search(
         seen_models.add(model)
         for field in model.fields:
             if issubclass(field.type_obj, pydantic.BaseModel):
-                field_model = search(field.type_obj, seen_models, seen_edges)
+                field_model = search_composition_graph(field.type_obj, seen_models, seen_edges)
                 seen_edges.add(Edge(source=model, source_field=field, target=field_model))
     return model

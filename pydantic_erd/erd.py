@@ -1,6 +1,6 @@
 import os
 from abc import ABC, abstractmethod
-from typing import Any, List, Set, Union, get_type_hints, get_origin, get_args
+from typing import Any, List, Set, Union
 
 import pygraphviz as pgv
 
@@ -136,31 +136,44 @@ class EntityRelationshipDiagram:
         return graph.draw(prog="dot", format="svg").decode(graph.encoding)
 
 
-constructor_registry = {}
+implementation_registry = {}
 
 
-def register_constructor(fcn):
-    """Decorator to register functions that construct EntityRelationshipDiagram from data model
-    classes.
-    """
-    type_hints = get_type_hints(fcn)
-    models_type = type_hints["models"]
-    if get_origin(models_type) is not type:
-        raise ValueError(f"models must have type typing.Type[...]. Got {models_type}")
-    constructor_registry[id(get_args(models_type)[0])] = fcn
-    return fcn
+def register_type_checker(key: str):
+    def decorator(fcn):
+        global implementation_registry
+        if key not in implementation_registry:
+            implementation_registry[key] = {}
+        implementation_registry[key]["type_checker"] = fcn
+        return fcn
+
+    return decorator
+
+
+def register_constructor(key: str):
+    def decorator(fcn):
+        global implementation_registry
+        if key not in implementation_registry:
+            implementation_registry[key] = {}
+        implementation_registry[key]["constructor"] = fcn
+        return fcn
+
+    return decorator
 
 
 def create_erd(*models: type):
     key = None
-    for cls in models[0].__mro__:
-        if id(cls) in constructor_registry:
-            key = id(cls)
-            break
+    for k, impl in implementation_registry.items():
+        if impl["type_checker"](models[0]):
+            key = k
     if key is None:
         raise ValueError("Passed data model class is not supported.")
 
-    constructor = constructor_registry[key]
+    if "constructor" not in implementation_registry:
+        raise NotImplementedError(
+            f"Implementation for {key} is missing a diagram constuctor function."
+        )
+    constructor = implementation_registry[key]["constructor"]
     return constructor(*models)
 
 
