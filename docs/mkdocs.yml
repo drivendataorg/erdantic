@@ -1,0 +1,36 @@
+site_name: erdantic
+site_url: https://nervous-visvesvaraya-4b7042.netlify.app/
+site_description: Draw entity relationship diagrams for Pydantic models and standard library dataclasses.
+repo_url: https://github.com/drivendataorg/erdantic
+theme:
+  name: material
+
+nav:
+  - Home: "index.md"
+  - Examples:
+      - Pydantic: "examples/pydantic.ipynb"
+      - dataclasses: "examples/dataclasses.ipynb"
+  - API Reference:
+      - erdantic.erd: "api-reference/erd.md"
+      - erdantic.pydantic: "api-reference/pydantic.md"
+      - erdantic.dataclasses: "api-reference/dataclasses.md"
+
+plugins:
+  - search
+  - mkdocs-jupyter
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          selection:
+            filters: ["!^_(?!_init__)"]
+            inherited_members: true
+          rendering:
+            show_root_heading: false
+            show_root_toc_entry: false
+            show_root_full_path: false
+            show_if_no_docstring: true
+            show_source: true
+            heading_level: 3
+      watch:
+        - erdantic

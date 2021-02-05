@@ -1,0 +1,3 @@
+# erdantic.dataclasses
+
+::: erdantic.dataclasses

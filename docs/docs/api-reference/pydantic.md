@@ -1,0 +1,3 @@
+# erdantic.pydantic
+
+::: erdantic.pydantic
