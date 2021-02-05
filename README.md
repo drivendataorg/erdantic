@@ -1,1 +1,1 @@
-# pydantic-erd
+# erdantic: Entity Relationship Diagrams for Pydantic Models

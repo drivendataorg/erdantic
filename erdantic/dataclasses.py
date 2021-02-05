@@ -85,15 +85,15 @@ def is_dataclass(obj: Any) -> bool:
 
 @register_constructor("dataclass")
 def create_erd(*models: type) -> EntityRelationshipDiagram:
-    seen_models = set()
-    seen_edges = set()
+    seen_models: Set[DataClassModel] = set()
+    seen_edges: Set[Edge] = set()
     for model in models:
         search_composition_graph(model, seen_models, seen_edges)
     return EntityRelationshipDiagram(models=seen_models, edges=seen_edges)
 
 
 def search_composition_graph(
-    dataclass: type, seen_models: Set[Model], seen_edges: Set[Edge]
+    dataclass: type, seen_models: Set[DataClassModel], seen_edges: Set[Edge]
 ) -> Model:
     model = DataClassModel(dataclass=dataclass)
     if model not in seen_models:

@@ -42,7 +42,7 @@ class PydandicField(Field):
     def is_nullable(self) -> bool:
         return self.pydantic_field.allow_none
 
-    def __hash__(self):
+    def __hash__(self) -> int:
         return id(self.pydantic_field)
 
 
@@ -78,15 +78,17 @@ def is_pydantic_model(obj: Any):
 
 @register_constructor("pydantic")
 def create_erd(*models: Type[pydantic.BaseModel]) -> EntityRelationshipDiagram:
-    seen_models = set()
-    seen_edges = set()
+    seen_models: Set[PydanticModel] = set()
+    seen_edges: Set[Edge] = set()
     for model in models:
         search_composition_graph(model, seen_models, seen_edges)
     return EntityRelationshipDiagram(models=seen_models, edges=seen_edges)
 
 
 def search_composition_graph(
-    pydantic_model: pydantic.BaseModel, seen_models: Set[Model], seen_edges: Set[Edge]
+    pydantic_model: Type[pydantic.BaseModel],
+    seen_models: Set[PydanticModel],
+    seen_edges: Set[Edge],
 ) -> Model:
     model = PydanticModel(pydantic_model=pydantic_model)
     if model not in seen_models:
