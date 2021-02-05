@@ -11,7 +11,7 @@
 - [Pydantic](https://pydantic-docs.helpmanual.io/)
 - [dataclasses](https://docs.python.org/3/library/dataclasses.html) from the Python standard library
 
-Features include native rendering in Jupyter notebook and an architecture easily extensible to other data modeling frameworks.
+Features include a CLI, native rendering in Jupyter notebook, and an architecture easily extensible to other data modeling frameworks.
 
 ![Example diagram created by erdantic](docs/docs/examples/pydantic.svg)
 
@@ -23,4 +23,26 @@ To install erdantic:
 
 ```bash
 pip install https://github.com/drivendataorg/erdantic.git#egg=erdantic
+```
+
+## Quick Usage
+
+The fastest way to produce a diagram like the above example is to use the provided CLI. Simply pass a full dotted path to your data model class and an output path.
+
+```bash
+erdantic erdantic.examples.pydantic.Party -o diagram.png
+```
+
+You can also use the Python library.
+
+```bash
+import erdantic as erd
+from erdantic.examples.pydantic import Party
+
+# Easy one-liner
+erd.draw(Party, path="diagram.png")
+
+# Or create a diagram object that you can inspect and do stuff with
+diagram = erd.create_erd(Party)
+diagram.draw("diagram.png")
 ```
