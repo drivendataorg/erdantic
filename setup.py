@@ -20,8 +20,8 @@ readme = Path("README.md").read_text(encoding="UTF-8")
 requirements = load_requirements(Path(__file__).parent / "requirements.txt")
 
 setup(
-    author="Jay Qi",
-    author_email="jayqi.opensource@gmail.com",
+    author="DrivenData",
+    author_email="info@drivendata.org",
     python_requires=">=3.6",
     classifiers=[
         "Intended Audience :: Developers",
