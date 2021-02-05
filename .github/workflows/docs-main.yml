@@ -1,12 +1,12 @@
-name: docs-master
+name: docs-main
 
 on:
   push:
-    branches: [master]
+    branches: [main]
 
 jobs:
   build:
-    name: Build and publish docs on master
+    name: Build and publish docs on main
     runs-on: "ubuntu-latest"
 
     steps:
