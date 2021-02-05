@@ -73,6 +73,9 @@ class Model(ABC):
     def __eq__(self, other):
         return isinstance(other, type(self)) and hash(self) == hash(other)
 
+    def __repr__(self) -> str:
+        return class_repr(self)
+
 
 class Edge:
     source: Model
@@ -99,6 +102,9 @@ class Edge:
     def __eq__(self, other: Any) -> bool:
         return isinstance(other, type(self)) and hash(self) == hash(other)
 
+    def __repr__(self) -> str:
+        return class_repr(self)
+
 
 class EntityRelationshipDiagram:
     models: Set[Model]
@@ -112,7 +118,7 @@ class EntityRelationshipDiagram:
         return self.graph().draw(path, prog="dot", **kwargs)
 
     def graph(self) -> pgv.AGraph:
-        g = pgv.AGraph(directed=True, nodesep=0.5, ranksep=1.5, rankdir="LR")
+        g = pgv.AGraph(directed=True, strict=False, nodesep=0.5, ranksep=1.5, rankdir="LR")
         g.node_attr["shape"] = "plain"
         for model in self.models:
             g.add_node(model.name, label=model.dot_label())
@@ -128,6 +134,9 @@ class EntityRelationshipDiagram:
 
     def to_dot(self) -> str:
         return self.graph().string()
+
+    def __repr__(self) -> str:
+        return class_repr(self)
 
     def _repr_svg_(self):
         graph = self.graph()
@@ -183,3 +192,8 @@ def draw(*models: type, path: Union[str, os.PathLike], **kwargs):
 def to_dot(*models: type):
     diagram = create_erd(*models)
     return diagram.to_dot()
+
+
+def class_repr(obj):
+    items = (f"{k}={v}" for k, v in obj.__dict__.items() if not k.startswith("_"))
+    return f"{type(obj)}({','.join(items)})"

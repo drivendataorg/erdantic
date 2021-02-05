@@ -65,9 +65,6 @@ class DataClassField(Field):
     def __hash__(self) -> int:
         return id(self.dataclass_field)
 
-    def __repr__(self) -> str:
-        return f"DataClassField(dataclass_field={self.dataclass_field})"
-
 
 class DataClassModel(Model):
     dataclass: type
@@ -87,9 +84,6 @@ class DataClassModel(Model):
 
     def __hash__(self) -> int:
         return id(self.dataclass)
-
-    def __repr__(self) -> str:
-        return f"DataClassModel(dataclass={self.dataclass})"
 
 
 @register_type_checker("dataclass")
