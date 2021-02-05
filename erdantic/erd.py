@@ -169,7 +169,7 @@ def create_erd(*models: type):
     if key is None:
         raise ValueError("Passed data model class is not supported.")
 
-    if "constructor" not in implementation_registry:
+    if "constructor" not in implementation_registry[key]:
         raise NotImplementedError(
             f"Implementation for {key} is missing a diagram constuctor function."
         )

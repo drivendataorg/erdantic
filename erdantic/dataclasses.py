@@ -2,7 +2,7 @@ import collections.abc
 import dataclasses
 from typing import Any, get_args, get_origin, List, Set, Union, _GenericAlias as GenericAlias
 
-from pydantic_erd.erd import (
+from erdantic.erd import (
     Edge,
     EntityRelationshipDiagram,
     Field,

@@ -3,7 +3,7 @@ from typing import List, Optional
 
 from pydantic import BaseModel
 
-from pydantic_erd import create_erd
+from erdantic import create_erd
 
 
 class Adventurer(BaseModel):

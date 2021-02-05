@@ -38,7 +38,7 @@ setup(
     long_description=readme,
     long_description_content_type="text/markdown",
     include_package_data=True,
-    name="pydantic_erd",
+    name="erdantic",
     packages=find_packages(),
     project_urls={},
     url="",

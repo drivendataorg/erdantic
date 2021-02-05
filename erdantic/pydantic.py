@@ -3,7 +3,7 @@ from typing import Any, List, Set, Type
 import pydantic
 import pydantic.fields
 
-from pydantic_erd.erd import (
+from erdantic.erd import (
     Edge,
     EntityRelationshipDiagram,
     Field,
