@@ -39,7 +39,7 @@ dist: clean ## builds source and wheel package
 	ls -l dist
 
 docs: clean-docs ## build documentation
-	sed 's|docs/docs/pydantic.svg|pydantic.svg|g' README.md > docs/docs/index.md
+	sed 's|docs/docs/examples/pydantic.svg|examples/pydantic.svg|g' README.md > docs/docs/index.md
 	cd docs && mkdocs build
 
 format: ## format code with black
@@ -51,10 +51,12 @@ help:
 lint: ## run linting and code quality checks
 	black --check erdantic tests docs
 	flake8 erdantic tests docs
-	mypy erdantic
 
 requirements: ## install development requirements
 	pip install -r requirements-dev.txt
 
 test: ## run tests
 	python -m pytest -v
+
+typecheck: ## run mypy typechecking
+	mypy erdantic
