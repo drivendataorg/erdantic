@@ -9,3 +9,5 @@ mkdocs-material
 mkdocstrings
 mypy
 pytest
+pytest-cov
+wheel
