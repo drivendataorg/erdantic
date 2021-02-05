@@ -1,6 +1,11 @@
 import collections.abc
 import dataclasses
-from typing import Any, get_args, get_origin, List, Set, Union, _GenericAlias as GenericAlias
+from typing import Any, List, Set, Union, _GenericAlias as GenericAlias
+
+try:
+    from typing import get_args, get_origin
+except ImportError:
+    from typing_extensions import get_args, get_origin
 
 from erdantic.erd import (
     Edge,
