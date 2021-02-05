@@ -3,7 +3,7 @@ import filecmp
 
 from erdantic import create_erd, draw, to_dot
 from erdantic.dataclasses import DataClassModel, DataClassField
-from tests.models.dataclasses import Adventurer, Party, Quest, QuestGiver
+from erdantic.examples.dataclasses import Adventurer, Party, Quest, QuestGiver
 
 
 def test_model_graph_search():

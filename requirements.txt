@@ -1,3 +1,6 @@
+dataclasses ; python_version < "3.7"
+importlib_metadata ; python_version < "3.8"
 pydantic
 pygraphviz
+typer
 typing-extensions

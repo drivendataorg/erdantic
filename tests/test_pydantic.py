@@ -2,7 +2,7 @@ import filecmp
 
 from erdantic import create_erd, draw, to_dot
 from erdantic.pydantic import PydanticField, PydanticModel
-from tests.models.pydantic import Adventurer, Party, Quest, QuestGiver
+from erdantic.examples.pydantic import Adventurer, Party, Quest, QuestGiver
 
 
 def test_model_graph_search():
