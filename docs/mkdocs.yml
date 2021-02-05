@@ -1,5 +1,5 @@
 site_name: erdantic
-site_url: https://nervous-visvesvaraya-4b7042.netlify.app/
+site_url: https://erdantic.drivendata.org/
 site_description: Draw entity relationship diagrams for Pydantic models and standard library dataclasses.
 repo_url: https://github.com/drivendataorg/erdantic
 theme:
