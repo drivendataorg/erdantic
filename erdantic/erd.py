@@ -165,7 +165,7 @@ def create_erd(*models: type):
         if impl["type_checker"](models[0]):
             key = k
     if key is None:
-        raise ValueError("Passed data model class is not supported.")
+        raise ValueError(f"Passed data model class with MRO {models[0].__mro__} is not supported.")
 
     if "constructor" not in implementation_registry[key]:
         raise NotImplementedError(
