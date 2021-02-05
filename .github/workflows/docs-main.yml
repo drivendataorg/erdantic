@@ -15,7 +15,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.7
+          python-version: 3.8
 
       - name: Setup Graphviz
         uses: ts-graphviz/setup-graphviz@v1
@@ -25,9 +25,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements-dev.txt
           pip install -e .
+
       - name: Build docs
         run: |
           make docs
+
       - name: Deploy docs to Netlify
         uses: nwtgck/actions-netlify@v1.1
         with:

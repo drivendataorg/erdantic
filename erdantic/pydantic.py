@@ -13,7 +13,7 @@ from erdantic.erd import (
 )
 
 
-class PydandicField(Field):
+class PydanticField(Field):
     pydantic_field: pydantic.fields.ModelField
 
     def __init__(self, pydantic_field):
@@ -65,7 +65,7 @@ class PydanticModel(Model):
 
     @property
     def fields(self) -> List[Field]:
-        return [PydandicField(pydantic_field=f) for f in self.pydantic_model.__fields__.values()]
+        return [PydanticField(pydantic_field=f) for f in self.pydantic_model.__fields__.values()]
 
     def __hash__(self) -> int:
         return id(self.pydantic_model)

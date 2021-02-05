@@ -11,29 +11,29 @@ row_template = """<tr><td>{name}</td><td port="{name}">{type_name}</td></tr>"""
 class Field(ABC):
     @property
     @abstractmethod
-    def name(self) -> str:
+    def name(self) -> str:  # pragma: no cover
         pass
 
     @property
     @abstractmethod
-    def type_name(self) -> str:
+    def type_name(self) -> str:  # pragma: no cover
         pass
 
     @property
     @abstractmethod
-    def type_obj(self) -> type:
+    def type_obj(self) -> type:  # pragma: no cover
         pass
 
     @abstractmethod
-    def is_many(self) -> bool:
+    def is_many(self) -> bool:  # pragma: no cover
         pass
 
     @abstractmethod
-    def is_nullable(self) -> bool:
+    def is_nullable(self) -> bool:  # pragma: no cover
         pass
 
     @abstractmethod
-    def __hash__(self) -> int:
+    def __hash__(self) -> int:  # pragma: no cover
         pass
 
     def dot_row(self) -> str:
@@ -54,16 +54,16 @@ table_template = """
 class Model(ABC):
     @property
     @abstractmethod
-    def name(self) -> str:
+    def name(self) -> str:  # pragma: no cover
         pass
 
     @property
     @abstractmethod
-    def fields(self) -> List[Field]:
+    def fields(self) -> List[Field]:  # pragma: no cover
         pass
 
     @abstractmethod
-    def __hash__(self):
+    def __hash__(self):  # pragma: no cover
         pass
 
     def dot_label(self) -> str:
@@ -81,8 +81,6 @@ class Edge:
 
     def __init__(self, source: Model, source_field: Field, target: Model):
         if source_field not in set(source.fields):
-            print(hash(source_field))
-            print([hash(f) for f in source.fields])
             raise ValueError("source_field is not a field of source")
         self.source = source
         self.source_field = source_field

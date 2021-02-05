@@ -11,6 +11,8 @@
 - [Pydantic](https://pydantic-docs.helpmanual.io/)
 - [dataclasses](https://docs.python.org/3/library/dataclasses.html) from the Python standard library
 
+Features include native rendering in Jupyter notebook and an architecture easily extensible to other data modeling frameworks.
+
 ![Example diagram created by erdantic](docs/docs/examples/pydantic.svg)
 
 ## Installation
