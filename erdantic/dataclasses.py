@@ -1,11 +1,20 @@
 import collections.abc
 import dataclasses
-from typing import Any, List, Set, Union, _GenericAlias as GenericAlias
+from typing import Any, List, Set, Union
 
 try:
-    from typing import get_args, get_origin
+    from typing import _GenericAlias as GenericAlias  # type: ignore # Python 3.7-3.8
 except ImportError:
-    from typing_extensions import get_args, get_origin
+    from typing import GenericMeta as GenericAlias  # type: ignore # Python 3.6
+
+try:
+    from typing import get_args, get_origin  # type: ignore # Python 3.8+
+except ImportError:
+    try:
+        from typing_extensions import get_args, get_origin  # type: ignore # Python 3.7
+    except ImportError:
+        from pydantic.typing import get_args, get_origin  # Python 3.6
+
 
 from erdantic.erd import (
     Edge,
@@ -97,6 +106,10 @@ def create_erd(*models: type) -> EntityRelationshipDiagram:
     return EntityRelationshipDiagram(models=seen_models, edges=seen_edges)
 
 
+def is_generic(obj: Any):
+    pass
+
+
 def search_composition_graph(
     dataclass: type, seen_models: Set[DataClassModel], seen_edges: Set[Edge]
 ) -> Model:
@@ -107,7 +120,10 @@ def search_composition_graph(
             if is_dataclass(field.type_obj):
                 field_model = search_composition_graph(field.type_obj, seen_models, seen_edges)
                 seen_edges.add(Edge(source=model, source_field=field, target=field_model))
-            if isinstance(field.type_obj, GenericAlias):
+            if (
+                isinstance(field.type_obj, GenericAlias)
+                or getattr(field.type_obj, "__origin__", None) is Union  # Python 3.6 compat
+            ):
                 for arg in get_args(field.type_obj):
                     if is_dataclass(arg):
                         field_model = search_composition_graph(arg, seen_models, seen_edges)
