@@ -18,7 +18,7 @@ def test_draw(tmp_path):
     assert path1.exists()
 
     path2 = tmp_path / "diagram2.png"
-    draw(Party, path=path2)
+    draw(Party, out=path2)
     assert path2.exists()
 
     assert filecmp.cmp(path1, path2)

@@ -54,7 +54,7 @@ class PydanticModel(Model):
             pydantic_model, pydantic.BaseModel
         ):
             raise ValueError(
-                "pydantic_model must be a subclass of pydantic.BaseModel. "
+                "Argument pydantic_model must be a subclass of pydantic.BaseModel. "
                 f"Received: {repr(pydantic_model)}"
             )
         self.pydantic_model = pydantic_model

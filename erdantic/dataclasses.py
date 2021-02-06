@@ -71,7 +71,7 @@ class DataClassModel(Model):
 
     def __init__(self, dataclass: type):
         if not is_dataclass(dataclass):
-            raise ValueError(f"input must be a dataclass. Got {dataclass}")
+            raise ValueError(f"Argument dataclass must be a dataclass. Got {dataclass}")
         self.dataclass = dataclass
 
     @property
@@ -100,20 +100,18 @@ def create(*models: type) -> EntityRelationshipDiagram:
     return EntityRelationshipDiagram(models=list(seen_models), edges=list(seen_edges))
 
 
-def is_generic(obj: Any):
-    pass
-
-
 def search_composition_graph(
     dataclass: type, seen_models: Set[DataClassModel], seen_edges: Set[Edge]
-) -> Model:
+) -> DataClassModel:
     model = DataClassModel(dataclass=dataclass)
     if model not in seen_models:
         seen_models.add(model)
         for field in model.fields:
+            # field is a dataclass
             if is_dataclass(field.type_obj):
                 field_model = search_composition_graph(field.type_obj, seen_models, seen_edges)
                 seen_edges.add(Edge(source=model, source_field=field, target=field_model))
+            # field is a generic, check if it contains a dataclass
             if (
                 isinstance(field.type_obj, GenericAlias)
                 or getattr(field.type_obj, "__origin__", None) is Union  # Python 3.6 compat
