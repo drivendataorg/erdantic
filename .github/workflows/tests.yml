@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest] # [ubuntu-latest, macos-latest, windows-latest]
-        python-version: [3.6, 3.7, 3.8]
+        python-version: [3.6, 3.7, 3.8, 3.9]
 
     steps:
       - uses: actions/checkout@v2
@@ -47,6 +47,7 @@ jobs:
           make dist
           python -m pip install dist/erdantic-*.whl --no-deps --force-reinstall
           python -m pip install dist/erdantic-*.tar.gz --no-deps --force-reinstall
+          erdantic --version
 
       - name: Test building documentation
         run: |
