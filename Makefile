@@ -65,7 +65,7 @@ requirements: ## install development requirements
 	pip install -r requirements-dev.txt
 
 test: ## run tests
-	python -m pytest -v
+	python -m pytest -vv
 
 typecheck: ## run mypy typechecking
 	mypy erdantic
