@@ -39,6 +39,14 @@ dist: clean ## builds source and wheel package
 	ls -l dist
 
 docs: clean-docs ## build documentation
+	echo "# CLI Help Documentation\n" > docs/docs/cli.md
+	@echo '```bash' >> docs/docs/cli.md
+	@echo "erdantic --help" >> docs/docs/cli.md
+	@echo '```' >> docs/docs/cli.md
+	@echo "" >> docs/docs/cli.md
+	@echo '```' >> docs/docs/cli.md
+	@erdantic --help >> docs/docs/cli.md
+	@echo '```' >> docs/docs/cli.md
 	sed 's|docs/docs/examples/pydantic.svg|examples/pydantic.svg|g' README.md > docs/docs/index.md
 	cd docs && mkdocs build
 

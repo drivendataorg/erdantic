@@ -43,6 +43,6 @@ from erdantic.examples.pydantic import Party
 erd.draw(Party, path="diagram.png")
 
 # Or create a diagram object that you can inspect and do stuff with
-diagram = erd.create_erd(Party)
+diagram = erd.create(Party)
 diagram.draw("diagram.png")
 ```
