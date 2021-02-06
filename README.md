@@ -6,12 +6,12 @@
 [![tests](https://github.com/drivendataorg/erdantic/workflows/tests/badge.svg?branch=main)](https://github.com/drivendataorg/erdantic/actions?query=workflow%3Atests+branch%3Amain)
 [![codecov](https://codecov.io/gh/drivendataorg/erdantic/branch/main/graph/badge.svg)](https://codecov.io/gh/drivendataorg/erdantic)
 
-**erdantic** is a simple tool for drawing [entity relationship diagrams (ERDs)](https://en.wikipedia.org/wiki/Data_modeling#Entity%E2%80%93relationship_diagrams) for Python data model classes. Diagrams are rendered using the venerable Graphviz library. Supported data modeling frameworks are:
+**erdantic** is a simple tool for drawing [entity relationship diagrams (ERDs)](https://en.wikipedia.org/wiki/Data_modeling#Entity%E2%80%93relationship_diagrams) for Python data model classes. Diagrams are rendered using the venerable [Graphviz](https://graphviz.org/) library. Supported data modeling frameworks are:
 
 - [Pydantic](https://pydantic-docs.helpmanual.io/)
 - [dataclasses](https://docs.python.org/3/library/dataclasses.html) from the Python standard library
 
-Features include a CLI, automatic native rendering in Jupyter notebooks, and an architecture easily extensible to other data modeling frameworks. Great for simple, clean reference documentation for your data models.
+Features include a CLI, automatic native rendering in Jupyter notebooks, and easy extensibility to other data modeling frameworks. Great for a simple and clean reference for your data models' documentation.
 
 ![Example diagram created by erdantic](docs/docs/examples/pydantic.svg)
 
@@ -44,5 +44,7 @@ erd.draw(Party, out="diagram.png")
 
 # Or create a diagram object that you can inspect and do stuff with
 diagram = erd.create(Party)
+diagram.models
+#> [PydanticModel(Adventurer), PydanticModel(Party), PydanticModel(Quest), PydanticModel(QuestGiver)]
 diagram.draw("diagram.png")
 ```
