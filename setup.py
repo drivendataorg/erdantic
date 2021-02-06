@@ -34,7 +34,7 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
     ],
-    description=("Draw entity relation diagrams for Pydantic models using GraphViz."),
+    description=("Entity relationship diagrams for Python data model classes like Pydantic."),
     entry_points={"console_scripts": ["erdantic=erdantic.cli:app"]},
     install_requires=requirements,
     long_description=readme,

@@ -48,3 +48,5 @@ diagram.models
 #> [PydanticModel(Adventurer), PydanticModel(Party), PydanticModel(Quest), PydanticModel(QuestGiver)]
 diagram.draw("diagram.png")
 ```
+
+Check out the "Usage Examples" section of our [docs](https://erdantic.drivendata.org/) to see more.

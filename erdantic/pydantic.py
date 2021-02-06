@@ -1,16 +1,10 @@
-from typing import Any, List, Set, Type
+from typing import List, Set, Type
 
 import pydantic
 import pydantic.fields
 
-from erdantic.erd import (
-    Edge,
-    EntityRelationshipDiagram,
-    Field,
-    Model,
-    register_constructor,
-    register_type_checker,
-)
+from erdantic.base import Field, Model, DiagramFactory, register_factory
+from erdantic.erd import Edge, EntityRelationshipDiagram
 
 
 class PydanticField(Field):
@@ -71,18 +65,22 @@ class PydanticModel(Model):
         return id(self.pydantic_model)
 
 
-@register_type_checker("pydantic")
-def is_pydantic_model(obj: Any):
-    return issubclass(obj, pydantic.BaseModel)
+@register_factory
+class PydanticDiagramFactory(DiagramFactory):
+    @staticmethod
+    def is_type(model: type):
+        return issubclass(model, pydantic.BaseModel)
 
-
-@register_constructor("pydantic")
-def create(*models: Type[pydantic.BaseModel]) -> EntityRelationshipDiagram:
-    seen_models: Set[PydanticModel] = set()
-    seen_edges: Set[Edge] = set()
-    for model in models:
-        search_composition_graph(model, seen_models, seen_edges)
-    return EntityRelationshipDiagram(models=list(seen_models), edges=list(seen_edges))
+    @staticmethod
+    def create(*models: type) -> EntityRelationshipDiagram:
+        seen_models: Set[PydanticModel] = set()
+        seen_edges: Set[Edge] = set()
+        for model in models:
+            if issubclass(model, pydantic.BaseModel):
+                search_composition_graph(model, seen_models, seen_edges)
+            else:
+                raise ValueError
+        return EntityRelationshipDiagram(models=list(seen_models), edges=list(seen_edges))
 
 
 def search_composition_graph(

@@ -15,15 +15,8 @@ except ImportError:
     except ImportError:
         from pydantic.typing import get_args, get_origin  # Python 3.6
 
-
-from erdantic.erd import (
-    Edge,
-    EntityRelationshipDiagram,
-    Field,
-    Model,
-    register_constructor,
-    register_type_checker,
-)
+from erdantic.base import DiagramFactory, Field, Model, register_factory
+from erdantic.erd import Edge, EntityRelationshipDiagram
 
 
 class DataClassField(Field):
@@ -86,18 +79,23 @@ class DataClassModel(Model):
         return id(self.dataclass)
 
 
-@register_type_checker("dataclass")
+@register_factory
+class DataClassDiagramFactory(DiagramFactory):
+    @staticmethod
+    def is_type(model: type) -> bool:
+        return is_dataclass(model)
+
+    @staticmethod
+    def create(*models: type) -> EntityRelationshipDiagram:
+        seen_models: Set[DataClassModel] = set()
+        seen_edges: Set[Edge] = set()
+        for model in models:
+            search_composition_graph(model, seen_models, seen_edges)
+        return EntityRelationshipDiagram(models=list(seen_models), edges=list(seen_edges))
+
+
 def is_dataclass(obj: Any) -> bool:
     return isinstance(obj, type) and dataclasses.is_dataclass(obj)
-
-
-@register_constructor("dataclass")
-def create(*models: type) -> EntityRelationshipDiagram:
-    seen_models: Set[DataClassModel] = set()
-    seen_edges: Set[Edge] = set()
-    for model in models:
-        search_composition_graph(model, seen_models, seen_edges)
-    return EntityRelationshipDiagram(models=list(seen_models), edges=list(seen_edges))
 
 
 def search_composition_graph(

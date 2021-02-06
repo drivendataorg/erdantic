@@ -1,129 +1,19 @@
-from abc import ABC, abstractmethod
 from operator import methodcaller
 import os
-from typing import Any, Callable, Dict, List, Union
+from typing import Any, List, Tuple, Union, TYPE_CHECKING
 
 import pygraphviz as pgv
 
-from erdantic.errors import MissingCreateError, UnknownModelTypeError
+from erdantic.base import factory_registry
+from erdantic.errors import UnknownModelTypeError
 
-_row_template = """<tr><td>{name}</td><td port="{name}">{type_name}</td></tr>"""
-
-
-class Field(ABC):
-    """Abstract base class that holds a field of a data model. Concrete implementations should
-    subclass and implement methods.
-    """
-
-    @property
-    @abstractmethod
-    def name(self) -> str:  # pragma: no cover
-        """str: Name of this field on the parent data model."""
-
-    @property
-    @abstractmethod
-    def type_name(self) -> str:  # pragma: no cover
-        """str: Display name of the Python type object for this field."""
-
-    @property
-    @abstractmethod
-    def type_obj(self) -> type:  # pragma: no cover
-        """type: Python type object for this field."""
-        pass
-
-    @abstractmethod
-    def is_many(self) -> bool:  # pragma: no cover
-        """Check whether this field represents a one-to-one or one-to-many relationship.
-
-        Returns:
-            bool: True if one-to-many relationship, else False.
-        """
-        pass
-
-    @abstractmethod
-    def is_nullable(self) -> bool:  # pragma: no cover
-        """Check whether this field is nullable, i.e., can be `None`.
-
-        Returns:
-            bool: True if nullable, else False.
-        """
-        pass
-
-    @abstractmethod
-    def __hash__(self) -> int:  # pragma: no cover
-        pass
-
-    def dot_row(self) -> str:
-        """Returns the DOT language "HTML-like" syntax specification of a row detailing this field
-        that is part of a table describing the field's parent data model. It is used as part the
-        `label` attribute of data model's node in the graph's DOT representation.
-
-        Returns:
-            str: DOT language for table row
-        """
-        return _row_template.format(name=self.name, type_name=self.type_name)
-
-    def __eq__(self, other: Any) -> bool:
-        return isinstance(other, type(self)) and hash(self) == hash(other)
-
-    def __repr__(self) -> str:
-        return f"<{type(self).__name__}: '{self.name}', {self.type_name}>"
-
-
-_table_template = """
-<<table border="0" cellborder="1" cellspacing="0">
-<tr><td port="_root" colspan="2"><b>{name}</b></td></tr>
-{rows}
-</table>>
-"""
-
-
-class Model(ABC):
-    """Abstract base class that holds a data model class, representing a node in our entity
-    relationship diagram graph. Concrete implementations should subclass and implement methods.
-    """
-
-    @property
-    @abstractmethod
-    def name(self) -> str:  # pragma: no cover
-        """str: Name of data model."""
-        pass
-
-    @property
-    @abstractmethod
-    def fields(self) -> List[Field]:  # pragma: no cover
-        """List[Field]: List of fields this data model contains."""
-        pass
-
-    @abstractmethod
-    def __hash__(self):  # pragma: no cover
-        pass
-
-    def dot_label(self) -> str:
-        """Returns the DOT language "HTML-like" syntax specification of a table for this data
-        model. It is used as the `label` attribute of data model's node in the graph's DOT
-        representation.
-
-        Returns:
-            str: DOT language for table
-        """
-        rows = "\n".join(field.dot_row() for field in self.fields)
-        return _table_template.format(name=self.name, rows=rows).replace("\n", "")
-
-    def __eq__(self, other):
-        return isinstance(other, type(self)) and hash(self) == hash(other)
-
-    def __repr__(self) -> str:
-        return f"{type(self).__name__}({self.name})"
-
-    def __sort_key__(self) -> str:
-        """Key for sorting against other Model instances."""
-        return self.name
+if TYPE_CHECKING:
+    from erdantic.base import Field, Model  # pragma: no cover
 
 
 class Edge:
     """Class for an edge in the entity relationship diagram graph. Represents the composition
-    relationship from between a composite model (`source` via `source_field`) to component model
+    relationship between a composite model (`source` via `source_field`) with a component model
     (`target`).
 
     Attributes:
@@ -132,11 +22,11 @@ class Edge:
         target (Model): Component data model.
     """
 
-    source: Model
-    source_field: Field
-    target: Model
+    source: "Model"
+    source_field: "Field"
+    target: "Model"
 
-    def __init__(self, source: Model, source_field: Field, target: Model):
+    def __init__(self, source: "Model", source_field: "Field", target: "Model"):
         if source_field not in set(source.fields):
             raise ValueError("source_field is not a field of source")
         self.source = source
@@ -170,7 +60,7 @@ class Edge:
             f"target={self.target})"
         )
 
-    def __sort_key__(self) -> str:
+    def __sort_key__(self) -> Tuple[str, int]:
         """Key for sorting against other Edge instances."""
         return (self.source.name, self.source.fields.index(self.source_field))
 
@@ -184,10 +74,10 @@ class EntityRelationshipDiagram:
             models.
     """
 
-    models: List[Model]
-    edges: List[Edge]
+    models: List["Model"]
+    edges: List["Edge"]
 
-    def __init__(self, models: List[Model], edges: List[Edge]):
+    def __init__(self, models: List["Model"], edges: List["Edge"]):
         self.models = sorted(models, key=methodcaller("__sort_key__"))
         self.edges = sorted(edges, key=methodcaller("__sort_key__"))
 
@@ -235,61 +125,13 @@ class EntityRelationshipDiagram:
         edges = ", ".join(repr(e) for e in self.edges)
         return f"EntityRelationshipDiagram(models=[{models}], edges=[{edges}])"
 
-    def _repr_svg_(self):
+    def _repr_png_(self) -> str:
+        graph = self.graph()
+        return graph.draw(prog="dot", format="png").decode(graph.encoding)
+
+    def _repr_svg_(self) -> str:
         graph = self.graph()
         return graph.draw(prog="dot", format="svg").decode(graph.encoding)
-
-
-implementation_registry: Dict[str, Dict[str, Callable]] = {}
-"""Dict[str, Dict[str, Callable]]: Registry of erdantic implementations for automatic dispatching.
-Structure is `{key: {"type_checker": checker_func, "constructor": constructor_func}}` where `key`
-is a string identifier for a given data model class type, and checker_func and constructor_func are
-used to determine applicability to a data model class and to construct an
-[`EntityRelationshipDiagram`][erdantic.erd.EntityRelationshipDiagram] instance, respectively
-"""
-
-
-def register_type_checker(key: str) -> Callable[[Callable], Callable]:
-    """Create decorator to register a checker function whose purpose will be to determine if a
-    given data model class belongs to the category for `key`.
-
-    Args:
-        key (str): Key for category of model type to register checker function for.
-
-    Returns:
-        Callable[Callable, Callable]: Decorator for `key`
-    """
-
-    def decorator(fcn: Callable) -> Callable:
-        global implementation_registry
-        if key not in implementation_registry:
-            implementation_registry[key] = {}
-        implementation_registry[key]["type_checker"] = fcn
-        return fcn
-
-    return decorator
-
-
-def register_constructor(key: str) -> Callable[[Callable], Callable]:
-    """Create decorator to register a constructor function that will be used to create an
-    [`EntityRelationshipDiagram`][erdantic.erd.EntityRelationshipDiagram] instance from given data
-    model classes of type `key`.
-
-    Args:
-        key (str): Key for category of model type to register constructor function for.
-
-    Returns:
-        Callable[Callable, Callable]: Decorator for `key`
-    """
-
-    def decorator(fcn: Callable) -> Callable:
-        global implementation_registry
-        if key not in implementation_registry:
-            implementation_registry[key] = {}
-        implementation_registry[key]["constructor"] = fcn
-        return fcn
-
-    return decorator
 
 
 def create(*models: type) -> EntityRelationshipDiagram:
@@ -304,22 +146,10 @@ def create(*models: type) -> EntityRelationshipDiagram:
     Returns:
         EntityRelationshipDiagram: diagram object for given data model.
     """
-
-    key = None
-    for k, impl in implementation_registry.items():
-        if impl["type_checker"](models[0]):
-            key = k
-    if key is None:
-        raise UnknownModelTypeError(
-            f"Given data model class with MRO {models[0].__mro__} is not supported."
-        )
-
-    if "constructor" not in implementation_registry[key]:
-        raise MissingCreateError(
-            f"Implementation for {key} is missing a diagram constuctor function."
-        )
-    constructor = implementation_registry[key]["constructor"]
-    return constructor(*models)
+    for factory in factory_registry:
+        if factory.is_type(models[0]):
+            return factory.create(*models)
+    raise UnknownModelTypeError
 
 
 def draw(*models: type, out: Union[str, os.PathLike], **kwargs):
