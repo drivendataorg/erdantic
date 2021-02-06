@@ -1,6 +1,6 @@
 import os
 from abc import ABC, abstractmethod
-from typing import Any, List, Set, Union
+from typing import Any, List, Union
 
 import pygraphviz as pgv
 
@@ -42,6 +42,9 @@ class Field(ABC):
     def __eq__(self, other: Any) -> bool:
         return isinstance(other, type(self)) and hash(self) == hash(other)
 
+    def __repr__(self) -> str:
+        return f"<{type(self).__name__}: '{self.name}', {self.type_name}>"
+
 
 table_template = """
 <<table border="0" cellborder="1" cellspacing="0">
@@ -74,7 +77,7 @@ class Model(ABC):
         return isinstance(other, type(self)) and hash(self) == hash(other)
 
     def __repr__(self) -> str:
-        return class_repr(self)
+        return f"{type(self).__name__}({self.name})"
 
 
 class Edge:
@@ -103,14 +106,17 @@ class Edge:
         return isinstance(other, type(self)) and hash(self) == hash(other)
 
     def __repr__(self) -> str:
-        return class_repr(self)
+        return (
+            f"Edge(source={repr(self.source)}, source_field={self.source_field}, "
+            f"target={self.target})"
+        )
 
 
 class EntityRelationshipDiagram:
-    models: Set[Model]
-    edges: Set[Edge]
+    models: List[Model]
+    edges: List[Edge]
 
-    def __init__(self, models, edges):
+    def __init__(self, models: List[Model], edges: List[Edge]):
         self.models = models
         self.edges = edges
 
@@ -136,7 +142,9 @@ class EntityRelationshipDiagram:
         return self.graph().string()
 
     def __repr__(self) -> str:
-        return class_repr(self)
+        models = ", ".join(repr(m) for m in self.models)
+        edges = ", ".join(repr(e) for e in self.edges)
+        return f"EntityRelationshipDiagram(models=[{models}], edges=[{edges}])"
 
     def _repr_svg_(self):
         graph = self.graph()
@@ -168,7 +176,7 @@ def register_constructor(key: str):
     return decorator
 
 
-def create(*models: type):
+def create(*models: type) -> EntityRelationshipDiagram:
     key = None
     for k, impl in implementation_registry.items():
         if impl["type_checker"](models[0]):
@@ -189,11 +197,6 @@ def draw(*models: type, path: Union[str, os.PathLike], **kwargs):
     diagram.draw(path=path, **kwargs)
 
 
-def to_dot(*models: type):
+def to_dot(*models: type) -> str:
     diagram = create(*models)
     return diagram.to_dot()
-
-
-def class_repr(obj):
-    items = (f"{k}={v}" for k, v in obj.__dict__.items() if not k.startswith("_"))
-    return f"{type(obj)}({','.join(items)})"

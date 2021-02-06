@@ -82,7 +82,7 @@ def create(*models: Type[pydantic.BaseModel]) -> EntityRelationshipDiagram:
     seen_edges: Set[Edge] = set()
     for model in models:
         search_composition_graph(model, seen_models, seen_edges)
-    return EntityRelationshipDiagram(models=seen_models, edges=seen_edges)
+    return EntityRelationshipDiagram(models=list(seen_models), edges=list(seen_edges))
 
 
 def search_composition_graph(
