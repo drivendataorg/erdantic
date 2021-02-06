@@ -77,7 +77,7 @@ def is_pydantic_model(obj: Any):
 
 
 @register_constructor("pydantic")
-def create_erd(*models: Type[pydantic.BaseModel]) -> EntityRelationshipDiagram:
+def create(*models: Type[pydantic.BaseModel]) -> EntityRelationshipDiagram:
     seen_models: Set[PydanticModel] = set()
     seen_edges: Set[Edge] = set()
     for model in models:

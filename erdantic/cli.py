@@ -4,7 +4,7 @@ from typing import List
 
 import typer
 
-from erdantic.erd import create_erd
+from erdantic.erd import create
 from erdantic.version import __version__
 
 
@@ -52,7 +52,7 @@ def main(
         module = import_module(module_name)
         model_classes.append(getattr(module, model_name))
 
-    diagram = create_erd(*model_classes)
+    diagram = create(*model_classes)
     if dot:
         typer.echo(diagram.to_dot())
     else:

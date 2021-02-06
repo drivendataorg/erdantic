@@ -92,7 +92,7 @@ def is_dataclass(obj: Any) -> bool:
 
 
 @register_constructor("dataclass")
-def create_erd(*models: type) -> EntityRelationshipDiagram:
+def create(*models: type) -> EntityRelationshipDiagram:
     seen_models: Set[DataClassModel] = set()
     seen_edges: Set[Edge] = set()
     for model in models:

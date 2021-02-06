@@ -168,7 +168,7 @@ def register_constructor(key: str):
     return decorator
 
 
-def create_erd(*models: type):
+def create(*models: type):
     key = None
     for k, impl in implementation_registry.items():
         if impl["type_checker"](models[0]):
@@ -185,12 +185,12 @@ def create_erd(*models: type):
 
 
 def draw(*models: type, path: Union[str, os.PathLike], **kwargs):
-    diagram = create_erd(*models)
+    diagram = create(*models)
     diagram.draw(path=path, **kwargs)
 
 
 def to_dot(*models: type):
-    diagram = create_erd(*models)
+    diagram = create(*models)
     return diagram.to_dot()
 
 
