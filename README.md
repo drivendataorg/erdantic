@@ -11,13 +11,13 @@
 - [Pydantic](https://pydantic-docs.helpmanual.io/)
 - [dataclasses](https://docs.python.org/3/library/dataclasses.html) from the Python standard library
 
-Features include a CLI, native rendering in Jupyter notebook, and an architecture easily extensible to other data modeling frameworks.
+Features include a CLI, automatic native rendering in Jupyter notebooks, and an architecture easily extensible to other data modeling frameworks. Great for simple, clean reference documentation for your data models.
 
 ![Example diagram created by erdantic](docs/docs/examples/pydantic.svg)
 
 ## Installation
 
-Installing erdantic first requires [Graphviz](https://graphviz.org/), an open-source graph visualization C library. You can install Graphviz with [conda](https://anaconda.org/anaconda/graphviz) or with [other package managers](https://graphviz.org/download/).
+erdantic's graph modeling depends on [pygraphviz](https://pygraphviz.github.io/documentation/stable/index.html) and [Graphviz](https://graphviz.org/), an open-source C library. The simplest way to install Graphviz is with [conda](https://anaconda.org/conda-forge/graphviz). For other options and installation troubleshooting, see the [pygraphviz docs](https://pygraphviz.github.io/documentation/stable/install.html).
 
 To install erdantic:
 
@@ -27,15 +27,15 @@ pip install https://github.com/drivendataorg/erdantic.git#egg=erdantic
 
 ## Quick Usage
 
-The fastest way to produce a diagram like the above example is to use the provided CLI. Simply pass a full dotted path to your data model class and an output path.
+The fastest way to produce a diagram like the above example is to use the erdantic CLI. Simply pass a full dotted path to your data model class and an output path. The rendered format is interpreted from the filename extension.
 
 ```bash
 erdantic erdantic.examples.pydantic.Party -o diagram.png
 ```
 
-You can also use the Python library.
+You can also import the erdantic Python library and use its functions.
 
-```bash
+```python
 import erdantic as erd
 from erdantic.examples.pydantic import Party
 
