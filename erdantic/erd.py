@@ -1,5 +1,6 @@
-import os
 from abc import ABC, abstractmethod
+from operator import methodcaller
+import os
 from typing import Any, Callable, Dict, List, Union
 
 import pygraphviz as pgv
@@ -115,6 +116,10 @@ class Model(ABC):
     def __repr__(self) -> str:
         return f"{type(self).__name__}({self.name})"
 
+    def __sort_key__(self) -> str:
+        """Key for sorting against other Model instances."""
+        return self.name
+
 
 class Edge:
     """Class for an edge in the entity relationship diagram graph. Represents the composition
@@ -165,6 +170,10 @@ class Edge:
             f"target={self.target})"
         )
 
+    def __sort_key__(self) -> str:
+        """Key for sorting against other Edge instances."""
+        return (self.source.name, self.source.fields.index(self.source_field))
+
 
 class EntityRelationshipDiagram:
     """Class for entity relationship diagram.
@@ -179,8 +188,8 @@ class EntityRelationshipDiagram:
     edges: List[Edge]
 
     def __init__(self, models: List[Model], edges: List[Edge]):
-        self.models = models
-        self.edges = edges
+        self.models = sorted(models, key=methodcaller("__sort_key__"))
+        self.edges = sorted(edges, key=methodcaller("__sort_key__"))
 
     def draw(self, out: Union[str, os.PathLike], **kwargs):
         """Render entity relationship diagram for given data model classes to file.
