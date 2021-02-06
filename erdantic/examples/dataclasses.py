@@ -1,3 +1,6 @@
+"""Example data model classes using standard library's
+[`dataclasses`](https://docs.python.org/3/library/dataclasses.html) module."""
+
 from dataclasses import dataclass
 from datetime import datetime
 from typing import List, Optional

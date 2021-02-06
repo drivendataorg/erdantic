@@ -1,3 +1,5 @@
+"""Example data model classes using [Pydantic](https://pydantic-docs.helpmanual.io/)."""
+
 from datetime import datetime
 from typing import List, Optional
 
