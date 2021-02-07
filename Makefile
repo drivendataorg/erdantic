@@ -50,6 +50,10 @@ docs: clean-docs ## build documentation
 	@echo '```' >> docs/docs/cli.md
 	sed 's|docs/docs/examples/pydantic.svg|examples/pydantic.svg|g' README.md > docs/docs/index.md
 	rm -f docs/docs/examples/diagram.png
+	jupyter nbconvert --execute --clear-output docs/docs/examples/pydantic.ipynb
+	rm -f docs/docs/examples/diagram.png
+	jupyter nbconvert --execute --clear-output docs/docs/examples/dataclasses.ipynb
+	rm -f docs/docs/examples/diagram.png
 	cd docs && mkdocs build
 
 format: ## format code with black

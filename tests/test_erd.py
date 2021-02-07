@@ -5,8 +5,19 @@ import pytest
 import erdantic as erd
 from erdantic.erd import Edge
 from erdantic.errors import ModelTypeMismatchError, UnknownModelTypeError
-from erdantic.examples.pydantic import Party
+from erdantic.examples.pydantic import Party, Quest
 from erdantic.examples.dataclasses import Adventurer as DataClassAdventurer
+
+
+def test_diagram_comparisons():
+    diagram1 = erd.create(Party)
+    diagram2 = erd.create(Party)
+    diagram3 = erd.create(Quest)
+    assert diagram1 == diagram2
+    assert diagram1 != diagram3
+    assert diagram1 in [diagram2]
+    assert diagram1 in {diagram2}
+    assert diagram1 not in [diagram3]
 
 
 def test_edge_comparisons():

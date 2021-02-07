@@ -1,5 +1,6 @@
 import collections.abc
 import dataclasses
+import inspect
 from typing import Any, List, Set, Union
 
 try:
@@ -74,6 +75,10 @@ class DataClassModel(Model):
     @property
     def fields(self) -> List[Field]:
         return [DataClassField(dataclass_field=f) for f in dataclasses.fields(self.dataclass)]
+
+    @property
+    def docstring(self) -> str:
+        return inspect.getdoc(self.dataclass)
 
     def __hash__(self) -> int:
         return id(self.dataclass)

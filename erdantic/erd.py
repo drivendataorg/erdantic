@@ -6,6 +6,7 @@ import pygraphviz as pgv
 
 from erdantic.base import factory_registry
 from erdantic.errors import ModelTypeMismatchError, UnknownModelTypeError
+from erdantic.version import __version__
 
 if TYPE_CHECKING:
     from erdantic.base import Field, Model  # pragma: no cover
@@ -97,10 +98,21 @@ class EntityRelationshipDiagram:
         Returns:
             pgv.AGraph: graph object for diagram
         """
-        g = pgv.AGraph(directed=True, strict=False, nodesep=0.5, ranksep=1.5, rankdir="LR")
+        g = pgv.AGraph(
+            directed=True,
+            strict=False,
+            nodesep=0.5,
+            ranksep=1.5,
+            rankdir="LR",
+            name="Entity Relationship Diagram",
+            label=f"Created by erdantic v{__version__} <https://github.com/drivendataorg/erdantic>",
+            fontsize=9,
+            fontcolor="gray66",
+        )
+        g.node_attr["fontsize"] = 14
         g.node_attr["shape"] = "plain"
         for model in self.models:
-            g.add_node(model.name, label=model.dot_label())
+            g.add_node(model.name, label=model.dot_label(), tooltip=model.docstring)
         for edge in self.edges:
             g.add_edge(
                 edge.source.name,
@@ -119,6 +131,12 @@ class EntityRelationshipDiagram:
             str: DOT language representation of diagram
         """
         return self.graph().string()
+
+    def __hash__(self) -> int:
+        return hash((tuple(self.models), tuple(self.edges)))
+
+    def __eq__(self, other: Any) -> bool:
+        return isinstance(other, type(self)) and hash(self) == hash(other)
 
     def __repr__(self) -> str:
         models = ", ".join(repr(m) for m in self.models)

@@ -85,13 +85,19 @@ class Model(ABC):
     @property
     @abstractmethod
     def name(self) -> str:  # pragma: no cover
-        """str: Name of data model."""
+        """Name of data model."""
         pass
 
     @property
     @abstractmethod
     def fields(self) -> List[Field]:  # pragma: no cover
-        """List[Field]: List of fields this data model contains."""
+        """List of fields this data model contains."""
+        pass
+
+    @property
+    @abstractmethod
+    def docstring(self) -> str:  # pragma: no cover
+        """Docstring for this data model."""
         pass
 
     @abstractmethod

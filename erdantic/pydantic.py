@@ -1,3 +1,4 @@
+import inspect
 from typing import List, Set, Type
 
 import pydantic
@@ -60,6 +61,10 @@ class PydanticModel(Model):
     @property
     def fields(self) -> List[Field]:
         return [PydanticField(pydantic_field=f) for f in self.pydantic_model.__fields__.values()]
+
+    @property
+    def docstring(self) -> str:
+        return inspect.getdoc(self.pydantic_model)
 
     def __hash__(self) -> int:
         return id(self.pydantic_model)

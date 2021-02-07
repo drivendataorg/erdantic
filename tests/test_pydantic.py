@@ -1,8 +1,31 @@
 import filecmp
 
+from pydantic import BaseModel
+
 import erdantic as erd
-from erdantic.pydantic import PydanticField, PydanticModel
+from erdantic.pydantic import PydanticDiagramFactory, PydanticField, PydanticModel
 from erdantic.examples.pydantic import Adventurer, Party, Quest, QuestGiver
+
+
+def test_is_type():
+    factory = PydanticDiagramFactory()
+
+    class IsAPydanticModel(BaseModel):
+        attr: str
+
+    assert factory.is_type(IsAPydanticModel)
+
+    class NotAPydanticModel:
+        attr: str
+
+    assert not factory.is_type(NotAPydanticModel)
+
+
+def test_create_diagram():
+    factory = PydanticDiagramFactory()
+    diagram = factory.create(Party)
+    assert isinstance(diagram, erd.EntityRelationshipDiagram)
+    assert diagram == erd.create(Party)
 
 
 def test_model_graph_search():

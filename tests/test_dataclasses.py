@@ -2,8 +2,30 @@ import dataclasses
 import filecmp
 
 import erdantic as erd
-from erdantic.dataclasses import DataClassModel, DataClassField
+from erdantic.dataclasses import DataClassModel, DataClassField, DataClassDiagramFactory
 from erdantic.examples.dataclasses import Adventurer, Party, Quest, QuestGiver
+
+
+def test_is_type():
+    factory = DataClassDiagramFactory()
+
+    @dataclasses.dataclass
+    class IsADataClass:
+        attr: str
+
+    assert factory.is_type(IsADataClass)
+
+    class NotADataClass:
+        attr: str
+
+    assert not factory.is_type(NotADataClass)
+
+
+def test_create_diagram():
+    factory = DataClassDiagramFactory()
+    diagram = factory.create(Party)
+    assert isinstance(diagram, erd.EntityRelationshipDiagram)
+    assert diagram == erd.create(Party)
 
 
 def test_model_graph_search():
