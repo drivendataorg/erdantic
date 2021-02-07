@@ -78,7 +78,11 @@ class DataClassModel(Model):
 
     @property
     def docstring(self) -> str:
-        return inspect.getdoc(self.dataclass)
+        out = f"{self.dataclass.__module__}.{self.name}"
+        docstring = inspect.getdoc(self.dataclass)
+        if docstring:
+            out += "\n\n" + docstring
+        return out
 
     def __hash__(self) -> int:
         return id(self.dataclass)

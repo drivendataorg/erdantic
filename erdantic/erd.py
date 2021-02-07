@@ -1,6 +1,6 @@
 from operator import methodcaller
 import os
-from typing import Any, List, Tuple, Union, TYPE_CHECKING
+from typing import Any, List, Tuple, TYPE_CHECKING, Union
 
 import pygraphviz as pgv
 

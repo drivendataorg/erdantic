@@ -64,7 +64,11 @@ class PydanticModel(Model):
 
     @property
     def docstring(self) -> str:
-        return inspect.getdoc(self.pydantic_model)
+        out = f"{self.pydantic_model.__module__}.{self.name}"
+        docstring = inspect.getdoc(self.pydantic_model)
+        if docstring:
+            out += "\n\n" + docstring
+        return out
 
     def __hash__(self) -> int:
         return id(self.pydantic_model)
