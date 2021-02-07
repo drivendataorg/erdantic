@@ -2,8 +2,8 @@ codecov:
   require_ci_to_pass: yes
   disable_default_path_fixes: yes
 
-# fixes:
-#   - "/home/runner/work/erdantic/erdantic/::"
+fixes:
+  - "::erdantic/"
 
 coverage:
   precision: 1
