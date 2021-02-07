@@ -41,6 +41,13 @@ jobs:
         run: |
           make test
 
+      - name: Upload coverage to codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: ./coverage.xml
+          fail_ci_if_error: true
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+
       - name: Build distribution and test installation
         shell: bash
         run: |
@@ -70,10 +77,3 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         timeout-minutes: 1
-
-      - name: Upload coverage to codecov
-        uses: codecov/codecov-action@v1
-        with:
-          file: ./coverage.xml
-          fail_ci_if_error: true
-        if: ${{ matrix.os == 'ubuntu-latest' }}

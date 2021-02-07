@@ -1,5 +1,9 @@
 codecov:
   require_ci_to_pass: yes
+  disable_default_path_fixes: yes
+
+fixes:
+  - "::erdantic/"
 
 coverage:
   precision: 1
@@ -9,7 +13,7 @@ coverage:
     project: # Coverage of whole project
       default:
         target: auto # Coverage target to pass; auto is base commit
-        threshold: 2% # Allow coverage to drop by this much vs. base and still pass
+        threshold: 5% # Allow coverage to drop by this much vs. base and still pass
     patch: # Coverage of lines in this change
       default:
         target: 80% # Coverage target to pass
