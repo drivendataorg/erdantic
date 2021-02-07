@@ -13,7 +13,7 @@
 <!-- Adventurer -->
 <g id="node1" class="node">
 <title>Adventurer</title>
-<g id="a_node1"><a xlink:title="Adventurer(name: str, profession: str, level: int, affinity: str)">
+<g id="a_node1"><a xlink:title="A person often late for dinner but with a tale or two to tell.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;name (str): Name of this adventurer&#10; &#160;&#160;&#160;profession (str): Profession of this adventurer&#10; &#160;&#160;&#160;level (int): Level of this adventurer&#10; &#160;&#160;&#160;alignment (int): Alignment of this adventurer">
 <polygon fill="none" stroke="black" points="383,-265 383,-286 467,-286 467,-265 383,-265"/>
 <text text-anchor="start" x="391" y="-272.8" font-family="Times,serif" font-weight="bold" font-size="14.00">Adventurer</text>
 <polygon fill="none" stroke="black" points="383,-244 383,-265 446,-265 446,-244 383,-244"/>
@@ -38,7 +38,7 @@
 <!-- Party -->
 <g id="node2" class="node">
 <title>Party</title>
-<g id="a_node2"><a xlink:title="Party(name: str, formed_datetime: datetime.datetime, members: List[__main__.Adventurer], active_quest: Union[__main__.Quest, NoneType])">
+<g id="a_node2"><a xlink:title="A group of adventurers finding themselves doing and saying things altogether unexpected.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;name (str): Name that party is known by&#10; &#160;&#160;&#160;formed_datetime (datetime): Timestamp of when the party was formed&#10; &#160;&#160;&#160;members (List[Adventurer]): Adventurers that belong to this party&#10; &#160;&#160;&#160;active_quest (Optional[Quest]): Current quest that party is actively tackling">
 <polygon fill="none" stroke="black" points="0.5,-269 0.5,-290 245.5,-290 245.5,-269 0.5,-269"/>
 <text text-anchor="start" x="106.5" y="-276.8" font-family="Times,serif" font-weight="bold" font-size="14.00">Party</text>
 <polygon fill="none" stroke="black" points="0.5,-248 0.5,-269 100.5,-269 100.5,-248 0.5,-248"/>
@@ -70,7 +70,7 @@
 <!-- Quest -->
 <g id="node3" class="node">
 <title>Quest</title>
-<g id="a_node3"><a xlink:title="Quest(name: str, giver: __main__.QuestGiver, reward_gold: int)">
+<g id="a_node3"><a xlink:title="A task to complete, with some monetary reward.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;name (str): Name by which this quest is referred to&#10; &#160;&#160;&#160;giver (QuestGiver): Person who offered the quest&#10; &#160;&#160;&#160;reward_gold (int): Amount of gold to be rewarded for quest completion">
 <polygon fill="none" stroke="black" points="353,-124 353,-145 497,-145 497,-124 353,-124"/>
 <text text-anchor="start" x="407.5" y="-131.8" font-family="Times,serif" font-weight="bold" font-size="14.00">Quest</text>
 <polygon fill="none" stroke="black" points="353,-103 353,-124 428,-124 428,-103 353,-103"/>
@@ -100,7 +100,7 @@
 <!-- QuestGiver -->
 <g id="node4" class="node">
 <title>QuestGiver</title>
-<g id="a_node4"><a xlink:title="QuestGiver(name: str, faction: Union[str, NoneType], location: str)">
+<g id="a_node4"><a xlink:title="A person who offers a task that needs completing.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;name (str): Name of this quest giver&#10; &#160;&#160;&#160;faction (str): Faction that this quest giver belongs to&#10; &#160;&#160;&#160;location (str): Location this quest giver can be found">
 <polygon fill="none" stroke="black" points="605.5,-81 605.5,-102 782.5,-102 782.5,-81 605.5,-81"/>
 <text text-anchor="start" x="659.5" y="-88.8" font-family="Times,serif" font-weight="bold" font-size="14.00">QuestGiver</text>
 <polygon fill="none" stroke="black" points="605.5,-60 605.5,-81 655.5,-81 655.5,-60 605.5,-60"/>

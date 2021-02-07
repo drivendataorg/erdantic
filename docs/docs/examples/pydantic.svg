@@ -13,6 +13,7 @@
 <!-- Adventurer -->
 <g id="node1" class="node">
 <title>Adventurer</title>
+<g id="a_node1"><a xlink:title="A person often late for dinner but with a tale or two to tell.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;name (str): Name of this adventurer&#10; &#160;&#160;&#160;profession (str): Profession of this adventurer&#10; &#160;&#160;&#160;level (int): Level of this adventurer&#10; &#160;&#160;&#160;alignment (int): Alignment of this adventurer">
 <polygon fill="none" stroke="black" points="336,-265 336,-286 420,-286 420,-265 336,-265"/>
 <text text-anchor="start" x="344" y="-272.8" font-family="Times,serif" font-weight="bold" font-size="14.00">Adventurer</text>
 <polygon fill="none" stroke="black" points="336,-244 336,-265 399,-265 399,-244 336,-244"/>
@@ -28,13 +29,16 @@
 <polygon fill="none" stroke="black" points="399,-202 399,-223 420,-223 420,-202 399,-202"/>
 <text text-anchor="start" x="402" y="-208.8" font-family="Times,serif" font-size="14.00">int</text>
 <polygon fill="none" stroke="black" points="336,-181 336,-202 399,-202 399,-181 336,-181"/>
-<text text-anchor="start" x="347.5" y="-187.8" font-family="Times,serif" font-size="14.00">affinity</text>
+<text text-anchor="start" x="340" y="-187.8" font-family="Times,serif" font-size="14.00">alignment</text>
 <polygon fill="none" stroke="black" points="399,-181 399,-202 420,-202 420,-181 399,-181"/>
 <text text-anchor="start" x="402.5" y="-187.8" font-family="Times,serif" font-size="14.00">str</text>
+</a>
+</g>
 </g>
 <!-- Party -->
 <g id="node2" class="node">
 <title>Party</title>
+<g id="a_node2"><a xlink:title="A group of adventurers finding themselves doing and saying things altogether unexpected.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;name (str): Name that party is known by&#10; &#160;&#160;&#160;formed_datetime (datetime): Timestamp of when the party was formed&#10; &#160;&#160;&#160;members (List[Adventurer]): Adventurers that belong to this party&#10; &#160;&#160;&#160;active_quest (Optional[Quest]): Current quest that party is actively tackling">
 <polygon fill="none" stroke="black" points="0,-269 0,-290 198,-290 198,-269 0,-269"/>
 <text text-anchor="start" x="82.5" y="-276.8" font-family="Times,serif" font-weight="bold" font-size="14.00">Party</text>
 <polygon fill="none" stroke="black" points="0,-248 0,-269 100,-269 100,-248 0,-248"/>
@@ -53,6 +57,8 @@
 <text text-anchor="start" x="16" y="-191.8" font-family="Times,serif" font-size="14.00">active_quest</text>
 <polygon fill="none" stroke="black" points="100,-185 100,-206 198,-206 198,-185 100,-185"/>
 <text text-anchor="start" x="105" y="-191.8" font-family="Times,serif" font-size="14.00">Optional[Quest]</text>
+</a>
+</g>
 </g>
 <!-- Party&#45;&gt;Adventurer -->
 <g id="edge1" class="edge">
@@ -64,6 +70,7 @@
 <!-- Quest -->
 <g id="node3" class="node">
 <title>Quest</title>
+<g id="a_node3"><a xlink:title="A task to complete, with some monetary reward.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;name (str): Name by which this quest is referred to&#10; &#160;&#160;&#160;giver (QuestGiver): Person who offered the quest&#10; &#160;&#160;&#160;reward_gold (int): Amount of gold to be rewarded for quest completion">
 <polygon fill="none" stroke="black" points="306,-124 306,-145 450,-145 450,-124 306,-124"/>
 <text text-anchor="start" x="360.5" y="-131.8" font-family="Times,serif" font-weight="bold" font-size="14.00">Quest</text>
 <polygon fill="none" stroke="black" points="306,-103 306,-124 381,-124 381,-103 306,-103"/>
@@ -78,6 +85,8 @@
 <text text-anchor="start" x="309" y="-67.8" font-family="Times,serif" font-size="14.00">reward_gold</text>
 <polygon fill="none" stroke="black" points="381,-61 381,-82 450,-82 450,-61 381,-61"/>
 <text text-anchor="start" x="408" y="-67.8" font-family="Times,serif" font-size="14.00">int</text>
+</a>
+</g>
 </g>
 <!-- Party&#45;&gt;Quest -->
 <g id="edge2" class="edge">
@@ -91,6 +100,7 @@
 <!-- QuestGiver -->
 <g id="node4" class="node">
 <title>QuestGiver</title>
+<g id="a_node4"><a xlink:title="A person who offers a task that needs completing.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;name (str): Name of this quest giver&#10; &#160;&#160;&#160;faction (str): Faction that this quest giver belongs to&#10; &#160;&#160;&#160;location (str): Location this quest giver can be found">
 <polygon fill="none" stroke="black" points="558,-81 558,-102 684,-102 684,-81 558,-81"/>
 <text text-anchor="start" x="586.5" y="-88.8" font-family="Times,serif" font-weight="bold" font-size="14.00">QuestGiver</text>
 <polygon fill="none" stroke="black" points="558,-60 558,-81 608,-81 608,-60 558,-60"/>
@@ -105,6 +115,8 @@
 <text text-anchor="start" x="561" y="-24.8" font-family="Times,serif" font-size="14.00">location</text>
 <polygon fill="none" stroke="black" points="608,-18 608,-39 684,-39 684,-18 608,-18"/>
 <text text-anchor="start" x="639" y="-24.8" font-family="Times,serif" font-size="14.00">str</text>
+</a>
+</g>
 </g>
 <!-- Quest&#45;&gt;QuestGiver -->
 <g id="edge3" class="edge">

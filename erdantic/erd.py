@@ -112,7 +112,9 @@ class EntityRelationshipDiagram:
         g.node_attr["fontsize"] = 14
         g.node_attr["shape"] = "plain"
         for model in self.models:
-            g.add_node(model.name, label=model.dot_label(), tooltip=model.docstring)
+            g.add_node(
+                model.name, label=model.dot_label(), tooltip=model.docstring.replace("\n", "&#xA;")
+            )
         for edge in self.edges:
             g.add_edge(
                 edge.source.name,
