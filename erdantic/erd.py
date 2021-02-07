@@ -5,7 +5,7 @@ from typing import Any, List, Tuple, Union, TYPE_CHECKING
 import pygraphviz as pgv
 
 from erdantic.base import factory_registry
-from erdantic.errors import UnknownModelTypeError
+from erdantic.errors import ModelTypeMismatchError, UnknownModelTypeError
 
 if TYPE_CHECKING:
     from erdantic.base import Field, Model  # pragma: no cover
@@ -125,9 +125,9 @@ class EntityRelationshipDiagram:
         edges = ", ".join(repr(e) for e in self.edges)
         return f"EntityRelationshipDiagram(models=[{models}], edges=[{edges}])"
 
-    def _repr_png_(self) -> str:
+    def _repr_png_(self) -> bytes:
         graph = self.graph()
-        return graph.draw(prog="dot", format="png").decode(graph.encoding)
+        return graph.draw(prog="dot", format="png")
 
     def _repr_svg_(self) -> str:
         graph = self.graph()
@@ -146,10 +146,16 @@ def create(*models: type) -> EntityRelationshipDiagram:
     Returns:
         EntityRelationshipDiagram: diagram object for given data model.
     """
-    for factory in factory_registry:
+    for type_name, factory in factory_registry.items():
         if factory.is_type(models[0]):
+            # Validate additional models
+            for addl in models[1:]:
+                if not factory.is_type(addl):
+                    raise ModelTypeMismatchError(
+                        mismatched_model=addl, first_model=models[0], expected=type_name
+                    )
             return factory.create(*models)
-    raise UnknownModelTypeError
+    raise UnknownModelTypeError(model=models[0])
 
 
 def draw(*models: type, out: Union[str, os.PathLike], **kwargs):

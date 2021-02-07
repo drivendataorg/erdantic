@@ -79,7 +79,7 @@ class DataClassModel(Model):
         return id(self.dataclass)
 
 
-@register_factory
+@register_factory("dataclasses")
 class DataClassDiagramFactory(DiagramFactory):
     @staticmethod
     def is_type(model: type) -> bool:

@@ -21,14 +21,14 @@ def test_diagram_factory_registration():
         pass
 
     with pytest.raises(TypeError, match=r"Can't instantiate abstract class"):
-        register_factory(IncompleteDiagramFactory)
+        register_factory("incomplete")(IncompleteDiagramFactory)
 
     # Not a subclass
     class DiagramFarm:
         pass
 
     with pytest.raises(ValueError, match=r"Only subclasses of DiagramFactory can be registered"):
-        register_factory(DiagramFarm)
+        register_factory("potato")(DiagramFarm)
 
 
 def test_repr():

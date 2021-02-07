@@ -65,7 +65,7 @@ class PydanticModel(Model):
         return id(self.pydantic_model)
 
 
-@register_factory
+@register_factory("pydantic")
 class PydanticDiagramFactory(DiagramFactory):
     @staticmethod
     def is_type(model: type):

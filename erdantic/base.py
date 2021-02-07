@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Any, List, TYPE_CHECKING
+from typing import Any, Callable, Dict, List, TYPE_CHECKING
 
 
 if TYPE_CHECKING:
@@ -132,12 +132,15 @@ class DiagramFactory(ABC):
         pass
 
 
-factory_registry = []
+factory_registry: Dict[str, DiagramFactory] = {}
 
 
-def register_factory(cls: type) -> type:
-    global factory_registry
-    if not issubclass(cls, DiagramFactory):
-        raise ValueError("Only subclasses of DiagramFactory can be registered.")
-    factory_registry.append(cls())  # Verify completeness by instantiating
-    return cls
+def register_factory(type_name: str) -> Callable[[type], type]:
+    def decorator(cls: type) -> type:
+        global factory_registry
+        if not issubclass(cls, DiagramFactory):
+            raise ValueError("Only subclasses of DiagramFactory can be registered.")
+        factory_registry[type_name] = cls()  # Verify completeness by instantiating
+        return cls
+
+    return decorator
