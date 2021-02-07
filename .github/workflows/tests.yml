@@ -14,7 +14,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest] # [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest] #[ubuntu-latest, macos-latest] # [ubuntu-latest, macos-latest, windows-latest]
         python-version: [3.6, 3.7, 3.8, 3.9]
 
     steps:
@@ -40,6 +40,19 @@ jobs:
       - name: Run tests
         run: |
           make test
+
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage_${{ matrix.python-version }}.xml
+          path: ./coverage.xml
+
+      - name: Upload coverage to codecov
+        uses: codecov/codecov-action@v1
+        with:
+          file: ./coverage.xml
+          fail_ci_if_error: true
+        if: ${{ matrix.os == 'ubuntu-latest' }}
 
       - name: Build distribution and test installation
         shell: bash
@@ -70,10 +83,3 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         timeout-minutes: 1
-
-      - name: Upload coverage to codecov
-        uses: codecov/codecov-action@v1
-        with:
-          file: ./coverage.xml
-          fail_ci_if_error: true
-        if: ${{ matrix.os == 'ubuntu-latest' }}

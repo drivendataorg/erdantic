@@ -17,3 +17,6 @@ coverage:
 
 comment:
   layout: "diff,flags,tree"
+
+fixes:
+  - "::erdantic/"
