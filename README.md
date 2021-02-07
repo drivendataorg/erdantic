@@ -11,7 +11,7 @@
 - [Pydantic](https://pydantic-docs.helpmanual.io/)
 - [dataclasses](https://docs.python.org/3/library/dataclasses.html) from the Python standard library
 
-Features include a CLI, automatic native rendering in Jupyter notebooks, and easy extensibility to other data modeling frameworks. Great for a simple and clean reference for your data models' documentation.
+Features include a convenient CLI, automatic native rendering in Jupyter notebooks, and easy extensibility to other data modeling frameworks. Great for a simple and clean reference for your data models' documentation.
 
 <object type="image/svg+xml" data="docs/docs/examples/pydantic.svg" width="100%" typemustmatch><img alt="Example diagram created by erdantic" src="docs/docs/examples/pydantic.svg"></object>
 
