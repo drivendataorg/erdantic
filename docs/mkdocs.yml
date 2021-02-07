@@ -12,9 +12,11 @@ nav:
       - Pydantic: "examples/pydantic.ipynb"
       - dataclasses: "examples/dataclasses.ipynb"
   - API Reference:
-      - erdantic.erd: "api-reference/erd.md"
-      - erdantic.pydantic: "api-reference/pydantic.md"
+      - erdantic.base: "api-reference/base.md"
       - erdantic.dataclasses: "api-reference/dataclasses.md"
+      - erdantic.erd: "api-reference/erd.md"
+      - erdantic.errors: "api-reference/errors.md"
+      - erdantic.pydantic: "api-reference/pydantic.md"
       - erdantic.examples:
           - erdantic.examples.pydantic: "api-reference/examples.pydantic.md"
           - erdantic.examples.dataclasses: "api-reference/examples.dataclasses.md"
@@ -34,6 +36,7 @@ plugins:
             show_root_toc_entry: false
             show_root_full_path: false
             show_if_no_docstring: true
+            show_signature_annotations: true
             show_source: true
             heading_level: 2
       watch:

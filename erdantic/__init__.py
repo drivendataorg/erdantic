@@ -1,12 +1,12 @@
-from erdantic.erd import draw, create, to_dot
-import erdantic.dataclasses
+from erdantic.erd import create, draw, EntityRelationshipDiagram, to_dot
 import erdantic.pydantic  # noqa: F401
 from erdantic.version import __version__
 
 __version__
 
 __all__ = [
-    "draw",
     "create",
+    "draw",
+    "EntityRelationshipDiagram",
     "to_dot",
 ]
