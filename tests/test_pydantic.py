@@ -1,4 +1,6 @@
 import filecmp
+import subprocess
+import textwrap
 
 from pydantic import BaseModel
 
@@ -74,3 +76,20 @@ def test_to_dot():
     assert dot == erd.to_dot(Party)
     assert isinstance(dot, str)
     assert dot
+
+
+def test_registration():
+    script = textwrap.dedent(
+        """\
+        from erdantic.base import factory_registry;
+        assert "pydantic" in factory_registry;
+        """
+    ).replace("\n", "")
+
+    result = subprocess.run(
+        ["python", "-c", script],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        universal_newlines=True,
+    )
+    assert result.returncode == 0
