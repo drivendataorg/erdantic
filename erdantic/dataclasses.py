@@ -3,21 +3,10 @@ import dataclasses
 import inspect
 from typing import Any, List, Set, Union
 
-try:
-    from typing import _GenericAlias as GenericAlias  # type: ignore # Python 3.7-3.8
-except ImportError:
-    from typing import GenericMeta as GenericAlias  # type: ignore # Python 3.6
-
-try:
-    from typing import get_args, get_origin  # type: ignore # Python 3.8+
-except ImportError:
-    try:
-        from typing_extensions import get_args, get_origin  # type: ignore # Python 3.7
-    except ImportError:
-        from pydantic.typing import get_args, get_origin  # Python 3.6
 
 from erdantic.base import DiagramFactory, Field, Model, register_factory
 from erdantic.erd import Edge, EntityRelationshipDiagram
+from erdantic.typing import GenericAlias, get_args, get_origin
 
 
 class DataClassField(Field):
@@ -34,12 +23,6 @@ class DataClassField(Field):
     @property
     def name(self) -> str:
         return self.dataclass_field.name
-
-    @property
-    def type_name(self) -> str:
-        if hasattr(self.type_obj, "__name__"):
-            return self.type_obj.__name__
-        return str(self.type_obj).replace("typing.", "").replace("__main__.", "")
 
     @property
     def type_obj(self) -> type:

@@ -3,7 +3,20 @@
 
 from dataclasses import dataclass
 from datetime import datetime
+from enum import Enum
 from typing import List, Optional
+
+
+class AlignmentLC(str, Enum):
+    LAWFUL = "lawful"
+    NEUTRAL = "neutral"
+    CHAOTIC = "chaotic"
+
+
+class AlignmentGE(str, Enum):
+    GOOD = "good"
+    NEUTRAL = "neutral"
+    EVIL = "evil"
 
 
 @dataclass
@@ -20,7 +33,8 @@ class Adventurer:
     name: str
     profession: str
     level: int
-    affinity: str
+    alignment_lc: AlignmentLC
+    alignment_ge: AlignmentGE
 
 
 @dataclass
