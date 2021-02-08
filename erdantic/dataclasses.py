@@ -6,7 +6,7 @@ from typing import Any, List, Set, Union
 
 from erdantic.base import DiagramFactory, Field, Model, register_factory
 from erdantic.erd import Edge, EntityRelationshipDiagram
-from erdantic.typing import GenericAlias, get_args, get_origin
+from erdantic.typing import GenericAlias, get_args, get_origin, get_recursive_args
 
 
 class DataClassField(Field):
@@ -97,17 +97,8 @@ def search_composition_graph(
     if model not in seen_models:
         seen_models.add(model)
         for field in model.fields:
-            # field is a dataclass
-            if is_dataclass(field.type_obj):
-                field_model = search_composition_graph(field.type_obj, seen_models, seen_edges)
-                seen_edges.add(Edge(source=model, source_field=field, target=field_model))
-            # field is a generic, check if it contains a dataclass
-            if (
-                isinstance(field.type_obj, GenericAlias)
-                or getattr(field.type_obj, "__origin__", None) is Union  # Python 3.6 compat
-            ):
-                for arg in get_args(field.type_obj):
-                    if is_dataclass(arg):
-                        field_model = search_composition_graph(arg, seen_models, seen_edges)
-                        seen_edges.add(Edge(source=model, source_field=field, target=field_model))
+            for arg in get_recursive_args(field.type_obj):
+                if is_dataclass(arg):
+                    field_model = search_composition_graph(arg, seen_models, seen_edges)
+                    seen_edges.add(Edge(source=model, source_field=field, target=field_model))
     return model

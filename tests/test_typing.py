@@ -9,10 +9,20 @@ from erdantic.typing import (
     _get_origin,
     get_args,
     get_origin,
+    get_recursive_args,
     repr_enum,
     repr_type,
     get_depth1_bases,
 )
+
+
+def test_get_recursive_args():
+    tp = typing.Optional[typing.Dict[str, typing.List[typing.Tuple[int, float]]]]
+    args = get_recursive_args(tp)
+    assert isinstance(args, list)
+    assert set(args) == {str, int, float, type(None)}
+
+    assert get_recursive_args(str) == [str]
 
 
 def test_get_depth1_bases():

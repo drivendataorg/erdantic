@@ -1,6 +1,7 @@
 import filecmp
 import subprocess
 import textwrap
+from typing import Dict, Tuple
 
 from pydantic import BaseModel
 
@@ -37,6 +38,24 @@ def test_model_graph_search():
         (Party, Adventurer),
         (Party, Quest),
         (Quest, QuestGiver),
+    }
+
+
+def test_model_graph_search_nested_args():
+    class Inner0(BaseModel):
+        id: int
+
+    class Inner1(BaseModel):
+        id: int
+
+    class Outer(BaseModel):
+        inner: Dict[str, Tuple[Inner0, Inner1]]
+
+    diagram = erd.create(Outer)
+    assert {m.pydantic_model for m in diagram.models} == {Outer, Inner0, Inner1}
+    assert {(e.source.pydantic_model, e.target.pydantic_model) for e in diagram.edges} == {
+        (Outer, Inner0),
+        (Outer, Inner1),
     }
 
 

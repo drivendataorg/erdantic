@@ -1,11 +1,12 @@
 import inspect
-from typing import List, Set, Type
+from typing import Any, List, Set, Type
 
 import pydantic
 import pydantic.fields
 
 from erdantic.base import Field, Model, DiagramFactory, register_factory
 from erdantic.erd import Edge, EntityRelationshipDiagram
+from erdantic.typing import get_recursive_args
 
 
 class PydanticField(Field):
@@ -74,7 +75,7 @@ class PydanticModel(Model):
 class PydanticDiagramFactory(DiagramFactory):
     @staticmethod
     def is_type(model: type):
-        return issubclass(model, pydantic.BaseModel)
+        return is_pydantic_model(model)
 
     @staticmethod
     def create(*models: type) -> EntityRelationshipDiagram:
@@ -88,6 +89,10 @@ class PydanticDiagramFactory(DiagramFactory):
         return EntityRelationshipDiagram(models=list(seen_models), edges=list(seen_edges))
 
 
+def is_pydantic_model(obj: Any) -> bool:
+    return isinstance(obj, type) and issubclass(obj, pydantic.BaseModel)
+
+
 def search_composition_graph(
     pydantic_model: Type[pydantic.BaseModel],
     seen_models: Set[PydanticModel],
@@ -97,7 +102,8 @@ def search_composition_graph(
     if model not in seen_models:
         seen_models.add(model)
         for field in model.fields:
-            if issubclass(field.type_obj, pydantic.BaseModel):
-                field_model = search_composition_graph(field.type_obj, seen_models, seen_edges)
-                seen_edges.add(Edge(source=model, source_field=field, target=field_model))
+            for arg in get_recursive_args(field.type_obj):
+                if is_pydantic_model(arg):
+                    field_model = search_composition_graph(arg, seen_models, seen_edges)
+                    seen_edges.add(Edge(source=model, source_field=field, target=field_model))
     return model

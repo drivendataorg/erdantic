@@ -31,6 +31,20 @@ except ImportError:
         get_origin = _get_origin
 
 
+def get_recursive_args(tp: Union[type, GenericAlias]) -> List[type]:
+    """Recursively finds leaf-node types of possibly-nested generic type."""
+
+    def recurse(t):
+        args = get_args(t)
+        if args:
+            for arg in args:
+                yield from recurse(arg)
+        else:
+            yield t
+
+    return list(recurse(tp))
+
+
 def repr_type(tp: Union[type, GenericAlias]) -> str:
     """Return pretty, compact string representation of a type. Principles of behavior:
 

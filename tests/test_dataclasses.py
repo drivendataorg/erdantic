@@ -2,6 +2,7 @@ import dataclasses
 import filecmp
 import subprocess
 import textwrap
+from typing import Dict, Tuple
 
 import erdantic as erd
 from erdantic.dataclasses import DataClassModel, DataClassField, DataClassDiagramFactory
@@ -37,6 +38,27 @@ def test_model_graph_search():
         (Party, Adventurer),
         (Party, Quest),
         (Quest, QuestGiver),
+    }
+
+
+def test_model_graph_search_nested_args():
+    @dataclasses.dataclass
+    class Inner0:
+        id: int
+
+    @dataclasses.dataclass
+    class Inner1:
+        id: int
+
+    @dataclasses.dataclass
+    class Outer:
+        inner: Dict[str, Tuple[Inner0, Inner1]]
+
+    diagram = erd.create(Outer)
+    assert {m.dataclass for m in diagram.models} == {Outer, Inner0, Inner1}
+    assert {(e.source.dataclass, e.target.dataclass) for e in diagram.edges} == {
+        (Outer, Inner0),
+        (Outer, Inner1),
     }
 
 
