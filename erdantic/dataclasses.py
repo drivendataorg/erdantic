@@ -6,7 +6,7 @@ from typing import Any, List, Set, Union
 
 from erdantic.base import DiagramFactory, Field, Model, register_factory
 from erdantic.erd import Edge, EntityRelationshipDiagram
-from erdantic.typing import GenericAlias, get_args, get_origin, get_recursive_args
+from erdantic.typing import get_args, get_origin, get_recursive_args
 
 
 class DataClassField(Field):
