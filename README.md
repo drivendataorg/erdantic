@@ -27,7 +27,7 @@ pip install https://github.com/drivendataorg/erdantic.git#egg=erdantic
 
 ## Quick Usage
 
-The fastest way to produce a diagram like the above example is to use the erdantic CLI. Simply pass a full dotted path to your data model class and an output path. The rendered format is interpreted from the filename extension.
+The fastest way to produce a diagram like the above example is to use the erdantic CLI. Simply specify the full dotted path to your data model class and an output path. The rendered format is interpreted from the filename extension.
 
 ```bash
 erdantic erdantic.examples.pydantic.Party -o diagram.png
