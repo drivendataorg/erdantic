@@ -4,7 +4,15 @@ import typing
 
 import pytest
 
-from erdantic.typing import _get_args, _get_origin, repr_enum, repr_type, get_depth1_bases
+from erdantic.typing import (
+    _get_args,
+    _get_origin,
+    get_args,
+    get_origin,
+    repr_enum,
+    repr_type,
+    get_depth1_bases,
+)
 
 
 def test_get_depth1_bases():
@@ -98,8 +106,10 @@ if sys.version_info[:2] >= (3, 7):
 
     @pytest.mark.parametrize("tp", backport_cases, ids=[repr_type(c) for c in backport_cases])
     def test_get_args(tp):
-        assert _get_args(tp) == typing.get_args(tp)
+        assert _get_args is not get_args
+        assert _get_args(tp) == get_args(tp)
 
     @pytest.mark.parametrize("tp", backport_cases, ids=[repr_type(c) for c in backport_cases])
     def test_get_origin(tp):
-        assert _get_origin(tp) == typing.get_origin(tp)
+        assert _get_args is not get_origin
+        assert _get_origin(tp) == get_origin(tp)
