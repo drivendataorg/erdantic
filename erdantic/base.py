@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Any, Callable, Dict, List, TYPE_CHECKING
 
+from erdantic.typing import repr_type
 
 if TYPE_CHECKING:
     from erdantic.erd import EntityRelationshipDiagram  # pragma: no cover
@@ -18,11 +19,6 @@ class Field(ABC):
     @abstractmethod
     def name(self) -> str:  # pragma: no cover
         """str: Name of this field on the parent data model."""
-
-    @property
-    @abstractmethod
-    def type_name(self) -> str:  # pragma: no cover
-        """str: Display name of the Python type object for this field."""
 
     @property
     @abstractmethod
@@ -51,6 +47,11 @@ class Field(ABC):
     @abstractmethod
     def __hash__(self) -> int:  # pragma: no cover
         pass
+
+    @property
+    def type_name(self) -> str:  # pragma: no cover
+        """str: Display name of the Python type object for this field."""
+        return repr_type(self.type_obj)
 
     def dot_row(self) -> str:
         """Returns the DOT language "HTML-like" syntax specification of a row detailing this field

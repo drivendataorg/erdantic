@@ -24,10 +24,6 @@ class PydanticField(Field):
         return self.pydantic_field.name
 
     @property
-    def type_name(self) -> str:
-        return self.pydantic_field._type_display()
-
-    @property
     def type_obj(self) -> type:
         return self.pydantic_field.type_
 

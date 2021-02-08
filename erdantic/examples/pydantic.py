@@ -1,9 +1,22 @@
 """Example data model classes using [Pydantic](https://pydantic-docs.helpmanual.io/)."""
 
 from datetime import datetime
+from enum import Enum
 from typing import List, Optional
 
 from pydantic import BaseModel
+
+
+class AlignmentLC(str, Enum):
+    LAWFUL = "lawful"
+    NEUTRAL = "neutral"
+    CHAOTIC = "chaotic"
+
+
+class AlignmentGE(str, Enum):
+    GOOD = "good"
+    NEUTRAL = "neutral"
+    EVIL = "evil"
 
 
 class Adventurer(BaseModel):
@@ -19,7 +32,8 @@ class Adventurer(BaseModel):
     name: str
     profession: str
     level: int
-    alignment: str
+    alignment_lc: AlignmentLC
+    alignment_ge: AlignmentGE
 
 
 class QuestGiver(BaseModel):
