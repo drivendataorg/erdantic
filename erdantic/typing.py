@@ -36,20 +36,23 @@ def repr_type(tp: Union[type, GenericAlias]) -> str:
 
     - Names without module path
     - Generic capitalization matches which was used (`typing` module's aliases vs. builtin types)
-    - Union[..., None] -> Origin[...]
-    - Enums show base classes, e.g. `MyEnum(str, Enum)`
+    - Union[..., None] -> Optional[...]
+    - Enums show base classes, e.g., `MyEnum(str, Enum)`
     """
     origin = get_origin(tp)
     if origin:
         origin_name = getattr(origin, "__name__", str(origin))
         args = get_args(tp)
-        # Union[..., None] -> Origin[...]
+        # Union[..., None] -> Optional[...]
         if origin is Union and args[-1] is type(None):  # noqa: E721
             origin_name = "Optional"
             args = args[:-1]
         # If generic alias from typing module, back out its name
         elif isinstance(tp, GenericAlias) and tp.__module__ == "typing":
             origin_name = str(tp).split("[")[0].replace("typing.", "")
+        # Case for Python 3.6's wacky Union
+        elif origin is Union:
+            origin_name = "Union"
         return f"{origin_name}[{', '.join(repr_type(a) for a in args)}]"
     if issubclass(tp, Enum):
         return repr_enum(tp)
