@@ -166,6 +166,9 @@ def create(*models: type) -> EntityRelationshipDiagram:
     Returns:
         EntityRelationshipDiagram: diagram object for given data model.
     """
+    for model in models:
+        if not isinstance(model, type):
+            raise ValueError(f"Given model is not a type: {model}")
     for type_name, factory in factory_registry.items():
         if factory.is_type(models[0]):
             # Validate additional models

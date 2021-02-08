@@ -25,18 +25,6 @@ def test_draw(tmp_path):
     assert path1.exists()
     assert filecmp.cmp(path1, path_base)
 
-    # Overwrite error
-    result = runner.invoke(app, ["erdantic.examples.pydantic.Quest", "-o", str(path1)])
-    assert result.exit_code == 1
-    assert filecmp.cmp(path1, path_base)
-
-    # Overwrite
-    result = runner.invoke(
-        app, ["erdantic.examples.pydantic.Quest", "-o", str(path1), "--overwrite"]
-    )
-    assert result.exit_code == 0
-    assert not filecmp.cmp(path1, path_base)
-
     # python -m erdantic
     path2 = tmp_path / "diagram2.png"
     result = subprocess.run(
@@ -50,7 +38,34 @@ def test_draw(tmp_path):
     assert filecmp.cmp(path2, path_base)
 
 
+def test_missing_out(tmp_path):
+    result = runner.invoke(app, ["erdantic.examples.pydantic.Party"])
+    assert result.exit_code == 2
+    assert "Error: Missing option '--out' / '-o'." in result.stdout
+
+
+def test_no_overwrite(tmp_path):
+    path = tmp_path / "diagram.png"
+    path.touch()
+
+    # With no-overwrite
+    result = runner.invoke(
+        app, ["erdantic.examples.pydantic.Quest", "-o", str(path), "--no-overwrite"]
+    )
+    assert result.exit_code == 1
+    assert path.stat().st_size == 0
+
+    # Overwrite
+    result = runner.invoke(app, ["erdantic.examples.pydantic.Quest", "-o", str(path)])
+    assert result.exit_code == 0
+    assert path.stat().st_size > 0
+
+
 def test_dot(tmp_path):
+    result = runner.invoke(app, ["erdantic.examples.pydantic.Party", "-d"])
+    assert result.exit_code == 0
+    assert erd.to_dot(Party).strip() == result.stdout.strip()
+
     path = tmp_path / "diagram.png"
     result = runner.invoke(app, ["erdantic.examples.pydantic.Party", "-d", "-o", str(path)])
     assert result.exit_code == 0
@@ -59,7 +74,7 @@ def test_dot(tmp_path):
 
     # python -m erdantic
     result = subprocess.run(
-        ["python", "-m", "erdantic", "erdantic.examples.pydantic.Party", "-d", "-o", str(path)],
+        ["python", "-m", "erdantic", "erdantic.examples.pydantic.Party", "-d"],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         universal_newlines=True,

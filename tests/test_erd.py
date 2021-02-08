@@ -33,6 +33,11 @@ def test_edge_comparisons():
     assert edges[0] not in {edges[1]}
 
 
+def test_not_a_type_error():
+    with pytest.raises(ValueError, match="Given model is not a type"):
+        erd.create(5)
+
+
 def test_model_type_mismatch_error():
     with pytest.raises(ModelTypeMismatchError) as e_info:
         erd.create(Party, DataClassAdventurer)
