@@ -7,16 +7,16 @@ from typing import List, Optional
 from pydantic import BaseModel
 
 
-class AlignmentLC(str, Enum):
-    LAWFUL = "lawful"
-    NEUTRAL = "neutral"
-    CHAOTIC = "chaotic"
-
-
-class AlignmentGE(str, Enum):
-    GOOD = "good"
-    NEUTRAL = "neutral"
-    EVIL = "evil"
+class Alignment(str, Enum):
+    LAWFUL_GOOD = "lawful_good"
+    NEUTRAL_GOOD = "neutral_good"
+    CHAOTIC_GOOD = "chaotic_good"
+    LAWFUL_NEUTRAL = "lawful_neutral"
+    TRUE_NEUTRAL = "true_neutral"
+    CHAOTIC_NEUTRAL = "chaotic_neutral"
+    LAWFUL_EVIL = "lawful_evil"
+    NEUTRAL_EVIL = "neutral_evil"
+    CHAOTIC_EVIL = "chaotic_evil"
 
 
 class Adventurer(BaseModel):
@@ -26,14 +26,13 @@ class Adventurer(BaseModel):
         name (str): Name of this adventurer
         profession (str): Profession of this adventurer
         level (int): Level of this adventurer
-        alignment (int): Alignment of this adventurer
+        alignment (Alignment): Alignment of this adventurer
     """
 
     name: str
     profession: str
     level: int
-    alignment_lc: AlignmentLC
-    alignment_ge: AlignmentGE
+    alignment: Alignment
 
 
 class QuestGiver(BaseModel):
