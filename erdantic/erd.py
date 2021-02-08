@@ -1,15 +1,13 @@
 from operator import methodcaller
 import os
-from typing import Any, List, Tuple, TYPE_CHECKING, Union
+from typing import Any, List, Set, Tuple, Union
 
 import pygraphviz as pgv
 
-from erdantic.base import factory_registry
-from erdantic.errors import ModelTypeMismatchError, UnknownModelTypeError
+from erdantic.base import adapter_registry, Field, Model
+from erdantic.errors import UnknownModelTypeError
+from erdantic.typing import get_recursive_args
 from erdantic.version import __version__
-
-if TYPE_CHECKING:
-    from erdantic.base import Field, Model  # pragma: no cover
 
 
 class Edge:
@@ -166,19 +164,40 @@ def create(*models: type) -> EntityRelationshipDiagram:
     Returns:
         EntityRelationshipDiagram: diagram object for given data model.
     """
-    for model in models:
-        if not isinstance(model, type):
-            raise ValueError(f"Given model is not a type: {model}")
-    for type_name, factory in factory_registry.items():
-        if factory.is_type(models[0]):
-            # Validate additional models
-            for addl in models[1:]:
-                if not factory.is_type(addl):
-                    raise ModelTypeMismatchError(
-                        mismatched_model=addl, first_model=models[0], expected=type_name
-                    )
-            return factory.create(*models)
-    raise UnknownModelTypeError(model=models[0])
+    for raw_model in models:
+        if not isinstance(raw_model, type):
+            raise ValueError(f"Given model is not a type: {raw_model}")
+
+    seen_models: Set[Model] = set()
+    seen_edges: Set[Edge] = set()
+    for raw_model in models:
+        model = adapt_model(raw_model)
+        search_composition_graph(model=model, seen_models=seen_models, seen_edges=seen_edges)
+    return EntityRelationshipDiagram(models=list(seen_models), edges=list(seen_edges))
+
+
+def adapt_model(obj):
+    for adapter in adapter_registry.values():
+        if adapter.is_type(obj):
+            return adapter.model_class(obj)
+    raise UnknownModelTypeError(model=obj)
+
+
+def search_composition_graph(
+    model: Model,
+    seen_models: Set[Model],
+    seen_edges: Set[Edge],
+):
+    if model not in seen_models:
+        seen_models.add(model)
+        for field in model.fields:
+            for arg in get_recursive_args(field.type_obj):
+                try:
+                    field_model = adapt_model(arg)
+                    seen_edges.add(Edge(source=model, source_field=field, target=field_model))
+                    search_composition_graph(field_model, seen_models, seen_edges)
+                except UnknownModelTypeError:
+                    pass
 
 
 def draw(*models: type, out: Union[str, os.PathLike], **kwargs):

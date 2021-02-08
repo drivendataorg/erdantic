@@ -5,30 +5,23 @@ import textwrap
 from typing import Dict, Tuple
 
 import erdantic as erd
-from erdantic.dataclasses import DataClassModel, DataClassField, DataClassDiagramFactory
+from erdantic.dataclasses import DataClassAdapter, DataClassField, DataClassModel
 from erdantic.examples.dataclasses import Adventurer, Party, Quest, QuestGiver
 
 
 def test_is_type():
-    factory = DataClassDiagramFactory()
+    adapter = DataClassAdapter()
 
     @dataclasses.dataclass
     class IsADataClass:
         attr: str
 
-    assert factory.is_type(IsADataClass)
+    assert adapter.is_type(IsADataClass)
 
     class NotADataClass:
         attr: str
 
-    assert not factory.is_type(NotADataClass)
-
-
-def test_create_diagram():
-    factory = DataClassDiagramFactory()
-    diagram = factory.create(Party)
-    assert isinstance(diagram, erd.EntityRelationshipDiagram)
-    assert diagram == erd.create(Party)
+    assert not adapter.is_type(NotADataClass)
 
 
 def test_model_graph_search():
@@ -103,8 +96,8 @@ def test_to_dot():
 def test_registration():
     script = textwrap.dedent(
         """\
-        from erdantic.base import factory_registry;
-        assert "dataclasses" in factory_registry;
+        from erdantic.base import adapter_registry;
+        assert "dataclasses" in adapter_registry;
         """
     ).replace("\n", "")
 

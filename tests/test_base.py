@@ -2,7 +2,7 @@ import pytest
 
 import erdantic as erd
 from erdantic.examples.pydantic import Party
-from erdantic.base import DiagramFactory, Field, Model, register_factory
+from erdantic.base import Adapter, Field, Model, register_adapter
 
 
 def test_abstract_field_instatiation():
@@ -15,20 +15,20 @@ def test_abstract_model_instantiation():
         Model()
 
 
-def test_diagram_factory_registration():
+def test_adapter_registration():
     # Incomplete implementation
-    class IncompleteDiagramFactory(DiagramFactory):
+    class IncompleteAdapter(Adapter):
         pass
 
     with pytest.raises(TypeError, match=r"Can't instantiate abstract class"):
-        register_factory("incomplete")(IncompleteDiagramFactory)
+        register_adapter("incomplete")(IncompleteAdapter)
 
     # Not a subclass
-    class DiagramFarm:
+    class UsbAdapter:
         pass
 
-    with pytest.raises(ValueError, match=r"Only subclasses of DiagramFactory can be registered"):
-        register_factory("potato")(DiagramFarm)
+    with pytest.raises(ValueError, match=r"Only subclasses of Adapter can be registered"):
+        register_adapter("usb")(UsbAdapter)
 
 
 def test_repr():

@@ -6,29 +6,22 @@ from typing import Dict, Tuple
 from pydantic import BaseModel
 
 import erdantic as erd
-from erdantic.pydantic import PydanticDiagramFactory, PydanticField, PydanticModel
+from erdantic.pydantic import PydanticAdapter, PydanticField, PydanticModel
 from erdantic.examples.pydantic import Adventurer, Party, Quest, QuestGiver
 
 
 def test_is_type():
-    factory = PydanticDiagramFactory()
+    adapter = PydanticAdapter()
 
     class IsAPydanticModel(BaseModel):
         attr: str
 
-    assert factory.is_type(IsAPydanticModel)
+    assert adapter.is_type(IsAPydanticModel)
 
     class NotAPydanticModel:
         attr: str
 
-    assert not factory.is_type(NotAPydanticModel)
-
-
-def test_create_diagram():
-    factory = PydanticDiagramFactory()
-    diagram = factory.create(Party)
-    assert isinstance(diagram, erd.EntityRelationshipDiagram)
-    assert diagram == erd.create(Party)
+    assert not adapter.is_type(NotAPydanticModel)
 
 
 def test_model_graph_search():
@@ -100,8 +93,8 @@ def test_to_dot():
 def test_registration():
     script = textwrap.dedent(
         """\
-        from erdantic.base import factory_registry;
-        assert "pydantic" in factory_registry;
+        from erdantic.base import adapter_registry;
+        assert "pydantic" in adapter_registry;
         """
     ).replace("\n", "")
 

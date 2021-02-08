@@ -1,10 +1,7 @@
 from abc import ABC, abstractmethod
-from typing import Any, Callable, Dict, List, TYPE_CHECKING
+from typing import Any, Callable, Dict, List, Type
 
 from erdantic.typing import repr_type
-
-if TYPE_CHECKING:
-    from erdantic.erd import EntityRelationshipDiagram  # pragma: no cover
 
 
 _row_template = """<tr><td>{name}</td><td port="{name}">{type_name}</td></tr>"""
@@ -127,27 +124,27 @@ class Model(ABC):
         return self.name
 
 
-class DiagramFactory(ABC):
+class Adapter(ABC):
     @staticmethod
     @abstractmethod
-    def is_type(model: type) -> bool:  # pragma: no cover
+    def is_type(obj: Any) -> bool:  # pragma: no cover
         pass
 
-    @staticmethod
+    @property
     @abstractmethod
-    def create(*models: type) -> "EntityRelationshipDiagram":  # pragma: no cover
+    def model_class(self) -> Type[Model]:  # pragma: no cover
         pass
 
 
-factory_registry: Dict[str, DiagramFactory] = {}
+adapter_registry: Dict[str, Adapter] = {}
 
 
-def register_factory(type_name: str) -> Callable[[type], type]:
+def register_adapter(type_name: str) -> Callable[[type], type]:
     def decorator(cls: type) -> type:
-        global factory_registry
-        if not issubclass(cls, DiagramFactory):
-            raise ValueError("Only subclasses of DiagramFactory can be registered.")
-        factory_registry[type_name] = cls()  # Verify completeness by instantiating
+        global adapter_registry
+        if not issubclass(cls, Adapter):
+            raise ValueError("Only subclasses of Adapter can be registered.")
+        adapter_registry[type_name] = cls()  # Verify completeness by instantiating
         return cls
 
     return decorator

@@ -1,12 +1,11 @@
 import collections.abc
 import dataclasses
 import inspect
-from typing import Any, List, Set, Union
+from typing import Any, List, Type, Union
 
 
-from erdantic.base import DiagramFactory, Field, Model, register_factory
-from erdantic.erd import Edge, EntityRelationshipDiagram
-from erdantic.typing import get_args, get_origin, get_recursive_args
+from erdantic.base import Adapter, Field, Model, register_adapter
+from erdantic.typing import get_args, get_origin
 
 
 class DataClassField(Field):
@@ -47,7 +46,7 @@ class DataClassModel(Model):
     dataclass: type
 
     def __init__(self, dataclass: type):
-        if not is_dataclass(dataclass):
+        if not DataClassAdapter.is_type(dataclass):
             raise ValueError(f"Argument dataclass must be a dataclass. Got {dataclass}")
         self.dataclass = dataclass
 
@@ -71,34 +70,12 @@ class DataClassModel(Model):
         return id(self.dataclass)
 
 
-@register_factory("dataclasses")
-class DataClassDiagramFactory(DiagramFactory):
+@register_adapter("dataclasses")
+class DataClassAdapter(Adapter):
     @staticmethod
-    def is_type(model: type) -> bool:
-        return is_dataclass(model)
+    def is_type(obj: Any) -> bool:
+        return isinstance(obj, type) and dataclasses.is_dataclass(obj)
 
-    @staticmethod
-    def create(*models: type) -> EntityRelationshipDiagram:
-        seen_models: Set[DataClassModel] = set()
-        seen_edges: Set[Edge] = set()
-        for model in models:
-            search_composition_graph(model, seen_models, seen_edges)
-        return EntityRelationshipDiagram(models=list(seen_models), edges=list(seen_edges))
-
-
-def is_dataclass(obj: Any) -> bool:
-    return isinstance(obj, type) and dataclasses.is_dataclass(obj)
-
-
-def search_composition_graph(
-    dataclass: type, seen_models: Set[DataClassModel], seen_edges: Set[Edge]
-) -> DataClassModel:
-    model = DataClassModel(dataclass=dataclass)
-    if model not in seen_models:
-        seen_models.add(model)
-        for field in model.fields:
-            for arg in get_recursive_args(field.type_obj):
-                if is_dataclass(arg):
-                    field_model = search_composition_graph(arg, seen_models, seen_edges)
-                    seen_edges.add(Edge(source=model, source_field=field, target=field_model))
-    return model
+    @property
+    def model_class(self) -> Type[Model]:
+        return DataClassModel

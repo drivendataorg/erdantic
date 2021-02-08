@@ -1,12 +1,10 @@
 import inspect
-from typing import Any, List, Set, Type
+from typing import Any, List, Type
 
 import pydantic
 import pydantic.fields
 
-from erdantic.base import Field, Model, DiagramFactory, register_factory
-from erdantic.erd import Edge, EntityRelationshipDiagram
-from erdantic.typing import get_recursive_args
+from erdantic.base import Adapter, Field, Model, register_adapter
 
 
 class PydanticField(Field):
@@ -71,39 +69,12 @@ class PydanticModel(Model):
         return id(self.pydantic_model)
 
 
-@register_factory("pydantic")
-class PydanticDiagramFactory(DiagramFactory):
+@register_adapter("pydantic")
+class PydanticAdapter(Adapter):
     @staticmethod
-    def is_type(model: type):
-        return is_pydantic_model(model)
+    def is_type(obj: Any) -> bool:
+        return isinstance(obj, type) and issubclass(obj, pydantic.BaseModel)
 
-    @staticmethod
-    def create(*models: type) -> EntityRelationshipDiagram:
-        seen_models: Set[PydanticModel] = set()
-        seen_edges: Set[Edge] = set()
-        for model in models:
-            if issubclass(model, pydantic.BaseModel):
-                search_composition_graph(model, seen_models, seen_edges)
-            else:
-                raise ValueError
-        return EntityRelationshipDiagram(models=list(seen_models), edges=list(seen_edges))
-
-
-def is_pydantic_model(obj: Any) -> bool:
-    return isinstance(obj, type) and issubclass(obj, pydantic.BaseModel)
-
-
-def search_composition_graph(
-    pydantic_model: Type[pydantic.BaseModel],
-    seen_models: Set[PydanticModel],
-    seen_edges: Set[Edge],
-) -> Model:
-    model = PydanticModel(pydantic_model=pydantic_model)
-    if model not in seen_models:
-        seen_models.add(model)
-        for field in model.fields:
-            for arg in get_recursive_args(field.type_obj):
-                if is_pydantic_model(arg):
-                    field_model = search_composition_graph(arg, seen_models, seen_edges)
-                    seen_edges.add(Edge(source=model, source_field=field, target=field_model))
-    return model
+    @property
+    def model_class(self) -> Type[Model]:
+        return PydanticModel
