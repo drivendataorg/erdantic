@@ -31,7 +31,7 @@ except ImportError:
         get_origin = _get_origin
 
 
-def display_type(tp: Union[type, GenericAlias]) -> str:
+def repr_type(tp: Union[type, GenericAlias]) -> str:
     """Return pretty, compact string representation of a type."""
     origin = get_origin(tp)
     if origin:
@@ -44,13 +44,13 @@ def display_type(tp: Union[type, GenericAlias]) -> str:
         # If generic alias from typing module, back out its name
         elif isinstance(tp, GenericAlias) and tp.__module__ == "typing":
             origin_name = str(tp).split("[")[0].replace("typing.", "")
-        return f"{origin_name}[{', '.join(display_type(a) for a in args)}]"
+        return f"{origin_name}[{', '.join(repr_type(a) for a in args)}]"
     if issubclass(tp, Enum):
-        return display_enum(tp)
+        return repr_enum(tp)
     return tp.__name__
 
 
-def display_enum(tp: Type[Enum]) -> str:
+def repr_enum(tp: Type[Enum]) -> str:
     """Return pretty, compact string representation of an Enum type with its depth-1 base
     classes."""
     depth1_bases = get_depth1_bases(tp)

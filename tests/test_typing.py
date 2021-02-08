@@ -4,7 +4,7 @@ import typing
 
 import pytest
 
-from erdantic.typing import _get_args, _get_origin, display_enum, display_type, get_depth1_bases
+from erdantic.typing import _get_args, _get_origin, repr_enum, repr_type, get_depth1_bases
 
 
 def test_get_depth1_bases():
@@ -44,17 +44,17 @@ class MyIntFlag(IntFlag):
     FOO = 0
 
 
-def test_display_enum():
-    assert display_enum(MyEnum) == "MyEnum(Enum)"
-    assert display_enum(MyStrEnum) == "MyStrEnum(str, Enum)"
-    assert display_enum(MyIntFlag) == "MyIntFlag(IntFlag)"
+def test_repr_enum():
+    assert repr_enum(MyEnum) == "MyEnum(Enum)"
+    assert repr_enum(MyStrEnum) == "MyStrEnum(str, Enum)"
+    assert repr_enum(MyIntFlag) == "MyIntFlag(IntFlag)"
 
 
 class MyClass:
     pass
 
 
-display_type_cases = [
+repr_type_cases = [
     (int, "int"),
     (typing.List[int], "List[int]"),
     (typing.Tuple[str, int], "Tuple[str, int]"),
@@ -70,7 +70,7 @@ display_type_cases = [
 
 if sys.version_info[:2] >= (3, 9):
     # Python 3.9 adds [] support to builtin generics
-    display_type_cases.extend(
+    repr_type_cases.extend(
         [
             (list[int], "list[int]"),
             (dict[str, list[int]], "dict[str, list[int]]"),
@@ -78,10 +78,10 @@ if sys.version_info[:2] >= (3, 9):
     )
 
 
-@pytest.mark.parametrize("case", display_type_cases)
-def test_display_type(case):
+@pytest.mark.parametrize("case", repr_type_cases)
+def test_repr_type(case):
     tp, expected = case
-    assert display_type(tp) == expected
+    assert repr_type(tp) == expected
 
 
 # Test backports

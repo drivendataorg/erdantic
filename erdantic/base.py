@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Any, Callable, Dict, List, TYPE_CHECKING
 
-from erdantic.typing import display_type
+from erdantic.typing import repr_type
 
 if TYPE_CHECKING:
     from erdantic.erd import EntityRelationshipDiagram  # pragma: no cover
@@ -51,7 +51,7 @@ class Field(ABC):
     @property
     def type_name(self) -> str:  # pragma: no cover
         """str: Display name of the Python type object for this field."""
-        return display_type(self.type_obj)
+        return repr_type(self.type_obj)
 
     def dot_row(self) -> str:
         """Returns the DOT language "HTML-like" syntax specification of a row detailing this field
