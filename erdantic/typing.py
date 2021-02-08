@@ -32,7 +32,13 @@ except ImportError:
 
 
 def repr_type(tp: Union[type, GenericAlias]) -> str:
-    """Return pretty, compact string representation of a type."""
+    """Return pretty, compact string representation of a type. Principles of behavior:
+
+    - Names without module path
+    - Generic capitalization matches which was used (`typing` module's aliases vs. builtin types)
+    - Union[..., None] -> Origin[...]
+    - Enums show base classes, e.g. `MyEnum(str, Enum)`
+    """
     origin = get_origin(tp)
     if origin:
         origin_name = getattr(origin, "__name__", str(origin))
@@ -52,7 +58,7 @@ def repr_type(tp: Union[type, GenericAlias]) -> str:
 
 def repr_enum(tp: Type[Enum]) -> str:
     """Return pretty, compact string representation of an Enum type with its depth-1 base
-    classes."""
+    classes, e.g., `MyEnum(str, Enum)`."""
     depth1_bases = get_depth1_bases(tp)
     return f"{tp.__name__}({', '.join(b.__name__ for b in depth1_bases)})"
 
