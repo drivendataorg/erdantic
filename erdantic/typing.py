@@ -95,9 +95,10 @@ def repr_type_with_mro(obj: Any) -> str:
     """Return MRO of object if it has one. Otherwise return its repr."""
 
     def _full_name(tp: type) -> str:
-        module = tp.__module__.replace("builtins", "")
-        return f"{module}.{tp.__qualname__}"
+        module = tp.__module__
+        return f"{module}.{tp.__qualname__}".replace("builtins.", "")
 
     if hasattr(obj, "__mro__"):
-        return f"<mro ({', '.join(_full_name(m) for m in obj.__mro__)})>"
+        mro = ", ".join(_full_name(m) for m in obj.__mro__)
+        return f"<mro ({mro})>"
     return repr(obj)

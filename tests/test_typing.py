@@ -8,11 +8,12 @@ from erdantic.typing import (
     _get_args,
     _get_origin,
     get_args,
+    get_depth1_bases,
     get_origin,
     get_recursive_args,
     repr_enum,
     repr_type,
-    get_depth1_bases,
+    repr_type_with_mro,
 )
 
 
@@ -100,6 +101,17 @@ if sys.version_info[:2] >= (3, 9):
 def test_repr_type(case):
     tp, expected = case
     assert repr_type(tp) == expected
+
+
+def test_repr_type_with_mro():
+    class FancyInt(int):
+        pass
+
+    assert (
+        repr_type_with_mro(FancyInt)
+        == "<mro (tests.test_typing.test_repr_type_with_mro.<locals>.FancyInt, int, object)>"
+    )
+    assert repr_type_with_mro(FancyInt()) == repr(FancyInt())
 
 
 # Test backports against typing module implementations
