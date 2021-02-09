@@ -9,17 +9,17 @@ from erdantic.dataclasses import DataClassField, DataClassModel
 from erdantic.examples.dataclasses import Adventurer, Party, Quest, QuestGiver
 
 
-def test_is_type():
+def test_is_model_type():
     @dataclasses.dataclass
     class IsADataClass:
         attr: str
 
-    assert DataClassModel.is_type(IsADataClass)
+    assert DataClassModel.is_model_type(IsADataClass)
 
     class NotADataClass:
         attr: str
 
-    assert not DataClassModel.is_type(NotADataClass)
+    assert not DataClassModel.is_model_type(NotADataClass)
 
 
 def test_model_graph_search():

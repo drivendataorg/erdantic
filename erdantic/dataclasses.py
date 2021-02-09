@@ -7,13 +7,11 @@ from erdantic.base import Field, Model, register_model_adapter
 from erdantic.typing import get_args, get_origin
 
 
-class DataClassField(Field):
-    field: dataclasses.Field
-
-    def __init__(self, field: Any):
+class DataClassField(Field[dataclasses.Field]):
+    def __init__(self, field: dataclasses.Field):
         if not isinstance(field, dataclasses.Field):
             raise ValueError(f"field must be of type dataclasses.Field. Got: {type(field)}")
-        self.field = field
+        super().__init__(field=field)
 
     @property
     def name(self) -> str:
@@ -36,16 +34,14 @@ class DataClassField(Field):
 
 
 @register_model_adapter("dataclasses")
-class DataClassModel(Model):
-    model: type
-
-    def __init__(self, model: Any):
-        if not self.is_type(model):
+class DataClassModel(Model[type]):
+    def __init__(self, model: type):
+        if not self.is_model_type(model):
             raise ValueError(f"Argument model must be a dataclass: {repr(model)}")
-        self.model = model
+        super().__init__(model=model)
 
     @staticmethod
-    def is_type(obj: Any) -> bool:
+    def is_model_type(obj: Any) -> bool:
         return isinstance(obj, type) and dataclasses.is_dataclass(obj)
 
     @property

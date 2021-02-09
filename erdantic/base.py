@@ -1,23 +1,26 @@
 from abc import ABC, abstractmethod
 import inspect
-from typing import Any, Callable, Dict, List, Type
+from typing import Any, Callable, Dict, Generic, List, Type, TypeVar
 
-from erdantic.typing import repr_type, repr_type_with_mro
+from erdantic.typing import Final, repr_type, repr_type_with_mro
 
 
 _row_template = """<tr><td>{name}</td><td port="{name}">{type_name}</td></tr>"""
 
 
-class Field(ABC):
+FT = TypeVar("FT", bound=Any)
+"""Bounded type variable for a field object adapted by adapter class
+[`Field`][erdantic.base.Field]."""
+
+
+class Field(ABC, Generic[FT]):
     """Abstract base class that adapts a field object of a data model class to work with erdantic.
-    Concrete implementations should subclass and implement methods.
+    Concrete implementations should subclass and implement abstract methods.
     """
 
-    field: Any
-
     @abstractmethod
-    def __init__(self, field: Any):
-        pass
+    def __init__(self, field: FT):
+        self.field: Final[FT] = field
 
     @property
     @abstractmethod
@@ -81,17 +84,20 @@ _table_template = """
 """
 
 
-class Model(ABC):
+MT = TypeVar("MT", bound=Any)
+"""Bounded type variable for a data model class adapted by adapter class
+[`Model`][erdantic.base.Model]."""
+
+
+class Model(ABC, Generic[MT]):
     """Abstract base class that adapts a data model class to work with erdantic. Instances
-    representing a node in our entity relationship diagram graph. Concrete implementations should
-    subclass and implement methods.
+    represent a node in our entity relationship diagram graph. Concrete implementations should
+    subclass and implement abstract methods.
     """
 
-    model: Any
-
     @abstractmethod
-    def __init__(self, model: Any):
-        pass
+    def __init__(self, model: MT):
+        self.model: Final[MT] = model
 
     @property
     @abstractmethod
@@ -101,7 +107,7 @@ class Model(ABC):
 
     @staticmethod
     @abstractmethod
-    def is_type(obj: Any) -> bool:  # pragma: no cover
+    def is_model_type(obj: Any) -> bool:  # pragma: no cover
         """Check if object is the type of data model class that this model adapter works with."""
         pass
 
@@ -154,7 +160,7 @@ class Model(ABC):
 
 
 model_adapter_registry: Dict[str, Type[Model]] = {}
-"""Registry of concrete [`Model`][erdantic.base.model] adapter subclasses. A concrete `Model`
+"""Registry of concrete [`Model`][erdantic.base.Model] adapter subclasses. A concrete `Model`
 subclass must be registered for it to be available to the diagram creation workflow."""
 
 

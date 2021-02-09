@@ -198,7 +198,7 @@ def adapt_model(obj: Any) -> Model:
         Model: Instantiated concrete Model subclass instance
     """
     for model_adapter in model_adapter_registry.values():
-        if model_adapter.is_type(obj):
+        if model_adapter.is_model_type(obj):
             return model_adapter(obj)
     raise UnknownModelTypeError(model=obj)
 

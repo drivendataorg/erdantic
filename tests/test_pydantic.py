@@ -10,16 +10,16 @@ from erdantic.pydantic import PydanticField, PydanticModel
 from erdantic.examples.pydantic import Adventurer, Party, Quest, QuestGiver
 
 
-def test_is_type():
+def test_is_model_type():
     class IsAPydanticModel(BaseModel):
         attr: str
 
-    assert PydanticModel.is_type(IsAPydanticModel)
+    assert PydanticModel.is_model_type(IsAPydanticModel)
 
     class NotAPydanticModel:
         attr: str
 
-    assert not PydanticModel.is_type(NotAPydanticModel)
+    assert not PydanticModel.is_model_type(NotAPydanticModel)
 
 
 def test_model_graph_search():

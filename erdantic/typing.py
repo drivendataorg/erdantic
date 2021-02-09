@@ -9,6 +9,11 @@ try:
 except ImportError:
     from typing import GenericMeta as GenericAlias  # type: ignore # Python 3.6
 
+try:
+    from typing import Final  # type: ignore # Python 3.8+
+except ImportError:
+    from typing_extensions import Final  # type: ignore # noqa: F401 # Python 3.6-3.7
+
 
 def _get_args(tp):
     """Backport of typing.get_args for Python 3.6"""

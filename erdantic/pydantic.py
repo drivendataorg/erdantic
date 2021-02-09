@@ -7,16 +7,13 @@ from erdantic.base import Field, Model, register_model_adapter
 from erdantic.typing import repr_type_with_mro
 
 
-class PydanticField(Field):
-
-    field: pydantic.fields.ModelField
-
-    def __init__(self, field: Any):
+class PydanticField(Field[pydantic.fields.ModelField]):
+    def __init__(self, field: pydantic.fields.ModelField):
         if not isinstance(field, pydantic.fields.ModelField):
             raise ValueError(
                 f"field must be of type pydantic.fields.ModelField. Got: {type(field)}"
             )
-        self.field = field
+        super().__init__(field=field)
 
     @property
     def name(self) -> str:
@@ -34,19 +31,17 @@ class PydanticField(Field):
 
 
 @register_model_adapter("pydantic")
-class PydanticModel(Model):
-    model: Type[pydantic.BaseModel]
-
-    def __init__(self, model: Any):
-        if not self.is_type(model):
+class PydanticModel(Model[Type[pydantic.BaseModel]]):
+    def __init__(self, model: Type[pydantic.BaseModel]):
+        if not self.is_model_type(model):
             raise ValueError(
                 "Argument model must be a subclass of pydantic.BaseModel. "
                 f"Got {repr_type_with_mro(model)}"
             )
-        self.model = model
+        super().__init__(model=model)
 
     @staticmethod
-    def is_type(obj: Any) -> bool:
+    def is_model_type(obj: Any) -> bool:
         return isinstance(obj, type) and issubclass(obj, pydantic.BaseModel)
 
     @property
