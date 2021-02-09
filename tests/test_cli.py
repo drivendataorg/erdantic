@@ -1,4 +1,3 @@
-from difflib import SequenceMatcher
 import filecmp
 import subprocess
 
@@ -82,9 +81,7 @@ def test_dot(tmp_path):
     )
     assert result.returncode == 0
     assert not path.exists()  # -o is ignored and no file created
-    # subprocess won't have the same Model id values so we do an approximate match
-    s = SequenceMatcher(None, erd.to_dot(Party).strip(), result.stdout.strip())
-    assert s.ratio() > 0.9
+    assert erd.to_dot(Party).strip() == result.stdout.strip()
 
 
 def test_help():
