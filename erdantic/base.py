@@ -8,7 +8,7 @@ from erdantic.typing import Final, repr_type, repr_type_with_mro
 _row_template = """<tr><td>{name}</td><td port="{name}">{type_name}</td></tr>"""
 
 
-FT = TypeVar("FT", bound=Any)
+FT = TypeVar("FT", bound=Any, covariant=True)
 """Bounded type variable for a field object adapted by adapter class
 [`Field`][erdantic.base.Field]."""
 
@@ -84,7 +84,7 @@ _table_template = """
 """
 
 
-MT = TypeVar("MT", bound=Any)
+MT = TypeVar("MT", bound=type, covariant=True)
 """Bounded type variable for a data model class adapted by adapter class
 [`Model`][erdantic.base.Model]."""
 
