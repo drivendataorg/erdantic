@@ -111,12 +111,12 @@ class EntityRelationshipDiagram:
         g.node_attr["shape"] = "plain"
         for model in self.models:
             g.add_node(
-                model.name, label=model.dot_label(), tooltip=model.docstring.replace("\n", "&#xA;")
+                model.id, label=model.dot_label(), tooltip=model.docstring.replace("\n", "&#xA;")
             )
         for edge in self.edges:
             g.add_edge(
-                edge.source.name,
-                edge.target.name,
+                edge.source.id,
+                edge.target.id,
                 tailport=f"{edge.source_field.name}:e",
                 headport="_root:w",
                 arrowhead=edge.dot_arrowhead(),

@@ -113,6 +113,11 @@ class Model(ABC):
     def __hash__(self):  # pragma: no cover
         pass
 
+    @property
+    def id(self) -> str:
+        """Unique identifier for this Model node."""
+        return f"{self.name}__{hash(self)}"
+
     def dot_label(self) -> str:
         """Returns the DOT language "HTML-like" syntax specification of a table for this data
         model. It is used as the `label` attribute of data model's node in the graph's DOT
