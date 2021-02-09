@@ -24,8 +24,8 @@ def test_is_type():
 
 def test_model_graph_search():
     diagram = erd.create(Party)
-    assert {m.dataclass for m in diagram.models} == {Party, Adventurer, Quest, QuestGiver}
-    assert {(e.source.dataclass, e.target.dataclass) for e in diagram.edges} == {
+    assert {m.model for m in diagram.models} == {Party, Adventurer, Quest, QuestGiver}
+    assert {(e.source.model, e.target.model) for e in diagram.edges} == {
         (Party, Adventurer),
         (Party, Quest),
         (Quest, QuestGiver),
@@ -46,8 +46,8 @@ def test_model_graph_search_nested_args():
         inner: Dict[str, Tuple[Inner0, Inner1]]
 
     diagram = erd.create(Outer)
-    assert {m.dataclass for m in diagram.models} == {Outer, Inner0, Inner1}
-    assert {(e.source.dataclass, e.target.dataclass) for e in diagram.edges} == {
+    assert {m.model for m in diagram.models} == {Outer, Inner0, Inner1}
+    assert {(e.source.model, e.target.model) for e in diagram.edges} == {
         (Outer, Inner0),
         (Outer, Inner1),
     }

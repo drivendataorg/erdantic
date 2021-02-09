@@ -1,4 +1,3 @@
-from operator import methodcaller
 import os
 from typing import Any, List, Set, Tuple, Union
 
@@ -59,6 +58,13 @@ class Edge:
             f"target={self.target})"
         )
 
+    def __lt__(self, other) -> bool:
+        if not isinstance(other, Edge):
+            raise ValueError(f"Can only compare between instances of Edge. Given: {repr(other)}")
+        self_key = (self.source, self.source.fields.index(self.source_field), self.target)
+        other_key = (other.source, other.source.fields.index(other.source_field), other.target)
+        return self_key < other_key
+
     def __sort_key__(self) -> Tuple[str, int]:
         """Key for sorting against other Edge instances."""
         return (self.source.name, self.source.fields.index(self.source_field))
@@ -77,8 +83,8 @@ class EntityRelationshipDiagram:
     edges: List["Edge"]
 
     def __init__(self, models: List["Model"], edges: List["Edge"]):
-        self.models = sorted(models, key=methodcaller("__sort_key__"))
-        self.edges = sorted(edges, key=methodcaller("__sort_key__"))
+        self.models = sorted(models)
+        self.edges = sorted(edges)
 
     def draw(self, out: Union[str, os.PathLike], **kwargs):
         """Render entity relationship diagram for given data model classes to file.
@@ -111,12 +117,14 @@ class EntityRelationshipDiagram:
         g.node_attr["shape"] = "plain"
         for model in self.models:
             g.add_node(
-                model.id, label=model.dot_label(), tooltip=model.docstring.replace("\n", "&#xA;")
+                model.key,
+                label=model.dot_label(),
+                tooltip=model.docstring.replace("\n", "&#xA;"),
             )
         for edge in self.edges:
             g.add_edge(
-                edge.source.id,
-                edge.target.id,
+                edge.source.key,
+                edge.target.key,
                 tailport=f"{edge.source_field.name}:e",
                 headport="_root:w",
                 arrowhead=edge.dot_arrowhead(),

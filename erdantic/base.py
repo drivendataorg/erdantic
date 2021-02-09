@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
+import inspect
 from typing import Any, Callable, Dict, List, Type
 
-from erdantic.typing import repr_type
+from erdantic.typing import repr_type, repr_type_with_mro
 
 
 _row_template = """<tr><td>{name}</td><td port="{name}">{type_name}</td></tr>"""
@@ -12,15 +13,21 @@ class Field(ABC):
     Concrete implementations should subclass and implement methods.
     """
 
+    field: Any
+
+    @abstractmethod
+    def __init__(self, field: Any):
+        pass
+
     @property
     @abstractmethod
     def name(self) -> str:  # pragma: no cover
-        """str: Name of this field on the parent data model."""
+        """Name of this field on the parent data model."""
 
     @property
     @abstractmethod
     def type_obj(self) -> type:  # pragma: no cover
-        """type: Python type object for this field."""
+        """Python type object for this field."""
         pass
 
     @abstractmethod
@@ -41,13 +48,9 @@ class Field(ABC):
         """
         pass
 
-    @abstractmethod
-    def __hash__(self) -> int:  # pragma: no cover
-        pass
-
     @property
     def type_name(self) -> str:  # pragma: no cover
-        """str: Display name of the Python type object for this field."""
+        """Display name of the Python type object for this field."""
         return repr_type(self.type_obj)
 
     def dot_row(self) -> str:
@@ -62,6 +65,9 @@ class Field(ABC):
 
     def __eq__(self, other: Any) -> bool:
         return isinstance(other, type(self)) and hash(self) == hash(other)
+
+    def __hash__(self) -> int:
+        return id(self.field)
 
     def __repr__(self) -> str:
         return f"<{type(self).__name__}: '{self.name}', {self.type_name}>"
@@ -81,8 +87,16 @@ class Model(ABC):
     subclass and implement methods.
     """
 
+    model: Any
+
     @abstractmethod
-    def __init__(self, model):
+    def __init__(self, model: Any):
+        pass
+
+    @property
+    @abstractmethod
+    def fields(self) -> List[Field]:  # pragma: no cover
+        """List of fields this data model contains."""
         pass
 
     @staticmethod
@@ -92,31 +106,24 @@ class Model(ABC):
         pass
 
     @property
-    @abstractmethod
     def name(self) -> str:  # pragma: no cover
         """Name of this data model."""
-        pass
+        return self.model.__name__
 
     @property
-    @abstractmethod
-    def fields(self) -> List[Field]:  # pragma: no cover
-        """List of fields this data model contains."""
-        pass
-
-    @property
-    @abstractmethod
-    def docstring(self) -> str:  # pragma: no cover
+    def docstring(self) -> str:
         """Docstring for this data model."""
-        pass
-
-    @abstractmethod
-    def __hash__(self):  # pragma: no cover
-        pass
+        out = f"{self.model.__module__}.{self.model.__qualname__}"
+        docstring = inspect.getdoc(self.model)
+        if docstring:
+            out += "\n\n" + docstring
+        return out
 
     @property
-    def id(self) -> str:
-        """Unique identifier for this Model node."""
-        return f"{self.name}__{hash(self)}"
+    def key(self) -> str:
+        """Human-readable unique identifier for this data model. Should be stable across
+        sessions."""
+        return f"{self.model.__module__}.{self.model.__qualname__}"
 
     def dot_label(self) -> str:
         """Returns the DOT language "HTML-like" syntax specification of a table for this data
@@ -132,12 +139,18 @@ class Model(ABC):
     def __eq__(self, other):
         return isinstance(other, type(self)) and hash(self) == hash(other)
 
+    def __hash__(self) -> int:
+        return hash(self.key)
+
+    def __lt__(self, other) -> bool:
+        if not isinstance(other, Model):
+            raise ValueError(
+                f"Can only compare between instances of Model. Given: {repr_type_with_mro(other)}"
+            )
+        return self.key < other.key
+
     def __repr__(self) -> str:
         return f"{type(self).__name__}({self.name})"
-
-    def __sort_key__(self) -> str:
-        """Key for sorting against other Model instances."""
-        return self.name
 
 
 model_adapter_registry: Dict[str, Type[Model]] = {}

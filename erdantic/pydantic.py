@@ -1,72 +1,54 @@
-import inspect
 from typing import Any, List, Type
 
 import pydantic
 import pydantic.fields
 
 from erdantic.base import Field, Model, register_model_adapter
+from erdantic.typing import repr_type_with_mro
 
 
 class PydanticField(Field):
-    pydantic_field: pydantic.fields.ModelField
 
-    def __init__(self, pydantic_field):
-        if not isinstance(pydantic_field, pydantic.fields.ModelField):
+    field: pydantic.fields.ModelField
+
+    def __init__(self, field: Any):
+        if not isinstance(field, pydantic.fields.ModelField):
             raise ValueError(
-                "pydantic_field must be of type pydantic.fields.ModelField. "
-                f"Got: {type(pydantic_field)}"
+                f"field must be of type pydantic.fields.ModelField. Got: {type(field)}"
             )
-        self.pydantic_field = pydantic_field
+        self.field = field
 
     @property
     def name(self) -> str:
-        return self.pydantic_field.name
+        return self.field.name
 
     @property
     def type_obj(self) -> type:
-        return self.pydantic_field.type_
+        return self.field.type_
 
     def is_many(self) -> bool:
-        return self.pydantic_field.shape > 1
+        return self.field.shape > 1
 
     def is_nullable(self) -> bool:
-        return self.pydantic_field.allow_none
-
-    def __hash__(self) -> int:
-        return id(self.pydantic_field)
+        return self.field.allow_none
 
 
 @register_model_adapter("pydantic")
 class PydanticModel(Model):
-    pydantic_model: Type[pydantic.BaseModel]
+    model: Type[pydantic.BaseModel]
 
-    def __init__(self, pydantic_model: Type[pydantic.BaseModel]):
-        if not self.is_type(pydantic_model):
+    def __init__(self, model: Any):
+        if not self.is_type(model):
             raise ValueError(
-                "Argument pydantic_model must be a subclass of pydantic.BaseModel. "
-                f"Received: {repr(pydantic_model)}"
+                "Argument model must be a subclass of pydantic.BaseModel. "
+                f"Got {repr_type_with_mro(model)}"
             )
-        self.pydantic_model = pydantic_model
+        self.model = model
 
     @staticmethod
     def is_type(obj: Any) -> bool:
         return isinstance(obj, type) and issubclass(obj, pydantic.BaseModel)
 
     @property
-    def name(self) -> str:
-        return self.pydantic_model.__name__
-
-    @property
     def fields(self) -> List[Field]:
-        return [PydanticField(pydantic_field=f) for f in self.pydantic_model.__fields__.values()]
-
-    @property
-    def docstring(self) -> str:
-        out = f"{self.pydantic_model.__module__}.{self.name}"
-        docstring = inspect.getdoc(self.pydantic_model)
-        if docstring:
-            out += "\n\n" + docstring
-        return out
-
-    def __hash__(self) -> int:
-        return id(self.pydantic_model)
+        return [PydanticField(field=f) for f in self.model.__fields__.values()]
