@@ -8,6 +8,13 @@ from erdantic.typing import repr_type_with_mro
 
 
 class PydanticField(Field[pydantic.fields.ModelField]):
+    """Concrete field adapter class for Pydantic fields.
+
+    Attributes:
+        field (pydantic.fields.ModelField): The Pydantic field object that is associated with this
+            adapter instance
+    """
+
     def __init__(self, field: pydantic.fields.ModelField):
         if not isinstance(field, pydantic.fields.ModelField):
             raise ValueError(
@@ -32,6 +39,14 @@ class PydanticField(Field[pydantic.fields.ModelField]):
 
 @register_model_adapter("pydantic")
 class PydanticModel(Model[Type[pydantic.BaseModel]]):
+    """Concrete model adapter class for a Pydantic
+    [`BaseModel`](https://pydantic-docs.helpmanual.io/usage/models/).
+
+    Attributes:
+        model (Type[pydantic.BaseModel]): The Pydantic model class that is associated with this
+            adapter instance
+    """
+
     def __init__(self, model: Type[pydantic.BaseModel]):
         if not self.is_model_type(model):
             raise ValueError(

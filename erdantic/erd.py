@@ -100,7 +100,7 @@ class EntityRelationshipDiagram:
         instance for diagram.
 
         Returns:
-            pgv.AGraph: graph object for diagram
+            pygraphviz.AGraph: graph object for diagram
         """
         g = pgv.AGraph(
             directed=True,
@@ -185,17 +185,17 @@ def create(*models: type) -> EntityRelationshipDiagram:
 
 
 def adapt_model(obj: Any) -> Model:
-    """Dispatch object to appropriate concrete Model adapter class and return instantiated concrete
-    Model subclass instance.
+    """Dispatch object to appropriate concrete [`Model`][erdantic.base.Model] adapter subclass and
+    return instantiated adapter instance.
 
     Args:
-        obj (Any): Input raw data model class to adapt
+        obj (Any): Data model class to adapt
 
     Raises:
         UnknownModelTypeError: If obj does not match registered Model adapter classes
 
     Returns:
-        Model: Instantiated concrete Model subclass instance
+        Model: Instantiated concrete `Model` subclass instance
     """
     for model_adapter in model_adapter_registry.values():
         if model_adapter.is_model_type(obj):

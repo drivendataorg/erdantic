@@ -91,14 +91,13 @@ def repr_enum(tp: Type[Enum]) -> str:
     return f"{tp.__name__}({', '.join(b.__name__ for b in depth1_bases)})"
 
 
-def full_name(tp: type) -> str:
-    """Full dotted name of a type."""
-    module = tp.__module__.replace("builtins", "")
-    return f"{module}.{tp.__name__}"
-
-
 def repr_type_with_mro(obj: Any) -> str:
     """Return MRO of object if it has one. Otherwise return its repr."""
+
+    def _full_name(tp: type) -> str:
+        module = tp.__module__.replace("builtins", "")
+        return f"{module}.{tp.__qualname__}"
+
     if hasattr(obj, "__mro__"):
-        return f"<mro ({', '.join(full_name(m) for m in obj.__mro__)})>"
+        return f"<mro ({', '.join(_full_name(m) for m in obj.__mro__)})>"
     return repr(obj)

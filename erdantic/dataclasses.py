@@ -8,6 +8,13 @@ from erdantic.typing import get_args, get_origin
 
 
 class DataClassField(Field[dataclasses.Field]):
+    """Concrete field adapter class for dataclass fields.
+
+    Attributes:
+        field (dataclasses.Field): The dataclass field instance that is associated with this
+            adapter instance
+    """
+
     def __init__(self, field: dataclasses.Field):
         if not isinstance(field, dataclasses.Field):
             raise ValueError(f"field must be of type dataclasses.Field. Got: {type(field)}")
@@ -35,6 +42,13 @@ class DataClassField(Field[dataclasses.Field]):
 
 @register_model_adapter("dataclasses")
 class DataClassModel(Model[type]):
+    """Concrete model adapter class for a
+    [`dataclasses` module](https://docs.python.org/3/library/dataclasses.html) dataclass.
+
+    Attributes:
+        model (type): The dataclass that is associated with this adapter instance
+    """
+
     def __init__(self, model: type):
         if not self.is_model_type(model):
             raise ValueError(f"Argument model must be a dataclass: {repr(model)}")

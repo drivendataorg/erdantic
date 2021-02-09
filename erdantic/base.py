@@ -9,17 +9,25 @@ _row_template = """<tr><td>{name}</td><td port="{name}">{type_name}</td></tr>"""
 
 
 FT = TypeVar("FT", bound=Any, covariant=True)
-"""Bounded type variable for a field object adapted by adapter class
+"""Covariant type variable for a field object adapted by adapter class
 [`Field`][erdantic.base.Field]."""
 
 
 class Field(ABC, Generic[FT]):
     """Abstract base class that adapts a field object of a data model class to work with erdantic.
     Concrete implementations should subclass and implement abstract methods.
+
+    Attributes:
+        field (FT): Field object on a data model class associated with this adapter
     """
 
     @abstractmethod
     def __init__(self, field: FT):
+        """Initialize Field adapter instance.
+
+        Args:
+            field: Field object to associate with this adapter instance
+        """
         self.field: Final[FT] = field
 
     @property
@@ -53,7 +61,7 @@ class Field(ABC, Generic[FT]):
 
     @property
     def type_name(self) -> str:  # pragma: no cover
-        """Display name of the Python type object for this field."""
+        """String representation of the Python type annotation for this field."""
         return repr_type(self.type_obj)
 
     def dot_row(self) -> str:
@@ -85,24 +93,32 @@ _table_template = """
 
 
 MT = TypeVar("MT", bound=type, covariant=True)
-"""Bounded type variable for a data model class adapted by adapter class
-[`Model`][erdantic.base.Model]."""
+"""Covariant type variable for a data model class adapted by adapter class
+[`Model`][erdantic.base.Model]. Bounded by `type`."""
 
 
 class Model(ABC, Generic[MT]):
     """Abstract base class that adapts a data model class to work with erdantic. Instances
     represent a node in our entity relationship diagram graph. Concrete implementations should
     subclass and implement abstract methods.
+
+    Attributes:
+        model (MT): Data model class associated with this adapter
     """
 
     @abstractmethod
     def __init__(self, model: MT):
+        """Initialize model adapter instance.
+
+        Args:
+            model: Data model class to associate with this adapter instance
+        """
         self.model: Final[MT] = model
 
     @property
     @abstractmethod
     def fields(self) -> List[Field]:  # pragma: no cover
-        """List of fields this data model contains."""
+        """List of fields defined on this data model."""
         pass
 
     @staticmethod
@@ -142,7 +158,7 @@ class Model(ABC, Generic[MT]):
         rows = "\n".join(field.dot_row() for field in self.fields)
         return _table_template.format(name=self.name, rows=rows).replace("\n", "")
 
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
         return isinstance(other, type(self)) and hash(self) == hash(other)
 
     def __hash__(self) -> int:
@@ -164,8 +180,8 @@ model_adapter_registry: Dict[str, Type[Model]] = {}
 subclass must be registered for it to be available to the diagram creation workflow."""
 
 
-def register_model_adapter(type_name: str) -> Callable[[type], type]:
-    """Create decorator to register a concrete [`Model`][erdantic.base.model] adapter subclass
+def register_model_adapter(type_name: str) -> Callable[[Type[Model]], Type[Model]]:
+    """Create decorator to register a concrete [`Model`][erdantic.base.Model] adapter subclass
     that will be identified under the key `type_name`. A concrete `Model` subclass must be
     registered for it to be available to the diagram creation workflow.
 
