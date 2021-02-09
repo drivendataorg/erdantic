@@ -1,5 +1,5 @@
 import os
-from typing import Any, List, Set, Tuple, Union
+from typing import Any, List, Set, Union
 
 import pygraphviz as pgv
 
