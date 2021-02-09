@@ -4,7 +4,7 @@ from typing import Any, List, Set, Tuple, Union
 
 import pygraphviz as pgv
 
-from erdantic.base import adapter_registry, Field, Model
+from erdantic.base import Field, Model, model_adapter_registry
 from erdantic.errors import UnknownModelTypeError
 from erdantic.typing import get_recursive_args
 from erdantic.version import __version__
@@ -176,10 +176,22 @@ def create(*models: type) -> EntityRelationshipDiagram:
     return EntityRelationshipDiagram(models=list(seen_models), edges=list(seen_edges))
 
 
-def adapt_model(obj):
-    for adapter in adapter_registry.values():
-        if adapter.is_type(obj):
-            return adapter.model_class(obj)
+def adapt_model(obj: Any) -> Model:
+    """Dispatch object to appropriate concrete Model adapter class and return instantiated concrete
+    Model subclass instance.
+
+    Args:
+        obj (Any): Input raw data model class to adapt
+
+    Raises:
+        UnknownModelTypeError: If obj does not match registered Model adapter classes
+
+    Returns:
+        Model: Instantiated concrete Model subclass instance
+    """
+    for model_adapter in model_adapter_registry.values():
+        if model_adapter.is_type(obj):
+            return model_adapter(obj)
     raise UnknownModelTypeError(model=obj)
 
 
@@ -188,6 +200,15 @@ def search_composition_graph(
     seen_models: Set[Model],
     seen_edges: Set[Edge],
 ):
+    """Recursively search composition graph for a model, where nodes are models and edges are
+    composition relationships between models. Nodes and edges that are discovered will be added to
+    the two respective provided set instances.
+
+    Args:
+        model (Model): Root node to begin search.
+        seen_models (Set[Model]): Set instance that visited nodes will be added to.
+        seen_edges (Set[Edge]): Set instance that traversed edges will be added to.
+    """
     if model not in seen_models:
         seen_models.add(model)
         for field in model.fields:

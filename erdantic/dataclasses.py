@@ -1,10 +1,10 @@
 import collections.abc
 import dataclasses
 import inspect
-from typing import Any, List, Type, Union
+from typing import Any, List, Union
 
 
-from erdantic.base import Adapter, Field, Model, register_adapter
+from erdantic.base import Field, Model, register_model_adapter
 from erdantic.typing import get_args, get_origin
 
 
@@ -42,13 +42,18 @@ class DataClassField(Field):
         return id(self.dataclass_field)
 
 
+@register_model_adapter("dataclasses")
 class DataClassModel(Model):
     dataclass: type
 
     def __init__(self, dataclass: type):
-        if not DataClassAdapter.is_type(dataclass):
+        if not self.is_type(dataclass):
             raise ValueError(f"Argument dataclass must be a dataclass. Got {dataclass}")
         self.dataclass = dataclass
+
+    @staticmethod
+    def is_type(obj: Any) -> bool:
+        return isinstance(obj, type) and dataclasses.is_dataclass(obj)
 
     @property
     def name(self) -> str:
@@ -68,14 +73,3 @@ class DataClassModel(Model):
 
     def __hash__(self) -> int:
         return id(self.dataclass)
-
-
-@register_adapter("dataclasses")
-class DataClassAdapter(Adapter):
-    @staticmethod
-    def is_type(obj: Any) -> bool:
-        return isinstance(obj, type) and dataclasses.is_dataclass(obj)
-
-    @property
-    def model_class(self) -> Type[Model]:
-        return DataClassModel

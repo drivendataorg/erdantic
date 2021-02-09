@@ -8,8 +8,8 @@ _row_template = """<tr><td>{name}</td><td port="{name}">{type_name}</td></tr>"""
 
 
 class Field(ABC):
-    """Abstract base class that holds a field of a data model. Concrete implementations should
-    subclass and implement methods.
+    """Abstract base class that adapts a field object of a data model class to work with erdantic.
+    Concrete implementations should subclass and implement methods.
     """
 
     @property
@@ -76,14 +76,25 @@ _table_template = """
 
 
 class Model(ABC):
-    """Abstract base class that holds a data model class, representing a node in our entity
-    relationship diagram graph. Concrete implementations should subclass and implement methods.
+    """Abstract base class that adapts a data model class to work with erdantic. Instances
+    representing a node in our entity relationship diagram graph. Concrete implementations should
+    subclass and implement methods.
     """
+
+    @abstractmethod
+    def __init__(self, model):
+        pass
+
+    @staticmethod
+    @abstractmethod
+    def is_type(obj: Any) -> bool:  # pragma: no cover
+        """Check if object is the type of data model class that this model adapter works with."""
+        pass
 
     @property
     @abstractmethod
     def name(self) -> str:  # pragma: no cover
-        """Name of data model."""
+        """Name of this data model."""
         pass
 
     @property
@@ -124,27 +135,28 @@ class Model(ABC):
         return self.name
 
 
-class Adapter(ABC):
-    @staticmethod
-    @abstractmethod
-    def is_type(obj: Any) -> bool:  # pragma: no cover
-        pass
-
-    @property
-    @abstractmethod
-    def model_class(self) -> Type[Model]:  # pragma: no cover
-        pass
+model_adapter_registry: Dict[str, Type[Model]] = {}
+"""Registry of concrete [`Model`][erdantic.base.model] adapter subclasses. A concrete `Model`
+subclass must be registered for it to be available to the diagram creation workflow."""
 
 
-adapter_registry: Dict[str, Adapter] = {}
+def register_model_adapter(type_name: str) -> Callable[[type], type]:
+    """Create decorator to register a concrete [`Model`][erdantic.base.model] adapter subclass
+    that will be identified under the key `type_name`. A concrete `Model` subclass must be
+    registered for it to be available to the diagram creation workflow.
 
+    Args:
+        type_name (str): Key used to identify concrete `Model` adapter subclass
 
-def register_adapter(type_name: str) -> Callable[[type], type]:
+    Returns:
+        Callable[[type], type]: A registration decorator for a concrete `Model` adapter subclass
+    """
+
     def decorator(cls: type) -> type:
-        global adapter_registry
-        if not issubclass(cls, Adapter):
-            raise ValueError("Only subclasses of Adapter can be registered.")
-        adapter_registry[type_name] = cls()  # Verify completeness by instantiating
+        global model_adapter_registry
+        if not issubclass(cls, Model):
+            raise ValueError("Only subclasses of Model can be registered.")
+        model_adapter_registry[type_name] = cls
         return cls
 
     return decorator

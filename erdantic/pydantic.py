@@ -4,7 +4,7 @@ from typing import Any, List, Type
 import pydantic
 import pydantic.fields
 
-from erdantic.base import Adapter, Field, Model, register_adapter
+from erdantic.base import Field, Model, register_model_adapter
 
 
 class PydanticField(Field):
@@ -36,18 +36,21 @@ class PydanticField(Field):
         return id(self.pydantic_field)
 
 
+@register_model_adapter("pydantic")
 class PydanticModel(Model):
     pydantic_model: Type[pydantic.BaseModel]
 
     def __init__(self, pydantic_model: Type[pydantic.BaseModel]):
-        if not isinstance(pydantic_model, type) or not issubclass(
-            pydantic_model, pydantic.BaseModel
-        ):
+        if not self.is_type(pydantic_model):
             raise ValueError(
                 "Argument pydantic_model must be a subclass of pydantic.BaseModel. "
                 f"Received: {repr(pydantic_model)}"
             )
         self.pydantic_model = pydantic_model
+
+    @staticmethod
+    def is_type(obj: Any) -> bool:
+        return isinstance(obj, type) and issubclass(obj, pydantic.BaseModel)
 
     @property
     def name(self) -> str:
@@ -67,14 +70,3 @@ class PydanticModel(Model):
 
     def __hash__(self) -> int:
         return id(self.pydantic_model)
-
-
-@register_adapter("pydantic")
-class PydanticAdapter(Adapter):
-    @staticmethod
-    def is_type(obj: Any) -> bool:
-        return isinstance(obj, type) and issubclass(obj, pydantic.BaseModel)
-
-    @property
-    def model_class(self) -> Type[Model]:
-        return PydanticModel

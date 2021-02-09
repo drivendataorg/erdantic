@@ -6,22 +6,20 @@ from typing import Dict, Tuple
 from pydantic import BaseModel
 
 import erdantic as erd
-from erdantic.pydantic import PydanticAdapter, PydanticField, PydanticModel
+from erdantic.pydantic import PydanticField, PydanticModel
 from erdantic.examples.pydantic import Adventurer, Party, Quest, QuestGiver
 
 
 def test_is_type():
-    adapter = PydanticAdapter()
-
     class IsAPydanticModel(BaseModel):
         attr: str
 
-    assert adapter.is_type(IsAPydanticModel)
+    assert PydanticModel.is_type(IsAPydanticModel)
 
     class NotAPydanticModel:
         attr: str
 
-    assert not adapter.is_type(NotAPydanticModel)
+    assert not PydanticModel.is_type(NotAPydanticModel)
 
 
 def test_model_graph_search():
@@ -93,8 +91,8 @@ def test_to_dot():
 def test_registration():
     script = textwrap.dedent(
         """\
-        from erdantic.base import adapter_registry;
-        assert "pydantic" in adapter_registry;
+        from erdantic.base import model_adapter_registry;
+        assert "pydantic" in model_adapter_registry;
         """
     ).replace("\n", "")
 
