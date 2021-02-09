@@ -65,10 +65,6 @@ class Edge:
         other_key = (other.source, other.source.fields.index(other.source_field), other.target)
         return self_key < other_key
 
-    def __sort_key__(self) -> Tuple[str, int]:
-        """Key for sorting against other Edge instances."""
-        return (self.source.name, self.source.fields.index(self.source_field))
-
 
 class EntityRelationshipDiagram:
     """Class for entity relationship diagram.
