@@ -36,6 +36,7 @@ jobs:
       - name: Lint package
         run: |
           make lint
+          make typecheck
 
       - name: Run tests
         run: |
