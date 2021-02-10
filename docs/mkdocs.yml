@@ -21,6 +21,7 @@ nav:
       - erdantic.examples:
           - erdantic.examples.pydantic: "api-reference/examples.pydantic.md"
           - erdantic.examples.dataclasses: "api-reference/examples.dataclasses.md"
+  - Changelog: "changelog.md"
 
 plugins:
   - search

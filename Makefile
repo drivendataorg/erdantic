@@ -49,6 +49,7 @@ docs: clean-docs ## build documentation
 	@erdantic --help >> docs/docs/cli.md
 	@echo '```' >> docs/docs/cli.md
 	sed 's|docs/docs/examples/pydantic.svg|examples/pydantic.svg|g' README.md > docs/docs/index.md
+	cp HISTORY.md docs/docs/changelog.md
 	rm -f docs/docs/examples/diagram.png
 	cd docs && mkdocs build
 
