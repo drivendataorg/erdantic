@@ -4,9 +4,8 @@ import pytest
 
 import erdantic as erd
 from erdantic.erd import Edge
-from erdantic.errors import ModelTypeMismatchError, UnknownModelTypeError
+from erdantic.errors import UnknownModelTypeError
 from erdantic.examples.pydantic import Party, Quest
-from erdantic.examples.dataclasses import Adventurer as DataClassAdventurer
 
 
 def test_diagram_comparisons():
@@ -36,18 +35,6 @@ def test_edge_comparisons():
 def test_not_a_type_error():
     with pytest.raises(ValueError, match="Given model is not a type"):
         erd.create(5)
-
-
-def test_model_type_mismatch_error():
-    with pytest.raises(ModelTypeMismatchError) as e_info:
-        erd.create(Party, DataClassAdventurer)
-    e = e_info.value
-    assert e.mismatched_model is DataClassAdventurer
-    assert e.first_model is Party
-    assert e.expected == "pydantic"
-    assert "Additional model does not match detected type of first model" in str(e)
-    assert DataClassAdventurer.__name__ in str(e)
-    assert "pydantic" in str(e)
 
 
 def test_unknown_model_type_error():

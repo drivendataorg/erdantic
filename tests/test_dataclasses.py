@@ -5,36 +5,27 @@ import textwrap
 from typing import Dict, Tuple
 
 import erdantic as erd
-from erdantic.dataclasses import DataClassModel, DataClassField, DataClassDiagramFactory
+from erdantic.dataclasses import DataClassField, DataClassModel
 from erdantic.examples.dataclasses import Adventurer, Party, Quest, QuestGiver
 
 
-def test_is_type():
-    factory = DataClassDiagramFactory()
-
+def test_is_model_type():
     @dataclasses.dataclass
     class IsADataClass:
         attr: str
 
-    assert factory.is_type(IsADataClass)
+    assert DataClassModel.is_model_type(IsADataClass)
 
     class NotADataClass:
         attr: str
 
-    assert not factory.is_type(NotADataClass)
-
-
-def test_create_diagram():
-    factory = DataClassDiagramFactory()
-    diagram = factory.create(Party)
-    assert isinstance(diagram, erd.EntityRelationshipDiagram)
-    assert diagram == erd.create(Party)
+    assert not DataClassModel.is_model_type(NotADataClass)
 
 
 def test_model_graph_search():
     diagram = erd.create(Party)
-    assert {m.dataclass for m in diagram.models} == {Party, Adventurer, Quest, QuestGiver}
-    assert {(e.source.dataclass, e.target.dataclass) for e in diagram.edges} == {
+    assert {m.model for m in diagram.models} == {Party, Adventurer, Quest, QuestGiver}
+    assert {(e.source.model, e.target.model) for e in diagram.edges} == {
         (Party, Adventurer),
         (Party, Quest),
         (Quest, QuestGiver),
@@ -55,8 +46,8 @@ def test_model_graph_search_nested_args():
         inner: Dict[str, Tuple[Inner0, Inner1]]
 
     diagram = erd.create(Outer)
-    assert {m.dataclass for m in diagram.models} == {Outer, Inner0, Inner1}
-    assert {(e.source.dataclass, e.target.dataclass) for e in diagram.edges} == {
+    assert {m.model for m in diagram.models} == {Outer, Inner0, Inner1}
+    assert {(e.source.model, e.target.model) for e in diagram.edges} == {
         (Outer, Inner0),
         (Outer, Inner1),
     }
@@ -103,8 +94,8 @@ def test_to_dot():
 def test_registration():
     script = textwrap.dedent(
         """\
-        from erdantic.base import factory_registry;
-        assert "dataclasses" in factory_registry;
+        from erdantic.base import model_adapter_registry;
+        assert "dataclasses" in model_adapter_registry;
         """
     ).replace("\n", "")
 

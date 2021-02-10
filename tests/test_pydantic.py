@@ -6,35 +6,26 @@ from typing import Dict, Tuple
 from pydantic import BaseModel
 
 import erdantic as erd
-from erdantic.pydantic import PydanticDiagramFactory, PydanticField, PydanticModel
+from erdantic.pydantic import PydanticField, PydanticModel
 from erdantic.examples.pydantic import Adventurer, Party, Quest, QuestGiver
 
 
-def test_is_type():
-    factory = PydanticDiagramFactory()
-
+def test_is_model_type():
     class IsAPydanticModel(BaseModel):
         attr: str
 
-    assert factory.is_type(IsAPydanticModel)
+    assert PydanticModel.is_model_type(IsAPydanticModel)
 
     class NotAPydanticModel:
         attr: str
 
-    assert not factory.is_type(NotAPydanticModel)
-
-
-def test_create_diagram():
-    factory = PydanticDiagramFactory()
-    diagram = factory.create(Party)
-    assert isinstance(diagram, erd.EntityRelationshipDiagram)
-    assert diagram == erd.create(Party)
+    assert not PydanticModel.is_model_type(NotAPydanticModel)
 
 
 def test_model_graph_search():
     diagram = erd.create(Party)
-    assert {m.pydantic_model for m in diagram.models} == {Party, Adventurer, Quest, QuestGiver}
-    assert {(e.source.pydantic_model, e.target.pydantic_model) for e in diagram.edges} == {
+    assert {m.model for m in diagram.models} == {Party, Adventurer, Quest, QuestGiver}
+    assert {(e.source.model, e.target.model) for e in diagram.edges} == {
         (Party, Adventurer),
         (Party, Quest),
         (Quest, QuestGiver),
@@ -52,8 +43,8 @@ def test_model_graph_search_nested_args():
         inner: Dict[str, Tuple[Inner0, Inner1]]
 
     diagram = erd.create(Outer)
-    assert {m.pydantic_model for m in diagram.models} == {Outer, Inner0, Inner1}
-    assert {(e.source.pydantic_model, e.target.pydantic_model) for e in diagram.edges} == {
+    assert {m.model for m in diagram.models} == {Outer, Inner0, Inner1}
+    assert {(e.source.model, e.target.model) for e in diagram.edges} == {
         (Outer, Inner0),
         (Outer, Inner1),
     }
@@ -100,8 +91,8 @@ def test_to_dot():
 def test_registration():
     script = textwrap.dedent(
         """\
-        from erdantic.base import factory_registry;
-        assert "pydantic" in factory_registry;
+        from erdantic.base import model_adapter_registry;
+        assert "pydantic" in model_adapter_registry;
         """
     ).replace("\n", "")
 

@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import List, Type, Union
+from typing import Any, List, Type, Union
 
 try:
     from typing import _GenericAlias as GenericAlias  # type: ignore # Python 3.7+
@@ -8,6 +8,11 @@ try:
     # We still want typing._GenericAlias for typing module's deprecated capital generic aliases
 except ImportError:
     from typing import GenericMeta as GenericAlias  # type: ignore # Python 3.6
+
+try:
+    from typing import Final  # type: ignore # Python 3.8+
+except ImportError:
+    from typing_extensions import Final  # type: ignore # noqa: F401 # Python 3.6-3.7
 
 
 def _get_args(tp):
@@ -29,6 +34,12 @@ except ImportError:
         # Python 3.6
         get_args = _get_args
         get_origin = _get_origin
+
+
+def get_depth1_bases(tp: type) -> List[type]:
+    """Returns depth-1 base classes of a type."""
+    bases_of_bases = {bb for b in tp.__mro__[1:] for bb in b.__mro__[1:]}
+    return [b for b in tp.__mro__[1:] if b not in bases_of_bases]
 
 
 def get_recursive_args(tp: Union[type, GenericAlias]) -> List[type]:
@@ -80,7 +91,14 @@ def repr_enum(tp: Type[Enum]) -> str:
     return f"{tp.__name__}({', '.join(b.__name__ for b in depth1_bases)})"
 
 
-def get_depth1_bases(tp: type) -> List[type]:
-    """Returns depth-1 base classes of a type."""
-    bases_of_bases = {bb for b in tp.__mro__[1:] for bb in b.__mro__[1:]}
-    return [b for b in tp.__mro__[1:] if b not in bases_of_bases]
+def repr_type_with_mro(obj: Any) -> str:
+    """Return MRO of object if it has one. Otherwise return its repr."""
+
+    def _full_name(tp: type) -> str:
+        module = tp.__module__
+        return f"{module}.{tp.__qualname__}".replace("builtins.", "")
+
+    if hasattr(obj, "__mro__"):
+        mro = ", ".join(_full_name(m) for m in obj.__mro__)
+        return f"<mro ({mro})>"
+    return repr(obj)

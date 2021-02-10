@@ -1,15 +1,12 @@
-from operator import methodcaller
 import os
-from typing import Any, List, Tuple, TYPE_CHECKING, Union
+from typing import Any, List, Set, Union
 
 import pygraphviz as pgv
 
-from erdantic.base import factory_registry
-from erdantic.errors import ModelTypeMismatchError, UnknownModelTypeError
+from erdantic.base import Field, Model, model_adapter_registry
+from erdantic.errors import UnknownModelTypeError
+from erdantic.typing import get_recursive_args
 from erdantic.version import __version__
-
-if TYPE_CHECKING:
-    from erdantic.base import Field, Model  # pragma: no cover
 
 
 class Edge:
@@ -61,9 +58,12 @@ class Edge:
             f"target={self.target})"
         )
 
-    def __sort_key__(self) -> Tuple[str, int]:
-        """Key for sorting against other Edge instances."""
-        return (self.source.name, self.source.fields.index(self.source_field))
+    def __lt__(self, other) -> bool:
+        if not isinstance(other, Edge):
+            raise ValueError(f"Can only compare between instances of Edge. Given: {repr(other)}")
+        self_key = (self.source, self.source.fields.index(self.source_field), self.target)
+        other_key = (other.source, other.source.fields.index(other.source_field), other.target)
+        return self_key < other_key
 
 
 class EntityRelationshipDiagram:
@@ -79,8 +79,8 @@ class EntityRelationshipDiagram:
     edges: List["Edge"]
 
     def __init__(self, models: List["Model"], edges: List["Edge"]):
-        self.models = sorted(models, key=methodcaller("__sort_key__"))
-        self.edges = sorted(edges, key=methodcaller("__sort_key__"))
+        self.models = sorted(models)
+        self.edges = sorted(edges)
 
     def draw(self, out: Union[str, os.PathLike], **kwargs):
         """Render entity relationship diagram for given data model classes to file.
@@ -96,7 +96,7 @@ class EntityRelationshipDiagram:
         instance for diagram.
 
         Returns:
-            pgv.AGraph: graph object for diagram
+            pygraphviz.AGraph: graph object for diagram
         """
         g = pgv.AGraph(
             directed=True,
@@ -113,12 +113,14 @@ class EntityRelationshipDiagram:
         g.node_attr["shape"] = "plain"
         for model in self.models:
             g.add_node(
-                model.name, label=model.dot_label(), tooltip=model.docstring.replace("\n", "&#xA;")
+                model.key,
+                label=model.dot_label(),
+                tooltip=model.docstring.replace("\n", "&#xA;"),
             )
         for edge in self.edges:
             g.add_edge(
-                edge.source.name,
-                edge.target.name,
+                edge.source.key,
+                edge.target.key,
                 tailport=f"{edge.source_field.name}:e",
                 headport="_root:w",
                 arrowhead=edge.dot_arrowhead(),
@@ -166,19 +168,61 @@ def create(*models: type) -> EntityRelationshipDiagram:
     Returns:
         EntityRelationshipDiagram: diagram object for given data model.
     """
-    for model in models:
-        if not isinstance(model, type):
-            raise ValueError(f"Given model is not a type: {model}")
-    for type_name, factory in factory_registry.items():
-        if factory.is_type(models[0]):
-            # Validate additional models
-            for addl in models[1:]:
-                if not factory.is_type(addl):
-                    raise ModelTypeMismatchError(
-                        mismatched_model=addl, first_model=models[0], expected=type_name
-                    )
-            return factory.create(*models)
-    raise UnknownModelTypeError(model=models[0])
+    for raw_model in models:
+        if not isinstance(raw_model, type):
+            raise ValueError(f"Given model is not a type: {raw_model}")
+
+    seen_models: Set[Model] = set()
+    seen_edges: Set[Edge] = set()
+    for raw_model in models:
+        model = adapt_model(raw_model)
+        search_composition_graph(model=model, seen_models=seen_models, seen_edges=seen_edges)
+    return EntityRelationshipDiagram(models=list(seen_models), edges=list(seen_edges))
+
+
+def adapt_model(obj: Any) -> Model:
+    """Dispatch object to appropriate concrete [`Model`][erdantic.base.Model] adapter subclass and
+    return instantiated adapter instance.
+
+    Args:
+        obj (Any): Data model class to adapt
+
+    Raises:
+        UnknownModelTypeError: If obj does not match registered Model adapter classes
+
+    Returns:
+        Model: Instantiated concrete `Model` subclass instance
+    """
+    for model_adapter in model_adapter_registry.values():
+        if model_adapter.is_model_type(obj):
+            return model_adapter(obj)
+    raise UnknownModelTypeError(model=obj)
+
+
+def search_composition_graph(
+    model: Model,
+    seen_models: Set[Model],
+    seen_edges: Set[Edge],
+):
+    """Recursively search composition graph for a model, where nodes are models and edges are
+    composition relationships between models. Nodes and edges that are discovered will be added to
+    the two respective provided set instances.
+
+    Args:
+        model (Model): Root node to begin search.
+        seen_models (Set[Model]): Set instance that visited nodes will be added to.
+        seen_edges (Set[Edge]): Set instance that traversed edges will be added to.
+    """
+    if model not in seen_models:
+        seen_models.add(model)
+        for field in model.fields:
+            for arg in get_recursive_args(field.type_obj):
+                try:
+                    field_model = adapt_model(arg)
+                    seen_edges.add(Edge(source=model, source_field=field, target=field_model))
+                    search_composition_graph(field_model, seen_models, seen_edges)
+                except UnknownModelTypeError:
+                    pass
 
 
 def draw(*models: type, out: Union[str, os.PathLike], **kwargs):

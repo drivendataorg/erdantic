@@ -1,109 +1,64 @@
-import inspect
-from typing import Any, List, Set, Type
+from typing import Any, List, Type
 
 import pydantic
 import pydantic.fields
 
-from erdantic.base import Field, Model, DiagramFactory, register_factory
-from erdantic.erd import Edge, EntityRelationshipDiagram
-from erdantic.typing import get_recursive_args
+from erdantic.base import Field, Model, register_model_adapter
+from erdantic.typing import repr_type_with_mro
 
 
-class PydanticField(Field):
-    pydantic_field: pydantic.fields.ModelField
+class PydanticField(Field[pydantic.fields.ModelField]):
+    """Concrete field adapter class for Pydantic fields.
 
-    def __init__(self, pydantic_field):
-        if not isinstance(pydantic_field, pydantic.fields.ModelField):
+    Attributes:
+        field (pydantic.fields.ModelField): The Pydantic field object that is associated with this
+            adapter instance
+    """
+
+    def __init__(self, field: pydantic.fields.ModelField):
+        if not isinstance(field, pydantic.fields.ModelField):
             raise ValueError(
-                "pydantic_field must be of type pydantic.fields.ModelField. "
-                f"Got: {type(pydantic_field)}"
+                f"field must be of type pydantic.fields.ModelField. Got: {type(field)}"
             )
-        self.pydantic_field = pydantic_field
+        super().__init__(field=field)
 
     @property
     def name(self) -> str:
-        return self.pydantic_field.name
+        return self.field.name
 
     @property
     def type_obj(self) -> type:
-        return self.pydantic_field.type_
+        return self.field.type_
 
     def is_many(self) -> bool:
-        return self.pydantic_field.shape > 1
+        return self.field.shape > 1
 
     def is_nullable(self) -> bool:
-        return self.pydantic_field.allow_none
-
-    def __hash__(self) -> int:
-        return id(self.pydantic_field)
+        return self.field.allow_none
 
 
-class PydanticModel(Model):
-    pydantic_model: Type[pydantic.BaseModel]
+@register_model_adapter("pydantic")
+class PydanticModel(Model[Type[pydantic.BaseModel]]):
+    """Concrete model adapter class for a Pydantic
+    [`BaseModel`](https://pydantic-docs.helpmanual.io/usage/models/).
 
-    def __init__(self, pydantic_model: Type[pydantic.BaseModel]):
-        if not isinstance(pydantic_model, type) or not issubclass(
-            pydantic_model, pydantic.BaseModel
-        ):
+    Attributes:
+        model (Type[pydantic.BaseModel]): The Pydantic model class that is associated with this
+            adapter instance
+    """
+
+    def __init__(self, model: Type[pydantic.BaseModel]):
+        if not self.is_model_type(model):
             raise ValueError(
-                "Argument pydantic_model must be a subclass of pydantic.BaseModel. "
-                f"Received: {repr(pydantic_model)}"
+                "Argument model must be a subclass of pydantic.BaseModel. "
+                f"Got {repr_type_with_mro(model)}"
             )
-        self.pydantic_model = pydantic_model
+        super().__init__(model=model)
 
-    @property
-    def name(self) -> str:
-        return self.pydantic_model.__name__
+    @staticmethod
+    def is_model_type(obj: Any) -> bool:
+        return isinstance(obj, type) and issubclass(obj, pydantic.BaseModel)
 
     @property
     def fields(self) -> List[Field]:
-        return [PydanticField(pydantic_field=f) for f in self.pydantic_model.__fields__.values()]
-
-    @property
-    def docstring(self) -> str:
-        out = f"{self.pydantic_model.__module__}.{self.name}"
-        docstring = inspect.getdoc(self.pydantic_model)
-        if docstring:
-            out += "\n\n" + docstring
-        return out
-
-    def __hash__(self) -> int:
-        return id(self.pydantic_model)
-
-
-@register_factory("pydantic")
-class PydanticDiagramFactory(DiagramFactory):
-    @staticmethod
-    def is_type(model: type):
-        return is_pydantic_model(model)
-
-    @staticmethod
-    def create(*models: type) -> EntityRelationshipDiagram:
-        seen_models: Set[PydanticModel] = set()
-        seen_edges: Set[Edge] = set()
-        for model in models:
-            if issubclass(model, pydantic.BaseModel):
-                search_composition_graph(model, seen_models, seen_edges)
-            else:
-                raise ValueError
-        return EntityRelationshipDiagram(models=list(seen_models), edges=list(seen_edges))
-
-
-def is_pydantic_model(obj: Any) -> bool:
-    return isinstance(obj, type) and issubclass(obj, pydantic.BaseModel)
-
-
-def search_composition_graph(
-    pydantic_model: Type[pydantic.BaseModel],
-    seen_models: Set[PydanticModel],
-    seen_edges: Set[Edge],
-) -> Model:
-    model = PydanticModel(pydantic_model=pydantic_model)
-    if model not in seen_models:
-        seen_models.add(model)
-        for field in model.fields:
-            for arg in get_recursive_args(field.type_obj):
-                if is_pydantic_model(arg):
-                    field_model = search_composition_graph(arg, seen_models, seen_edges)
-                    seen_edges.add(Edge(source=model, source_field=field, target=field_model))
-    return model
+        return [PydanticField(field=f) for f in self.model.__fields__.values()]
