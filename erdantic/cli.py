@@ -34,7 +34,7 @@ def main(
         help=(
             "One or more full dotted paths to data model classes to include in diagram, "
             "e.g., 'erdantic.examples.pydantic.Party'. Only the root models of composition trees "
-            "is needed; erdantic will search for component classes."
+            "are needed; erdantic will traverse the composition tree to find component classes."
         ),
     ),
     out: Path = typer.Option(..., "--out", "-o", help="Output filename."),
@@ -74,7 +74,7 @@ def main(
         typer.echo(diagram.to_dot())
     else:
         if out.exists() and no_overwrite:
-            typer.echo(f"{out} already exists and you specified --no-overwrite.")
+            typer.echo(f"{out} already exists, and you specified --no-overwrite.")
             raise typer.Exit(code=1)
         diagram.draw(out)
         typer.echo(f"Rendered diagram to {out}")

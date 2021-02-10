@@ -189,7 +189,8 @@ def register_model_adapter(type_name: str) -> Callable[[Type[Model]], Type[Model
         type_name (str): Key used to identify concrete `Model` adapter subclass
 
     Returns:
-        Callable[[type], type]: A registration decorator for a concrete `Model` adapter subclass
+        Callable[[Type[Model]], Type[Model]]: A registration decorator for a concrete `Model`
+            adapter subclass
     """
 
     def decorator(cls: type) -> type:
