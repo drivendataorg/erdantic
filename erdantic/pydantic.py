@@ -1,10 +1,10 @@
-from typing import Any, List, Type
+from typing import Any, List, Optional, Union, Type
 
 import pydantic
 import pydantic.fields
 
 from erdantic.base import Field, Model, register_model_adapter
-from erdantic.typing import repr_type_with_mro
+from erdantic.typing import GenericAlias, repr_type_with_mro
 
 
 class PydanticField(Field[pydantic.fields.ModelField]):
@@ -27,8 +27,11 @@ class PydanticField(Field[pydantic.fields.ModelField]):
         return self.field.name
 
     @property
-    def type_obj(self) -> type:
-        return self.field.type_
+    def type_obj(self) -> Union[type, GenericAlias]:
+        tp = self.field.outer_type_
+        if self.field.allow_none:
+            return Optional[tp]
+        return tp
 
     def is_many(self) -> bool:
         return self.field.shape > 1

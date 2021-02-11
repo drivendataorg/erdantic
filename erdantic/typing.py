@@ -79,6 +79,8 @@ def repr_type(tp: Union[type, GenericAlias]) -> str:
         elif origin is Union:
             origin_name = "Union"
         return f"{origin_name}[{', '.join(repr_type(a) for a in args)}]"
+    if tp is Ellipsis:
+        return "..."
     if issubclass(tp, Enum):
         return repr_enum(tp)
     return tp.__name__

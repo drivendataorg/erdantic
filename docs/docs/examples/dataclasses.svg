@@ -9,10 +9,10 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 294.5)">
 <title>Entity Relationship Diagram</title>
 <polygon fill="white" stroke="transparent" points="-4,4 -4,-294.5 734,-294.5 734,4 -4,4"/>
-<text text-anchor="middle" x="365" y="-6.8" font-family="Times,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v0.1.0 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
-<!-- Adventurer -->
+<text text-anchor="middle" x="365" y="-6.8" font-family="Times,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v0.1.1b0 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
+<!-- erdantic.examples.dataclasses.Adventurer -->
 <g id="node1" class="node">
-<title>Adventurer</title>
+<title>erdantic.examples.dataclasses.Adventurer</title>
 <g id="a_node1"><a xlink:title="erdantic.examples.dataclasses.Adventurer&#10;&#10;A person often late for dinner but with a tale or two to tell.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;name (str): Name of this adventurer&#10; &#160;&#160;&#160;profession (str): Profession of this adventurer&#10; &#160;&#160;&#160;level (int): Level of this adventurer&#10; &#160;&#160;&#160;alignment (Alignment): Alignment of this adventurer">
 <polygon fill="none" stroke="black" points="306,-265 306,-286 496,-286 496,-265 306,-265"/>
 <text text-anchor="start" x="367" y="-272.8" font-family="Times,serif" font-weight="bold" font-size="14.00">Adventurer</text>
@@ -35,9 +35,9 @@
 </a>
 </g>
 </g>
-<!-- Party -->
+<!-- erdantic.examples.dataclasses.Party -->
 <g id="node2" class="node">
-<title>Party</title>
+<title>erdantic.examples.dataclasses.Party</title>
 <g id="a_node2"><a xlink:title="erdantic.examples.dataclasses.Party&#10;&#10;A group of adventurers finding themselves doing and saying things altogether unexpected.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;name (str): Name that party is known by&#10; &#160;&#160;&#160;formed_datetime (datetime): Timestamp of when the party was formed&#10; &#160;&#160;&#160;members (List[Adventurer]): Adventurers that belong to this party&#10; &#160;&#160;&#160;active_quest (Optional[Quest]): Current quest that party is actively tackling">
 <polygon fill="none" stroke="black" points="0,-269 0,-290 198,-290 198,-269 0,-269"/>
 <text text-anchor="start" x="82.5" y="-276.8" font-family="Times,serif" font-weight="bold" font-size="14.00">Party</text>
@@ -60,16 +60,16 @@
 </a>
 </g>
 </g>
-<!-- Party&#45;&gt;Adventurer -->
+<!-- erdantic.examples.dataclasses.Party&#45;&gt;erdantic.examples.dataclasses.Adventurer -->
 <g id="edge1" class="edge">
-<title>Party:e&#45;&gt;Adventurer:w</title>
+<title>erdantic.examples.dataclasses.Party:e&#45;&gt;erdantic.examples.dataclasses.Adventurer:w</title>
 <path fill="none" stroke="black" d="M198,-216C246.15,-216 250.68,-262.14 288.1,-273.5"/>
 <polygon fill="black" stroke="black" points="296.1,-274.62 305.38,-280.46 301.05,-275.31 306,-276 306,-276 306,-276 301.05,-275.31 306.62,-271.54 296.1,-274.62 296.1,-274.62"/>
 <ellipse fill="none" stroke="black" cx="292.13" cy="-274.06" rx="4" ry="4"/>
 </g>
-<!-- Quest -->
+<!-- erdantic.examples.dataclasses.Quest -->
 <g id="node3" class="node">
-<title>Quest</title>
+<title>erdantic.examples.dataclasses.Quest</title>
 <g id="a_node3"><a xlink:title="erdantic.examples.dataclasses.Quest&#10;&#10;A task to complete, with some monetary reward.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;name (str): Name by which this quest is referred to&#10; &#160;&#160;&#160;giver (QuestGiver): Person who offered the quest&#10; &#160;&#160;&#160;reward_gold (int): Amount of gold to be rewarded for quest completion">
 <polygon fill="none" stroke="black" points="329,-124 329,-145 473,-145 473,-124 329,-124"/>
 <text text-anchor="start" x="383.5" y="-131.8" font-family="Times,serif" font-weight="bold" font-size="14.00">Quest</text>
@@ -88,18 +88,18 @@
 </a>
 </g>
 </g>
-<!-- Party&#45;&gt;Quest -->
+<!-- erdantic.examples.dataclasses.Party&#45;&gt;erdantic.examples.dataclasses.Quest -->
 <g id="edge2" class="edge">
-<title>Party:e&#45;&gt;Quest:w</title>
+<title>erdantic.examples.dataclasses.Party:e&#45;&gt;erdantic.examples.dataclasses.Quest:w</title>
 <path fill="none" stroke="black" d="M198,-195C255.05,-195 263.15,-146.78 310.06,-136.8"/>
 <polyline fill="none" stroke="black" points="328,-135 323.02,-135.5 "/>
 <polygon fill="black" stroke="black" points="321.53,-130.62 322.53,-140.57 320.54,-140.77 319.54,-130.82 321.53,-130.62"/>
 <polyline fill="none" stroke="black" points="323.02,-135.5 318.05,-136 "/>
 <ellipse fill="none" stroke="black" cx="314.07" cy="-136.39" rx="4" ry="4"/>
 </g>
-<!-- QuestGiver -->
+<!-- erdantic.examples.dataclasses.QuestGiver -->
 <g id="node4" class="node">
-<title>QuestGiver</title>
+<title>erdantic.examples.dataclasses.QuestGiver</title>
 <g id="a_node4"><a xlink:title="erdantic.examples.dataclasses.QuestGiver&#10;&#10;A person who offers a task that needs completing.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;name (str): Name of this quest giver&#10; &#160;&#160;&#160;faction (str): Faction that this quest giver belongs to&#10; &#160;&#160;&#160;location (str): Location this quest giver can be found">
 <polygon fill="none" stroke="black" points="604,-81 604,-102 730,-102 730,-81 604,-81"/>
 <text text-anchor="start" x="632.5" y="-88.8" font-family="Times,serif" font-weight="bold" font-size="14.00">QuestGiver</text>
@@ -118,9 +118,9 @@
 </a>
 </g>
 </g>
-<!-- Quest&#45;&gt;QuestGiver -->
+<!-- erdantic.examples.dataclasses.Quest&#45;&gt;erdantic.examples.dataclasses.QuestGiver -->
 <g id="edge3" class="edge">
-<title>Quest:e&#45;&gt;QuestGiver:w</title>
+<title>erdantic.examples.dataclasses.Quest:e&#45;&gt;erdantic.examples.dataclasses.QuestGiver:w</title>
 <path fill="none" stroke="black" d="M474,-92C526.36,-92 543.13,-92 588.82,-92"/>
 <polyline fill="none" stroke="black" points="604,-92 599,-92 "/>
 <polygon fill="black" stroke="black" points="598,-87 598,-97 596,-97 596,-87 598,-87"/>
