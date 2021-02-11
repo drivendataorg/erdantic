@@ -4,7 +4,7 @@ from typing import Any, List, Union
 
 
 from erdantic.base import Field, Model, register_model_adapter
-from erdantic.typing import get_args, get_origin
+from erdantic.typing import GenericAlias, get_args, get_origin
 
 
 class DataClassField(Field[dataclasses.Field]):
@@ -25,7 +25,7 @@ class DataClassField(Field[dataclasses.Field]):
         return self.field.name
 
     @property
-    def type_obj(self) -> type:
+    def type_obj(self) -> Union[type, GenericAlias]:
         return self.field.type
 
     def is_many(self) -> bool:

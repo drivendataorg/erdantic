@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 import inspect
-from typing import Any, Callable, Dict, Generic, List, Type, TypeVar
+from typing import Any, Callable, Dict, Generic, List, Type, TypeVar, Union
 
-from erdantic.typing import Final, repr_type, repr_type_with_mro
+from erdantic.typing import Final, GenericAlias, repr_type, repr_type_with_mro
 
 
 _row_template = """<tr><td>{name}</td><td port="{name}">{type_name}</td></tr>"""
@@ -37,7 +37,7 @@ class Field(ABC, Generic[FT]):
 
     @property
     @abstractmethod
-    def type_obj(self) -> type:  # pragma: no cover
+    def type_obj(self) -> Union[type, GenericAlias]:
         """Python type object for this field."""
         pass
 
