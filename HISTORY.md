@@ -3,7 +3,7 @@
 ## v0.1.2 (2021-02-10)
 
 - Fixed bug where Pydantic fields were missing generics in their type annotations. ([#19](https://github.com/drivendataorg/erdantic/pull/19))
-- Add tests against static rendered output, using a new parameterized fixture approach. ([#21](https://github.com/drivendataorg/erdantic/pull/21))
+- Add tests against static rendered DOT output. Change adapter tests to use parameterized fixtures. ([#21](https://github.com/drivendataorg/erdantic/pull/21))
 
 ## v0.1.1 (2021-02-10)
 
