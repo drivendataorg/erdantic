@@ -13,6 +13,8 @@ import erdantic.examples.pydantic
 from erdantic.dataclasses import DataClassField, DataClassModel
 from erdantic.pydantic import PydanticField, PydanticModel
 
+from tests.utils import assert_dot_equals
+
 
 ASSETS_DIR = Path(__file__).parent / "assets"
 
@@ -94,15 +96,15 @@ def test_field_comparisons(model_class, field_class, examples):
 
 
 def test_draw(key, examples, tmp_path, version_patch):
-    expected_path = ASSETS_DIR / key / "diagram.png"
+    expected_path = ASSETS_DIR / key / "diagram.svg"
 
     diagram = erd.create(examples.Party)
-    path1 = tmp_path / "diagram1.png"
+    path1 = tmp_path / "diagram1.svg"
     diagram.draw(path1)
     assert path1.exists()
     assert filecmp.cmp(path1, expected_path)
 
-    path2 = tmp_path / "diagram2.png"
+    path2 = tmp_path / "diagram2.svg"
     erd.draw(examples.Party, out=path2)
     assert path2.exists()
     assert filecmp.cmp(path2, expected_path)
@@ -118,7 +120,7 @@ def test_to_dot(key, examples, version_patch):
     assert dot == erd.to_dot(examples.Party)
     assert isinstance(dot, str)
     with expected_path.open("r") as fp:
-        assert dot == fp.read()
+        assert_dot_equals(dot, fp.read())
 
 
 def test_registration(key):
