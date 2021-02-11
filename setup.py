@@ -1,3 +1,4 @@
+import re
 from setuptools import setup, find_packages
 from pathlib import Path
 
@@ -16,6 +17,8 @@ def load_requirements(path: Path):
 
 
 readme = Path("README.md").read_text(encoding="UTF-8")
+readme = re.sub("<object[^>]+>", "", readme)
+readme = re.sub("</object>", "", readme)
 
 requirements = load_requirements(Path(__file__).parent / "requirements.txt")
 
@@ -48,5 +51,5 @@ setup(
         "Source Code": "https://github.com/drivendataorg/erdantic",
     },
     url="https://github.com/drivendataorg/erdantic",
-    version="0.1.0",
+    version="0.1.1",
 )

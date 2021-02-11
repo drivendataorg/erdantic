@@ -10,4 +10,5 @@ mkdocstrings
 mypy
 pytest
 pytest-cov
+twine
 wheel
