@@ -17,9 +17,17 @@ Features include a convenient CLI, automatic native rendering in Jupyter noteboo
 
 ## Installation
 
-erdantic's graph modeling depends on [pygraphviz](https://pygraphviz.github.io/documentation/stable/index.html) and [Graphviz](https://graphviz.org/), an open-source C library. The simplest way to install Graphviz is with [conda](https://anaconda.org/conda-forge/graphviz). For other options and installation troubleshooting, see the [pygraphviz docs](https://pygraphviz.github.io/documentation/stable/install.html).
+erdantic's graph modeling depends on [pygraphviz](https://pygraphviz.github.io/documentation/stable/index.html) and [Graphviz](https://graphviz.org/), an open-source C library. Graphviz must be installed first, and the simplest way is with [conda](https://anaconda.org/conda-forge/graphviz). For other options and installation troubleshooting, see the [pygraphviz docs](https://pygraphviz.github.io/documentation/stable/install.html).
 
-To install erdantic:
+To install erdantic from PyPI:
+
+```bash
+pip install erdantic
+```
+
+### Development version
+
+You can get the development version from GitHub with:
 
 ```bash
 pip install https://github.com/drivendataorg/erdantic.git#egg=erdantic
