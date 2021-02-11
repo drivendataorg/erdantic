@@ -9,6 +9,7 @@ mkdocs-material
 mkdocstrings
 mypy
 pytest
+pytest-cases
 pytest-cov
 twine
 wheel
