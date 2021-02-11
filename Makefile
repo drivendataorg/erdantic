@@ -76,6 +76,9 @@ pypitest: dist
 requirements: ## install development requirements
 	pip install -r requirements-dev.txt
 
+static-test-assets:
+	python tests/scripts/generate_static_assets.py
+
 test: ## run tests
 	python -m pytest -vv
 
