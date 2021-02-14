@@ -9,7 +9,7 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 294.5)">
 <title>Entity Relationship Diagram</title>
 <polygon fill="white" stroke="transparent" points="-4,4 -4,-294.5 734,-294.5 734,4 -4,4"/>
-<text text-anchor="middle" x="365" y="-6.8" font-family="Times,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v0.1.1b0 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
+<text text-anchor="middle" x="365" y="-6.8" font-family="Times,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic v0.1.2 &lt;https://github.com/drivendataorg/erdantic&gt;</text>
 <!-- erdantic.examples.pydantic.Adventurer -->
 <g id="node1" class="node">
 <title>erdantic.examples.pydantic.Adventurer</title>
