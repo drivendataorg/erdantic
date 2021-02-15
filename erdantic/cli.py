@@ -32,9 +32,19 @@ def main(
     models: List[str] = typer.Argument(
         ...,
         help=(
-            "One or more full dotted paths to data model classes to include in diagram, "
+            "One or more full dotted paths for data model classes to include in diagram, "
             "e.g., 'erdantic.examples.pydantic.Party'. Only the root models of composition trees "
             "are needed; erdantic will traverse the composition tree to find component classes."
+        ),
+    ),
+    termini: List[str] = typer.Option(
+        None,
+        "--terminus",
+        "-t",
+        help=(
+            "Full dotted paths for data model classes to set as terminal nodes in the diagram. "
+            "erdantic will stop searching for component classes when it reaches these models. "
+            "Repeat this option if more than one."
         ),
     ),
     out: Path = typer.Option(..., "--out", "-o", help="Output filename."),
@@ -63,13 +73,18 @@ def main(
     rendered using the Graphviz library. Currently supported data modeling frameworks are Pydantic
     and standard library dataclasses.
     """
-    model_classes = []
+    model_classes: List[type] = []
     for model in models:
         module_name, model_name = model.rsplit(".", 1)
         module = import_module(module_name)
         model_classes.append(getattr(module, model_name))
+    termini_classes: List[type] = []
+    for terminus in termini:
+        module_name, model_name = terminus.rsplit(".", 1)
+        module = import_module(module_name)
+        termini_classes.append(getattr(module, model_name))
 
-    diagram = create(*model_classes)
+    diagram = create(*model_classes, termini=termini_classes)
     if dot:
         typer.echo(diagram.to_dot())
     else:

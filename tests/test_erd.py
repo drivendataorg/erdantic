@@ -1,3 +1,4 @@
+import filecmp
 import imghdr
 
 import pytest
@@ -50,10 +51,22 @@ def test_unknown_model_type_error():
     assert BadModel.__name__ in str(e)
 
 
-def test_draw(tmp_path):
+def test_draw_with_terminus(tmp_path):
+    # use EntityRelationshipDiagram.draw as expected
+    expected_path = tmp_path / "expected.png"
+    diagram = erd.create(Party, termini=[Quest])
+    diagram.draw(expected_path)
+
     path = tmp_path / "diagram.png"
-    erd.draw(Party, out=path)
+    erd.draw(Party, out=path, termini=[Quest])
     assert imghdr.what(path) == "png"
+    assert filecmp.cmp(path, expected_path)
+
+
+def test_to_dot_with_terminus(tmp_path):
+    # use EntityRelationshipDiagram.to_dot as expected
+    diagram = erd.create(Party, termini=[Quest])
+    assert erd.to_dot(Party, termini=[Quest]) == diagram.to_dot()
 
 
 def test_repr():

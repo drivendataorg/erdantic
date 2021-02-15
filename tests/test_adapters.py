@@ -61,6 +61,19 @@ def test_model_graph_search(examples):
     }
 
 
+def test_terminus(examples):
+    diagram = erd.create(examples.Party, termini=[examples.Quest])
+    assert {m.model for m in diagram.models} == {
+        examples.Party,
+        examples.Adventurer,
+        examples.Quest,
+    }
+    assert {(e.source.model, e.target.model) for e in diagram.edges} == {
+        (examples.Party, examples.Adventurer),
+        (examples.Party, examples.Quest),
+    }
+
+
 def test_model_name(model_class, examples):
     for model_name in ["Adventurer", "Party", "Quest", "QuestGiver"]:
         model = model_class(getattr(examples, model_name))

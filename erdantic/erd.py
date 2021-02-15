@@ -1,5 +1,5 @@
 import os
-from typing import Any, List, Set, Union
+from typing import Any, List, Sequence, Set, Union
 
 import pygraphviz as pgv
 
@@ -78,7 +78,7 @@ class EntityRelationshipDiagram:
     models: List["Model"]
     edges: List["Edge"]
 
-    def __init__(self, models: List["Model"], edges: List["Edge"]):
+    def __init__(self, models: Sequence["Model"], edges: Sequence["Edge"]):
         self.models = sorted(models)
         self.edges = sorted(edges)
 
@@ -156,9 +156,14 @@ class EntityRelationshipDiagram:
         return graph.draw(prog="dot", format="svg").decode(graph.encoding)
 
 
-def create(*models: type) -> EntityRelationshipDiagram:
+def create(*models: type, termini: Sequence[type] = []) -> EntityRelationshipDiagram:
     """Construct [`EntityRelationshipDiagram`][erdantic.erd.EntityRelationshipDiagram] from given
     data model classes.
+
+    Args:
+        *models (type): Data model classes to diagram.
+        termini (Sequence[type]): Data model classes to set as terminal nodes. erdantic will stop
+            searching for component classes when it reaches these models
 
     Raises:
         UnknownModelTypeError: If model is not recognized as a supported model type.
@@ -168,11 +173,11 @@ def create(*models: type) -> EntityRelationshipDiagram:
     Returns:
         EntityRelationshipDiagram: diagram object for given data model.
     """
-    for raw_model in models:
+    for raw_model in models + tuple(termini):
         if not isinstance(raw_model, type):
             raise ValueError(f"Given model is not a type: {raw_model}")
 
-    seen_models: Set[Model] = set()
+    seen_models: Set[Model] = {adapt_model(t) for t in termini}
     seen_edges: Set[Edge] = set()
     for raw_model in models:
         model = adapt_model(raw_model)
@@ -225,27 +230,31 @@ def search_composition_graph(
                     pass
 
 
-def draw(*models: type, out: Union[str, os.PathLike], **kwargs):
+def draw(*models: type, out: Union[str, os.PathLike], termini: Sequence[type] = [], **kwargs):
     """Render entity relationship diagram for given data model classes to file.
 
     Args:
         *models (type): Data model classes to diagram.
         out (Union[str, os.PathLike]): Output file path for rendered diagram.
+        termini (Sequence[type]): Data model classes to set as terminal nodes. erdantic will stop
+            searching for component classes when it reaches these models
         **kwargs: Additional keyword arguments to [`pygraphviz.AGraph.draw`](https://pygraphviz.github.io/documentation/latest/reference/agraph.html#pygraphviz.AGraph.draw).
     """
-    diagram = create(*models)
+    diagram = create(*models, termini=termini)
     diagram.draw(out=out, **kwargs)
 
 
-def to_dot(*models: type) -> str:
+def to_dot(*models: type, termini: Sequence[type] = []) -> str:
     """Generate Graphviz [DOT language](https://graphviz.org/doc/info/lang.html) representation of
     entity relationship diagram for given data model classes.
 
     Args:
         *models (type): Data model classes to diagram.
+        termini (Sequence[type]): Data model classes to set as terminal nodes. erdantic will stop
+            searching for component classes when it reaches these models
 
     Returns:
         str: DOT language representation of diagram
     """
-    diagram = create(*models)
+    diagram = create(*models, termini=termini)
     return diagram.to_dot()
