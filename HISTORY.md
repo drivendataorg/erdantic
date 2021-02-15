@@ -1,5 +1,9 @@
 # erdantic Changelog
 
+## v0.2.0 (2021-02-14)
+
+- Add option to specify models as terminal nodes. This allows you to truncate large diagrams and split them up into smaller ones. ([#24](https://github.com/drivendataorg/erdantic/pull/24))
+
 ## v0.1.2 (2021-02-10)
 
 - Fixed bug where Pydantic fields were missing generics in their type annotations. ([#19](https://github.com/drivendataorg/erdantic/pull/19))
