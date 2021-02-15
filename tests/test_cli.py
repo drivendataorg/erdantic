@@ -5,7 +5,7 @@ from typer.testing import CliRunner
 
 import erdantic as erd
 from erdantic.cli import app
-from erdantic.examples.pydantic import Party
+from erdantic.examples.pydantic import Party, Quest
 from erdantic.version import __version__
 
 
@@ -36,6 +36,29 @@ def test_draw(tmp_path):
     assert result.returncode == 0
     assert path2.exists()
     assert filecmp.cmp(path2, path_base)
+
+
+def test_with_terminus(tmp_path):
+    # With library for comparison
+    path_base = tmp_path / "diagram_base.png"
+    erd.draw(Party, out=path_base, termini=[Quest])
+    assert path_base.exists()
+
+    # With CLI
+    path1 = tmp_path / "diagram1.png"
+    result = runner.invoke(
+        app,
+        [
+            "erdantic.examples.pydantic.Party",
+            "-t",
+            "erdantic.examples.pydantic.Quest",
+            "-o",
+            str(path1),
+        ],
+    )
+    assert result.exit_code == 0
+    assert path1.exists()
+    assert filecmp.cmp(path1, path_base)
 
 
 def test_missing_out(tmp_path):
