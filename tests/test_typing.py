@@ -85,6 +85,8 @@ repr_type_cases = [
     (typing.Dict[str, int], "Dict[str, int]"),
     (typing.Optional[MyStrEnum], "Optional[MyStrEnum(str, Enum)]"),
     (typing.List[MyIntFlag], "List[MyIntFlag(IntFlag)]"),
+    (typing.Any, "Any"),
+    (typing.Dict[str, typing.Any], "Dict[str, Any]"),
 ]
 
 if sys.version_info[:2] >= (3, 9):

@@ -81,9 +81,9 @@ def repr_type(tp: Union[type, GenericAlias]) -> str:
         return f"{origin_name}[{', '.join(repr_type(a) for a in args)}]"
     if tp is Ellipsis:
         return "..."
-    if issubclass(tp, Enum):
+    if isinstance(tp, type) and issubclass(tp, Enum):
         return repr_enum(tp)
-    return tp.__name__
+    return getattr(tp, "__name__", repr(tp).replace("typing.", ""))
 
 
 def repr_enum(tp: Type[Enum]) -> str:
