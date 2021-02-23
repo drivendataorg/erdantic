@@ -9,7 +9,7 @@ _row_template = """<tr><td>{name}</td><td port="{name}">{type_name}</td></tr>"""
 
 
 FT = TypeVar("FT", bound=Any, covariant=True)
-"""Covariant type variable for a field object adapted by adapter class
+"""Type variable for a field object adapted by adapter class
 [`Field`][erdantic.base.Field]."""
 
 
@@ -93,7 +93,7 @@ _table_template = """
 
 
 MT = TypeVar("MT", bound=type, covariant=True)
-"""Covariant type variable for a data model class adapted by adapter class
+"""Type variable for a data model class adapted by adapter class
 [`Model`][erdantic.base.Model]. Bounded by `type`."""
 
 

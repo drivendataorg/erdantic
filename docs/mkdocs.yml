@@ -23,6 +23,17 @@ nav:
           - erdantic.examples.dataclasses: "api-reference/examples.dataclasses.md"
   - Changelog: "changelog.md"
 
+extra_css:
+  - css/custom_mkdocstrings.css
+
+markdown_extensions:
+  - pymdownx.highlight:
+  - pymdownx.superfences:
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - mdx_truly_sane_lists:
+
 plugins:
   - search
   - mkdocs-jupyter
@@ -41,5 +52,7 @@ plugins:
             show_signature_annotations: true
             show_source: true
             heading_level: 2
+            group_by_category: true
+            show_category_heading: true
       watch:
         - erdantic
