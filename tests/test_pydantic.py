@@ -3,7 +3,7 @@ from typing import Dict, List, Optional, Tuple
 from pydantic import BaseModel
 
 import erdantic as erd
-from erdantic.pydantic import PydanticModel
+from erdantic.epydantic import PydanticModel
 
 
 def test_model_graph_search_nested_args():

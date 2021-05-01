@@ -10,8 +10,8 @@ import erdantic as erd
 import erdantic.erd
 import erdantic.examples.dataclasses
 import erdantic.examples.pydantic
-from erdantic.dataclasses import DataClassField, DataClassModel
-from erdantic.pydantic import PydanticField, PydanticModel
+from erdantic.edataclasses import DataClassField, DataClassModel
+from erdantic.epydantic import PydanticField, PydanticModel
 
 from tests.utils import assert_dot_equals
 

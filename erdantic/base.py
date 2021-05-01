@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 import inspect
 from typing import Any, Callable, Dict, Generic, List, Type, TypeVar, Union
 
-from erdantic.typing import Final, GenericAlias, repr_type, repr_type_with_mro
+from erdantic.etyping import Final, GenericAlias, repr_type, repr_type_with_mro
 
 
 _row_template = """<tr><td>{name}</td><td port="{name}">{type_name}</td></tr>"""

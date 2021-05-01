@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from importlib import import_module
 from pathlib import Path
 from typing import List, Optional

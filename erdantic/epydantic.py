@@ -1,24 +1,24 @@
 from typing import Any, List, Optional, Union, Type
 
 import pydantic
-import pydantic.fields
+from pydantic import fields as pydantic_fields
 
 from erdantic.base import Field, Model, register_model_adapter
-from erdantic.typing import GenericAlias, repr_type_with_mro
+from erdantic.etyping import GenericAlias, repr_type_with_mro
 
 
-class PydanticField(Field[pydantic.fields.ModelField]):
+class PydanticField(Field[pydantic_fields.ModelField]):
     """Concrete field adapter class for Pydantic fields.
 
     Attributes:
-        field (pydantic.fields.ModelField): The Pydantic field object that is associated with this
+        field (pydantic_fields.ModelField): The Pydantic field object that is associated with this
             adapter instance
     """
 
-    def __init__(self, field: pydantic.fields.ModelField):
-        if not isinstance(field, pydantic.fields.ModelField):
+    def __init__(self, field: pydantic_fields.ModelField):
+        if not isinstance(field, pydantic_fields.ModelField):
             raise ValueError(
-                f"field must be of type pydantic.fields.ModelField. Got: {type(field)}"
+                f"field must be of type pydantic_fields.ModelField. Got: {type(field)}"
             )
         super().__init__(field=field)
 

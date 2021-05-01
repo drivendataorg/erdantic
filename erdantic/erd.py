@@ -5,7 +5,7 @@ import pygraphviz as pgv
 
 from erdantic.base import Field, Model, model_adapter_registry
 from erdantic.errors import UnknownModelTypeError
-from erdantic.typing import get_recursive_args
+from erdantic.etyping import get_recursive_args
 from erdantic.version import __version__
 
 

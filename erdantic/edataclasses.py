@@ -4,7 +4,7 @@ from typing import Any, List, Union
 
 
 from erdantic.base import Field, Model, register_model_adapter
-from erdantic.typing import GenericAlias, get_args, get_origin
+from erdantic.etyping import GenericAlias, get_args, get_origin
 
 
 class DataClassField(Field[dataclasses.Field]):

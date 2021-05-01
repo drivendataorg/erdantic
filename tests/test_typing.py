@@ -4,7 +4,7 @@ import typing
 
 import pytest
 
-from erdantic.typing import (
+from erdantic.etyping import (
     _get_args,
     _get_origin,
     get_args,
