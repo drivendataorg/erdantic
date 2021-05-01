@@ -1,6 +1,9 @@
 import collections.abc
 import dataclasses
-from typing import Any, List, Union
+import inspect
+import typing_inspect
+
+from typing import Any, Callable, List, Union
 
 
 from erdantic.base import Field, Model, register_model_adapter
@@ -40,6 +43,49 @@ class DataClassField(Field[dataclasses.Field]):
         return get_origin(self.type_obj) is Union and type(None) in get_args(self.type_obj)
 
 
+@dataclasses.dataclass
+class Edge:
+    edge_name: str
+    edge_func: Callable
+
+
+class DataClassEdge(DataClassField):
+    """Concrete field adapter class for fquery edges
+
+    Attributes:
+        edge (Edge): The fquery edge instance that is associated with this
+            adapter instance
+    """
+
+    def __init__(self, edge: Edge):
+        if not isinstance(edge, Edge):
+            raise ValueError(f"edge must be of type Edge. Got: {type(edge)}")
+
+        ret = inspect.signature(edge.edge_func._old)
+        globalns = getattr(edge.edge_func._old, "__globals__", {})
+
+        def recursive_eval(arg, globalns):
+            ret = eval(arg, globalns)
+            if typing_inspect.is_generic_type(ret):
+                ret.__args__ = tuple(
+                    [
+                        r._evaluate(globalns, localns=None) if hasattr(r, "_evaluate") else r
+                        for r in ret.__args__
+                    ]
+                )
+            return ret
+
+        # Use https://bugs.python.org/issue43817 when it's available
+        return_type = recursive_eval(ret.return_annotation, globalns)
+
+        tmp = dataclasses.make_dataclass("tmp", [(f"{edge.edge_name}", return_type)])
+        field = dataclasses.fields(tmp)[0]
+        super().__init__(field=field)
+
+    def __hash__(self):
+        return hash(self.name) ^ hash(self.type_name)
+
+
 @register_model_adapter("dataclasses")
 class DataClassModel(Model[type]):
     """Concrete model adapter class for a
@@ -60,4 +106,10 @@ class DataClassModel(Model[type]):
 
     @property
     def fields(self) -> List[Field]:
-        return [DataClassField(field=f) for f in dataclasses.fields(self.model)]
+        members = inspect.getmembers(self.model, predicate=inspect.isfunction)
+        edges = [
+            DataClassEdge(Edge(ename, efunc))
+            for ename, efunc in members
+            if hasattr(efunc, "_edge")
+        ]
+        return [DataClassField(field=f) for f in dataclasses.fields(self.model)] + edges
