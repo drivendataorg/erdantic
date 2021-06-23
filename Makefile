@@ -83,4 +83,4 @@ test: ## run tests
 	python -m pytest -vv
 
 typecheck: ## run mypy typechecking
-	mypy erdantic
+	mypy --install-types --non-interactive erdantic
