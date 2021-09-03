@@ -90,7 +90,9 @@ jobs:
         if: matrix.os == 'ubuntu-latest' && matrix.python-version == 3.8
 
       - name: Deploy site preview to Netlify
-        if: matrix.os == 'ubuntu-latest' && matrix.python-version == 3.8
+        if: |
+          matrix.os == 'ubuntu-latest' && matrix.python-version == 3.8
+          && github.event.pull_request != null
         uses: nwtgck/actions-netlify@v1.1
         with:
           publish-dir: "./docs/site"
