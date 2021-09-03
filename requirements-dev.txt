@@ -4,9 +4,10 @@ black
 flake8
 jupyterlab
 mdx_truly_sane_lists==1.2
-mkdocs>=1.1
+mike
+mkdocs>=1.2.2
 mkdocs-jupyter
-mkdocs-material
+mkdocs-material>=7.2.6
 mkdocstrings
 mypy
 pytest

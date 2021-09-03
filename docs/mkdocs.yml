@@ -56,3 +56,7 @@ plugins:
             show_category_heading: true
       watch:
         - erdantic
+
+extra:
+  version:
+    provider: mike
