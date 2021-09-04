@@ -66,7 +66,7 @@ jobs:
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           # Rename old stable version
           OLD_STABLE=$(mike list | grep -oE 'v\d+\.\d+\.\d+\s\(stable\)' | cut -d " " -f1)
-          mike retitle stable OLD_STABLE
+          mike retitle stable $OLD_STABLE
           # Deploy new version as stable
           mike deploy --push --update-aliases --no-redirect \
             ${{ steps.version.outputs.major_minor_version }} \
