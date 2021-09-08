@@ -42,6 +42,8 @@
     
       <link rel="stylesheet" href="assets/_mkdocstrings.css">
     
+      <link rel="stylesheet" href="css/custom_mkdocstrings.css">
+    
     
       
 
@@ -583,8 +585,8 @@
                   </a>
                 
                 
-                <h1 id="erdantic-entity-relationship-diagrams">erdantic: Entity Relationship Diagrams</h1>
-<p><a href="https://erdantic.drivendata.org/"><img alt="Docs Status" src="https://img.shields.io/badge/docs-latest-blueviolet" /></a>
+                <h1 id="erdantic-entity-relationship-diagrams">erdantic: Entity Relationship Diagrams<a class="headerlink" href="#erdantic-entity-relationship-diagrams" title="Permanent link">&para;</a></h1>
+<p><a href="https://erdantic.drivendata.org/"><img alt="Docs Status" src="https://img.shields.io/badge/docs-stable-informational" /></a>
 <a href="https://pypi.org/project/erdantic/"><img alt="PyPI" src="https://img.shields.io/pypi/v/erdantic.svg" /></a>
 <a href="https://anaconda.org/conda-forge/erdantic"><img alt="conda-forge" src="https://img.shields.io/conda/vn/conda-forge/erdantic.svg" /></a>
 <a href="https://github.com/drivendataorg/erdantic/actions?query=workflow%3Atests+branch%3Amain"><img alt="tests" src="https://github.com/drivendataorg/erdantic/workflows/tests/badge.svg?branch=main" /></a>
@@ -597,34 +599,34 @@
 <p>Features include a convenient CLI, automatic native rendering in Jupyter notebooks, and easy extensibility to other data modeling frameworks. Docstrings are even accessible as tooltips for SVG outputs. Great for adding a simple and clean data model reference to your documentation.</p>
 <object type="image/svg+xml" data="examples/pydantic.svg" width="100%" typemustmatch><img alt="Example diagram created by erdantic" src="examples/pydantic.svg"></object>
 
-<h2 id="installation">Installation</h2>
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <p>erdantic's graph modeling depends on <a href="https://pygraphviz.github.io/documentation/stable/index.html">pygraphviz</a> and <a href="https://graphviz.org/">Graphviz</a>, an open-source C library. If you are on Linux or macOS, the easiest way to install everything together is to use conda and conda-forge:</p>
-<pre><code class="language-bash">conda install erdantic -c conda-forge
-</code></pre>
+<div class="highlight"><pre><span></span><code>conda install erdantic -c conda-forge
+</code></pre></div>
 <p>If not using conda, Graphviz must be installed first (before you can install pygraphviz). For recommended options and installation troubleshooting, see the <a href="https://pygraphviz.github.io/documentation/stable/install.html">pygraphviz docs</a>. Then to install erdantic and its Python dependencies from PyPI:</p>
-<pre><code class="language-bash">pip install erdantic
-</code></pre>
-<h3 id="development-version">Development version</h3>
+<div class="highlight"><pre><span></span><code>pip install erdantic
+</code></pre></div>
+<h3 id="development-version">Development version<a class="headerlink" href="#development-version" title="Permanent link">&para;</a></h3>
 <p>You can get the development version from GitHub with:</p>
-<pre><code class="language-bash">pip install https://github.com/drivendataorg/erdantic.git#egg=erdantic
-</code></pre>
-<h2 id="quick-usage">Quick Usage</h2>
+<div class="highlight"><pre><span></span><code>pip install https://github.com/drivendataorg/erdantic.git#egg<span class="o">=</span>erdantic
+</code></pre></div>
+<h2 id="quick-usage">Quick Usage<a class="headerlink" href="#quick-usage" title="Permanent link">&para;</a></h2>
 <p>The fastest way to produce a diagram like the above example is to use the erdantic CLI. Simply specify the full dotted path to your data model class and an output path. The rendered format is interpreted from the filename extension.</p>
-<pre><code class="language-bash">erdantic erdantic.examples.pydantic.Party -o diagram.png
-</code></pre>
+<div class="highlight"><pre><span></span><code>erdantic erdantic.examples.pydantic.Party -o diagram.png
+</code></pre></div>
 <p>You can also import the erdantic Python library and use its functions.</p>
-<pre><code class="language-python">import erdantic as erd
-from erdantic.examples.pydantic import Party
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">erdantic</span> <span class="k">as</span> <span class="nn">erd</span>
+<span class="kn">from</span> <span class="nn">erdantic.examples.pydantic</span> <span class="kn">import</span> <span class="n">Party</span>
 
-# Easy one-liner
-erd.draw(Party, out=&quot;diagram.png&quot;)
+<span class="c1"># Easy one-liner</span>
+<span class="n">erd</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">Party</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="s2">&quot;diagram.png&quot;</span><span class="p">)</span>
 
-# Or create a diagram object that you can inspect and do stuff with
-diagram = erd.create(Party)
-diagram.models
-#&gt; [PydanticModel(Adventurer), PydanticModel(Party), PydanticModel(Quest), PydanticModel(QuestGiver)]
-diagram.draw(&quot;diagram.png&quot;)
-</code></pre>
+<span class="c1"># Or create a diagram object that you can inspect and do stuff with</span>
+<span class="n">diagram</span> <span class="o">=</span> <span class="n">erd</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">Party</span><span class="p">)</span>
+<span class="n">diagram</span><span class="o">.</span><span class="n">models</span>
+<span class="c1">#&gt; [PydanticModel(Adventurer), PydanticModel(Party), PydanticModel(Quest), PydanticModel(QuestGiver)]</span>
+<span class="n">diagram</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s2">&quot;diagram.png&quot;</span><span class="p">)</span>
+</code></pre></div>
 <p>Check out the "Usage Examples" section of our <a href="https://erdantic.drivendata.org/">docs</a> to see more.</p>
                 
               
@@ -636,6 +638,11 @@ diagram.draw(&quot;diagram.png&quot;)
             </article>
           </div>
         </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
         
       </main>
       
@@ -681,7 +688,7 @@ diagram.draw(&quot;diagram.png&quot;)
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": ".", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.409db549.min.js", "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.409db549.min.js", "version": {"provider": "mike"}}</script>
     
     
       <script src="assets/javascripts/bundle.756773cc.min.js"></script>

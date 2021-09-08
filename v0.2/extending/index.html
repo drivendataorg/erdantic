@@ -42,6 +42,8 @@
     
       <link rel="stylesheet" href="../assets/_mkdocstrings.css">
     
+      <link rel="stylesheet" href="../css/custom_mkdocstrings.css">
+    
     
       
 
@@ -557,12 +559,12 @@
                   </a>
                 
                 
-                <h1 id="adding-new-frameworks">Adding New Frameworks</h1>
-<p>Adding a new data model framework is pretty straightforward. There are three key elements involved, all found in the <a href="https://erdantic.drivendata.org/api-reference/base/"><code>erdantic.base</code> module</a>.</p>
+                <h1 id="adding-new-frameworks">Adding New Frameworks<a class="headerlink" href="#adding-new-frameworks" title="Permanent link">&para;</a></h1>
+<p>Adding a new data model framework is pretty straightforward. There are three key elements involved, all found in the <a href="api-reference/base/"><code>erdantic.base</code> module</a>.</p>
 <ol>
-<li><a href="https://erdantic.drivendata.org/api-reference/base/#erdantic.base.Field"><code>Field</code></a>: The adapter interface for fields on the data model classes from whatever framework</li>
-<li><a href="https://erdantic.drivendata.org/api-reference/base/#erdantic.base.Model"><code>Model</code></a>: The adapter interface for those models themselves</li>
-<li><a href="https://erdantic.drivendata.org/api-reference/base/#erdantic.base.register_model_adapter"><code>@register_model_adapter</code></a>: The decorator you use to register a concrete model adapter so that <code>erdantic</code> knows about it</li>
+<li><a href="../api-reference/base/#erdantic.base.Field"><code>Field</code></a>: The adapter interface for fields on the data model classes from whatever framework</li>
+<li><a href="../api-reference/base/#erdantic.base.Model"><code>Model</code></a>: The adapter interface for those models themselves</li>
+<li><a href="../api-reference/base/#erdantic.base.register_model_adapter"><code>@register_model_adapter</code></a>: The decorator you use to register a concrete model adapter so that <code>erdantic</code> knows about it</li>
 </ol>
 <p>You will be making concrete subclasses of the <code>Field</code> and <code>Model</code> <a href="https://docs.python.org/3/library/abc.html">abstract base classes</a> and filling in several abstract methods.</p>
 <p>Some tips:</p>
@@ -571,51 +573,51 @@
 <li>You can also use the source code for the <a href="https://github.com/drivendataorg/erdantic/blob/main/erdantic/pydantic.py"><code>erdantic.pydantic</code></a> or <a href="https://github.com/drivendataorg/erdantic/blob/main/erdantic/dataclasses.py"><code>erdantic.dataclasses</code></a> modules as examples.</li>
 <li>The erdantic library is thoroughly type-annotated, so you can use a static typechecker like <a href="https://mypy.readthedocs.io/en/stable/">mypy</a> to help you ensure correctness.</li>
 </ul>
-<h2 id="field-subclass">Field Subclass</h2>
+<h2 id="field-subclass">Field Subclass<a class="headerlink" href="#field-subclass" title="Permanent link">&para;</a></h2>
 <p>First, make a subclass of <code>Field</code>. You can use the template below, which stubs out all of the abstract methods, to get started. You should replace <code>MyDataField</code>—both in the class definition and in the <code>__init__</code> method definition—with the actual class of field objects in the framework you're adapting. Then fill in the rest of the methods that are being passed.</p>
-<pre><code class="language-python">class MyField(Field[MyDataField]):
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">MyField</span><span class="p">(</span><span class="n">Field</span><span class="p">[</span><span class="n">MyDataField</span><span class="p">]):</span>
 
-    def __init__(self, field: MyDataField):
-        if not isinstance(field, MyDataField):
-            raise ValueError(f&quot;field must be of type MyDataField. Got: {type(field)}&quot;)
-        super().__init__(field=field)
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="n">MyDataField</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">MyDataField</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;field must be of type MyDataField. Got: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">field</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="n">field</span><span class="p">)</span>
 
-    @property
-    def name(self) -&gt; str:
-        pass
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">pass</span>
 
-    @property
-    def type_obj(self) -&gt; type:
-        pass
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">type_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">:</span>
+        <span class="k">pass</span>
 
-    def is_many(self) -&gt; bool:
-        pass
+    <span class="k">def</span> <span class="nf">is_many</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">pass</span>
 
-    def is_nullable(self) -&gt; bool:
-        pass
-</code></pre>
-<h2 id="model-subclass-and-decorator">Model Subclass and Decorator</h2>
+    <span class="k">def</span> <span class="nf">is_nullable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">pass</span>
+</code></pre></div>
+<h2 id="model-subclass-and-decorator">Model Subclass and Decorator<a class="headerlink" href="#model-subclass-and-decorator" title="Permanent link">&para;</a></h2>
 <p>Next, make a subclass of <code>Model</code>. It is similarly an abstract base class. Check out the template below with the required methods stubbed. Replace <code>MyDataClass</code> in the class declaration and in <code>__init__</code> with the actual class of the data class you're adapting.</p>
 <p>You'll also need to decorate this class with <code>@register_model_adapter</code>. Note that it is actually a decorator factory; calling it with a string input returns the actual decorator. The string input should be a concise unique identifier for your framework, such as the name of its package.</p>
-<pre><code class="language-python">@register_model_adapter(&quot;mydataclass&quot;)
-class MyModel(Model[MyDataClass]):
+<div class="highlight"><pre><span></span><code><span class="nd">@register_model_adapter</span><span class="p">(</span><span class="s2">&quot;mydataclass&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">Model</span><span class="p">[</span><span class="n">MyDataClass</span><span class="p">]):</span>
 
-    def __init__(self, model: Type[MyDataClass]):
-        if not self.is_model_type(model):
-            raise ValueError(
-                &quot;Argument model must be a subclass of MyDataClass. &quot;
-                f&quot;Got {repr_type_with_mro(model)}&quot;
-            )
-        super().__init__(model=model)
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">MyDataClass</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_model_type</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Argument model must be a subclass of MyDataClass. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Got </span><span class="si">{</span><span class="n">repr_type_with_mro</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
 
-    @staticmethod
-    def is_model_type(obj: Any) -&gt; bool:
-        pass
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">is_model_type</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">pass</span>
 
-    @property
-    def fields(self) -&gt; List[Field]:
-        pass
-</code></pre>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">fields</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Field</span><span class="p">]:</span>
+        <span class="k">pass</span>
+</code></pre></div>
                 
               
               
@@ -626,6 +628,11 @@ class MyModel(Model[MyDataClass]):
             </article>
           </div>
         </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
         
       </main>
       
@@ -686,7 +693,7 @@ class MyModel(Model[MyDataClass]):
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.409db549.min.js", "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.409db549.min.js", "version": {"provider": "mike"}}</script>
     
     
       <script src="../assets/javascripts/bundle.756773cc.min.js"></script>
