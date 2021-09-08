@@ -1,10 +1,10 @@
 # Adding New Frameworks
 
-Adding a new data model framework is pretty straightforward. There are three key elements involved, all found in the [`erdantic.base` module](https://erdantic.drivendata.org/api-reference/base/).
+Adding a new data model framework is pretty straightforward. There are three key elements involved, all found in the [`erdantic.base` module](api-reference/base/).
 
-1. [`Field`](https://erdantic.drivendata.org/api-reference/base/#erdantic.base.Field): The adapter interface for fields on the data model classes from whatever framework
-2. [`Model`](https://erdantic.drivendata.org/api-reference/base/#erdantic.base.Model): The adapter interface for those models themselves
-3. [`@register_model_adapter`](https://erdantic.drivendata.org/api-reference/base/#erdantic.base.register_model_adapter): The decorator you use to register a concrete model adapter so that `erdantic` knows about it
+1. [`Field`](../api-reference/base/#erdantic.base.Field): The adapter interface for fields on the data model classes from whatever framework
+2. [`Model`](../api-reference/base/#erdantic.base.Model): The adapter interface for those models themselves
+3. [`@register_model_adapter`](../api-reference/base/#erdantic.base.register_model_adapter): The decorator you use to register a concrete model adapter so that `erdantic` knows about it
 
 You will be making concrete subclasses of the `Field` and `Model` [abstract base classes](https://docs.python.org/3/library/abc.html) and filling in several abstract methods.
 
