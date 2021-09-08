@@ -4,6 +4,8 @@ site_description: Draw entity relationship diagrams for Pydantic models and stan
 repo_url: https://github.com/drivendataorg/erdantic
 theme:
   name: material
+  features:
+    - navigation.top
 
 nav:
   - Home: "index.md"

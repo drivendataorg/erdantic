@@ -48,8 +48,10 @@ docs: clean-docs ## build documentation
 	@echo '```' >> docs/docs/cli.md
 	@erdantic --help >> docs/docs/cli.md
 	@echo '```' >> docs/docs/cli.md
-	sed 's|https://raw.githubusercontent.com/drivendataorg/erdantic/main/docs/docs/examples/pydantic.svg|examples/pydantic.svg|g' README.md > docs/docs/index.md
-	cp HISTORY.md docs/docs/changelog.md
+	sed 's|https://raw.githubusercontent.com/drivendataorg/erdantic/main/docs/docs/examples/pydantic.svg|examples/pydantic.svg|g' README.md \
+		| sed 's|https://erdantic.drivendata.org/stable/||g' \
+		> docs/docs/index.md
+	sed 's|https://cloudpathlib.drivendata.org/stable/||g' HISTORY.md > docs/docs/changelog.md
 	rm -f docs/docs/examples/diagram.png
 	cd docs && mkdocs build
 
