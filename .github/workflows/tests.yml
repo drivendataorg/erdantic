@@ -60,11 +60,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements-dev.txt
 
-      - name: Lint package
-        run: |
-          make lint
-          make typecheck
-
       - name: Run tests
         run: |
           make test
