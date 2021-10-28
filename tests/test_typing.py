@@ -87,6 +87,7 @@ repr_type_cases = [
     (typing.List[MyIntFlag], "List[MyIntFlag(IntFlag)]"),
     (typing.Any, "Any"),
     (typing.Dict[str, typing.Any], "Dict[str, Any]"),
+    (typing.ForwardRef("MyClass"), "MyClass"),
 ]
 
 if sys.version_info[:2] >= (3, 9):

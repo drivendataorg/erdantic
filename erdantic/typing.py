@@ -90,6 +90,8 @@ def repr_type(tp: Union[type, GenericAlias]) -> str:
         return "..."
     if isinstance(tp, type) and issubclass(tp, Enum):
         return repr_enum(tp)
+    if isinstance(tp, ForwardRef):
+        return tp.__forward_arg__
     return getattr(tp, "__name__", repr(tp).replace("typing.", ""))
 
 
