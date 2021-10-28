@@ -5,7 +5,7 @@ import pytest
 
 import erdantic as erd
 from erdantic.erd import Edge
-from erdantic.exceptions import UnknownModelTypeError
+from erdantic.exceptions import NotATypeError, UnknownModelTypeError
 from erdantic.examples.pydantic import Party, Quest
 
 
@@ -32,9 +32,13 @@ def test_edge_comparisons():
     assert edges[0] in {edge0_copy}
     assert edges[0] not in {edges[1]}
 
+    # Bad comparison should raise error
+    with pytest.raises(TypeError, match="not supported"):
+        edges[0] < str(edges[0])
+
 
 def test_not_a_type_error():
-    with pytest.raises(ValueError, match="Given model is not a type"):
+    with pytest.raises(NotATypeError, match="Given model is not a type"):
         erd.create(5)
 
 

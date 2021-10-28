@@ -3,7 +3,7 @@ import inspect
 from typing import Any, Callable, Dict, Generic, List, Optional, Type, TypeVar, Union
 
 from erdantic.exceptions import InvalidModelAdapterError
-from erdantic.typing import Final, GenericAlias, repr_type, repr_type_with_mro
+from erdantic.typing import Final, GenericAlias, repr_type
 
 
 _row_template = """<tr><td>{name}</td><td port="{name}">{type_name}</td></tr>"""
@@ -170,11 +170,9 @@ class Model(ABC, Generic[MT]):
         return hash(self.key)
 
     def __lt__(self, other) -> bool:
-        if not isinstance(other, Model):
-            raise ValueError(
-                f"Can only compare between instances of Model. Given: {repr_type_with_mro(other)}"
-            )
-        return self.key < other.key
+        if isinstance(other, Model):
+            return self.key < other.key
+        return NotImplemented
 
     def __repr__(self) -> str:
         return f"{type(self).__name__}({self.name})"

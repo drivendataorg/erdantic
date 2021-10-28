@@ -67,11 +67,11 @@ class Edge:
         )
 
     def __lt__(self, other) -> bool:
-        if not isinstance(other, Edge):
-            raise ValueError(f"Can only compare between instances of Edge. Given: {repr(other)}")
-        self_key = (self.source, self.source.fields.index(self.source_field), self.target)
-        other_key = (other.source, other.source.fields.index(other.source_field), other.target)
-        return self_key < other_key
+        if isinstance(other, Edge):
+            self_key = (self.source, self.source.fields.index(self.source_field), self.target)
+            other_key = (other.source, other.source.fields.index(other.source_field), other.target)
+            return self_key < other_key
+        return NotImplemented
 
 
 class EntityRelationshipDiagram:
