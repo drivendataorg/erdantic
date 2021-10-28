@@ -1,8 +1,9 @@
 import pytest
 
 import erdantic as erd
-from erdantic.examples.pydantic import Party
 from erdantic.base import Field, Model, register_model_adapter
+from erdantic.examples.pydantic import Party
+from erdantic.exceptions import InvalidModelAdapterError
 
 
 def test_abstract_field_instatiation():
@@ -20,7 +21,9 @@ def test_model_adapter_registration_error():
     class ModelAirplane:
         pass
 
-    with pytest.raises(ValueError, match=r"Only subclasses of Model can be registered"):
+    with pytest.raises(
+        InvalidModelAdapterError, match=r"Only subclasses of erdantic.base.Model can be registered"
+    ):
         register_model_adapter("airplane")(ModelAirplane)
 
 

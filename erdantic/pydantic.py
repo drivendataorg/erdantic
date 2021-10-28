@@ -4,6 +4,7 @@ import pydantic
 import pydantic.fields
 
 from erdantic.base import Field, Model, register_model_adapter
+from erdantic.exceptions import InvalidFieldError, InvalidModelError
 from erdantic.typing import GenericAlias, repr_type_with_mro
 
 
@@ -17,7 +18,7 @@ class PydanticField(Field[pydantic.fields.ModelField]):
 
     def __init__(self, field: pydantic.fields.ModelField):
         if not isinstance(field, pydantic.fields.ModelField):
-            raise ValueError(
+            raise InvalidFieldError(
                 f"field must be of type pydantic.fields.ModelField. Got: {type(field)}"
             )
         super().__init__(field=field)
@@ -59,7 +60,7 @@ class PydanticModel(Model[Type[pydantic.BaseModel]]):
 
     def __init__(self, model: Type[pydantic.BaseModel]):
         if not self.is_model_type(model):
-            raise ValueError(
+            raise InvalidModelError(
                 "Argument model must be a subclass of pydantic.BaseModel. "
                 f"Got {repr_type_with_mro(model)}"
             )

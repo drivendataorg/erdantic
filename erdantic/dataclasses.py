@@ -4,6 +4,7 @@ from typing import Any, List, Union
 
 
 from erdantic.base import Field, Model, register_model_adapter
+from erdantic.exceptions import InvalidFieldError, InvalidModelError
 from erdantic.typing import GenericAlias, get_args, get_origin
 
 
@@ -17,7 +18,7 @@ class DataClassField(Field[dataclasses.Field]):
 
     def __init__(self, field: dataclasses.Field):
         if not isinstance(field, dataclasses.Field):
-            raise ValueError(f"field must be of type dataclasses.Field. Got: {type(field)}")
+            raise InvalidFieldError(f"field must be of type dataclasses.Field. Got: {type(field)}")
         super().__init__(field=field)
 
     @property
@@ -57,7 +58,7 @@ class DataClassModel(Model[type]):
 
     def __init__(self, model: type):
         if not self.is_model_type(model):
-            raise ValueError(f"Argument model must be a dataclass: {repr(model)}")
+            raise InvalidModelError(f"Argument model must be a dataclass: {repr(model)}")
         super().__init__(model=model)
 
     @staticmethod

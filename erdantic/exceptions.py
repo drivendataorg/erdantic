@@ -8,16 +8,20 @@ class ErdanticException(Exception):
     """Base class for all exceptions from erdantic library."""
 
 
-class UnknownModelTypeError(ValueError, ErdanticException):
-    """Raised when a given model does not match known supported class types."""
+class InvalidModelError(ValueError, ErdanticException):
+    pass
 
-    def __init__(self, model: type, message: Optional[str] = None):
-        if message is None:
-            display = getattr(model, "__mro__", str(model))
-            message = f"Given model does not match any supported types. Model MRO: {display}"
-        self.model = model
-        self.message = message
-        super().__init__(message)
+
+class InvalidModelAdapterError(ValueError, ErdanticException):
+    pass
+
+
+class InvalidFieldError(ValueError, ErdanticException):
+    pass
+
+
+class NotATypeError(ValueError, ErdanticException):
+    pass
 
 
 class UnevaluatedForwardRefError(ErdanticException):
@@ -38,3 +42,19 @@ class _UnevaluatedForwardRefError(ErdanticException):
     def __init__(self, forward_ref: ForwardRef) -> None:
         self.forward_ref = forward_ref
         super().__init__("Unexpected error while flagging unevaluated forward reference.")
+
+
+class UnknownFieldError(ValueError, ErdanticException):
+    pass
+
+
+class UnknownModelTypeError(ValueError, ErdanticException):
+    """Raised when a given model does not match known supported class types."""
+
+    def __init__(self, model: type, message: Optional[str] = None):
+        if message is None:
+            display = getattr(model, "__mro__", str(model))
+            message = f"Given model does not match any supported types. Model MRO: {display}"
+        self.model = model
+        self.message = message
+        super().__init__(message)

@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 import inspect
 from typing import Any, Callable, Dict, Generic, List, Optional, Type, TypeVar, Union
 
+from erdantic.exceptions import InvalidModelAdapterError
 from erdantic.typing import Final, GenericAlias, repr_type, repr_type_with_mro
 
 
@@ -200,7 +201,10 @@ def register_model_adapter(type_name: str) -> Callable[[Type[Model]], Type[Model
     def decorator(cls: type) -> type:
         global model_adapter_registry
         if not issubclass(cls, Model):
-            raise ValueError("Only subclasses of Model can be registered.")
+            raise InvalidModelAdapterError(
+                "Only subclasses of erdantic.base.Model can be "
+                "registered as erdantic model adapters."
+            )
         model_adapter_registry[type_name] = cls
         return cls
 

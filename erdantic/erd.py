@@ -5,8 +5,10 @@ import pygraphviz as pgv
 
 from erdantic.base import Field, Model, model_adapter_registry
 from erdantic.exceptions import (
+    NotATypeError,
     _UnevaluatedForwardRefError,
     UnevaluatedForwardRefError,
+    UnknownFieldError,
     UnknownModelTypeError,
 )
 from erdantic.typing import get_recursive_args
@@ -30,7 +32,9 @@ class Edge:
 
     def __init__(self, source: "Model", source_field: "Field", target: "Model"):
         if source_field not in set(source.fields):
-            raise ValueError("source_field is not a field of source")
+            raise UnknownFieldError(
+                f"source_field {source_field} is not a field of source {source}"
+            )
         self.source = source
         self.source_field = source_field
         self.target = target
@@ -177,7 +181,7 @@ def create(*models: type, termini: Sequence[type] = []) -> EntityRelationshipDia
     """
     for raw_model in models + tuple(termini):
         if not isinstance(raw_model, type):
-            raise ValueError(f"Given model is not a type: {raw_model}")
+            raise NotATypeError(f"Given model is not a type: {raw_model}")
 
     seen_models: Set[Model] = {adapt_model(t) for t in termini}
     seen_edges: Set[Edge] = set()

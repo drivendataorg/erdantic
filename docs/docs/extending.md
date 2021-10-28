@@ -19,11 +19,14 @@ Some tips:
 First, make a subclass of `Field`. You can use the template below, which stubs out all of the abstract methods, to get started. You should replace `MyDataField`—both in the class definition and in the `__init__` method definition—with the actual class of field objects in the framework you're adapting. Then fill in the rest of the methods that are being passed.
 
 ```python
+from erdantic.base import Field, InvalidFieldError
+
+
 class MyField(Field[MyDataField]):
 
     def __init__(self, field: MyDataField):
         if not isinstance(field, MyDataField):
-            raise ValueError(f"field must be of type MyDataField. Got: {type(field)}")
+            raise InvalidFieldError(f"field must be of type MyDataField. Got: {type(field)}")
         super().__init__(field=field)
 
     @property
@@ -48,12 +51,16 @@ Next, make a subclass of `Model`. It is similarly an abstract base class. Check 
 You'll also need to decorate this class with `@register_model_adapter`. Note that it is actually a decorator factory; calling it with a string input returns the actual decorator. The string input should be a concise unique identifier for your framework, such as the name of its package.
 
 ```python
+from erdantic.base import InvalidModelError, Model, register_model_adapter
+from erdantic.typing import repr_type_with_mro
+
+
 @register_model_adapter("mydataclass")
 class MyModel(Model[MyDataClass]):
 
     def __init__(self, model: Type[MyDataClass]):
         if not self.is_model_type(model):
-            raise ValueError(
+            raise InvalidModelError(
                 "Argument model must be a subclass of MyDataClass. "
                 f"Got {repr_type_with_mro(model)}"
             )
