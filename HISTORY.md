@@ -1,6 +1,6 @@
 # erdantic Changelog
 
-## v0.3.0 (2021-10-27)
+## v0.3.0 (2021-10-28)
 
 - Fixed handling of forward references in field type declarations. Evaluated forward references will be properly identified. Unevaluated forward references will throw an `UnevaluatedForwardRefError` with instructions for how to resolve. ([Issue #40](https://github.com/drivendataorg/erdantic/issues/40), [PR #41](https://github.com/drivendataorg/erdantic/issues/41))
 - Changed name of `erdantic.errors` module to `erdantic.exceptions`. ([PR #41](https://github.com/drivendataorg/erdantic/issues/41))
