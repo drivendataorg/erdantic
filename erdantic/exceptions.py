@@ -1,4 +1,10 @@
-from typing import ForwardRef, Optional, TYPE_CHECKING
+from typing import Optional, TYPE_CHECKING
+
+try:
+    from typing import ForwardRef  # type: ignore # Python >= 3.7.4
+except ImportError:
+    from typing import _ForwardRef as ForwardRef  # type: ignore # Python < 3.7.4
+
 
 if TYPE_CHECKING:
     from erdantic.base import Model, Field
