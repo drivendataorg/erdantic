@@ -9,15 +9,15 @@ class ErdanticException(Exception):
 
 
 class InvalidModelError(ValueError, ErdanticException):
-    pass
+    """Raised when an invalid model object is passed to a model adapter."""
 
 
 class InvalidModelAdapterError(ValueError, ErdanticException):
-    pass
+    """Raised when trying to register a model adapter that is not subclassing Model."""
 
 
 class InvalidFieldError(ValueError, ErdanticException):
-    pass
+    """Raised when an invalid field object is passed to a field adapter."""
 
 
 class NotATypeError(ValueError, ErdanticException):
@@ -25,6 +25,8 @@ class NotATypeError(ValueError, ErdanticException):
 
 
 class UnevaluatedForwardRefError(ErdanticException):
+    """Raised when a field's type declaration has an unevaluated forward reference."""
+
     def __init__(self, model: "Model", field: "Field", forward_ref: ForwardRef) -> None:
         message = (
             f"Unevaluated forward reference '{forward_ref.__forward_arg__}' "
@@ -45,7 +47,7 @@ class _UnevaluatedForwardRefError(ErdanticException):
 
 
 class UnknownFieldError(ValueError, ErdanticException):
-    pass
+    """Raised when specified field does not match a field on specified model."""
 
 
 class UnknownModelTypeError(ValueError, ErdanticException):

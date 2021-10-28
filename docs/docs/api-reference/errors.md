@@ -1,3 +1,0 @@
-# erdantic.errors
-
-::: erdantic.errors

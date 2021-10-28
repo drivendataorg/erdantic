@@ -18,7 +18,7 @@ nav:
       - erdantic.base: "api-reference/base.md"
       - erdantic.dataclasses: "api-reference/dataclasses.md"
       - erdantic.erd: "api-reference/erd.md"
-      - erdantic.errors: "api-reference/errors.md"
+      - erdantic.exceptions: "api-reference/exceptions.md"
       - erdantic.pydantic: "api-reference/pydantic.md"
       - erdantic.examples:
           - erdantic.examples.pydantic: "api-reference/examples.pydantic.md"
