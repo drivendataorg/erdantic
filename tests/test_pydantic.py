@@ -1,8 +1,10 @@
 from typing import Dict, List, Optional, Tuple
 
 from pydantic import BaseModel
+import pytest
 
 import erdantic as erd
+from erdantic.exceptions import UnevaluatedForwardRefError
 from erdantic.pydantic import PydanticModel
 
 
@@ -21,6 +23,30 @@ def test_model_graph_search_nested_args():
     assert {(e.source.model, e.target.model) for e in diagram.edges} == {
         (Outer, Inner0),
         (Outer, Inner1),
+    }
+
+
+def test_forward_references():
+    class PydanticItem(BaseModel):
+        name: str
+
+    class PydanticContainer(BaseModel):
+        items: List["PydanticItem"]
+
+    # Unevaluated forward ref should error
+    with pytest.raises(UnevaluatedForwardRefError, match="update_forward_refs"):
+        _ = erd.create(PydanticContainer)
+
+    # Evaluate forward ref
+    PydanticContainer.update_forward_refs(**locals())
+
+    # Test that model can be used
+    _ = PydanticContainer(items=[PydanticItem(name="thingie")])
+
+    diagram = erd.create(PydanticContainer)
+    assert {m.model for m in diagram.models} == {PydanticContainer, PydanticItem}
+    assert {(e.source.model, e.target.model) for e in diagram.edges} == {
+        (PydanticContainer, PydanticItem)
     }
 
 

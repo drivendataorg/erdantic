@@ -4,7 +4,11 @@ from typing import Any, List, Sequence, Set, Union
 import pygraphviz as pgv
 
 from erdantic.base import Field, Model, model_adapter_registry
-from erdantic.errors import UnknownModelTypeError
+from erdantic.exceptions import (
+    _UnevaluatedForwardRefError,
+    UnevaluatedForwardRefError,
+    UnknownModelTypeError,
+)
 from erdantic.typing import get_recursive_args
 from erdantic.version import __version__
 
@@ -167,8 +171,6 @@ def create(*models: type, termini: Sequence[type] = []) -> EntityRelationshipDia
 
     Raises:
         UnknownModelTypeError: If model is not recognized as a supported model type.
-        MissingCreateError: If model is recognized as a supported, type but a registered `create`
-            function is missing for that type.
 
     Returns:
         EntityRelationshipDiagram: diagram object for given data model.
@@ -221,13 +223,18 @@ def search_composition_graph(
     if model not in seen_models:
         seen_models.add(model)
         for field in model.fields:
-            for arg in get_recursive_args(field.type_obj):
-                try:
-                    field_model = adapt_model(arg)
-                    seen_edges.add(Edge(source=model, source_field=field, target=field_model))
-                    search_composition_graph(field_model, seen_models, seen_edges)
-                except UnknownModelTypeError:
-                    pass
+            try:
+                for arg in get_recursive_args(field.type_obj):
+                    try:
+                        field_model = adapt_model(arg)
+                        seen_edges.add(Edge(source=model, source_field=field, target=field_model))
+                        search_composition_graph(field_model, seen_models, seen_edges)
+                    except UnknownModelTypeError:
+                        pass
+            except _UnevaluatedForwardRefError as e:
+                raise UnevaluatedForwardRefError(
+                    model=model, field=field, forward_ref=e.forward_ref
+                )
 
 
 def draw(*models: type, out: Union[str, os.PathLike], termini: Sequence[type] = [], **kwargs):

@@ -12,7 +12,7 @@ class PydanticField(Field[pydantic.fields.ModelField]):
 
     Attributes:
         field (pydantic.fields.ModelField): The Pydantic field object that is associated with this
-            adapter instance
+            adapter instance.
     """
 
     def __init__(self, field: pydantic.fields.ModelField):
@@ -47,8 +47,15 @@ class PydanticModel(Model[Type[pydantic.BaseModel]]):
 
     Attributes:
         model (Type[pydantic.BaseModel]): The Pydantic model class that is associated with this
-            adapter instance
+            adapter instance.
+        forward_ref_help (Optional[str]): Instructions for how to resolve an unevaluated forward
+            reference in a field's type declaration.
     """
+
+    forward_ref_help = (
+        "Call 'update_forward_refs' after model is created to resolve. "
+        "See: https://pydantic-docs.helpmanual.io/usage/postponed_annotations/"
+    )
 
     def __init__(self, model: Type[pydantic.BaseModel]):
         if not self.is_model_type(model):

@@ -5,7 +5,7 @@ import pytest
 
 import erdantic as erd
 from erdantic.erd import Edge
-from erdantic.errors import UnknownModelTypeError
+from erdantic.exceptions import UnknownModelTypeError
 from erdantic.examples.pydantic import Party, Quest
 
 

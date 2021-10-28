@@ -1,5 +1,6 @@
 from enum import Enum
-from typing import Any, List, Type, Union
+from typing import Any, ForwardRef, List, Type, Union
+from erdantic.exceptions import _UnevaluatedForwardRefError
 
 try:
     from typing import _GenericAlias as GenericAlias  # type: ignore # Python 3.7+
@@ -46,6 +47,12 @@ def get_recursive_args(tp: Union[type, GenericAlias]) -> List[type]:
     """Recursively finds leaf-node types of possibly-nested generic type."""
 
     def recurse(t):
+        if isinstance(t, ForwardRef):
+            if t.__forward_evaluated__:
+                t = t.__forward_value__
+            else:
+                raise _UnevaluatedForwardRefError(forward_ref=t)
+
         args = get_args(t)
         if args:
             for arg in args:

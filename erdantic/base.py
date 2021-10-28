@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 import inspect
-from typing import Any, Callable, Dict, Generic, List, Type, TypeVar, Union
+from typing import Any, Callable, Dict, Generic, List, Optional, Type, TypeVar, Union
 
 from erdantic.typing import Final, GenericAlias, repr_type, repr_type_with_mro
 
@@ -104,7 +104,11 @@ class Model(ABC, Generic[MT]):
 
     Attributes:
         model (MT): Data model class associated with this adapter
+        forward_ref_help (Optional[str]): Instructions for how to resolve an unevaluated forward
+            reference in a field's type declaration.
     """
+
+    forward_ref_help: Optional[str] = None
 
     @abstractmethod
     def __init__(self, model: MT):
