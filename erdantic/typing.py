@@ -19,7 +19,7 @@ try:
 except ImportError:
     from typing import _ForwardRef as ForwardRef  # type: ignore # Python < 3.7.4
 
-from erdantic.exceptions import _UnevaluatedForwardRefError
+from erdantic.exceptions import _StringForwardRefError, _UnevaluatedForwardRefError
 
 
 def _get_args(tp):
@@ -53,7 +53,9 @@ def get_recursive_args(tp: Union[type, GenericAlias]) -> List[type]:
     """Recursively finds leaf-node types of possibly-nested generic type."""
 
     def recurse(t):
-        if isinstance(t, ForwardRef):
+        if isinstance(t, str):
+            raise _StringForwardRefError(forward_ref=t)
+        elif isinstance(t, ForwardRef):
             if t.__forward_evaluated__:
                 t = t.__forward_value__
             else:

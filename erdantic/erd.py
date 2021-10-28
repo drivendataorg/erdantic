@@ -6,6 +6,8 @@ import pygraphviz as pgv
 from erdantic.base import Field, Model, model_adapter_registry
 from erdantic.exceptions import (
     NotATypeError,
+    _StringForwardRefError,
+    StringForwardRefError,
     _UnevaluatedForwardRefError,
     UnevaluatedForwardRefError,
     UnknownFieldError,
@@ -237,6 +239,10 @@ def search_composition_graph(
                         pass
             except _UnevaluatedForwardRefError as e:
                 raise UnevaluatedForwardRefError(
+                    model=model, field=field, forward_ref=e.forward_ref
+                ) from None
+            except _StringForwardRefError as e:
+                raise StringForwardRefError(
                     model=model, field=field, forward_ref=e.forward_ref
                 ) from None
 

@@ -1,3 +1,4 @@
+import sys
 from typing import Optional, TYPE_CHECKING
 
 try:
@@ -28,6 +29,32 @@ class InvalidFieldError(ValueError, ErdanticException):
 
 class NotATypeError(ValueError, ErdanticException):
     pass
+
+
+class StringForwardRefError(ErdanticException):
+    """Raised when a field's type declaration is stored as a string literal and not transformed
+    into a typing.ForwardRef object."""
+
+    def __init__(self, model: "Model", field: "Field", forward_ref: ForwardRef) -> None:
+        message = (
+            f"Forward reference '{forward_ref}' for field '{field.name}' on model '{model.name}' "
+            "is a string literal and not a typing.ForwardRef object. erdantic is unable to handle "
+            "forward references that aren't transformed into typing.ForwardRef. Declare "
+            f"explicitly with 'typing.ForwardRef(\"{forward_ref}\", is_argument=False)'."
+        )
+        if sys.version_info[:3] < (3, 7, 4):
+            message = message.replace("typing.ForwardRef", "typing._ForwardRef")
+
+        super().__init__(message)
+
+
+class _StringForwardRefError(ErdanticException):
+    """Internal exception for forward references that are stored as a string literal rather than
+    a typing.ForwardRef object."""
+
+    def __init__(self, forward_ref: ForwardRef) -> None:
+        self.forward_ref = forward_ref
+        super().__init__("Unexpected error while flagging forward reference stored as a string.")
 
 
 class UnevaluatedForwardRefError(ErdanticException):

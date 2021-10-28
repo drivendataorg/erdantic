@@ -1,10 +1,10 @@
 import dataclasses
-from typing import Dict, List, Tuple, get_type_hints
+from typing import Dict, ForwardRef, List, Tuple, get_type_hints
 
 import pytest
 
 import erdantic as erd
-from erdantic.exceptions import UnevaluatedForwardRefError
+from erdantic.exceptions import StringForwardRefError, UnevaluatedForwardRefError
 
 
 def test_model_graph_search_nested_args():
@@ -28,25 +28,51 @@ def test_model_graph_search_nested_args():
     }
 
 
-def test_forward_references():
+def test_string_forward_ref():
     @dataclasses.dataclass
-    class Item:
+    class WithStringForwardRef:
+        sibling: "WithStringForwardRef"
+
+    get_type_hints(WithStringForwardRef, localns=locals())
+
+    # Unevaluated forward ref should error
+    with pytest.raises(StringForwardRefError):
+        _ = erd.create(WithStringForwardRef)
+
+    @dataclasses.dataclass
+    class WithExplicitForwardRef:
+        sibling: ForwardRef("WithExplicitForwardRef", is_argument=False)  # noqa: F821
+
+    get_type_hints(WithExplicitForwardRef, localns=locals())
+
+    diagram = erd.create(WithExplicitForwardRef)
+    assert {m.model for m in diagram.models} == {WithExplicitForwardRef}
+    assert {(e.source.model, e.target.model) for e in diagram.edges} == {
+        (WithExplicitForwardRef, WithExplicitForwardRef)
+    }
+
+
+def test_unevaluated_forward_ref():
+    @dataclasses.dataclass
+    class DataClassItem:
         name: str
 
     @dataclasses.dataclass
-    class Container:
-        items: List["Item"]
+    class DataClassContainer:
+        items: List["DataClassItem"]
 
     # Unevaluated forward ref should error
     with pytest.raises(UnevaluatedForwardRefError, match="get_type_hints"):
-        _ = erd.create(Container)
+        _ = erd.create(DataClassContainer)
 
     # Evaluate forward ref
-    get_type_hints(Container, localns=locals())
+    get_type_hints(DataClassContainer, localns=locals())
 
     # Test that class can be initialized
-    _ = Container(items=[Item(name="thingie")])
+    _ = DataClassContainer(items=[DataClassItem(name="thingie")])
 
-    diagram = erd.create(Container)
-    assert {m.model for m in diagram.models} == {Container, Item}
-    assert {(e.source.model, e.target.model) for e in diagram.edges} == {(Container, Item)}
+    diagram = erd.create(DataClassContainer)
+    assert {m.model for m in diagram.models} == {DataClassContainer, DataClassItem}
+    assert {(e.source.model, e.target.model) for e in diagram.edges} == {
+        (DataClassContainer, DataClassItem)
+    }

@@ -26,7 +26,7 @@ def test_model_graph_search_nested_args():
     }
 
 
-def test_forward_references():
+def test_unevaluated_forward_ref():
     class PydanticItem(BaseModel):
         name: str
 
