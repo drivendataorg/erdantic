@@ -238,7 +238,7 @@ def search_composition_graph(
             except _UnevaluatedForwardRefError as e:
                 raise UnevaluatedForwardRefError(
                     model=model, field=field, forward_ref=e.forward_ref
-                )
+                ) from None
 
 
 def draw(*models: type, out: Union[str, os.PathLike], termini: Sequence[type] = [], **kwargs):
