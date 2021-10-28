@@ -13,6 +13,7 @@ nav:
   - Usage Examples:
       - Pydantic: "examples/pydantic.ipynb"
       - dataclasses: "examples/dataclasses.ipynb"
+  - Handling Forward References: "forward-references.md"
   - Adding New Frameworks: "extending.md"
   - API Reference:
       - erdantic.base: "api-reference/base.md"
@@ -31,6 +32,8 @@ extra_css:
 markdown_extensions:
   - pymdownx.highlight:
   - pymdownx.superfences:
+  - pymdownx.tabbed:
+      alternate_style: true
   - toc:
       permalink: true
       toc_depth: 3
