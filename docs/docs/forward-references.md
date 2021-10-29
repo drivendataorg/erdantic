@@ -2,6 +2,8 @@
 
 [Forward references](https://www.python.org/dev/peps/pep-0484/#forward-references) are type annotations which use a string literal to declare a name that hasn't been defined yet in the code. The annotation is stored as just the name and the reference to the object is resolved later. Forward references are often useful when a class' type hints need to reference itself, or when you need to avoid a circular import through `if typing.TYPE_CHECKING`.
 
+Dealing with forward reference resolution is somewhat tricky. In the best case, your forward references are already resolved, and erdantic will work without any issue. Otherwise, the following sections will provide some examples of expected errors and what to do.
+
 ## Unevaluated Forward References
 
 Forward references must be evaluated along with the right namespace in order to properly resolve them to the correct class. If you are using forward references and they are unresolved, erdantic will error with an `UnevaluatedForwardRefError`. The exception message will provide some information about how to resolve the forward references.
