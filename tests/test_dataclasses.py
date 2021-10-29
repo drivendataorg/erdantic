@@ -1,5 +1,10 @@
 import dataclasses
-from typing import Dict, ForwardRef, List, Tuple, get_type_hints
+from typing import Dict, List, Tuple, get_type_hints
+
+try:
+    from typing import ForwardRef  # type: ignore # Python >= 3.7.4
+except ImportError:
+    from typing import _ForwardRef as ForwardRef  # type: ignore # Python < 3.7.4
 
 import pytest
 
