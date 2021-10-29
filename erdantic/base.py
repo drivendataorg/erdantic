@@ -1,8 +1,9 @@
 from abc import ABC, abstractmethod
 import inspect
-from typing import Any, Callable, Dict, Generic, List, Type, TypeVar, Union
+from typing import Any, Callable, Dict, Generic, List, Optional, Type, TypeVar, Union
 
-from erdantic.typing import Final, GenericAlias, repr_type, repr_type_with_mro
+from erdantic.exceptions import InvalidModelAdapterError
+from erdantic.typing import Final, GenericAlias, repr_type
 
 
 _row_template = """<tr><td>{name}</td><td port="{name}">{type_name}</td></tr>"""
@@ -104,7 +105,11 @@ class Model(ABC, Generic[MT]):
 
     Attributes:
         model (MT): Data model class associated with this adapter
+        forward_ref_help (Optional[str]): Instructions for how to resolve an unevaluated forward
+            reference in a field's type declaration.
     """
+
+    forward_ref_help: Optional[str] = None
 
     @abstractmethod
     def __init__(self, model: MT):
@@ -165,11 +170,9 @@ class Model(ABC, Generic[MT]):
         return hash(self.key)
 
     def __lt__(self, other) -> bool:
-        if not isinstance(other, Model):
-            raise ValueError(
-                f"Can only compare between instances of Model. Given: {repr_type_with_mro(other)}"
-            )
-        return self.key < other.key
+        if isinstance(other, Model):
+            return self.key < other.key
+        return NotImplemented
 
     def __repr__(self) -> str:
         return f"{type(self).__name__}({self.name})"
@@ -196,7 +199,10 @@ def register_model_adapter(type_name: str) -> Callable[[Type[Model]], Type[Model
     def decorator(cls: type) -> type:
         global model_adapter_registry
         if not issubclass(cls, Model):
-            raise ValueError("Only subclasses of Model can be registered.")
+            raise InvalidModelAdapterError(
+                "Only subclasses of erdantic.base.Model can be "
+                "registered as erdantic model adapters."
+            )
         model_adapter_registry[type_name] = cls
         return cls
 

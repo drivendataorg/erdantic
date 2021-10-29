@@ -4,7 +4,15 @@ from typing import Any, List, Sequence, Set, Union
 import pygraphviz as pgv
 
 from erdantic.base import Field, Model, model_adapter_registry
-from erdantic.errors import UnknownModelTypeError
+from erdantic.exceptions import (
+    NotATypeError,
+    _StringForwardRefError,
+    StringForwardRefError,
+    _UnevaluatedForwardRefError,
+    UnevaluatedForwardRefError,
+    UnknownFieldError,
+    UnknownModelTypeError,
+)
 from erdantic.typing import get_recursive_args
 from erdantic.version import __version__
 
@@ -26,7 +34,9 @@ class Edge:
 
     def __init__(self, source: "Model", source_field: "Field", target: "Model"):
         if source_field not in set(source.fields):
-            raise ValueError("source_field is not a field of source")
+            raise UnknownFieldError(
+                f"source_field {source_field} is not a field of source {source}"
+            )
         self.source = source
         self.source_field = source_field
         self.target = target
@@ -59,11 +69,11 @@ class Edge:
         )
 
     def __lt__(self, other) -> bool:
-        if not isinstance(other, Edge):
-            raise ValueError(f"Can only compare between instances of Edge. Given: {repr(other)}")
-        self_key = (self.source, self.source.fields.index(self.source_field), self.target)
-        other_key = (other.source, other.source.fields.index(other.source_field), other.target)
-        return self_key < other_key
+        if isinstance(other, Edge):
+            self_key = (self.source, self.source.fields.index(self.source_field), self.target)
+            other_key = (other.source, other.source.fields.index(other.source_field), other.target)
+            return self_key < other_key
+        return NotImplemented
 
 
 class EntityRelationshipDiagram:
@@ -167,15 +177,13 @@ def create(*models: type, termini: Sequence[type] = []) -> EntityRelationshipDia
 
     Raises:
         UnknownModelTypeError: If model is not recognized as a supported model type.
-        MissingCreateError: If model is recognized as a supported, type but a registered `create`
-            function is missing for that type.
 
     Returns:
         EntityRelationshipDiagram: diagram object for given data model.
     """
     for raw_model in models + tuple(termini):
         if not isinstance(raw_model, type):
-            raise ValueError(f"Given model is not a type: {raw_model}")
+            raise NotATypeError(f"Given model is not a type: {raw_model}")
 
     seen_models: Set[Model] = {adapt_model(t) for t in termini}
     seen_edges: Set[Edge] = set()
@@ -221,13 +229,22 @@ def search_composition_graph(
     if model not in seen_models:
         seen_models.add(model)
         for field in model.fields:
-            for arg in get_recursive_args(field.type_obj):
-                try:
-                    field_model = adapt_model(arg)
-                    seen_edges.add(Edge(source=model, source_field=field, target=field_model))
-                    search_composition_graph(field_model, seen_models, seen_edges)
-                except UnknownModelTypeError:
-                    pass
+            try:
+                for arg in get_recursive_args(field.type_obj):
+                    try:
+                        field_model = adapt_model(arg)
+                        seen_edges.add(Edge(source=model, source_field=field, target=field_model))
+                        search_composition_graph(field_model, seen_models, seen_edges)
+                    except UnknownModelTypeError:
+                        pass
+            except _UnevaluatedForwardRefError as e:
+                raise UnevaluatedForwardRefError(
+                    model=model, field=field, forward_ref=e.forward_ref
+                ) from None
+            except _StringForwardRefError as e:
+                raise StringForwardRefError(
+                    model=model, field=field, forward_ref=e.forward_ref
+                ) from None
 
 
 def draw(*models: type, out: Union[str, os.PathLike], termini: Sequence[type] = [], **kwargs):

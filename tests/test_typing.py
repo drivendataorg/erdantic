@@ -2,6 +2,12 @@ from enum import Enum, IntFlag
 import sys
 import typing
 
+try:
+    from typing import ForwardRef  # type: ignore # Python >= 3.7.4
+except ImportError:
+    from typing import _ForwardRef as ForwardRef  # type: ignore # Python < 3.7.4
+
+
 import pytest
 
 from erdantic.typing import (
@@ -87,6 +93,7 @@ repr_type_cases = [
     (typing.List[MyIntFlag], "List[MyIntFlag(IntFlag)]"),
     (typing.Any, "Any"),
     (typing.Dict[str, typing.Any], "Dict[str, Any]"),
+    (ForwardRef("MyClass"), "MyClass"),
 ]
 
 if sys.version_info[:2] >= (3, 9):

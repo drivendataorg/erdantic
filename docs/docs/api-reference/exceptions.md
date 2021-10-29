@@ -1,0 +1,3 @@
+# erdantic.exceptions
+
+::: erdantic.exceptions

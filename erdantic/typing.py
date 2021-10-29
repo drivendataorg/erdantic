@@ -14,6 +14,13 @@ try:
 except ImportError:
     from typing_extensions import Final  # type: ignore # noqa: F401 # Python 3.6-3.7
 
+try:
+    from typing import ForwardRef  # type: ignore # Python >= 3.7.4
+except ImportError:
+    from typing import _ForwardRef as ForwardRef  # type: ignore # Python < 3.7.4
+
+from erdantic.exceptions import _StringForwardRefError, _UnevaluatedForwardRefError
+
 
 def _get_args(tp):
     """Backport of typing.get_args for Python 3.6"""
@@ -46,6 +53,14 @@ def get_recursive_args(tp: Union[type, GenericAlias]) -> List[type]:
     """Recursively finds leaf-node types of possibly-nested generic type."""
 
     def recurse(t):
+        if isinstance(t, str):
+            raise _StringForwardRefError(forward_ref=t)
+        elif isinstance(t, ForwardRef):
+            if t.__forward_evaluated__:
+                t = t.__forward_value__
+            else:
+                raise _UnevaluatedForwardRefError(forward_ref=t)
+
         args = get_args(t)
         if args:
             for arg in args:
@@ -83,6 +98,8 @@ def repr_type(tp: Union[type, GenericAlias]) -> str:
         return "..."
     if isinstance(tp, type) and issubclass(tp, Enum):
         return repr_enum(tp)
+    if isinstance(tp, ForwardRef):
+        return tp.__forward_arg__
     return getattr(tp, "__name__", repr(tp).replace("typing.", ""))
 
 
