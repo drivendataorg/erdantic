@@ -46,7 +46,7 @@ def test_string_forward_ref():
 
     @dataclasses.dataclass
     class WithExplicitForwardRef:
-        sibling: ForwardRef("WithExplicitForwardRef", is_argument=False)  # noqa: F821
+        sibling: ForwardRef("WithExplicitForwardRef")  # noqa: F821
 
     get_type_hints(WithExplicitForwardRef, localns=locals())
 
