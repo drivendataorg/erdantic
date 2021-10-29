@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://erdantic.drivendata.org/~latest/api-reference/erd/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.3">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.5">
     
     
       
@@ -22,7 +22,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.5143246d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.cdeb8541.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
@@ -306,6 +306,21 @@
   
   
     <li class="md-nav__item">
+      <a href="../../forward-references/" class="md-nav__link">
+        Handling Forward References
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../extending/" class="md-nav__link">
         Adding New Frameworks
       </a>
@@ -326,18 +341,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
       
       
       
       
-        <label class="md-nav__link" for="__nav_5">
+        <label class="md-nav__link" for="__nav_6">
           API Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="API Reference" data-md-level="1">
-        <label class="md-nav__title" for="__nav_5">
+        <label class="md-nav__title" for="__nav_6">
           <span class="md-nav__icon md-icon"></span>
           API Reference
         </label>
@@ -396,6 +411,8 @@
       </a>
       
         
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -499,8 +516,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../errors/" class="md-nav__link">
-        erdantic.errors
+      <a href="../exceptions/" class="md-nav__link">
+        erdantic.exceptions
       </a>
     </li>
   
@@ -530,18 +547,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_6" type="checkbox" id="__nav_5_6" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_6" type="checkbox" id="__nav_6_6" >
       
       
       
       
-        <label class="md-nav__link" for="__nav_5_6">
+        <label class="md-nav__link" for="__nav_6_6">
           erdantic.examples
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="erdantic.examples" data-md-level="2">
-        <label class="md-nav__title" for="__nav_5_6">
+        <label class="md-nav__title" for="__nav_6_6">
           <span class="md-nav__icon md-icon"></span>
           erdantic.examples
         </label>
@@ -615,6 +632,8 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -817,7 +836,9 @@ relationship between a composite model (<code>source</code> via <code>source_fie
           <summary>Source code in <code>erdantic/erd.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="s2">&quot;Model&quot;</span><span class="p">,</span> <span class="n">source_field</span><span class="p">:</span> <span class="s2">&quot;Field&quot;</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="s2">&quot;Model&quot;</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">source_field</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">fields</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;source_field is not a field of source&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">UnknownFieldError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;source_field </span><span class="si">{</span><span class="n">source_field</span><span class="si">}</span><span class="s2"> is not a field of source </span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">source</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">source_field</span> <span class="o">=</span> <span class="n">source_field</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">target</span>
@@ -1312,11 +1333,6 @@ searching for component classes when it reaches these models</p></td>
         <td><code>UnknownModelTypeError</code></td>
         <td><p>If model is not recognized as a supported model type.</p></td>
       </tr>
-      <tr>
-        <td><code>MissingCreateError</code></td>
-        <td><p>If model is recognized as a supported, type but a registered <code>create</code>
-function is missing for that type.</p></td>
-      </tr>
   </tbody>
 </table>
 <p><strong>Returns:</strong></p>
@@ -1347,15 +1363,13 @@ function is missing for that type.</p></td>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        UnknownModelTypeError: If model is not recognized as a supported model type.</span>
-<span class="sd">        MissingCreateError: If model is recognized as a supported, type but a registered `create`</span>
-<span class="sd">            function is missing for that type.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        EntityRelationshipDiagram: diagram object for given data model.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">raw_model</span> <span class="ow">in</span> <span class="n">models</span> <span class="o">+</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">termini</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">raw_model</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Given model is not a type: </span><span class="si">{</span><span class="n">raw_model</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">NotATypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Given model is not a type: </span><span class="si">{</span><span class="n">raw_model</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="n">seen_models</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">Model</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">adapt_model</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">termini</span><span class="p">}</span>
     <span class="n">seen_edges</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">Edge</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
@@ -1511,13 +1525,22 @@ the two respective provided set instances.</p>
     <span class="k">if</span> <span class="n">model</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seen_models</span><span class="p">:</span>
         <span class="n">seen_models</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">fields</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">get_recursive_args</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">type_obj</span><span class="p">):</span>
-                <span class="k">try</span><span class="p">:</span>
-                    <span class="n">field_model</span> <span class="o">=</span> <span class="n">adapt_model</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
-                    <span class="n">seen_edges</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Edge</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">source_field</span><span class="o">=</span><span class="n">field</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">field_model</span><span class="p">))</span>
-                    <span class="n">search_composition_graph</span><span class="p">(</span><span class="n">field_model</span><span class="p">,</span> <span class="n">seen_models</span><span class="p">,</span> <span class="n">seen_edges</span><span class="p">)</span>
-                <span class="k">except</span> <span class="n">UnknownModelTypeError</span><span class="p">:</span>
-                    <span class="k">pass</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">get_recursive_args</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">type_obj</span><span class="p">):</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">field_model</span> <span class="o">=</span> <span class="n">adapt_model</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+                        <span class="n">seen_edges</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Edge</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">source_field</span><span class="o">=</span><span class="n">field</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">field_model</span><span class="p">))</span>
+                        <span class="n">search_composition_graph</span><span class="p">(</span><span class="n">field_model</span><span class="p">,</span> <span class="n">seen_models</span><span class="p">,</span> <span class="n">seen_edges</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="n">UnknownModelTypeError</span><span class="p">:</span>
+                        <span class="k">pass</span>
+            <span class="k">except</span> <span class="n">_UnevaluatedForwardRefError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">UnevaluatedForwardRefError</span><span class="p">(</span>
+                    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="n">field</span><span class="p">,</span> <span class="n">forward_ref</span><span class="o">=</span><span class="n">e</span><span class="o">.</span><span class="n">forward_ref</span>
+                <span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span>
+            <span class="k">except</span> <span class="n">_StringForwardRefError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">StringForwardRefError</span><span class="p">(</span>
+                    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="n">field</span><span class="p">,</span> <span class="n">forward_ref</span><span class="o">=</span><span class="n">e</span><span class="o">.</span><span class="n">forward_ref</span>
+                <span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span>
 </code></pre></div>
         </details>
     </div>
@@ -1654,13 +1677,13 @@ searching for component classes when it reaches these models</p></td>
       
       
         
-        <a href="../errors/" class="md-footer__link md-footer__link--next" aria-label="Next: erdantic.errors" rel="next">
+        <a href="../exceptions/" class="md-footer__link md-footer__link--next" aria-label="Next: erdantic.exceptions" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              erdantic.errors
+              erdantic.exceptions
             </div>
           </div>
           <div class="md-footer__button md-icon">
@@ -1694,7 +1717,7 @@ searching for component classes when it reaches these models</p></td>
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.8397ff9e.min.js", "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.f89c2efe.min.js"></script>
+      <script src="../../assets/javascripts/bundle.1e84347e.min.js"></script>
       
     
   </body>

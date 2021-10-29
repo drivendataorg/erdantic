@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://erdantic.drivendata.org/~latest/api-reference/base/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.3">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.5">
     
     
       
@@ -22,7 +22,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.5143246d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.cdeb8541.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
@@ -306,6 +306,21 @@
   
   
     <li class="md-nav__item">
+      <a href="../../forward-references/" class="md-nav__link">
+        Handling Forward References
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../extending/" class="md-nav__link">
         Adding New Frameworks
       </a>
@@ -326,18 +341,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
       
       
       
       
-        <label class="md-nav__link" for="__nav_5">
+        <label class="md-nav__link" for="__nav_6">
           API Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="API Reference" data-md-level="1">
-        <label class="md-nav__title" for="__nav_5">
+        <label class="md-nav__title" for="__nav_6">
           <span class="md-nav__icon md-icon"></span>
           API Reference
         </label>
@@ -368,6 +383,8 @@
       </a>
       
         
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -505,8 +522,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../errors/" class="md-nav__link">
-        erdantic.errors
+      <a href="../exceptions/" class="md-nav__link">
+        erdantic.exceptions
       </a>
     </li>
   
@@ -536,18 +553,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_6" type="checkbox" id="__nav_5_6" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_6" type="checkbox" id="__nav_6_6" >
       
       
       
       
-        <label class="md-nav__link" for="__nav_5_6">
+        <label class="md-nav__link" for="__nav_6_6">
           erdantic.examples
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="erdantic.examples" data-md-level="2">
-        <label class="md-nav__title" for="__nav_5_6">
+        <label class="md-nav__title" for="__nav_6_6">
           <span class="md-nav__icon md-icon"></span>
           erdantic.examples
         </label>
@@ -621,6 +638,8 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -1170,6 +1189,12 @@ subclass and implement abstract methods.</p>
         <td><code>MT</code></td>
         <td><p>Data model class associated with this adapter</p></td>
       </tr>
+      <tr>
+        <td><code>forward_ref_help</code></td>
+        <td><code>Optional[str]</code></td>
+        <td><p>Instructions for how to resolve an unevaluated forward
+reference in a field's type declaration.</p></td>
+      </tr>
   </tbody>
 </table>
 
@@ -1222,6 +1247,24 @@ subclass and implement abstract methods.</p>
     <div class="doc doc-contents ">
 
       <p>List of fields defined on this data model.</p>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h5 id="erdantic.base.Model.forward_ref_help" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">forward_ref_help</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></code>
+
+
+<a href="#erdantic.base.Model.forward_ref_help" class="headerlink" title="Permanent link">&para;</a></h5>
+
+    <div class="doc doc-contents ">
+
     </div>
 
   </div>
@@ -1495,7 +1538,10 @@ registered for it to be available to the diagram creation workflow.</p>
     <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">:</span>
         <span class="k">global</span> <span class="n">model_adapter_registry</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">issubclass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">Model</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Only subclasses of Model can be registered.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">InvalidModelAdapterError</span><span class="p">(</span>
+                <span class="s2">&quot;Only subclasses of erdantic.base.Model can be &quot;</span>
+                <span class="s2">&quot;registered as erdantic model adapters.&quot;</span>
+            <span class="p">)</span>
         <span class="n">model_adapter_registry</span><span class="p">[</span><span class="n">type_name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span>
         <span class="k">return</span> <span class="bp">cls</span>
 
@@ -1596,7 +1642,7 @@ registered for it to be available to the diagram creation workflow.</p>
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.8397ff9e.min.js", "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.f89c2efe.min.js"></script>
+      <script src="../../assets/javascripts/bundle.1e84347e.min.js"></script>
       
     
   </body>

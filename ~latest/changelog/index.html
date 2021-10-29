@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://erdantic.drivendata.org/~latest/changelog/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.3">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.5">
     
     
       
@@ -22,7 +22,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.5143246d.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.cdeb8541.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
@@ -306,6 +306,21 @@
   
   
     <li class="md-nav__item">
+      <a href="../forward-references/" class="md-nav__link">
+        Handling Forward References
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../extending/" class="md-nav__link">
         Adding New Frameworks
       </a>
@@ -324,18 +339,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
       
       
       
       
-        <label class="md-nav__link" for="__nav_5">
+        <label class="md-nav__link" for="__nav_6">
           API Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="API Reference" data-md-level="1">
-        <label class="md-nav__title" for="__nav_5">
+        <label class="md-nav__title" for="__nav_6">
           <span class="md-nav__icon md-icon"></span>
           API Reference
         </label>
@@ -389,8 +404,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../api-reference/errors/" class="md-nav__link">
-        erdantic.errors
+      <a href="../api-reference/exceptions/" class="md-nav__link">
+        erdantic.exceptions
       </a>
     </li>
   
@@ -420,18 +435,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_6" type="checkbox" id="__nav_5_6" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_6" type="checkbox" id="__nav_6_6" >
       
       
       
       
-        <label class="md-nav__link" for="__nav_5_6">
+        <label class="md-nav__link" for="__nav_6_6">
           erdantic.examples
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="erdantic.examples" data-md-level="2">
-        <label class="md-nav__title" for="__nav_5_6">
+        <label class="md-nav__title" for="__nav_6_6">
           <span class="md-nav__icon md-icon"></span>
           erdantic.examples
         </label>
@@ -505,6 +520,8 @@
       </a>
       
         
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -517,6 +534,13 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#v030-2021-10-28" class="md-nav__link">
+    v0.3.0 (2021-10-28)
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#v021-2021-02-16" class="md-nav__link">
@@ -573,6 +597,8 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -585,6 +611,13 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#v030-2021-10-28" class="md-nav__link">
+    v0.3.0 (2021-10-28)
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#v021-2021-02-16" class="md-nav__link">
@@ -639,22 +672,29 @@
                 
                 
                 <h1 id="erdantic-changelog">erdantic Changelog<a class="headerlink" href="#erdantic-changelog" title="Permanent link">&para;</a></h1>
+<h2 id="v030-2021-10-28">v0.3.0 (2021-10-28)<a class="headerlink" href="#v030-2021-10-28" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fixed handling of forward references in field type declarations. Evaluated forward references will be properly identified. Forward references not converted to <code>typing.ForwardRef</code> will throw a <code>StringForwardRefError</code> with instructions for how to resolve. Unevaluated forward references will throw an <code>UnevaluatedForwardRefError</code> with instructions for how to resolve. See <a href="forward-references/">new documentation</a> for more details. (<a href="https://github.com/drivendataorg/erdantic/issues/40">Issue #40</a>, <a href="https://github.com/drivendataorg/erdantic/pull/41">PR #41</a>)</li>
+<li>Changed name of <code>erdantic.errors</code> module to <code>erdantic.exceptions</code>. (<a href="https://github.com/drivendataorg/erdantic/issues/41">PR #41</a>)</li>
+<li>Added new <code>ErdanticException</code> base class from which other exceptions raised within the erdantic library are subclassed from. Changed several existing <code>ValueError</code> exceptions to new exception classes that subclass both <code>ErdanticException</code> and <code>ValueError</code>. (<a href="https://github.com/drivendataorg/erdantic/issues/41">PR #41</a>)</li>
+<li>Changed <code>__lt__</code> method on <code>Model</code> and <code>Edge</code> to return <code>NotImplemented</code> instead of raising an exception to follow typical convention for unsupported input types. (<a href="https://github.com/drivendataorg/erdantic/issues/41">PR #41</a>)</li>
+</ul>
 <h2 id="v021-2021-02-16">v0.2.1 (2021-02-16)<a class="headerlink" href="#v021-2021-02-16" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Fixed runtime error when rendering a data model that had a field containing <code>typing.Any</code>. (<a href="https://github.com/drivendataorg/erdantic/issues/25">#25</a>, <a href="https://github.com/drivendataorg/erdantic/issues/26">#26</a>)</li>
+<li>Fixed runtime error when rendering a data model that had a field containing <code>typing.Any</code>. (<a href="https://github.com/drivendataorg/erdantic/issues/25">Issue #25</a>, <a href="https://github.com/drivendataorg/erdantic/issues/26">PR #26</a>)</li>
 </ul>
 <h2 id="v020-2021-02-14">v0.2.0 (2021-02-14)<a class="headerlink" href="#v020-2021-02-14" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Added option to specify models as terminal nodes. This allows you to truncate large diagrams and split them up into smaller ones. (<a href="https://github.com/drivendataorg/erdantic/pull/24">#24</a>)</li>
+<li>Added option to specify models as terminal nodes. This allows you to truncate large diagrams and split them up into smaller ones. (<a href="https://github.com/drivendataorg/erdantic/pull/24">PR #24</a>)</li>
 </ul>
 <h2 id="v012-2021-02-10">v0.1.2 (2021-02-10)<a class="headerlink" href="#v012-2021-02-10" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Fixed bug where Pydantic fields were missing generics in their type annotations. (<a href="https://github.com/drivendataorg/erdantic/pull/19">#19</a>)</li>
-<li>Added tests against static rendered DOT output. Change adapter tests to use parameterized fixtures. (<a href="https://github.com/drivendataorg/erdantic/pull/21">#21</a>)</li>
+<li>Fixed bug where Pydantic fields were missing generics in their type annotations. (<a href="https://github.com/drivendataorg/erdantic/pull/19">PR #19</a>)</li>
+<li>Added tests against static rendered DOT output. Change adapter tests to use parameterized fixtures. (<a href="https://github.com/drivendataorg/erdantic/pull/21">PR #21</a>)</li>
 </ul>
 <h2 id="v011-2021-02-10">v0.1.1 (2021-02-10)<a class="headerlink" href="#v011-2021-02-10" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Fixed rendered example image in the package description on PyPI. (<a href="https://github.com/drivendataorg/erdantic/pull/18">#18</a>)</li>
+<li>Fixed rendered example image in the package description on PyPI. (<a href="https://github.com/drivendataorg/erdantic/pull/18">PR #18</a>)</li>
 </ul>
 <h2 id="v010-2021-02-10">v0.1.0 (2021-02-10)<a class="headerlink" href="#v010-2021-02-10" title="Permanent link">&para;</a></h2>
 <p>Initial release! 🎉</p>
@@ -723,7 +763,7 @@
     <script id="__config" type="application/json">{"base": "..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.8397ff9e.min.js", "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.f89c2efe.min.js"></script>
+      <script src="../assets/javascripts/bundle.1e84347e.min.js"></script>
       
     
   </body>

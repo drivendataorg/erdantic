@@ -11,18 +11,18 @@
       
       
       
-        <link rel="canonical" href="https://erdantic.drivendata.org/~latest/api-reference/errors/">
+        <link rel="canonical" href="https://erdantic.drivendata.org/~latest/api-reference/exceptions/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.3">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.5">
     
     
       
-        <title>erdantic.errors - erdantic</title>
+        <title>erdantic.exceptions - erdantic</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.5143246d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.cdeb8541.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
@@ -69,7 +69,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#erdanticerrors" class="md-skip">
+        <a href="#erdanticexceptions" class="md-skip">
           Skip to content
         </a>
       
@@ -101,7 +101,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              erdantic.errors
+              erdantic.exceptions
             
           </span>
         </div>
@@ -306,6 +306,21 @@
   
   
     <li class="md-nav__item">
+      <a href="../../forward-references/" class="md-nav__link">
+        Handling Forward References
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../extending/" class="md-nav__link">
         Adding New Frameworks
       </a>
@@ -326,18 +341,18 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
       
       
       
       
-        <label class="md-nav__link" for="__nav_5">
+        <label class="md-nav__link" for="__nav_6">
           API Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="API Reference" data-md-level="1">
-        <label class="md-nav__title" for="__nav_5">
+        <label class="md-nav__title" for="__nav_6">
           <span class="md-nav__icon md-icon"></span>
           API Reference
         </label>
@@ -401,15 +416,17 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          erdantic.errors
+          erdantic.exceptions
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        erdantic.errors
+        erdantic.exceptions
       </a>
       
         
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -424,7 +441,7 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#erdantic.errors-classes" class="md-nav__link">
+  <a href="#erdantic.exceptions-classes" class="md-nav__link">
     Classes
   </a>
   
@@ -432,7 +449,63 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#erdantic.errors.UnknownModelTypeError" class="md-nav__link">
+  <a href="#erdantic.exceptions.ErdanticException" class="md-nav__link">
+    ErdanticException
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erdantic.exceptions.InvalidFieldError" class="md-nav__link">
+    InvalidFieldError
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erdantic.exceptions.InvalidModelAdapterError" class="md-nav__link">
+    InvalidModelAdapterError
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erdantic.exceptions.InvalidModelError" class="md-nav__link">
+    InvalidModelError
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erdantic.exceptions.NotATypeError" class="md-nav__link">
+    NotATypeError
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erdantic.exceptions.StringForwardRefError" class="md-nav__link">
+    StringForwardRefError
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erdantic.exceptions.UnevaluatedForwardRefError" class="md-nav__link">
+    UnevaluatedForwardRefError
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erdantic.exceptions.UnknownFieldError" class="md-nav__link">
+    UnknownFieldError
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erdantic.exceptions.UnknownModelTypeError" class="md-nav__link">
     UnknownModelTypeError
   </a>
   
@@ -475,18 +548,18 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_6" type="checkbox" id="__nav_5_6" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_6" type="checkbox" id="__nav_6_6" >
       
       
       
       
-        <label class="md-nav__link" for="__nav_5_6">
+        <label class="md-nav__link" for="__nav_6_6">
           erdantic.examples
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="erdantic.examples" data-md-level="2">
-        <label class="md-nav__title" for="__nav_5_6">
+        <label class="md-nav__title" for="__nav_6_6">
           <span class="md-nav__icon md-icon"></span>
           erdantic.examples
         </label>
@@ -560,6 +633,8 @@
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
+
+
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
@@ -574,7 +649,7 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#erdantic.errors-classes" class="md-nav__link">
+  <a href="#erdantic.exceptions-classes" class="md-nav__link">
     Classes
   </a>
   
@@ -582,7 +657,63 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#erdantic.errors.UnknownModelTypeError" class="md-nav__link">
+  <a href="#erdantic.exceptions.ErdanticException" class="md-nav__link">
+    ErdanticException
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erdantic.exceptions.InvalidFieldError" class="md-nav__link">
+    InvalidFieldError
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erdantic.exceptions.InvalidModelAdapterError" class="md-nav__link">
+    InvalidModelAdapterError
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erdantic.exceptions.InvalidModelError" class="md-nav__link">
+    InvalidModelError
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erdantic.exceptions.NotATypeError" class="md-nav__link">
+    NotATypeError
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erdantic.exceptions.StringForwardRefError" class="md-nav__link">
+    StringForwardRefError
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erdantic.exceptions.UnevaluatedForwardRefError" class="md-nav__link">
+    UnevaluatedForwardRefError
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erdantic.exceptions.UnknownFieldError" class="md-nav__link">
+    UnknownFieldError
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erdantic.exceptions.UnknownModelTypeError" class="md-nav__link">
     UnknownModelTypeError
   </a>
   
@@ -605,12 +736,12 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/drivendataorg/erdantic/edit/master/docs/api-reference/errors.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/drivendataorg/erdantic/edit/master/docs/api-reference/exceptions.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="erdanticerrors">erdantic.errors<a class="headerlink" href="#erdanticerrors" title="Permanent link">&para;</a></h1>
+                <h1 id="erdanticexceptions">erdantic.exceptions<a class="headerlink" href="#erdanticexceptions" title="Permanent link">&para;</a></h1>
 
 
   <div class="doc doc-object doc-module">
@@ -627,20 +758,321 @@
 
 
 
-<h2 id="erdantic.errors-classes">Classes<a href="#erdantic.errors-classes" class="headerlink" title="Permanent link">&para;</a></h2>
+<h2 id="erdantic.exceptions-classes">Classes<a href="#erdantic.exceptions-classes" class="headerlink" title="Permanent link">&para;</a></h2>
 
   <div class="doc doc-object doc-class">
 
 
 
-<h3 id="erdantic.errors.UnknownModelTypeError" class="doc doc-heading">
+<h3 id="erdantic.exceptions.ErdanticException" class="doc doc-heading">
         <code>
-UnknownModelTypeError            (<span title="ValueError">ValueError</span>)
+ErdanticException            (<span title="Exception">Exception</span>)
         </code>
 
 
 
-<a href="#erdantic.errors.UnknownModelTypeError" class="headerlink" title="Permanent link">&para;</a></h3>
+<a href="#erdantic.exceptions.ErdanticException" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Base class for all exceptions from erdantic library.</p>
+
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="erdantic.exceptions.InvalidFieldError" class="doc doc-heading">
+        <code>
+InvalidFieldError            (<span title="ValueError">ValueError</span>, <a title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a>)
+        </code>
+
+
+
+<a href="#erdantic.exceptions.InvalidFieldError" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Raised when an invalid field object is passed to a field adapter.</p>
+
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="erdantic.exceptions.InvalidModelAdapterError" class="doc doc-heading">
+        <code>
+InvalidModelAdapterError            (<span title="ValueError">ValueError</span>, <a title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a>)
+        </code>
+
+
+
+<a href="#erdantic.exceptions.InvalidModelAdapterError" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Raised when trying to register a model adapter that is not subclassing Model.</p>
+
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="erdantic.exceptions.InvalidModelError" class="doc doc-heading">
+        <code>
+InvalidModelError            (<span title="ValueError">ValueError</span>, <a title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a>)
+        </code>
+
+
+
+<a href="#erdantic.exceptions.InvalidModelError" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Raised when an invalid model object is passed to a model adapter.</p>
+
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="erdantic.exceptions.NotATypeError" class="doc doc-heading">
+        <code>
+NotATypeError            (<span title="ValueError">ValueError</span>, <a title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a>)
+        </code>
+
+
+
+<a href="#erdantic.exceptions.NotATypeError" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="erdantic.exceptions.StringForwardRefError" class="doc doc-heading">
+        <code>
+StringForwardRefError            (<a title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a>)
+        </code>
+
+
+
+<a href="#erdantic.exceptions.StringForwardRefError" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Raised when a field's type declaration is stored as a string literal and not transformed
+into a typing.ForwardRef object.</p>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h5 id="erdantic.exceptions.StringForwardRefError.__init__" class="doc doc-heading">
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">Model</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="n">Field</span><span class="p">,</span> <span class="n">forward_ref</span><span class="p">:</span> <span class="n">ForwardRef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-special"><code>special</code></small>
+  </span>
+
+<a href="#erdantic.exceptions.StringForwardRefError.__init__" class="headerlink" title="Permanent link">&para;</a></h5>
+
+    <div class="doc doc-contents ">
+
+
+        <details class="quote">
+          <summary>Source code in <code>erdantic/exceptions.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="s2">&quot;Model&quot;</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="s2">&quot;Field&quot;</span><span class="p">,</span> <span class="n">forward_ref</span><span class="p">:</span> <span class="n">ForwardRef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Forward reference &#39;</span><span class="si">{</span><span class="n">forward_ref</span><span class="si">}</span><span class="s2">&#39; for field &#39;</span><span class="si">{</span><span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; on model &#39;</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; &quot;</span>
+        <span class="s2">&quot;is a string literal and not a typing.ForwardRef object. erdantic is unable to handle &quot;</span>
+        <span class="s2">&quot;forward references that aren&#39;t transformed into typing.ForwardRef. Declare &quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;explicitly with &#39;typing.ForwardRef(</span><span class="se">\&quot;</span><span class="si">{</span><span class="n">forward_ref</span><span class="si">}</span><span class="se">\&quot;</span><span class="s2">, is_argument=False)&#39;.&quot;</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;typing.ForwardRef&quot;</span><span class="p">,</span> <span class="s2">&quot;typing._ForwardRef&quot;</span><span class="p">)</span>
+
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="erdantic.exceptions.UnevaluatedForwardRefError" class="doc doc-heading">
+        <code>
+UnevaluatedForwardRefError            (<a title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a>)
+        </code>
+
+
+
+<a href="#erdantic.exceptions.UnevaluatedForwardRefError" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Raised when a field's type declaration has an unevaluated forward reference.</p>
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-method">
+
+
+
+<h5 id="erdantic.exceptions.UnevaluatedForwardRefError.__init__" class="doc doc-heading">
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">Model</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="n">Field</span><span class="p">,</span> <span class="n">forward_ref</span><span class="p">:</span> <span class="n">ForwardRef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-special"><code>special</code></small>
+  </span>
+
+<a href="#erdantic.exceptions.UnevaluatedForwardRefError.__init__" class="headerlink" title="Permanent link">&para;</a></h5>
+
+    <div class="doc doc-contents ">
+
+
+        <details class="quote">
+          <summary>Source code in <code>erdantic/exceptions.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="s2">&quot;Model&quot;</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="s2">&quot;Field&quot;</span><span class="p">,</span> <span class="n">forward_ref</span><span class="p">:</span> <span class="n">ForwardRef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Unevaluated forward reference &#39;</span><span class="si">{</span><span class="n">forward_ref</span><span class="o">.</span><span class="n">__forward_arg__</span><span class="si">}</span><span class="s2">&#39; &quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;for field </span><span class="si">{</span><span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> on model </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.&quot;</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">forward_ref_help</span><span class="p">:</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">model</span><span class="o">.</span><span class="n">forward_ref_help</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="erdantic.exceptions.UnknownFieldError" class="doc doc-heading">
+        <code>
+UnknownFieldError            (<span title="ValueError">ValueError</span>, <a title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a>)
+        </code>
+
+
+
+<a href="#erdantic.exceptions.UnknownFieldError" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Raised when specified field does not match a field on specified model.</p>
+
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="erdantic.exceptions.UnknownModelTypeError" class="doc doc-heading">
+        <code>
+UnknownModelTypeError            (<span title="ValueError">ValueError</span>, <a title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a>)
+        </code>
+
+
+
+<a href="#erdantic.exceptions.UnknownModelTypeError" class="headerlink" title="Permanent link">&para;</a></h3>
 
     <div class="doc doc-contents ">
 
@@ -663,20 +1095,20 @@ UnknownModelTypeError            (<span title="ValueError">ValueError</span>)
 
 
 
-<h5 id="erdantic.errors.UnknownModelTypeError.__init__" class="doc doc-heading">
+<h5 id="erdantic.exceptions.UnknownModelTypeError.__init__" class="doc doc-heading">
 <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span></code>
 
   <span class="doc doc-properties">
       <small class="doc doc-property doc-property-special"><code>special</code></small>
   </span>
 
-<a href="#erdantic.errors.UnknownModelTypeError.__init__" class="headerlink" title="Permanent link">&para;</a></h5>
+<a href="#erdantic.exceptions.UnknownModelTypeError.__init__" class="headerlink" title="Permanent link">&para;</a></h5>
 
     <div class="doc doc-contents ">
 
 
         <details class="quote">
-          <summary>Source code in <code>erdantic/errors.py</code></summary>
+          <summary>Source code in <code>erdantic/exceptions.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">message</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">display</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;__mro__&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">model</span><span class="p">))</span>
@@ -791,7 +1223,7 @@ UnknownModelTypeError            (<span title="ValueError">ValueError</span>)
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.8397ff9e.min.js", "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.f89c2efe.min.js"></script>
+      <script src="../../assets/javascripts/bundle.1e84347e.min.js"></script>
       
     
   </body>
