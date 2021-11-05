@@ -51,5 +51,5 @@ setup(
         "Source Code": "https://github.com/drivendataorg/erdantic",
     },
     url="https://github.com/drivendataorg/erdantic",
-    version="0.3.0",
+    version="0.4.0",
 )
