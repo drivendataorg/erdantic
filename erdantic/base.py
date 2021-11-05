@@ -143,7 +143,7 @@ class Model(ABC, Generic[MT]):
         out = f"{self.model.__module__}.{self.model.__qualname__}"
         docstring = inspect.getdoc(self.model)
         if docstring:
-            out += "\n\n" + docstring
+            out += "\n\n" + docstring + "\n"
         return out
 
     @property

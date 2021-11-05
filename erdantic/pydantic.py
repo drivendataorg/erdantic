@@ -73,3 +73,33 @@ class PydanticModel(Model[Type[pydantic.BaseModel]]):
     @property
     def fields(self) -> List[Field]:
         return [PydanticField(field=f) for f in self.model.__fields__.values()]
+
+    @property
+    def docstring(self) -> str:
+        out = super().docstring
+        field_descriptions = [
+            getattr(field.field.field_info, "description", None) for field in self.fields
+        ]
+        if any(descr is not None for descr in field_descriptions):
+            # Sometimes Pydantic models have field documentation as descriptions as metadata on the
+            # field instead of in the docstring. If detected, construct docstring and add.
+            out += "\nAttributes:\n"
+            field_defaults = [field.field.field_info.default for field in self.fields]
+            for field, descr, default in zip(self.fields, field_descriptions, field_defaults):
+                if descr is not None:
+                    line = f"{field.name} ({field.type_name}): {descr}"
+                    if (
+                        not isinstance(default, pydantic.fields.UndefinedType)
+                        and default is not ...
+                    ):
+                        if not line.strip().endswith("."):
+                            line = line.rstrip() + ". "
+                        else:
+                            line = line.rstrip() + " "
+                        if isinstance(default, str):
+                            line += f"Default is '{default}'."
+                        else:
+                            line += f"Default is {default}."
+                    out += "    " + line.strip() + "\n"
+
+        return out
