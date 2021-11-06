@@ -1,5 +1,9 @@
 # erdantic Changelog
 
+## v0.4.0 (Unreleased)
+
+- Added support for showing field documentation from Pydantic models with descriptions set with `Field(description=...)` in SVG tooltips. This will add an "Attributes" section to the tooltip using Google-style docstring format and lists fields where the `description` keyword argument is used. ([Issue #8](https://github.com/drivendataorg/erdantic/issues/8#issuecomment-958905131), [PR #42](https://github.com/drivendataorg/erdantic/pull/42))
+
 ## v0.3.0 (2021-10-28)
 
 - Fixed handling of forward references in field type declarations. Evaluated forward references will be properly identified. Forward references not converted to `typing.ForwardRef` will throw a `StringForwardRefError` with instructions for how to resolve. Unevaluated forward references will throw an `UnevaluatedForwardRefError` with instructions for how to resolve. See [new documentation](https://erdantic.drivendata.org/stable/forward-references/) for more details. ([Issue #40](https://github.com/drivendataorg/erdantic/issues/40), [PR #41](https://github.com/drivendataorg/erdantic/pull/41))

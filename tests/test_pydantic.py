@@ -1,6 +1,7 @@
-from typing import Dict, List, Optional, Tuple
+import textwrap
+from typing import Any, Dict, List, Optional, Tuple
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 import pytest
 
 import erdantic as erd
@@ -72,3 +73,56 @@ def test_field_names():
         "Optional[List[str]]",
         "Dict[str, Optional[int]]",
     ]
+
+
+def test_docstring_field_descriptions():
+    # Does not use pydantic.Field with descriptions. Shouldn't add anything.
+    class MyClassWithoutDescriptions(BaseModel):
+        """This is the docstring for my class without descriptions."""
+
+        hint_only: str
+        no_descr_has_default: Any = Field(10)
+
+    model = PydanticModel(MyClassWithoutDescriptions)
+    print("===Actual w/o Descriptions===")
+    print(model.docstring)
+    print("============")
+
+    expected = textwrap.dedent(
+        """\
+        tests.test_pydantic.test_docstring_field_descriptions.<locals>.MyClassWithoutDescriptions
+
+        This is the docstring for my class without descriptions.
+        """
+    )
+    assert model.docstring == expected
+
+    # Does use pydantic.Field with descriptions. Should add attributes section
+
+    class MyClassWithDescriptions(BaseModel):
+        """This is the docstring for my class with descriptions."""
+
+        hint_only: str
+        has_descr_no_default: List[int] = Field(description="An array of numbers.")
+        has_descr_ellipsis_default: List[int] = Field(..., description="Another array of numbers.")
+        no_descr_has_default: Any = Field(10)
+        has_descr_has_default: Optional[str] = Field(None, description="An optional string.")
+
+    model = PydanticModel(MyClassWithDescriptions)
+    print("===Actual w/ Descriptions===")
+    print(model.docstring)
+    print("============")
+
+    expected = textwrap.dedent(
+        """\
+        tests.test_pydantic.test_docstring_field_descriptions.<locals>.MyClassWithDescriptions
+
+        This is the docstring for my class with descriptions.
+
+        Attributes:
+            has_descr_no_default (List[int]): An array of numbers.
+            has_descr_ellipsis_default (List[int]): Another array of numbers.
+            has_descr_has_default (Optional[str]): An optional string. Default is None.
+        """
+    )
+    assert model.docstring == expected
