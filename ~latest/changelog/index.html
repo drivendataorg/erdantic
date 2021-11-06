@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://erdantic.drivendata.org/~latest/changelog/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.5">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.6">
     
     
       
@@ -22,7 +22,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.cdeb8541.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.a57b2b03.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
@@ -536,6 +536,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#v040-unreleased" class="md-nav__link">
+    v0.4.0 (Unreleased)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#v030-2021-10-28" class="md-nav__link">
     v0.3.0 (2021-10-28)
   </a>
@@ -613,6 +620,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#v040-unreleased" class="md-nav__link">
+    v0.4.0 (Unreleased)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#v030-2021-10-28" class="md-nav__link">
     v0.3.0 (2021-10-28)
   </a>
@@ -672,6 +686,10 @@
                 
                 
                 <h1 id="erdantic-changelog">erdantic Changelog<a class="headerlink" href="#erdantic-changelog" title="Permanent link">&para;</a></h1>
+<h2 id="v040-unreleased">v0.4.0 (Unreleased)<a class="headerlink" href="#v040-unreleased" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Added support for showing field documentation from Pydantic models with descriptions set with <code>Field(description=...)</code> in SVG tooltips. This will add an "Attributes" section to the tooltip using Google-style docstring format and lists fields where the <code>description</code> keyword argument is used. (<a href="https://github.com/drivendataorg/erdantic/issues/8#issuecomment-958905131">Issue #8</a>, <a href="https://github.com/drivendataorg/erdantic/pull/42">PR #42</a>)</li>
+</ul>
 <h2 id="v030-2021-10-28">v0.3.0 (2021-10-28)<a class="headerlink" href="#v030-2021-10-28" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Fixed handling of forward references in field type declarations. Evaluated forward references will be properly identified. Forward references not converted to <code>typing.ForwardRef</code> will throw a <code>StringForwardRefError</code> with instructions for how to resolve. Unevaluated forward references will throw an <code>UnevaluatedForwardRefError</code> with instructions for how to resolve. See <a href="forward-references/">new documentation</a> for more details. (<a href="https://github.com/drivendataorg/erdantic/issues/40">Issue #40</a>, <a href="https://github.com/drivendataorg/erdantic/pull/41">PR #41</a>)</li>
@@ -760,10 +778,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.8397ff9e.min.js", "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.fcfe8b6d.min.js", "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.1e84347e.min.js"></script>
+      <script src="../assets/javascripts/bundle.b1047164.min.js"></script>
       
     
   </body>
