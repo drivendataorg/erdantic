@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 import inspect
 from typing import Any, Callable, Dict, Generic, List, Optional, Type, TypeVar, Union
 
-from erdantic.exceptions import InvalidModelAdapterError
+from erdantic.exceptions import InvalidModelAdapterError, ModelAdapterNotFound
 from erdantic.typing import Final, GenericAlias, repr_type
 
 
@@ -207,3 +207,15 @@ def register_model_adapter(type_name: str) -> Callable[[Type[Model]], Type[Model
         return cls
 
     return decorator
+
+
+def get_model_adapter(key_or_adapter: Union[str, type]):
+    if isinstance(key_or_adapter, str):
+        try:
+            return model_adapter_registry[key_or_adapter]
+        except KeyError:
+            raise ModelAdapterNotFound(f"No model adapter registered with key {key_or_adapter}")
+    elif isinstance(key_or_adapter, type) and issubclass(key_or_adapter, Model):
+        return key_or_adapter
+    else:
+        raise InvalidModelAdapterError("Input must be str or subclass of erdantic.base.Model.")

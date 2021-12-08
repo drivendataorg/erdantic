@@ -1,9 +1,11 @@
+import inspect
 import os
-from typing import Any, List, Sequence, Set, Union
+from types import ModuleType
+from typing import Any, Iterable, Iterator, List, Optional, Sequence, Set, Union
 
 import pygraphviz as pgv
 
-from erdantic.base import Field, Model, model_adapter_registry
+from erdantic.base import Field, get_model_adapter, Model, model_adapter_registry
 from erdantic.exceptions import (
     NotATypeError,
     _StringForwardRefError,
@@ -191,6 +193,33 @@ def create(*models: type, termini: Sequence[type] = []) -> EntityRelationshipDia
         model = adapt_model(raw_model)
         search_composition_graph(model=model, seen_models=seen_models, seen_edges=seen_edges)
     return EntityRelationshipDiagram(models=list(seen_models), edges=list(seen_edges))
+
+
+def find_models(
+    module: ModuleType, model_adapters: Optional[Iterable[Union[str, Model]]] = None
+) -> Iterator[type]:
+    """Searches a module and yields all data model classes found.
+
+    Args:
+        module (ModuleType): Module to search for data model classes
+        model_adapters (Optional[Iterable[Union[str, Model]]], optional): If model adapters are
+            specified, limit data model classes to those. Can be key that adapter is registered
+            under or the adapter class itself. Defaults to None which will find all data model
+            classes supported by erdantic.
+
+    Yields:
+        Iterator[type]: Members of module that are data model classes.
+    """
+    if model_adapters is None:
+        model_adapters = model_adapter_registry.values()
+    else:
+        model_adapters = [get_model_adapter(m) for m in model_adapters]
+
+    for _, member in inspect.getmembers(module, inspect.isclass):
+        if member.__module__ == module.__name__:
+            for model_adapter in model_adapters:
+                if model_adapter.is_model_type(member):
+                    yield member
 
 
 def adapt_model(obj: Any) -> Model:

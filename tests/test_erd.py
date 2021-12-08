@@ -4,9 +4,17 @@ import imghdr
 import pytest
 
 import erdantic as erd
-from erdantic.erd import Edge
-from erdantic.exceptions import NotATypeError, UnknownModelTypeError
+from erdantic.erd import Edge, find_models
+from erdantic.exceptions import (
+    NotATypeError,
+    InvalidModelAdapterError,
+    ModelAdapterNotFound,
+    UnknownModelTypeError,
+)
 from erdantic.examples.pydantic import Party, Quest
+import erdantic.examples.pydantic as examples_pydantic
+import erdantic.examples.dataclasses as examples_dataclasses
+from erdantic.pydantic import PydanticModel
 
 
 def test_diagram_comparisons():
@@ -90,3 +98,36 @@ def test_repr_svg():
     diagram = erd.create(Party)
     svg = diagram._repr_svg_()
     assert svg and isinstance(svg, str)
+
+
+def test_find_models():
+    expected_pydantic_models = {
+        examples_pydantic.Party,
+        examples_pydantic.Adventurer,
+        examples_pydantic.Quest,
+        examples_pydantic.QuestGiver,
+    }
+    assert set(find_models(examples_pydantic)) == expected_pydantic_models
+    assert (
+        set(find_models(examples_pydantic, model_adapters=["pydantic"]))
+        == expected_pydantic_models
+    )
+    assert (
+        set(find_models(examples_pydantic, model_adapters=[PydanticModel]))
+        == expected_pydantic_models
+    )
+    assert set(find_models(examples_pydantic, model_adapters=["dataclasses"])) == set()
+
+    with pytest.raises(ModelAdapterNotFound):
+        find_models(examples_pydantic, model_adapters=["unknown_key"])
+
+    with pytest.raises(InvalidModelAdapterError):
+        find_models(examples_pydantic, model_adapters=[examples_pydantic.Party])
+
+    expected_dataclasses_models = {
+        examples_dataclasses.Party,
+        examples_dataclasses.Adventurer,
+        examples_dataclasses.Quest,
+        examples_dataclasses.QuestGiver,
+    }
+    assert set(find_models(examples_dataclasses)) == expected_dataclasses_models
