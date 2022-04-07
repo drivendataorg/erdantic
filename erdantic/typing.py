@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Any, List, Type, Union
+from typing import Any, List, Type, Union, Literal
 
 try:
     from typing import _GenericAlias as GenericAlias  # type: ignore # Python 3.7+
@@ -62,7 +62,10 @@ def get_recursive_args(tp: Union[type, GenericAlias]) -> List[type]:
                 raise _UnevaluatedForwardRefError(forward_ref=t)
 
         args = get_args(t)
-        if args:
+        is_literal = get_origin(t) is Literal
+        if is_literal:
+            yield Literal
+        elif args:
             for arg in args:
                 yield from recurse(arg)
         else:
