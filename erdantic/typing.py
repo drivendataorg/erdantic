@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Any, List, Type, Union, Literal
+from typing import Any, List, Type, Union
 
 try:
     from typing import _GenericAlias as GenericAlias  # type: ignore # Python 3.7+
@@ -18,6 +18,11 @@ try:
     from typing import ForwardRef  # type: ignore # Python >= 3.7.4
 except ImportError:
     from typing import _ForwardRef as ForwardRef  # type: ignore # Python < 3.7.4
+
+try:
+    from typing import Literal  # Python >= 3.8
+except ImportError:
+    from typing_extensions import Literal  # Python <= 3.7
 
 from erdantic.exceptions import _StringForwardRefError, _UnevaluatedForwardRefError
 
