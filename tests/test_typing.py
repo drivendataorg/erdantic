@@ -7,6 +7,11 @@ try:
 except ImportError:
     from typing import _ForwardRef as ForwardRef  # type: ignore # Python < 3.7.4
 
+try:
+    from typing import Literal
+except ImportError:
+    from typing_extensions import Literal
+
 
 import pytest
 
@@ -30,6 +35,7 @@ def test_get_recursive_args():
     assert set(args) == {str, int, float, type(None)}
 
     assert get_recursive_args(str) == [str]
+    assert get_recursive_args(Literal["batman"]) == [Literal]
 
 
 def test_get_depth1_bases():
@@ -94,6 +100,7 @@ repr_type_cases = [
     (typing.Any, "Any"),
     (typing.Dict[str, typing.Any], "Dict[str, Any]"),
     (ForwardRef("MyClass"), "MyClass"),
+    (Literal["batman"], "Literal['batman']"),
 ]
 
 if sys.version_info[:2] >= (3, 9):
