@@ -22,7 +22,10 @@ except ImportError:
 try:
     from typing import Literal  # type: ignore # Python >= 3.8
 except ImportError:
-    from typing_extensions import Literal  # type: ignore # Python <= 3.7
+    try:
+        from typing_extensions import Literal  # type: ignore # Python ==3.7.*
+    except ImportError:
+        Literal = None  # type: ignore # Python <3.7
 
 from erdantic.exceptions import _StringForwardRefError, _UnevaluatedForwardRefError
 
@@ -67,7 +70,7 @@ def get_recursive_args(tp: Union[type, GenericAlias]) -> List[type]:
                 raise _UnevaluatedForwardRefError(forward_ref=t)
 
         args = get_args(t)
-        is_literal = get_origin(t) is Literal
+        is_literal = Literal is not None and get_origin(t) is Literal
         if is_literal:
             yield Literal
         elif args:

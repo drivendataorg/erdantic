@@ -8,9 +8,12 @@ except ImportError:
     from typing import _ForwardRef as ForwardRef  # type: ignore # Python < 3.7.4
 
 try:
-    from typing import Literal
+    from typing import Literal  # type: ignore # Python >=3.8
 except ImportError:
-    from typing_extensions import Literal
+    try:
+        from typing_extensions import Literal  # type: ignore # Python ==3.7.*
+    except ImportError:
+        Literal = None  # type: ignore # Python <3.7
 
 
 import pytest
@@ -35,7 +38,8 @@ def test_get_recursive_args():
     assert set(args) == {str, int, float, type(None)}
 
     assert get_recursive_args(str) == [str]
-    assert get_recursive_args(Literal["batman"]) == [Literal]
+    if Literal is not None:
+        assert get_recursive_args(Literal["batman"]) == [Literal]
 
 
 def test_get_depth1_bases():
@@ -100,7 +104,6 @@ repr_type_cases = [
     (typing.Any, "Any"),
     (typing.Dict[str, typing.Any], "Dict[str, Any]"),
     (ForwardRef("MyClass"), "MyClass"),
-    (Literal["batman"], "Literal['batman']"),
 ]
 
 if sys.version_info[:2] >= (3, 9):
@@ -111,6 +114,9 @@ if sys.version_info[:2] >= (3, 9):
             (dict[str, list[int]], "dict[str, list[int]]"),
         ]
     )
+
+if Literal is not None:
+    repr_type_cases.append((Literal["batman"], "Literal['batman']"))
 
 
 @pytest.mark.parametrize("case", repr_type_cases, ids=[c[1] for c in repr_type_cases])
