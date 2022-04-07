@@ -20,9 +20,9 @@ except ImportError:
     from typing import _ForwardRef as ForwardRef  # type: ignore # Python < 3.7.4
 
 try:
-    from typing import Literal  # Python >= 3.8
+    from typing import Literal  # type: ignore # Python >= 3.8
 except ImportError:
-    from typing_extensions import Literal  # Python <= 3.7
+    from typing_extensions import Literal  # type: ignore # Python <= 3.7
 
 from erdantic.exceptions import _StringForwardRefError, _UnevaluatedForwardRefError
 
