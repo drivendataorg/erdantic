@@ -39,7 +39,7 @@ def test_get_recursive_args():
 
     assert get_recursive_args(str) == [str]
     if Literal is not None:
-        assert get_recursive_args(Literal["batman"]) == [Literal]
+        assert get_recursive_args(Literal["batman"]) in [[Literal], [Literal["batman"]]]
 
 
 def test_get_depth1_bases():
@@ -115,14 +115,16 @@ if sys.version_info[:2] >= (3, 9):
         ]
     )
 
-if Literal is not None:
-    repr_type_cases.append((Literal["batman"], "Literal['batman']"))
-
 
 @pytest.mark.parametrize("case", repr_type_cases, ids=[c[1] for c in repr_type_cases])
 def test_repr_type(case):
     tp, expected = case
     assert repr_type(tp) == expected
+
+
+def test_repr_type_literal():
+    tp = Literal["batman"]
+    assert "Literal['batman']" in repr_type(tp)
 
 
 def test_repr_type_with_mro():
