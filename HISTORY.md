@@ -1,6 +1,10 @@
 # erdantic Changelog
 
-## v0.4.0 (Unreleased)
+## v0.4.1 (2022-04-08)
+
+- Fixed error when rendering a data model that has field using `typing.Literal`. ([PR #49](https://github.com/drivendataorg/erdantic/pull/49))
+
+## v0.4.0 (2021-11-06)
 
 - Added support for showing field documentation from Pydantic models with descriptions set with `Field(description=...)` in SVG tooltips. This will add an "Attributes" section to the tooltip using Google-style docstring format and lists fields where the `description` keyword argument is used. ([Issue #8](https://github.com/drivendataorg/erdantic/issues/8#issuecomment-958905131), [PR #42](https://github.com/drivendataorg/erdantic/pull/42))
 
