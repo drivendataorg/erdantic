@@ -2,72 +2,72 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://erdantic.drivendata.org/v0.4/</loc>
-         <lastmod>2021-11-06</lastmod>
+         <lastmod>2022-04-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/v0.4/changelog/</loc>
-         <lastmod>2021-11-06</lastmod>
+         <lastmod>2022-04-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/v0.4/cli/</loc>
-         <lastmod>2021-11-06</lastmod>
+         <lastmod>2022-04-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/v0.4/extending/</loc>
-         <lastmod>2021-11-06</lastmod>
+         <lastmod>2022-04-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/v0.4/forward-references/</loc>
-         <lastmod>2021-11-06</lastmod>
+         <lastmod>2022-04-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/v0.4/api-reference/base/</loc>
-         <lastmod>2021-11-06</lastmod>
+         <lastmod>2022-04-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/v0.4/api-reference/dataclasses/</loc>
-         <lastmod>2021-11-06</lastmod>
+         <lastmod>2022-04-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/v0.4/api-reference/erd/</loc>
-         <lastmod>2021-11-06</lastmod>
+         <lastmod>2022-04-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/v0.4/api-reference/examples.dataclasses/</loc>
-         <lastmod>2021-11-06</lastmod>
+         <lastmod>2022-04-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/v0.4/api-reference/examples.pydantic/</loc>
-         <lastmod>2021-11-06</lastmod>
+         <lastmod>2022-04-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/v0.4/api-reference/exceptions/</loc>
-         <lastmod>2021-11-06</lastmod>
+         <lastmod>2022-04-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/v0.4/api-reference/pydantic/</loc>
-         <lastmod>2021-11-06</lastmod>
+         <lastmod>2022-04-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/v0.4/examples/dataclasses/</loc>
-         <lastmod>2021-11-06</lastmod>
+         <lastmod>2022-04-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/v0.4/examples/pydantic/</loc>
-         <lastmod>2021-11-06</lastmod>
+         <lastmod>2022-04-08</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
