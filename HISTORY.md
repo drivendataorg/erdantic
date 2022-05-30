@@ -1,5 +1,9 @@
 # erdantic Changelog
 
+## v0.5.0 (unreleased)
+
+- Drop support for Python 3.6. ([Issue #51](https://github.com/drivendataorg/erdantic/issues/51))
+
 ## v0.4.1 (2022-04-08)
 
 - Fixed error when rendering a data model that has field using `typing.Literal`. ([PR #49](https://github.com/drivendataorg/erdantic/pull/49))
