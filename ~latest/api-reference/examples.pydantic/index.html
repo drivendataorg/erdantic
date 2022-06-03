@@ -499,6 +499,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#erdantic.examples.pydantic" class="md-nav__link">
+    erdantic.examples.pydantic
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#erdantic.examples.pydantic-classes" class="md-nav__link">
     Classes
   </a>
@@ -624,6 +631,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#erdantic.examples.pydantic" class="md-nav__link">
+    erdantic.examples.pydantic
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#erdantic.examples.pydantic-classes" class="md-nav__link">
     Classes
   </a>
@@ -692,15 +706,14 @@
 <h1 id="erdanticexamplespydantic">erdantic.examples.pydantic<a class="headerlink" href="#erdanticexamplespydantic" title="Permanent link">&para;</a></h1>
 
 
-<div class="doc doc-object doc-module">
+  <div class="doc doc-object doc-module">
 
+<a id="erdantic.examples.pydantic"></a>
+    <div class="doc doc-contents first">
 
-
-  <div class="doc doc-contents first">
-  
       <p>Example data model classes using <a href="https://pydantic-docs.helpmanual.io/">Pydantic</a>.</p>
 
-  
+
 
   <div class="doc doc-children">
 
@@ -708,85 +721,63 @@
 
 
 
-
 <h2 id="erdantic.examples.pydantic-classes">Classes<a href="#erdantic.examples.pydantic-classes" class="headerlink" title="Permanent link">&para;</a></h2>
 
-<div class="doc doc-object doc-class">
+  <div class="doc doc-object doc-class">
 
 
 
 <h3 id="erdantic.examples.pydantic.Adventurer" class="doc doc-heading">
-        <code>Adventurer</code>
+        <code>
+Adventurer            (<span title="pydantic.main.BaseModel">BaseModel</span>)
+        </code>
 
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-model"><code>pydantic-model</code></small>
+  </span>
 
 <a href="#erdantic.examples.pydantic.Adventurer" class="headerlink" title="Permanent link">&para;</a></h3>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
-
-  
       <p>A person often late for dinner but with a tale or two to tell.</p>
 
-  <p><strong>Attributes:</strong></p>
-  <table>
-    <thead>
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
       <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
+        <td><code>name</code></td>
+        <td><code>str</code></td>
+        <td><p>Name of this adventurer</p></td>
       </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>name</code></td>
-          <td>
-                <code>str</code>
-          </td>
-          <td><p>Name of this adventurer</p></td>
-        </tr>
-        <tr>
-          <td><code>profession</code></td>
-          <td>
-                <code>str</code>
-          </td>
-          <td><p>Profession of this adventurer</p></td>
-        </tr>
-        <tr>
-          <td><code>level</code></td>
-          <td>
-                <code>int</code>
-          </td>
-          <td><p>Level of this adventurer</p></td>
-        </tr>
-        <tr>
-          <td><code>alignment</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="erdantic.examples.pydantic.Alignment" href="#erdantic.examples.pydantic.Alignment">Alignment</a></code>
-          </td>
-          <td><p>Alignment of this adventurer</p></td>
-        </tr>
-    </tbody>
-  </table>
-
-
+      <tr>
+        <td><code>profession</code></td>
+        <td><code>str</code></td>
+        <td><p>Profession of this adventurer</p></td>
+      </tr>
+      <tr>
+        <td><code>level</code></td>
+        <td><code>int</code></td>
+        <td><p>Level of this adventurer</p></td>
+      </tr>
+      <tr>
+        <td><code>alignment</code></td>
+        <td><code>Alignment</code></td>
+        <td><p>Alignment of this adventurer</p></td>
+      </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>erdantic/examples/pydantic.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Adventurer</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Adventurer</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A person often late for dinner but with a tale or two to tell.</span>
 
 <span class="sd">    Attributes:</span>
@@ -800,10 +791,10 @@
     <span class="n">profession</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">level</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">alignment</span><span class="p">:</span> <span class="n">Alignment</span>
-</code></pre></div></td></tr></table></div>
+</code></pre></div>
         </details>
 
-  
+
 
   <div class="doc doc-children">
 
@@ -811,123 +802,128 @@
 
 
 
-<h4 id="erdantic.examples.pydantic.Adventurer-attributes">Attributes<a href="#erdantic.examples.pydantic.Adventurer-attributes" class="headerlink" title="Permanent link">&para;</a></h4>
 
-<div class="doc doc-object doc-attribute">
+  <div class="doc doc-object doc-attribute">
 
 
 
 <h5 id="erdantic.examples.pydantic.Adventurer.alignment" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">alignment</span><span class="p">:</span> <span class="n">Alignment</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-field"><code>pydantic-field</code></small>
+      <small class="doc doc-property doc-property-required"><code>required</code></small>
   </span>
 
 <a href="#erdantic.examples.pydantic.Adventurer.alignment" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
+    </div>
+
   </div>
 
-</div>
 
-<div class="doc doc-object doc-attribute">
+
+  <div class="doc doc-object doc-attribute">
 
 
 
 <h5 id="erdantic.examples.pydantic.Adventurer.level" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">level</span><span class="p">:</span> <span class="nb">int</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-field"><code>pydantic-field</code></small>
+      <small class="doc doc-property doc-property-required"><code>required</code></small>
   </span>
 
 <a href="#erdantic.examples.pydantic.Adventurer.level" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
+    </div>
+
   </div>
 
-</div>
 
-<div class="doc doc-object doc-attribute">
+
+  <div class="doc doc-object doc-attribute">
 
 
 
 <h5 id="erdantic.examples.pydantic.Adventurer.name" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">name</span><span class="p">:</span> <span class="nb">str</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-field"><code>pydantic-field</code></small>
+      <small class="doc doc-property doc-property-required"><code>required</code></small>
   </span>
 
 <a href="#erdantic.examples.pydantic.Adventurer.name" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
+    </div>
+
   </div>
 
-</div>
 
-<div class="doc doc-object doc-attribute">
+
+  <div class="doc doc-object doc-attribute">
 
 
 
 <h5 id="erdantic.examples.pydantic.Adventurer.profession" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">profession</span><span class="p">:</span> <span class="nb">str</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-field"><code>pydantic-field</code></small>
+      <small class="doc doc-property doc-property-required"><code>required</code></small>
   </span>
 
 <a href="#erdantic.examples.pydantic.Adventurer.profession" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-  </div>
-
-</div>
-
-
-
-
+    </div>
 
   </div>
 
+
+
+
+
+
+
+
   </div>
 
-</div>
+    </div>
 
-<div class="doc doc-object doc-class">
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
 
 
 
 <h3 id="erdantic.examples.pydantic.Alignment" class="doc doc-heading">
-        <code>Alignment</code>
+        <code>
+Alignment            (<span title="str">str</span>, <span title="enum.Enum">Enum</span>)
+        </code>
+
 
 
 <a href="#erdantic.examples.pydantic.Alignment" class="headerlink" title="Permanent link">&para;</a></h3>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code>str</code>, <code><span title="enum.Enum">Enum</span></code></p>
-
-
+      <p>An enumeration.</p>
 
         <details class="quote">
           <summary>Source code in <code>erdantic/examples/pydantic.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Alignment</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Alignment</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
     <span class="n">LAWFUL_GOOD</span> <span class="o">=</span> <span class="s2">&quot;lawful_good&quot;</span>
     <span class="n">NEUTRAL_GOOD</span> <span class="o">=</span> <span class="s2">&quot;neutral_good&quot;</span>
     <span class="n">CHAOTIC_GOOD</span> <span class="o">=</span> <span class="s2">&quot;chaotic_good&quot;</span>
@@ -937,10 +933,10 @@
     <span class="n">LAWFUL_EVIL</span> <span class="o">=</span> <span class="s2">&quot;lawful_evil&quot;</span>
     <span class="n">NEUTRAL_EVIL</span> <span class="o">=</span> <span class="s2">&quot;neutral_evil&quot;</span>
     <span class="n">CHAOTIC_EVIL</span> <span class="o">=</span> <span class="s2">&quot;chaotic_evil&quot;</span>
-</code></pre></div></td></tr></table></div>
+</code></pre></div>
         </details>
 
-  
+
 
   <div class="doc doc-children">
 
@@ -948,265 +944,237 @@
 
 
 
-<h4 id="erdantic.examples.pydantic.Alignment-attributes">Attributes<a href="#erdantic.examples.pydantic.Alignment-attributes" class="headerlink" title="Permanent link">&para;</a></h4>
 
-<div class="doc doc-object doc-attribute">
+  <div class="doc doc-object doc-attribute">
 
 
 
 <h5 id="erdantic.examples.pydantic.Alignment.CHAOTIC_EVIL" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">CHAOTIC_EVIL</span> <span class="o">=</span> <span class="s1">&#39;chaotic_evil&#39;</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-  </span>
+<code class="highlight language-python"><span class="n">CHAOTIC_EVIL</span></code>
+
 
 <a href="#erdantic.examples.pydantic.Alignment.CHAOTIC_EVIL" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
+    </div>
+
   </div>
 
-</div>
 
-<div class="doc doc-object doc-attribute">
+
+  <div class="doc doc-object doc-attribute">
 
 
 
 <h5 id="erdantic.examples.pydantic.Alignment.CHAOTIC_GOOD" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">CHAOTIC_GOOD</span> <span class="o">=</span> <span class="s1">&#39;chaotic_good&#39;</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-  </span>
+<code class="highlight language-python"><span class="n">CHAOTIC_GOOD</span></code>
+
 
 <a href="#erdantic.examples.pydantic.Alignment.CHAOTIC_GOOD" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
+    </div>
+
   </div>
 
-</div>
 
-<div class="doc doc-object doc-attribute">
+
+  <div class="doc doc-object doc-attribute">
 
 
 
 <h5 id="erdantic.examples.pydantic.Alignment.CHAOTIC_NEUTRAL" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">CHAOTIC_NEUTRAL</span> <span class="o">=</span> <span class="s1">&#39;chaotic_neutral&#39;</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-  </span>
+<code class="highlight language-python"><span class="n">CHAOTIC_NEUTRAL</span></code>
+
 
 <a href="#erdantic.examples.pydantic.Alignment.CHAOTIC_NEUTRAL" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
+    </div>
+
   </div>
 
-</div>
 
-<div class="doc doc-object doc-attribute">
+
+  <div class="doc doc-object doc-attribute">
 
 
 
 <h5 id="erdantic.examples.pydantic.Alignment.LAWFUL_EVIL" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">LAWFUL_EVIL</span> <span class="o">=</span> <span class="s1">&#39;lawful_evil&#39;</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-  </span>
+<code class="highlight language-python"><span class="n">LAWFUL_EVIL</span></code>
+
 
 <a href="#erdantic.examples.pydantic.Alignment.LAWFUL_EVIL" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
+    </div>
+
   </div>
 
-</div>
 
-<div class="doc doc-object doc-attribute">
+
+  <div class="doc doc-object doc-attribute">
 
 
 
 <h5 id="erdantic.examples.pydantic.Alignment.LAWFUL_GOOD" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">LAWFUL_GOOD</span> <span class="o">=</span> <span class="s1">&#39;lawful_good&#39;</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-  </span>
+<code class="highlight language-python"><span class="n">LAWFUL_GOOD</span></code>
+
 
 <a href="#erdantic.examples.pydantic.Alignment.LAWFUL_GOOD" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
+    </div>
+
   </div>
 
-</div>
 
-<div class="doc doc-object doc-attribute">
+
+  <div class="doc doc-object doc-attribute">
 
 
 
 <h5 id="erdantic.examples.pydantic.Alignment.LAWFUL_NEUTRAL" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">LAWFUL_NEUTRAL</span> <span class="o">=</span> <span class="s1">&#39;lawful_neutral&#39;</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-  </span>
+<code class="highlight language-python"><span class="n">LAWFUL_NEUTRAL</span></code>
+
 
 <a href="#erdantic.examples.pydantic.Alignment.LAWFUL_NEUTRAL" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
+    </div>
+
   </div>
 
-</div>
 
-<div class="doc doc-object doc-attribute">
+
+  <div class="doc doc-object doc-attribute">
 
 
 
 <h5 id="erdantic.examples.pydantic.Alignment.NEUTRAL_EVIL" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">NEUTRAL_EVIL</span> <span class="o">=</span> <span class="s1">&#39;neutral_evil&#39;</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-  </span>
+<code class="highlight language-python"><span class="n">NEUTRAL_EVIL</span></code>
+
 
 <a href="#erdantic.examples.pydantic.Alignment.NEUTRAL_EVIL" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
+    </div>
+
   </div>
 
-</div>
 
-<div class="doc doc-object doc-attribute">
+
+  <div class="doc doc-object doc-attribute">
 
 
 
 <h5 id="erdantic.examples.pydantic.Alignment.NEUTRAL_GOOD" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">NEUTRAL_GOOD</span> <span class="o">=</span> <span class="s1">&#39;neutral_good&#39;</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-  </span>
+<code class="highlight language-python"><span class="n">NEUTRAL_GOOD</span></code>
+
 
 <a href="#erdantic.examples.pydantic.Alignment.NEUTRAL_GOOD" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
+    </div>
+
   </div>
 
-</div>
 
-<div class="doc doc-object doc-attribute">
+
+  <div class="doc doc-object doc-attribute">
 
 
 
 <h5 id="erdantic.examples.pydantic.Alignment.TRUE_NEUTRAL" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">TRUE_NEUTRAL</span> <span class="o">=</span> <span class="s1">&#39;true_neutral&#39;</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-  </span>
+<code class="highlight language-python"><span class="n">TRUE_NEUTRAL</span></code>
+
 
 <a href="#erdantic.examples.pydantic.Alignment.TRUE_NEUTRAL" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-  </div>
-
-</div>
-
-
-
-
+    </div>
 
   </div>
 
+
+
+
+
+
+
+
   </div>
 
-</div>
+    </div>
 
-<div class="doc doc-object doc-class">
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
 
 
 
 <h3 id="erdantic.examples.pydantic.Party" class="doc doc-heading">
-        <code>Party</code>
+        <code>
+Party            (<span title="pydantic.main.BaseModel">BaseModel</span>)
+        </code>
 
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-model"><code>pydantic-model</code></small>
+  </span>
 
 <a href="#erdantic.examples.pydantic.Party" class="headerlink" title="Permanent link">&para;</a></h3>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
-
-  
       <p>A group of adventurers finding themselves doing and saying things altogether unexpected.</p>
 
-  <p><strong>Attributes:</strong></p>
-  <table>
-    <thead>
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
       <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
+        <td><code>name</code></td>
+        <td><code>str</code></td>
+        <td><p>Name that party is known by</p></td>
       </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>name</code></td>
-          <td>
-                <code>str</code>
-          </td>
-          <td><p>Name that party is known by</p></td>
-        </tr>
-        <tr>
-          <td><code>formed_datetime</code></td>
-          <td>
-                <code><span title="datetime.datetime">datetime</span></code>
-          </td>
-          <td><p>Timestamp of when the party was formed</p></td>
-        </tr>
-        <tr>
-          <td><code>members</code></td>
-          <td>
-                <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="erdantic.examples.pydantic.Adventurer" href="#erdantic.examples.pydantic.Adventurer">Adventurer</a>]</code>
-          </td>
-          <td><p>Adventurers that belong to this party</p></td>
-        </tr>
-        <tr>
-          <td><code>active_quest</code></td>
-          <td>
-                <code><span title="typing.Optional">Optional</span>[<a class="autorefs autorefs-internal" title="erdantic.examples.pydantic.Quest" href="#erdantic.examples.pydantic.Quest">Quest</a>]</code>
-          </td>
-          <td><p>Current quest that party is actively tackling</p></td>
-        </tr>
-    </tbody>
-  </table>
-
-
+      <tr>
+        <td><code>formed_datetime</code></td>
+        <td><code>datetime</code></td>
+        <td><p>Timestamp of when the party was formed</p></td>
+      </tr>
+      <tr>
+        <td><code>members</code></td>
+        <td><code>List[Adventurer]</code></td>
+        <td><p>Adventurers that belong to this party</p></td>
+      </tr>
+      <tr>
+        <td><code>active_quest</code></td>
+        <td><code>Optional[Quest]</code></td>
+        <td><p>Current quest that party is actively tackling</p></td>
+      </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>erdantic/examples/pydantic.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Party</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Party</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A group of adventurers finding themselves doing and saying things altogether unexpected.</span>
 
 <span class="sd">    Attributes:</span>
@@ -1220,10 +1188,10 @@
     <span class="n">formed_datetime</span><span class="p">:</span> <span class="n">datetime</span>
     <span class="n">members</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Adventurer</span><span class="p">]</span>
     <span class="n">active_quest</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Quest</span><span class="p">]</span>
-</code></pre></div></td></tr></table></div>
+</code></pre></div>
         </details>
 
-  
+
 
   <div class="doc doc-children">
 
@@ -1231,161 +1199,157 @@
 
 
 
-<h4 id="erdantic.examples.pydantic.Party-attributes">Attributes<a href="#erdantic.examples.pydantic.Party-attributes" class="headerlink" title="Permanent link">&para;</a></h4>
 
-<div class="doc doc-object doc-attribute">
+  <div class="doc doc-object doc-attribute">
 
 
 
 <h5 id="erdantic.examples.pydantic.Party.active_quest" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">active_quest</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Quest</span><span class="p">]</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+<code class="highlight language-python"><span class="n">active_quest</span><span class="p">:</span> <span class="n">Quest</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-field"><code>pydantic-field</code></small>
   </span>
 
 <a href="#erdantic.examples.pydantic.Party.active_quest" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
+    </div>
+
   </div>
 
-</div>
 
-<div class="doc doc-object doc-attribute">
+
+  <div class="doc doc-object doc-attribute">
 
 
 
 <h5 id="erdantic.examples.pydantic.Party.formed_datetime" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">formed_datetime</span><span class="p">:</span> <span class="n">datetime</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-field"><code>pydantic-field</code></small>
+      <small class="doc doc-property doc-property-required"><code>required</code></small>
   </span>
 
 <a href="#erdantic.examples.pydantic.Party.formed_datetime" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
+    </div>
+
   </div>
 
-</div>
 
-<div class="doc doc-object doc-attribute">
+
+  <div class="doc doc-object doc-attribute">
 
 
 
 <h5 id="erdantic.examples.pydantic.Party.members" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">members</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Adventurer</span><span class="p">]</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+<code class="highlight language-python"><span class="n">members</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">erdantic</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">pydantic</span><span class="o">.</span><span class="n">Adventurer</span><span class="p">]</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-field"><code>pydantic-field</code></small>
+      <small class="doc doc-property doc-property-required"><code>required</code></small>
   </span>
 
 <a href="#erdantic.examples.pydantic.Party.members" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
+    </div>
+
   </div>
 
-</div>
 
-<div class="doc doc-object doc-attribute">
+
+  <div class="doc doc-object doc-attribute">
 
 
 
 <h5 id="erdantic.examples.pydantic.Party.name" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">name</span><span class="p">:</span> <span class="nb">str</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-field"><code>pydantic-field</code></small>
+      <small class="doc doc-property doc-property-required"><code>required</code></small>
   </span>
 
 <a href="#erdantic.examples.pydantic.Party.name" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-  </div>
-
-</div>
-
-
-
-
+    </div>
 
   </div>
 
+
+
+
+
+
+
+
   </div>
 
-</div>
+    </div>
 
-<div class="doc doc-object doc-class">
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
 
 
 
 <h3 id="erdantic.examples.pydantic.Quest" class="doc doc-heading">
-        <code>Quest</code>
+        <code>
+Quest            (<span title="pydantic.main.BaseModel">BaseModel</span>)
+        </code>
 
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-model"><code>pydantic-model</code></small>
+  </span>
 
 <a href="#erdantic.examples.pydantic.Quest" class="headerlink" title="Permanent link">&para;</a></h3>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
-
-  
       <p>A task to complete, with some monetary reward.</p>
 
-  <p><strong>Attributes:</strong></p>
-  <table>
-    <thead>
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
       <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
+        <td><code>name</code></td>
+        <td><code>str</code></td>
+        <td><p>Name by which this quest is referred to</p></td>
       </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>name</code></td>
-          <td>
-                <code>str</code>
-          </td>
-          <td><p>Name by which this quest is referred to</p></td>
-        </tr>
-        <tr>
-          <td><code>giver</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="erdantic.examples.pydantic.QuestGiver" href="#erdantic.examples.pydantic.QuestGiver">QuestGiver</a></code>
-          </td>
-          <td><p>Person who offered the quest</p></td>
-        </tr>
-        <tr>
-          <td><code>reward_gold</code></td>
-          <td>
-                <code>int</code>
-          </td>
-          <td><p>Amount of gold to be rewarded for quest completion</p></td>
-        </tr>
-    </tbody>
-  </table>
-
-
+      <tr>
+        <td><code>giver</code></td>
+        <td><code>QuestGiver</code></td>
+        <td><p>Person who offered the quest</p></td>
+      </tr>
+      <tr>
+        <td><code>reward_gold</code></td>
+        <td><code>int</code></td>
+        <td><p>Amount of gold to be rewarded for quest completion</p></td>
+      </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>erdantic/examples/pydantic.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Quest</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Quest</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A task to complete, with some monetary reward.</span>
 
 <span class="sd">    Attributes:</span>
@@ -1397,10 +1361,10 @@
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">giver</span><span class="p">:</span> <span class="n">QuestGiver</span>
     <span class="n">reward_gold</span><span class="p">:</span> <span class="nb">int</span>
-</code></pre></div></td></tr></table></div>
+</code></pre></div>
         </details>
 
-  
+
 
   <div class="doc doc-children">
 
@@ -1408,142 +1372,136 @@
 
 
 
-<h4 id="erdantic.examples.pydantic.Quest-attributes">Attributes<a href="#erdantic.examples.pydantic.Quest-attributes" class="headerlink" title="Permanent link">&para;</a></h4>
 
-<div class="doc doc-object doc-attribute">
+  <div class="doc doc-object doc-attribute">
 
 
 
 <h5 id="erdantic.examples.pydantic.Quest.giver" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">giver</span><span class="p">:</span> <span class="n">QuestGiver</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-field"><code>pydantic-field</code></small>
+      <small class="doc doc-property doc-property-required"><code>required</code></small>
   </span>
 
 <a href="#erdantic.examples.pydantic.Quest.giver" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
+    </div>
+
   </div>
 
-</div>
 
-<div class="doc doc-object doc-attribute">
+
+  <div class="doc doc-object doc-attribute">
 
 
 
 <h5 id="erdantic.examples.pydantic.Quest.name" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">name</span><span class="p">:</span> <span class="nb">str</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-field"><code>pydantic-field</code></small>
+      <small class="doc doc-property doc-property-required"><code>required</code></small>
   </span>
 
 <a href="#erdantic.examples.pydantic.Quest.name" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
+    </div>
+
   </div>
 
-</div>
 
-<div class="doc doc-object doc-attribute">
+
+  <div class="doc doc-object doc-attribute">
 
 
 
 <h5 id="erdantic.examples.pydantic.Quest.reward_gold" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">reward_gold</span><span class="p">:</span> <span class="nb">int</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-field"><code>pydantic-field</code></small>
+      <small class="doc doc-property doc-property-required"><code>required</code></small>
   </span>
 
 <a href="#erdantic.examples.pydantic.Quest.reward_gold" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-  </div>
-
-</div>
-
-
-
-
+    </div>
 
   </div>
 
+
+
+
+
+
+
+
   </div>
 
-</div>
+    </div>
 
-<div class="doc doc-object doc-class">
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
 
 
 
 <h3 id="erdantic.examples.pydantic.QuestGiver" class="doc doc-heading">
-        <code>QuestGiver</code>
+        <code>
+QuestGiver            (<span title="pydantic.main.BaseModel">BaseModel</span>)
+        </code>
 
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-model"><code>pydantic-model</code></small>
+  </span>
 
 <a href="#erdantic.examples.pydantic.QuestGiver" class="headerlink" title="Permanent link">&para;</a></h3>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code><span title="pydantic.BaseModel">BaseModel</span></code></p>
-
-  
       <p>A person who offers a task that needs completing.</p>
 
-  <p><strong>Attributes:</strong></p>
-  <table>
-    <thead>
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
       <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
+        <td><code>name</code></td>
+        <td><code>str</code></td>
+        <td><p>Name of this quest giver</p></td>
       </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>name</code></td>
-          <td>
-                <code>str</code>
-          </td>
-          <td><p>Name of this quest giver</p></td>
-        </tr>
-        <tr>
-          <td><code>faction</code></td>
-          <td>
-                <code>str</code>
-          </td>
-          <td><p>Faction that this quest giver belongs to</p></td>
-        </tr>
-        <tr>
-          <td><code>location</code></td>
-          <td>
-                <code>str</code>
-          </td>
-          <td><p>Location this quest giver can be found</p></td>
-        </tr>
-    </tbody>
-  </table>
-
-
+      <tr>
+        <td><code>faction</code></td>
+        <td><code>str</code></td>
+        <td><p>Faction that this quest giver belongs to</p></td>
+      </tr>
+      <tr>
+        <td><code>location</code></td>
+        <td><code>str</code></td>
+        <td><p>Location this quest giver can be found</p></td>
+      </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>erdantic/examples/pydantic.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">QuestGiver</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">QuestGiver</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A person who offers a task that needs completing.</span>
 
 <span class="sd">    Attributes:</span>
@@ -1555,10 +1513,10 @@
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">faction</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
     <span class="n">location</span><span class="p">:</span> <span class="nb">str</span>
-</code></pre></div></td></tr></table></div>
+</code></pre></div>
         </details>
 
-  
+
 
   <div class="doc doc-children">
 
@@ -1566,83 +1524,94 @@
 
 
 
-<h4 id="erdantic.examples.pydantic.QuestGiver-attributes">Attributes<a href="#erdantic.examples.pydantic.QuestGiver-attributes" class="headerlink" title="Permanent link">&para;</a></h4>
 
-<div class="doc doc-object doc-attribute">
+  <div class="doc doc-object doc-attribute">
 
 
 
 <h5 id="erdantic.examples.pydantic.QuestGiver.faction" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">faction</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+<code class="highlight language-python"><span class="n">faction</span><span class="p">:</span> <span class="nb">str</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-field"><code>pydantic-field</code></small>
   </span>
 
 <a href="#erdantic.examples.pydantic.QuestGiver.faction" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
+    </div>
+
   </div>
 
-</div>
 
-<div class="doc doc-object doc-attribute">
+
+  <div class="doc doc-object doc-attribute">
 
 
 
 <h5 id="erdantic.examples.pydantic.QuestGiver.location" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">location</span><span class="p">:</span> <span class="nb">str</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-field"><code>pydantic-field</code></small>
+      <small class="doc doc-property doc-property-required"><code>required</code></small>
   </span>
 
 <a href="#erdantic.examples.pydantic.QuestGiver.location" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
+    </div>
+
   </div>
 
-</div>
 
-<div class="doc doc-object doc-attribute">
+
+  <div class="doc doc-object doc-attribute">
 
 
 
 <h5 id="erdantic.examples.pydantic.QuestGiver.name" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">name</span><span class="p">:</span> <span class="nb">str</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-pydantic-field"><code>pydantic-field</code></small>
+      <small class="doc doc-property doc-property-required"><code>required</code></small>
   </span>
 
 <a href="#erdantic.examples.pydantic.QuestGiver.name" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-  </div>
-
-</div>
-
-
-
-
+    </div>
 
   </div>
 
-  </div>
 
-</div>
+
+
 
 
 
 
   </div>
 
+    </div>
+
   </div>
 
-</div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
 
               
             </article>

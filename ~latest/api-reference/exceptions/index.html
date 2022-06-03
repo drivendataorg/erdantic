@@ -443,6 +443,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#erdantic.exceptions" class="md-nav__link">
+    erdantic.exceptions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#erdantic.exceptions-classes" class="md-nav__link">
     Classes
   </a>
@@ -650,6 +657,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#erdantic.exceptions" class="md-nav__link">
+    erdantic.exceptions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#erdantic.exceptions-classes" class="md-nav__link">
     Classes
   </a>
@@ -746,13 +760,13 @@
 <h1 id="erdanticexceptions">erdantic.exceptions<a class="headerlink" href="#erdanticexceptions" title="Permanent link">&para;</a></h1>
 
 
-<div class="doc doc-object doc-module">
+  <div class="doc doc-object doc-module">
+
+<a id="erdantic.exceptions"></a>
+    <div class="doc doc-contents first">
 
 
 
-  <div class="doc doc-contents first">
-
-  
 
   <div class="doc doc-children">
 
@@ -760,199 +774,183 @@
 
 
 
-
 <h2 id="erdantic.exceptions-classes">Classes<a href="#erdantic.exceptions-classes" class="headerlink" title="Permanent link">&para;</a></h2>
 
-<div class="doc doc-object doc-class">
+  <div class="doc doc-object doc-class">
 
 
 
 <h3 id="erdantic.exceptions.ErdanticException" class="doc doc-heading">
-        <code>ErdanticException</code>
+        <code>
+ErdanticException            (<span title="Exception">Exception</span>)
+        </code>
+
 
 
 <a href="#erdantic.exceptions.ErdanticException" class="headerlink" title="Permanent link">&para;</a></h3>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code>Exception</code></p>
-
-  
       <p>Base class for all exceptions from erdantic library.</p>
-
 
         <details class="quote">
           <summary>Source code in <code>erdantic/exceptions.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ErdanticException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">ErdanticException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Base class for all exceptions from erdantic library.&quot;&quot;&quot;</span>
-</code></pre></div></td></tr></table></div>
+</code></pre></div>
         </details>
+
+
+    </div>
 
   </div>
 
-</div>
 
-<div class="doc doc-object doc-class">
+
+  <div class="doc doc-object doc-class">
 
 
 
 <h3 id="erdantic.exceptions.InvalidFieldError" class="doc doc-heading">
-        <code>InvalidFieldError</code>
+        <code>
+InvalidFieldError            (<span title="ValueError">ValueError</span>, <a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a>)
+        </code>
+
 
 
 <a href="#erdantic.exceptions.InvalidFieldError" class="headerlink" title="Permanent link">&para;</a></h3>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code>ValueError</code>, <code><a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a></code></p>
-
-  
       <p>Raised when an invalid field object is passed to a field adapter.</p>
-
 
         <details class="quote">
           <summary>Source code in <code>erdantic/exceptions.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">26</span>
-<span class="normal">27</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">InvalidFieldError</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="n">ErdanticException</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">InvalidFieldError</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="n">ErdanticException</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Raised when an invalid field object is passed to a field adapter.&quot;&quot;&quot;</span>
-</code></pre></div></td></tr></table></div>
+</code></pre></div>
         </details>
+
+
+    </div>
 
   </div>
 
-</div>
 
-<div class="doc doc-object doc-class">
+
+  <div class="doc doc-object doc-class">
 
 
 
 <h3 id="erdantic.exceptions.InvalidModelAdapterError" class="doc doc-heading">
-        <code>InvalidModelAdapterError</code>
+        <code>
+InvalidModelAdapterError            (<span title="ValueError">ValueError</span>, <a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a>)
+        </code>
+
 
 
 <a href="#erdantic.exceptions.InvalidModelAdapterError" class="headerlink" title="Permanent link">&para;</a></h3>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code>ValueError</code>, <code><a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a></code></p>
-
-  
       <p>Raised when trying to register a model adapter that is not subclassing Model.</p>
-
 
         <details class="quote">
           <summary>Source code in <code>erdantic/exceptions.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">22</span>
-<span class="normal">23</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">InvalidModelAdapterError</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="n">ErdanticException</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">InvalidModelAdapterError</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="n">ErdanticException</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Raised when trying to register a model adapter that is not subclassing Model.&quot;&quot;&quot;</span>
-</code></pre></div></td></tr></table></div>
+</code></pre></div>
         </details>
+
+
+    </div>
 
   </div>
 
-</div>
 
-<div class="doc doc-object doc-class">
+
+  <div class="doc doc-object doc-class">
 
 
 
 <h3 id="erdantic.exceptions.InvalidModelError" class="doc doc-heading">
-        <code>InvalidModelError</code>
+        <code>
+InvalidModelError            (<span title="ValueError">ValueError</span>, <a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a>)
+        </code>
+
 
 
 <a href="#erdantic.exceptions.InvalidModelError" class="headerlink" title="Permanent link">&para;</a></h3>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code>ValueError</code>, <code><a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a></code></p>
-
-  
       <p>Raised when an invalid model object is passed to a model adapter.</p>
-
 
         <details class="quote">
           <summary>Source code in <code>erdantic/exceptions.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">18</span>
-<span class="normal">19</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">InvalidModelError</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="n">ErdanticException</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">InvalidModelError</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="n">ErdanticException</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Raised when an invalid model object is passed to a model adapter.&quot;&quot;&quot;</span>
-</code></pre></div></td></tr></table></div>
+</code></pre></div>
         </details>
+
+
+    </div>
 
   </div>
 
-</div>
 
-<div class="doc doc-object doc-class">
+
+  <div class="doc doc-object doc-class">
 
 
 
 <h3 id="erdantic.exceptions.NotATypeError" class="doc doc-heading">
-        <code>NotATypeError</code>
+        <code>
+NotATypeError            (<span title="ValueError">ValueError</span>, <a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a>)
+        </code>
+
 
 
 <a href="#erdantic.exceptions.NotATypeError" class="headerlink" title="Permanent link">&para;</a></h3>
 
-
-  <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code>ValueError</code>, <code><a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a></code></p>
-
+    <div class="doc doc-contents ">
 
 
         <details class="quote">
           <summary>Source code in <code>erdantic/exceptions.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">30</span>
-<span class="normal">31</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">NotATypeError</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="n">ErdanticException</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">NotATypeError</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="n">ErdanticException</span><span class="p">):</span>
     <span class="k">pass</span>
-</code></pre></div></td></tr></table></div>
+</code></pre></div>
         </details>
+
+
+    </div>
 
   </div>
 
-</div>
 
-<div class="doc doc-object doc-class">
+
+  <div class="doc doc-object doc-class">
 
 
 
 <h3 id="erdantic.exceptions.StringForwardRefError" class="doc doc-heading">
-        <code>StringForwardRefError</code>
+        <code>
+StringForwardRefError            (<a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a>)
+        </code>
+
 
 
 <a href="#erdantic.exceptions.StringForwardRefError" class="headerlink" title="Permanent link">&para;</a></h3>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code><a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a></code></p>
-
-  
       <p>Raised when a field's type declaration is stored as a string literal and not transformed
 into a typing.ForwardRef object.</p>
 
-
         <details class="quote">
           <summary>Source code in <code>erdantic/exceptions.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">StringForwardRefError</span><span class="p">(</span><span class="n">ErdanticException</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">StringForwardRefError</span><span class="p">(</span><span class="n">ErdanticException</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Raised when a field&#39;s type declaration is stored as a string literal and not transformed</span>
 <span class="sd">    into a typing.ForwardRef object.&quot;&quot;&quot;</span>
 
@@ -963,14 +961,11 @@ into a typing.ForwardRef object.</p>
             <span class="s2">&quot;forward references that aren&#39;t transformed into typing.ForwardRef. Declare &quot;</span>
             <span class="sa">f</span><span class="s2">&quot;explicitly with &#39;typing.ForwardRef(</span><span class="se">\&quot;</span><span class="si">{</span><span class="n">forward_ref</span><span class="si">}</span><span class="se">\&quot;</span><span class="s2">, is_argument=False)&#39;.&quot;</span>
         <span class="p">)</span>
-        <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
-            <span class="n">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;typing.ForwardRef&quot;</span><span class="p">,</span> <span class="s2">&quot;typing._ForwardRef&quot;</span><span class="p">)</span>
-
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
+</code></pre></div>
         </details>
 
-  
+
 
   <div class="doc doc-children">
 
@@ -980,89 +975,72 @@ into a typing.ForwardRef object.</p>
 
 
 
-<h4 id="erdantic.exceptions.StringForwardRefError-functions">Functions<a href="#erdantic.exceptions.StringForwardRefError-functions" class="headerlink" title="Permanent link">&para;</a></h4>
 
-<div class="doc doc-object doc-function">
+
+  <div class="doc doc-object doc-method">
 
 
 
 <h5 id="erdantic.exceptions.StringForwardRefError.__init__" class="doc doc-heading">
-<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="s1">&#39;Model&#39;</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="s1">&#39;Field&#39;</span><span class="p">,</span> <span class="n">forward_ref</span><span class="p">:</span> <span class="n">ForwardRef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span></code>
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">Model</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="n">Field</span><span class="p">,</span> <span class="n">forward_ref</span><span class="p">:</span> <span class="n">ForwardRef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-special"><code>special</code></small>
+  </span>
 
 <a href="#erdantic.exceptions.StringForwardRefError.__init__" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
 
-      <details class="quote">
-        <summary>Source code in <code>erdantic/exceptions.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="s2">&quot;Model&quot;</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="s2">&quot;Field&quot;</span><span class="p">,</span> <span class="n">forward_ref</span><span class="p">:</span> <span class="n">ForwardRef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <details class="quote">
+          <summary>Source code in <code>erdantic/exceptions.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="s2">&quot;Model&quot;</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="s2">&quot;Field&quot;</span><span class="p">,</span> <span class="n">forward_ref</span><span class="p">:</span> <span class="n">ForwardRef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
         <span class="sa">f</span><span class="s2">&quot;Forward reference &#39;</span><span class="si">{</span><span class="n">forward_ref</span><span class="si">}</span><span class="s2">&#39; for field &#39;</span><span class="si">{</span><span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; on model &#39;</span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; &quot;</span>
         <span class="s2">&quot;is a string literal and not a typing.ForwardRef object. erdantic is unable to handle &quot;</span>
         <span class="s2">&quot;forward references that aren&#39;t transformed into typing.ForwardRef. Declare &quot;</span>
         <span class="sa">f</span><span class="s2">&quot;explicitly with &#39;typing.ForwardRef(</span><span class="se">\&quot;</span><span class="si">{</span><span class="n">forward_ref</span><span class="si">}</span><span class="se">\&quot;</span><span class="s2">, is_argument=False)&#39;.&quot;</span>
     <span class="p">)</span>
-    <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
-        <span class="n">message</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;typing.ForwardRef&quot;</span><span class="p">,</span> <span class="s2">&quot;typing._ForwardRef&quot;</span><span class="p">)</span>
-
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-      </details>
-  </div>
-
-</div>
-
-
+</code></pre></div>
+        </details>
+    </div>
 
   </div>
 
+
+
+
+
   </div>
 
-</div>
+    </div>
 
-<div class="doc doc-object doc-class">
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
 
 
 
 <h3 id="erdantic.exceptions.UnevaluatedForwardRefError" class="doc doc-heading">
-        <code>UnevaluatedForwardRefError</code>
+        <code>
+UnevaluatedForwardRefError            (<a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a>)
+        </code>
+
 
 
 <a href="#erdantic.exceptions.UnevaluatedForwardRefError" class="headerlink" title="Permanent link">&para;</a></h3>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code><a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a></code></p>
-
-  
       <p>Raised when a field's type declaration has an unevaluated forward reference.</p>
-
 
         <details class="quote">
           <summary>Source code in <code>erdantic/exceptions.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">UnevaluatedForwardRefError</span><span class="p">(</span><span class="n">ErdanticException</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">UnevaluatedForwardRefError</span><span class="p">(</span><span class="n">ErdanticException</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Raised when a field&#39;s type declaration has an unevaluated forward reference.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="s2">&quot;Model&quot;</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="s2">&quot;Field&quot;</span><span class="p">,</span> <span class="n">forward_ref</span><span class="p">:</span> <span class="n">ForwardRef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1073,10 +1051,10 @@ into a typing.ForwardRef object.</p>
         <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">forward_ref_help</span><span class="p">:</span>
             <span class="n">message</span> <span class="o">+=</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">model</span><span class="o">.</span><span class="n">forward_ref_help</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
+</code></pre></div>
         </details>
 
-  
+
 
   <div class="doc doc-children">
 
@@ -1086,30 +1064,27 @@ into a typing.ForwardRef object.</p>
 
 
 
-<h4 id="erdantic.exceptions.UnevaluatedForwardRefError-functions">Functions<a href="#erdantic.exceptions.UnevaluatedForwardRefError-functions" class="headerlink" title="Permanent link">&para;</a></h4>
 
-<div class="doc doc-object doc-function">
+
+  <div class="doc doc-object doc-method">
 
 
 
 <h5 id="erdantic.exceptions.UnevaluatedForwardRefError.__init__" class="doc doc-heading">
-<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="s1">&#39;Model&#39;</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="s1">&#39;Field&#39;</span><span class="p">,</span> <span class="n">forward_ref</span><span class="p">:</span> <span class="n">ForwardRef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span></code>
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">Model</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="n">Field</span><span class="p">,</span> <span class="n">forward_ref</span><span class="p">:</span> <span class="n">ForwardRef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-special"><code>special</code></small>
+  </span>
 
 <a href="#erdantic.exceptions.UnevaluatedForwardRefError.__init__" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
 
-      <details class="quote">
-        <summary>Source code in <code>erdantic/exceptions.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="s2">&quot;Model&quot;</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="s2">&quot;Field&quot;</span><span class="p">,</span> <span class="n">forward_ref</span><span class="p">:</span> <span class="n">ForwardRef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <details class="quote">
+          <summary>Source code in <code>erdantic/exceptions.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="s2">&quot;Model&quot;</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="s2">&quot;Field&quot;</span><span class="p">,</span> <span class="n">forward_ref</span><span class="p">:</span> <span class="n">ForwardRef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">message</span> <span class="o">=</span> <span class="p">(</span>
         <span class="sa">f</span><span class="s2">&quot;Unevaluated forward reference &#39;</span><span class="si">{</span><span class="n">forward_ref</span><span class="o">.</span><span class="n">__forward_arg__</span><span class="si">}</span><span class="s2">&#39; &quot;</span>
         <span class="sa">f</span><span class="s2">&quot;for field </span><span class="si">{</span><span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> on model </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.&quot;</span>
@@ -1117,82 +1092,75 @@ into a typing.ForwardRef object.</p>
     <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">forward_ref_help</span><span class="p">:</span>
         <span class="n">message</span> <span class="o">+=</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">model</span><span class="o">.</span><span class="n">forward_ref_help</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-      </details>
-  </div>
-
-</div>
-
-
+</code></pre></div>
+        </details>
+    </div>
 
   </div>
 
+
+
+
+
   </div>
 
-</div>
+    </div>
 
-<div class="doc doc-object doc-class">
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
 
 
 
 <h3 id="erdantic.exceptions.UnknownFieldError" class="doc doc-heading">
-        <code>UnknownFieldError</code>
+        <code>
+UnknownFieldError            (<span title="ValueError">ValueError</span>, <a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a>)
+        </code>
+
 
 
 <a href="#erdantic.exceptions.UnknownFieldError" class="headerlink" title="Permanent link">&para;</a></h3>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code>ValueError</code>, <code><a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a></code></p>
-
-  
       <p>Raised when specified field does not match a field on specified model.</p>
-
 
         <details class="quote">
           <summary>Source code in <code>erdantic/exceptions.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">82</span>
-<span class="normal">83</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">UnknownFieldError</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="n">ErdanticException</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">UnknownFieldError</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="n">ErdanticException</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Raised when specified field does not match a field on specified model.&quot;&quot;&quot;</span>
-</code></pre></div></td></tr></table></div>
+</code></pre></div>
         </details>
+
+
+    </div>
 
   </div>
 
-</div>
 
-<div class="doc doc-object doc-class">
+
+  <div class="doc doc-object doc-class">
 
 
 
 <h3 id="erdantic.exceptions.UnknownModelTypeError" class="doc doc-heading">
-        <code>UnknownModelTypeError</code>
+        <code>
+UnknownModelTypeError            (<span title="ValueError">ValueError</span>, <a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a>)
+        </code>
+
 
 
 <a href="#erdantic.exceptions.UnknownModelTypeError" class="headerlink" title="Permanent link">&para;</a></h3>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code>ValueError</code>, <code><a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a></code></p>
-
-  
       <p>Raised when a given model does not match known supported class types.</p>
-
 
         <details class="quote">
           <summary>Source code in <code>erdantic/exceptions.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">86</span>
-<span class="normal">87</span>
-<span class="normal">88</span>
-<span class="normal">89</span>
-<span class="normal">90</span>
-<span class="normal">91</span>
-<span class="normal">92</span>
-<span class="normal">93</span>
-<span class="normal">94</span>
-<span class="normal">95</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">UnknownModelTypeError</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="n">ErdanticException</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">UnknownModelTypeError</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="n">ErdanticException</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Raised when a given model does not match known supported class types.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
@@ -1202,10 +1170,10 @@ into a typing.ForwardRef object.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">message</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
+</code></pre></div>
         </details>
 
-  
+
 
   <div class="doc doc-children">
 
@@ -1213,97 +1181,62 @@ into a typing.ForwardRef object.</p>
 
 
 
-<h4 id="erdantic.exceptions.UnknownModelTypeError-attributes">Attributes<a href="#erdantic.exceptions.UnknownModelTypeError-attributes" class="headerlink" title="Permanent link">&para;</a></h4>
-
-<div class="doc doc-object doc-attribute">
 
 
 
-<h5 id="erdantic.exceptions.UnknownModelTypeError.message" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">message</span> <span class="o">=</span> <span class="n">message</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
-  </span>
 
-<a href="#erdantic.exceptions.UnknownModelTypeError.message" class="headerlink" title="Permanent link">&para;</a></h5>
-
-
-  <div class="doc doc-contents ">
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h5 id="erdantic.exceptions.UnknownModelTypeError.model" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">model</span> <span class="o">=</span> <span class="n">model</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
-  </span>
-
-<a href="#erdantic.exceptions.UnknownModelTypeError.model" class="headerlink" title="Permanent link">&para;</a></h5>
-
-
-  <div class="doc doc-contents ">
-  </div>
-
-</div>
-
-<h4 id="erdantic.exceptions.UnknownModelTypeError-functions">Functions<a href="#erdantic.exceptions.UnknownModelTypeError-functions" class="headerlink" title="Permanent link">&para;</a></h4>
-
-<div class="doc doc-object doc-function">
+  <div class="doc doc-object doc-method">
 
 
 
 <h5 id="erdantic.exceptions.UnknownModelTypeError.__init__" class="doc doc-heading">
-<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-special"><code>special</code></small>
+  </span>
 
 <a href="#erdantic.exceptions.UnknownModelTypeError.__init__" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
 
-      <details class="quote">
-        <summary>Source code in <code>erdantic/exceptions.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">89</span>
-<span class="normal">90</span>
-<span class="normal">91</span>
-<span class="normal">92</span>
-<span class="normal">93</span>
-<span class="normal">94</span>
-<span class="normal">95</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <details class="quote">
+          <summary>Source code in <code>erdantic/exceptions.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">message</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">display</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;__mro__&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">model</span><span class="p">))</span>
         <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Given model does not match any supported types. Model MRO: </span><span class="si">{</span><span class="n">display</span><span class="si">}</span><span class="s2">&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">message</span>
     <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-      </details>
-  </div>
-
-</div>
-
-
+</code></pre></div>
+        </details>
+    </div>
 
   </div>
 
-  </div>
-
-</div>
 
 
 
 
   </div>
 
+    </div>
+
   </div>
 
-</div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
 
               
             </article>

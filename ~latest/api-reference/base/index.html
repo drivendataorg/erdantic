@@ -401,6 +401,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#erdantic.base" class="md-nav__link">
+    erdantic.base
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#erdantic.base-attributes" class="md-nav__link">
     Attributes
   </a>
@@ -655,6 +662,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#erdantic.base" class="md-nav__link">
+    erdantic.base
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#erdantic.base-attributes" class="md-nav__link">
     Attributes
   </a>
@@ -756,200 +770,120 @@
 <h1 id="erdanticbase">erdantic.base<a class="headerlink" href="#erdanticbase" title="Permanent link">&para;</a></h1>
 
 
-<div class="doc doc-object doc-module">
+  <div class="doc doc-object doc-module">
+
+<a id="erdantic.base"></a>
+    <div class="doc doc-contents first">
 
 
 
-  <div class="doc doc-contents first">
-
-  
 
   <div class="doc doc-children">
 
 
 
 
-
 <h2 id="erdantic.base-attributes">Attributes<a href="#erdantic.base-attributes" class="headerlink" title="Permanent link">&para;</a></h2>
 
-<div class="doc doc-object doc-attribute">
+  <div class="doc doc-object doc-attribute">
 
 
 
 <h3 id="erdantic.base.FT" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">FT</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;FT&#39;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">Any</span><span class="p">,</span> <span class="n">covariant</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
-  </span>
+<code class="highlight language-python"><span class="n">FT</span></code>
+
 
 <a href="#erdantic.base.FT" class="headerlink" title="Permanent link">&para;</a></h3>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-  
       <p>Type variable for a field object adapted by adapter class
 <a class="autorefs autorefs-internal" href="#erdantic.base.Field"><code>Field</code></a>.</p>
+    </div>
+
   </div>
 
-</div>
 
-<div class="doc doc-object doc-attribute">
+
+  <div class="doc doc-object doc-attribute">
 
 
 
 <h3 id="erdantic.base.MT" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">MT</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;MT&#39;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="nb">type</span><span class="p">,</span> <span class="n">covariant</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
-  </span>
+<code class="highlight language-python"><span class="n">MT</span></code>
+
 
 <a href="#erdantic.base.MT" class="headerlink" title="Permanent link">&para;</a></h3>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-  
       <p>Type variable for a data model class adapted by adapter class
 <a class="autorefs autorefs-internal" href="#erdantic.base.Model"><code>Model</code></a>. Bounded by <code>type</code>.</p>
+    </div>
+
   </div>
 
-</div>
 
-<div class="doc doc-object doc-attribute">
+
+  <div class="doc doc-object doc-attribute">
 
 
 
 <h3 id="erdantic.base.model_adapter_registry" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">model_adapter_registry</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Type</span><span class="p">[</span><span class="n">Model</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
-  </span>
+<code class="highlight language-python"><span class="n">model_adapter_registry</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Type</span><span class="p">[</span><span class="n">erdantic</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">Model</span><span class="p">]]</span></code>
+
 
 <a href="#erdantic.base.model_adapter_registry" class="headerlink" title="Permanent link">&para;</a></h3>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-  
       <p>Registry of concrete <a class="autorefs autorefs-internal" href="#erdantic.base.Model"><code>Model</code></a> adapter subclasses. A concrete <code>Model</code>
 subclass must be registered for it to be available to the diagram creation workflow.</p>
+    </div>
+
   </div>
 
-</div>
+
 <h2 id="erdantic.base-classes">Classes<a href="#erdantic.base-classes" class="headerlink" title="Permanent link">&para;</a></h2>
 
-<div class="doc doc-object doc-class">
+  <div class="doc doc-object doc-class">
 
 
 
 <h3 id="erdantic.base.Field" class="doc doc-heading">
-        <code>Field</code>
+        <code>
+Field            (<span title="abc.ABC">ABC</span>, <span title="typing.Generic">Generic</span>)
+        </code>
+
 
 
 <a href="#erdantic.base.Field" class="headerlink" title="Permanent link">&para;</a></h3>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code><span title="abc.ABC">ABC</span></code>, <code><span title="typing.Generic">Generic</span>[<a class="autorefs autorefs-internal" title="erdantic.base.FT" href="#erdantic.base.FT">FT</a>]</code></p>
-
-  
       <p>Abstract base class that adapts a field object of a data model class to work with erdantic.
 Concrete implementations should subclass and implement abstract methods.</p>
 
-  <p><strong>Attributes:</strong></p>
-  <table>
-    <thead>
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
       <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
+        <td><code>field</code></td>
+        <td><code>FT</code></td>
+        <td><p>Field object on a data model class associated with this adapter</p></td>
       </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>field</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="erdantic.base.FT" href="#erdantic.base.FT">FT</a></code>
-          </td>
-          <td><p>Field object on a data model class associated with this adapter</p></td>
-        </tr>
-    </tbody>
-  </table>
-
-
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>erdantic/base.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span>
-<span class="normal">62</span>
-<span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span>
-<span class="normal">81</span>
-<span class="normal">82</span>
-<span class="normal">83</span>
-<span class="normal">84</span>
-<span class="normal">85</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Field</span><span class="p">(</span><span class="n">ABC</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">FT</span><span class="p">]):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Field</span><span class="p">(</span><span class="n">ABC</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">FT</span><span class="p">]):</span>
     <span class="sd">&quot;&quot;&quot;Abstract base class that adapts a field object of a data model class to work with erdantic.</span>
 <span class="sd">    Concrete implementations should subclass and implement abstract methods.</span>
 
@@ -1018,92 +952,129 @@ Concrete implementations should subclass and implement abstract methods.</p>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">: &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">type_name</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
-</code></pre></div></td></tr></table></div>
+</code></pre></div>
         </details>
 
-  
+
 
   <div class="doc doc-children">
 
 
 
 
-
 <h4 id="erdantic.base.Field-attributes">Attributes<a href="#erdantic.base.Field-attributes" class="headerlink" title="Permanent link">&para;</a></h4>
 
-<div class="doc doc-object doc-attribute">
+  <div class="doc doc-object doc-attribute">
 
 
 
-<h5 id="erdantic.base.Field.field" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">field</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">FT</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+<h5 id="erdantic.base.Field.name" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">name</span><span class="p">:</span> <span class="nb">str</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-property"><code>property</code></small>
+      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
   </span>
 
-<a href="#erdantic.base.Field.field" class="headerlink" title="Permanent link">&para;</a></h5>
+<a href="#erdantic.base.Field.name" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
+      <p>Name of this field on the parent data model.</p>
+    </div>
+
   </div>
 
-</div>
 
-<h4 id="erdantic.base.Field-functions">Functions<a href="#erdantic.base.Field-functions" class="headerlink" title="Permanent link">&para;</a></h4>
 
-<div class="doc doc-object doc-function">
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h5 id="erdantic.base.Field.type_name" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">type_name</span><span class="p">:</span> <span class="nb">str</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-property"><code>property</code></small>
+      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+  </span>
+
+<a href="#erdantic.base.Field.type_name" class="headerlink" title="Permanent link">&para;</a></h5>
+
+    <div class="doc doc-contents ">
+
+      <p>String representation of the Python type annotation for this field.</p>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h5 id="erdantic.base.Field.type_obj" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">type_obj</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">type</span><span class="p">,</span> <span class="n">_GenericAlias</span><span class="p">]</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-property"><code>property</code></small>
+      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+  </span>
+
+<a href="#erdantic.base.Field.type_obj" class="headerlink" title="Permanent link">&para;</a></h5>
+
+    <div class="doc doc-contents ">
+
+      <p>Python type object for this field.</p>
+    </div>
+
+  </div>
+
+
+
+
+<h4 id="erdantic.base.Field-methods">Methods<a href="#erdantic.base.Field-methods" class="headerlink" title="Permanent link">&para;</a></h4>
+
+  <div class="doc doc-object doc-method">
 
 
 
 <h5 id="erdantic.base.Field.__init__" class="doc doc-heading">
-<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">field</span><span class="p">:</span> <span class="n">FT</span><span class="p">)</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="o">+</span><span class="n">FT</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-special"><code>special</code></small>
   </span>
 
 <a href="#erdantic.base.Field.__init__" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-  
       <p>Initialize Field adapter instance.</p>
 
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
       <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
+        <td><code>field</code></td>
+        <td><code>+FT</code></td>
+        <td><p>Field object to associate with this adapter instance</p></td>
+        <td><em>required</em></td>
       </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>field</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="erdantic.base.FT" href="#erdantic.base.FT">FT</a></code>
-          </td>
-          <td><p>Field object to associate with this adapter instance</p></td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-      <details class="quote">
-        <summary>Source code in <code>erdantic/base.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>erdantic/base.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="n">FT</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Initialize Field adapter instance.</span>
 
@@ -1111,57 +1082,48 @@ Concrete implementations should subclass and implement abstract methods.</p>
 <span class="sd">        field: Field object to associate with this adapter instance</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">FT</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span>
-</code></pre></div></td></tr></table></div>
-      </details>
+</code></pre></div>
+        </details>
+    </div>
+
   </div>
 
-</div>
 
-<div class="doc doc-object doc-function">
+
+  <div class="doc doc-object doc-method">
 
 
 
 <h5 id="erdantic.base.Field.dot_row" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">dot_row</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span></code>
+<code class="highlight language-python"><span class="n">dot_row</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span></code>
+
 
 <a href="#erdantic.base.Field.dot_row" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-  
       <p>Returns the DOT language "HTML-like" syntax specification of a row detailing this field
 that is part of a table describing the field's parent data model. It is used as part the
 <code>label</code> attribute of data model's node in the graph's DOT representation.</p>
 
-  <p><strong>Returns:</strong></p>
-  <table>
-    <thead>
-      <tr>
-<th>Name</th>        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-<td><code>str</code></td>          <td>
-                <code>str</code>
-          </td>
-          <td><p>DOT language for table row</p></td>
-        </tr>
-    </tbody>
-  </table>
-
-      <details class="quote">
-        <summary>Source code in <code>erdantic/base.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span>
-<span class="normal">76</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">dot_row</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>str</code></td>
+      <td><p>DOT language for table row</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>erdantic/base.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">dot_row</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Returns the DOT language &quot;HTML-like&quot; syntax specification of a row detailing this field</span>
 <span class="sd">    that is part of a table describing the field&#39;s parent data model. It is used as part the</span>
 <span class="sd">    `label` attribute of data model&#39;s node in the graph&#39;s DOT representation.</span>
@@ -1170,58 +1132,46 @@ that is part of a table describing the field's parent data model. It is used as 
 <span class="sd">        str: DOT language for table row</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">_row_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">type_name</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-      </details>
+</code></pre></div>
+        </details>
+    </div>
+
   </div>
 
-</div>
 
-<div class="doc doc-object doc-function">
+
+  <div class="doc doc-object doc-method">
 
 
 
 <h5 id="erdantic.base.Field.is_many" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">is_many</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
-  </span>
+<code class="highlight language-python"><span class="n">is_many</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+
 
 <a href="#erdantic.base.Field.is_many" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-  
       <p>Check whether this field represents a one-to-one or one-to-many relationship.</p>
 
-  <p><strong>Returns:</strong></p>
-  <table>
-    <thead>
-      <tr>
-<th>Name</th>        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-<td><code>bool</code></td>          <td>
-                <code>bool</code>
-          </td>
-          <td><p>True if one-to-many relationship, else False.</p></td>
-        </tr>
-    </tbody>
-  </table>
-
-      <details class="quote">
-        <summary>Source code in <code>erdantic/base.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>bool</code></td>
+      <td><p>True if one-to-many relationship, else False.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>erdantic/base.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">is_many</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
     <span class="sd">&quot;&quot;&quot;Check whether this field represents a one-to-one or one-to-many relationship.</span>
 
@@ -1229,58 +1179,46 @@ that is part of a table describing the field's parent data model. It is used as 
 <span class="sd">        bool: True if one-to-many relationship, else False.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">pass</span>
-</code></pre></div></td></tr></table></div>
-      </details>
+</code></pre></div>
+        </details>
+    </div>
+
   </div>
 
-</div>
 
-<div class="doc doc-object doc-function">
+
+  <div class="doc doc-object doc-method">
 
 
 
 <h5 id="erdantic.base.Field.is_nullable" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">is_nullable</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
-  </span>
+<code class="highlight language-python"><span class="n">is_nullable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+
 
 <a href="#erdantic.base.Field.is_nullable" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-  
       <p>Check whether this field is nullable, i.e., can be <code>None</code>.</p>
 
-  <p><strong>Returns:</strong></p>
-  <table>
-    <thead>
-      <tr>
-<th>Name</th>        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-<td><code>bool</code></td>          <td>
-                <code>bool</code>
-          </td>
-          <td><p>True if nullable, else False.</p></td>
-        </tr>
-    </tbody>
-  </table>
-
-      <details class="quote">
-        <summary>Source code in <code>erdantic/base.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span>
-<span class="normal">59</span>
-<span class="normal">60</span>
-<span class="normal">61</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>bool</code></td>
+      <td><p>True if nullable, else False.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>erdantic/base.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">is_nullable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
     <span class="sd">&quot;&quot;&quot;Check whether this field is nullable, i.e., can be `None`.</span>
 
@@ -1288,252 +1226,69 @@ that is part of a table describing the field's parent data model. It is used as 
 <span class="sd">        bool: True if nullable, else False.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">pass</span>
-</code></pre></div></td></tr></table></div>
-      </details>
+</code></pre></div>
+        </details>
+    </div>
+
   </div>
 
-</div>
 
-<div class="doc doc-object doc-function">
-
-
-
-<h5 id="erdantic.base.Field.name" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">name</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
-  </span>
-
-<a href="#erdantic.base.Field.name" class="headerlink" title="Permanent link">&para;</a></h5>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Name of this field on the parent data model.</p>
-
-      <details class="quote">
-        <summary>Source code in <code>erdantic/base.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@property</span>
-<span class="nd">@abstractmethod</span>
-<span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
-    <span class="sd">&quot;&quot;&quot;Name of this field on the parent data model.&quot;&quot;&quot;</span>
-</code></pre></div></td></tr></table></div>
-      </details>
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-
-<h5 id="erdantic.base.Field.type_name" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">type_name</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#erdantic.base.Field.type_name" class="headerlink" title="Permanent link">&para;</a></h5>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>String representation of the Python type annotation for this field.</p>
-
-      <details class="quote">
-        <summary>Source code in <code>erdantic/base.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">63</span>
-<span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@property</span>
-<span class="k">def</span> <span class="nf">type_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
-    <span class="sd">&quot;&quot;&quot;String representation of the Python type annotation for this field.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">repr_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type_obj</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-      </details>
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-
-<h5 id="erdantic.base.Field.type_obj" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">type_obj</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">type</span><span class="p">,</span> <span class="n">GenericAlias</span><span class="p">]</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
-  </span>
-
-<a href="#erdantic.base.Field.type_obj" class="headerlink" title="Permanent link">&para;</a></h5>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Python type object for this field.</p>
-
-      <details class="quote">
-        <summary>Source code in <code>erdantic/base.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@property</span>
-<span class="nd">@abstractmethod</span>
-<span class="k">def</span> <span class="nf">type_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">type</span><span class="p">,</span> <span class="n">GenericAlias</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Python type object for this field.&quot;&quot;&quot;</span>
-    <span class="k">pass</span>
-</code></pre></div></td></tr></table></div>
-      </details>
-  </div>
-
-</div>
 
 
 
   </div>
 
+    </div>
+
   </div>
 
-</div>
 
-<div class="doc doc-object doc-class">
+
+  <div class="doc doc-object doc-class">
 
 
 
 <h3 id="erdantic.base.Model" class="doc doc-heading">
-        <code>Model</code>
+        <code>
+Model            (<span title="abc.ABC">ABC</span>, <span title="typing.Generic">Generic</span>)
+        </code>
+
 
 
 <a href="#erdantic.base.Model" class="headerlink" title="Permanent link">&para;</a></h3>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code><span title="abc.ABC">ABC</span></code>, <code><span title="typing.Generic">Generic</span>[<a class="autorefs autorefs-internal" title="erdantic.base.MT" href="#erdantic.base.MT">MT</a>]</code></p>
-
-  
       <p>Abstract base class that adapts a data model class to work with erdantic. Instances
 represent a node in our entity relationship diagram graph. Concrete implementations should
 subclass and implement abstract methods.</p>
 
-  <p><strong>Attributes:</strong></p>
-  <table>
-    <thead>
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
       <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
+        <td><code>model</code></td>
+        <td><code>MT</code></td>
+        <td><p>Data model class associated with this adapter</p></td>
       </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>model</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="erdantic.base.MT" href="#erdantic.base.MT">MT</a></code>
-          </td>
-          <td><p>Data model class associated with this adapter</p></td>
-        </tr>
-        <tr>
-          <td><code>forward_ref_help</code></td>
-          <td>
-                <code><span title="typing.Optional">Optional</span>[str]</code>
-          </td>
-          <td><p>Instructions for how to resolve an unevaluated forward
+      <tr>
+        <td><code>forward_ref_help</code></td>
+        <td><code>Optional[str]</code></td>
+        <td><p>Instructions for how to resolve an unevaluated forward
 reference in a field's type declaration.</p></td>
-        </tr>
-    </tbody>
-  </table>
-
-
+      </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>erdantic/base.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">101</span>
-<span class="normal">102</span>
-<span class="normal">103</span>
-<span class="normal">104</span>
-<span class="normal">105</span>
-<span class="normal">106</span>
-<span class="normal">107</span>
-<span class="normal">108</span>
-<span class="normal">109</span>
-<span class="normal">110</span>
-<span class="normal">111</span>
-<span class="normal">112</span>
-<span class="normal">113</span>
-<span class="normal">114</span>
-<span class="normal">115</span>
-<span class="normal">116</span>
-<span class="normal">117</span>
-<span class="normal">118</span>
-<span class="normal">119</span>
-<span class="normal">120</span>
-<span class="normal">121</span>
-<span class="normal">122</span>
-<span class="normal">123</span>
-<span class="normal">124</span>
-<span class="normal">125</span>
-<span class="normal">126</span>
-<span class="normal">127</span>
-<span class="normal">128</span>
-<span class="normal">129</span>
-<span class="normal">130</span>
-<span class="normal">131</span>
-<span class="normal">132</span>
-<span class="normal">133</span>
-<span class="normal">134</span>
-<span class="normal">135</span>
-<span class="normal">136</span>
-<span class="normal">137</span>
-<span class="normal">138</span>
-<span class="normal">139</span>
-<span class="normal">140</span>
-<span class="normal">141</span>
-<span class="normal">142</span>
-<span class="normal">143</span>
-<span class="normal">144</span>
-<span class="normal">145</span>
-<span class="normal">146</span>
-<span class="normal">147</span>
-<span class="normal">148</span>
-<span class="normal">149</span>
-<span class="normal">150</span>
-<span class="normal">151</span>
-<span class="normal">152</span>
-<span class="normal">153</span>
-<span class="normal">154</span>
-<span class="normal">155</span>
-<span class="normal">156</span>
-<span class="normal">157</span>
-<span class="normal">158</span>
-<span class="normal">159</span>
-<span class="normal">160</span>
-<span class="normal">161</span>
-<span class="normal">162</span>
-<span class="normal">163</span>
-<span class="normal">164</span>
-<span class="normal">165</span>
-<span class="normal">166</span>
-<span class="normal">167</span>
-<span class="normal">168</span>
-<span class="normal">169</span>
-<span class="normal">170</span>
-<span class="normal">171</span>
-<span class="normal">172</span>
-<span class="normal">173</span>
-<span class="normal">174</span>
-<span class="normal">175</span>
-<span class="normal">176</span>
-<span class="normal">177</span>
-<span class="normal">178</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Model</span><span class="p">(</span><span class="n">ABC</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">MT</span><span class="p">]):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Model</span><span class="p">(</span><span class="n">ABC</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">MT</span><span class="p">]):</span>
     <span class="sd">&quot;&quot;&quot;Abstract base class that adapts a data model class to work with erdantic. Instances</span>
 <span class="sd">    represent a node in our entity relationship diagram graph. Concrete implementations should</span>
 <span class="sd">    subclass and implement abstract methods.</span>
@@ -1611,111 +1366,171 @@ reference in a field's type declaration.</p></td>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">)&quot;</span>
-</code></pre></div></td></tr></table></div>
+</code></pre></div>
         </details>
 
-  
+
 
   <div class="doc doc-children">
 
 
 
 
-
 <h4 id="erdantic.base.Model-attributes">Attributes<a href="#erdantic.base.Model-attributes" class="headerlink" title="Permanent link">&para;</a></h4>
 
-<div class="doc doc-object doc-attribute">
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h5 id="erdantic.base.Model.docstring" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">docstring</span><span class="p">:</span> <span class="nb">str</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-property"><code>property</code></small>
+      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+  </span>
+
+<a href="#erdantic.base.Model.docstring" class="headerlink" title="Permanent link">&para;</a></h5>
+
+    <div class="doc doc-contents ">
+
+      <p>Docstring for this data model.</p>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h5 id="erdantic.base.Model.fields" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">fields</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">erdantic</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">Field</span><span class="p">]</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-property"><code>property</code></small>
+      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+  </span>
+
+<a href="#erdantic.base.Model.fields" class="headerlink" title="Permanent link">&para;</a></h5>
+
+    <div class="doc doc-contents ">
+
+      <p>List of fields defined on this data model.</p>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-attribute">
 
 
 
 <h5 id="erdantic.base.Model.forward_ref_help" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">forward_ref_help</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
-  </span>
+<code class="highlight language-python"><span class="n">forward_ref_help</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></code>
+
 
 <a href="#erdantic.base.Model.forward_ref_help" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
+    </div>
+
   </div>
 
-</div>
-
-<div class="doc doc-object doc-attribute">
 
 
+  <div class="doc doc-object doc-attribute">
 
-<h5 id="erdantic.base.Model.model" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">model</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">MT</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+
+
+<h5 id="erdantic.base.Model.key" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">key</span><span class="p">:</span> <span class="nb">str</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-property"><code>property</code></small>
+      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
   </span>
 
-<a href="#erdantic.base.Model.model" class="headerlink" title="Permanent link">&para;</a></h5>
+<a href="#erdantic.base.Model.key" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
+      <p>Human-readable unique identifier for this data model. Should be stable across
+sessions.</p>
+    </div>
+
   </div>
 
-</div>
 
-<h4 id="erdantic.base.Model-functions">Functions<a href="#erdantic.base.Model-functions" class="headerlink" title="Permanent link">&para;</a></h4>
 
-<div class="doc doc-object doc-function">
+  <div class="doc doc-object doc-attribute">
+
+
+
+<h5 id="erdantic.base.Model.name" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">name</span><span class="p">:</span> <span class="nb">str</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-property"><code>property</code></small>
+      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+  </span>
+
+<a href="#erdantic.base.Model.name" class="headerlink" title="Permanent link">&para;</a></h5>
+
+    <div class="doc doc-contents ">
+
+      <p>Name of this data model.</p>
+    </div>
+
+  </div>
+
+
+
+
+<h4 id="erdantic.base.Model-methods">Methods<a href="#erdantic.base.Model-methods" class="headerlink" title="Permanent link">&para;</a></h4>
+
+  <div class="doc doc-object doc-method">
 
 
 
 <h5 id="erdantic.base.Model.__init__" class="doc doc-heading">
-<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">MT</span><span class="p">)</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="o">+</span><span class="n">MT</span><span class="p">)</span></code>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-special"><code>special</code></small>
   </span>
 
 <a href="#erdantic.base.Model.__init__" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-  
       <p>Initialize model adapter instance.</p>
 
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
       <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
+        <td><code>model</code></td>
+        <td><code>+MT</code></td>
+        <td><p>Data model class to associate with this adapter instance</p></td>
+        <td><em>required</em></td>
       </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>model</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="erdantic.base.MT" href="#erdantic.base.MT">MT</a></code>
-          </td>
-          <td><p>Data model class to associate with this adapter instance</p></td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-      <details class="quote">
-        <summary>Source code in <code>erdantic/base.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">114</span>
-<span class="normal">115</span>
-<span class="normal">116</span>
-<span class="normal">117</span>
-<span class="normal">118</span>
-<span class="normal">119</span>
-<span class="normal">120</span>
-<span class="normal">121</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>erdantic/base.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">MT</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Initialize model adapter instance.</span>
 
@@ -1723,99 +1538,48 @@ reference in a field's type declaration.</p></td>
 <span class="sd">        model: Data model class to associate with this adapter instance</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">MT</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span>
-</code></pre></div></td></tr></table></div>
-      </details>
+</code></pre></div>
+        </details>
+    </div>
+
   </div>
 
-</div>
-
-<div class="doc doc-object doc-function">
 
 
-
-<h5 id="erdantic.base.Model.docstring" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">docstring</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#erdantic.base.Model.docstring" class="headerlink" title="Permanent link">&para;</a></h5>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Docstring for this data model.</p>
-
-      <details class="quote">
-        <summary>Source code in <code>erdantic/base.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">140</span>
-<span class="normal">141</span>
-<span class="normal">142</span>
-<span class="normal">143</span>
-<span class="normal">144</span>
-<span class="normal">145</span>
-<span class="normal">146</span>
-<span class="normal">147</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@property</span>
-<span class="k">def</span> <span class="nf">docstring</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Docstring for this data model.&quot;&quot;&quot;</span>
-    <span class="n">out</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="vm">__qualname__</span><span class="si">}</span><span class="s2">&quot;</span>
-    <span class="n">docstring</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getdoc</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">docstring</span><span class="p">:</span>
-        <span class="n">out</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">docstring</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
-    <span class="k">return</span> <span class="n">out</span>
-</code></pre></div></td></tr></table></div>
-      </details>
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
+  <div class="doc doc-object doc-method">
 
 
 
 <h5 id="erdantic.base.Model.dot_label" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">dot_label</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span></code>
+<code class="highlight language-python"><span class="n">dot_label</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span></code>
+
 
 <a href="#erdantic.base.Model.dot_label" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-  
       <p>Returns the DOT language "HTML-like" syntax specification of a table for this data
 model. It is used as the <code>label</code> attribute of data model's node in the graph's DOT
 representation.</p>
 
-  <p><strong>Returns:</strong></p>
-  <table>
-    <thead>
-      <tr>
-<th>Name</th>        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-<td><code>str</code></td>          <td>
-                <code>str</code>
-          </td>
-          <td><p>DOT language for table</p></td>
-        </tr>
-    </tbody>
-  </table>
-
-      <details class="quote">
-        <summary>Source code in <code>erdantic/base.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">155</span>
-<span class="normal">156</span>
-<span class="normal">157</span>
-<span class="normal">158</span>
-<span class="normal">159</span>
-<span class="normal">160</span>
-<span class="normal">161</span>
-<span class="normal">162</span>
-<span class="normal">163</span>
-<span class="normal">164</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">dot_label</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>str</code></td>
+      <td><p>DOT language for table</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>erdantic/base.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">dot_label</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Returns the DOT language &quot;HTML-like&quot; syntax specification of a table for this data</span>
 <span class="sd">    model. It is used as the `label` attribute of data model&#39;s node in the graph&#39;s DOT</span>
 <span class="sd">    representation.</span>
@@ -1825,247 +1589,111 @@ representation.</p>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">rows</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">dot_row</span><span class="p">()</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">_table_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">rows</span><span class="o">=</span><span class="n">rows</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-      </details>
+</code></pre></div>
+        </details>
+    </div>
+
   </div>
 
-</div>
-
-<div class="doc doc-object doc-function">
 
 
-
-<h5 id="erdantic.base.Model.fields" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">fields</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Field</span><span class="p">]</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
-  </span>
-
-<a href="#erdantic.base.Model.fields" class="headerlink" title="Permanent link">&para;</a></h5>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>List of fields defined on this data model.</p>
-
-      <details class="quote">
-        <summary>Source code in <code>erdantic/base.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">123</span>
-<span class="normal">124</span>
-<span class="normal">125</span>
-<span class="normal">126</span>
-<span class="normal">127</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@property</span>
-<span class="nd">@abstractmethod</span>
-<span class="k">def</span> <span class="nf">fields</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Field</span><span class="p">]:</span>  <span class="c1"># pragma: no cover</span>
-    <span class="sd">&quot;&quot;&quot;List of fields defined on this data model.&quot;&quot;&quot;</span>
-    <span class="k">pass</span>
-</code></pre></div></td></tr></table></div>
-      </details>
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
+  <div class="doc doc-object doc-method">
 
 
 
 <h5 id="erdantic.base.Model.is_model_type" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">is_model_type</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
-      <small class="doc doc-label doc-label-staticmethod"><code>staticmethod</code></small>
+
+  <span class="doc doc-properties">
+      <small class="doc doc-property doc-property-staticmethod"><code>staticmethod</code></small>
   </span>
 
 <a href="#erdantic.base.Model.is_model_type" class="headerlink" title="Permanent link">&para;</a></h5>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-  
       <p>Check if object is the type of data model class that this model adapter works with.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>erdantic/base.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">129</span>
-<span class="normal">130</span>
-<span class="normal">131</span>
-<span class="normal">132</span>
-<span class="normal">133</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
+        <details class="quote">
+          <summary>Source code in <code>erdantic/base.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">is_model_type</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
     <span class="sd">&quot;&quot;&quot;Check if object is the type of data model class that this model adapter works with.&quot;&quot;&quot;</span>
     <span class="k">pass</span>
-</code></pre></div></td></tr></table></div>
-      </details>
+</code></pre></div>
+        </details>
+    </div>
+
   </div>
 
-</div>
 
-<div class="doc doc-object doc-function">
-
-
-
-<h5 id="erdantic.base.Model.key" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">key</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#erdantic.base.Model.key" class="headerlink" title="Permanent link">&para;</a></h5>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Human-readable unique identifier for this data model. Should be stable across
-sessions.</p>
-
-      <details class="quote">
-        <summary>Source code in <code>erdantic/base.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">149</span>
-<span class="normal">150</span>
-<span class="normal">151</span>
-<span class="normal">152</span>
-<span class="normal">153</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@property</span>
-<span class="k">def</span> <span class="nf">key</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Human-readable unique identifier for this data model. Should be stable across</span>
-<span class="sd">    sessions.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="vm">__module__</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="vm">__qualname__</span><span class="si">}</span><span class="s2">&quot;</span>
-</code></pre></div></td></tr></table></div>
-      </details>
-  </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-
-<h5 id="erdantic.base.Model.name" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">name</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span></code>
-  
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-  </span>
-
-<a href="#erdantic.base.Model.name" class="headerlink" title="Permanent link">&para;</a></h5>
-
-
-  <div class="doc doc-contents ">
-  
-      <p>Name of this data model.</p>
-
-      <details class="quote">
-        <summary>Source code in <code>erdantic/base.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">135</span>
-<span class="normal">136</span>
-<span class="normal">137</span>
-<span class="normal">138</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@property</span>
-<span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
-    <span class="sd">&quot;&quot;&quot;Name of this data model.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="vm">__name__</span>
-</code></pre></div></td></tr></table></div>
-      </details>
-  </div>
-
-</div>
 
 
 
   </div>
 
+    </div>
+
   </div>
 
-</div>
+
 <h2 id="erdantic.base-functions">Functions<a href="#erdantic.base-functions" class="headerlink" title="Permanent link">&para;</a></h2>
 
-<div class="doc doc-object doc-function">
+  <div class="doc doc-object doc-function">
 
 
 
 <h3 id="erdantic.base.register_model_adapter" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">register_model_adapter</span><span class="p">(</span><span class="n">type_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Type</span><span class="p">[</span><span class="n">Model</span><span class="p">]],</span> <span class="n">Type</span><span class="p">[</span><span class="n">Model</span><span class="p">]]</span></code>
+<code class="highlight language-python"><span class="n">register_model_adapter</span><span class="p">(</span><span class="n">type_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Type</span><span class="p">[</span><span class="n">erdantic</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">Model</span><span class="p">]],</span> <span class="n">Type</span><span class="p">[</span><span class="n">erdantic</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">Model</span><span class="p">]]</span></code>
+
 
 <a href="#erdantic.base.register_model_adapter" class="headerlink" title="Permanent link">&para;</a></h3>
 
+    <div class="doc doc-contents ">
 
-  <div class="doc doc-contents ">
-  
       <p>Create decorator to register a concrete <a class="autorefs autorefs-internal" href="#erdantic.base.Model"><code>Model</code></a> adapter subclass
 that will be identified under the key <code>type_name</code>. A concrete <code>Model</code> subclass must be
 registered for it to be available to the diagram creation workflow.</p>
 
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
       <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
+        <td><code>type_name</code></td>
+        <td><code>str</code></td>
+        <td><p>Key used to identify concrete <code>Model</code> adapter subclass</p></td>
+        <td><em>required</em></td>
       </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>type_name</code></td>
-          <td>
-                <code>str</code>
-          </td>
-          <td><p>Key used to identify concrete <code>Model</code> adapter subclass</p></td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-  <p><strong>Returns:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td>
-                <code><span title="typing.Callable">Callable</span>[[<span title="typing.Type">Type</span>[<a class="autorefs autorefs-internal" title="erdantic.base.Model" href="#erdantic.base.Model">Model</a>]], <span title="typing.Type">Type</span>[<a class="autorefs autorefs-internal" title="erdantic.base.Model" href="#erdantic.base.Model">Model</a>]]</code>
-          </td>
-          <td><p>Callable[[Type[Model]], Type[Model]]: A registration decorator for a concrete <code>Model</code>
-adapter subclass</p></td>
-        </tr>
-    </tbody>
-  </table>
-
-      <details class="quote">
-        <summary>Source code in <code>erdantic/base.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">186</span>
-<span class="normal">187</span>
-<span class="normal">188</span>
-<span class="normal">189</span>
-<span class="normal">190</span>
-<span class="normal">191</span>
-<span class="normal">192</span>
-<span class="normal">193</span>
-<span class="normal">194</span>
-<span class="normal">195</span>
-<span class="normal">196</span>
-<span class="normal">197</span>
-<span class="normal">198</span>
-<span class="normal">199</span>
-<span class="normal">200</span>
-<span class="normal">201</span>
-<span class="normal">202</span>
-<span class="normal">203</span>
-<span class="normal">204</span>
-<span class="normal">205</span>
-<span class="normal">206</span>
-<span class="normal">207</span>
-<span class="normal">208</span>
-<span class="normal">209</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">register_model_adapter</span><span class="p">(</span><span class="n">type_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Type</span><span class="p">[</span><span class="n">Model</span><span class="p">]],</span> <span class="n">Type</span><span class="p">[</span><span class="n">Model</span><span class="p">]]:</span>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Callable[[Type[Model]], Type[Model]]</code></td>
+      <td><p>A registration decorator for a concrete <code>Model</code>
+    adapter subclass</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>erdantic/base.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">register_model_adapter</span><span class="p">(</span><span class="n">type_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Type</span><span class="p">[</span><span class="n">Model</span><span class="p">]],</span> <span class="n">Type</span><span class="p">[</span><span class="n">Model</span><span class="p">]]:</span>
     <span class="sd">&quot;&quot;&quot;Create decorator to register a concrete [`Model`][erdantic.base.Model] adapter subclass</span>
 <span class="sd">    that will be identified under the key `type_name`. A concrete `Model` subclass must be</span>
 <span class="sd">    registered for it to be available to the diagram creation workflow.</span>
@@ -2089,19 +1717,22 @@ adapter subclass</p></td>
         <span class="k">return</span> <span class="bp">cls</span>
 
     <span class="k">return</span> <span class="n">decorator</span>
-</code></pre></div></td></tr></table></div>
-      </details>
-  </div>
-
-</div>
-
-
+</code></pre></div>
+        </details>
+    </div>
 
   </div>
 
+
+
+
+
+
   </div>
 
-</div>
+    </div>
+
+  </div>
 
               
             </article>

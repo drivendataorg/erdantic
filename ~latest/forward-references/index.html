@@ -698,8 +698,8 @@
 </div>
 </div>
 <h2 id="untransformed-string-forward-references">Untransformed String Forward References<a class="headerlink" href="#untransformed-string-forward-references" title="Permanent link">&para;</a></h2>
-<p>Under the hood, forward references usually—but not always—get converted from a string to a <code>typing.ForwardRef</code> (or in Python &lt;3.7.4, <code>typing._ForwardRef</code>) instances. These objects track metadata about the type annotation, including what they get evaluated to.</p>
-<p>Unfortunately, sometimes the annotations remain as unconverted strings, and erdantic is unable to handle those cases. In such cases, erdantic will error with a <code>StringForwardRefError</code>. To work around that, you can explicitly declare those annotations with <code>typing.ForwardRef</code> (or <code>typing._ForwardRef</code> for Python &lt;3.7.4).</p>
+<p>Under the hood, forward references usually—but not always—get converted from a string to a <code>typing.ForwardRef</code> instances. These objects track metadata about the type annotation, including what they get evaluated to.</p>
+<p>Unfortunately, sometimes the annotations remain as unconverted strings, and erdantic is unable to handle those cases. In such cases, erdantic will error with a <code>StringForwardRefError</code>. To work around that, you can explicitly declare those annotations with <code>typing.ForwardRef</code>.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Pydantic</label><label for="__tabbed_2_2">dataclasses</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
