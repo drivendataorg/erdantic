@@ -8,7 +8,7 @@ from typing import _GenericAlias as GenericAlias  # type: ignore # Python 3.7+
 try:
     from typing import Final  # type: ignore # Python 3.8+
 except ImportError:
-    from typing_extensions import Final  # type: ignore # noqa: F401 # Python 3.6-3.7
+    from typing_extensions import Final  # type: ignore # noqa: F401 # Python 3.7
 
 try:
     from typing import ForwardRef  # type: ignore # Python >= 3.7.4
@@ -23,25 +23,10 @@ except ImportError:
 from erdantic.exceptions import _StringForwardRefError, _UnevaluatedForwardRefError
 
 
-def _get_args(tp):
-    """Backport of typing.get_args for Python 3.6"""
-    return getattr(tp, "__args__", ())
-
-
-def _get_origin(tp):
-    """Backport of typing.get_origin for Python 3.6"""
-    return getattr(tp, "__origin__", None)
-
-
 try:
     from typing import get_args, get_origin  # type: ignore # Python 3.8+
 except ImportError:
-    try:
-        from typing_extensions import get_args, get_origin  # type: ignore # Python 3.7
-    except ImportError:
-        # Python 3.6
-        get_args = _get_args
-        get_origin = _get_origin
+    from typing_extensions import get_args, get_origin  # type: ignore # Python 3.7
 
 
 def get_depth1_bases(tp: type) -> List[type]:
