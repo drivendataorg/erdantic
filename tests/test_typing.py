@@ -19,9 +19,7 @@ except ImportError:
 import pytest
 
 from erdantic.typing import (
-    get_args,
     get_depth1_bases,
-    get_origin,
     get_recursive_args,
     repr_enum,
     repr_type,
