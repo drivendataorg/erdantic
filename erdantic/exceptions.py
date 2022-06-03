@@ -1,4 +1,3 @@
-import sys
 from typing import Optional, TYPE_CHECKING
 
 from typing import ForwardRef  # docs claim Python >= 3.7.4 but actually it's in Python 3.7.0+
