@@ -2,10 +2,7 @@ from enum import Enum, IntFlag
 import sys
 import typing
 
-try:
-    from typing import ForwardRef  # type: ignore # Python >= 3.7.4
-except ImportError:
-    from typing import _ForwardRef as ForwardRef  # type: ignore # Python < 3.7.4
+from typing import ForwardRef  # docs claim Python >= 3.7.4 but actually it's in Python 3.7.0+
 
 try:
     from typing import Literal  # type: ignore # Python >=3.8
