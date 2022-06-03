@@ -1,8 +1,8 @@
 # erdantic Changelog
 
-## v0.5.0 (unreleased)
+## v0.5.0 (2022-06-03)
 
-- Drop support for Python 3.6. ([Issue #51](https://github.com/drivendataorg/erdantic/issues/51))
+- Removed support for Python 3.6. ([Issue #51](https://github.com/drivendataorg/erdantic/issues/51), [PR #56](https://github.com/drivendataorg/erdantic/pull/56))
 
 ## v0.4.1 (2022-04-08)
 
