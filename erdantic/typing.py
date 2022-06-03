@@ -1,9 +1,9 @@
 from enum import Enum
 from typing import Any, List, Type, Union
 
-from typing import _GenericAlias as GenericAlias  # type: ignore # Python 3.7+
 # Note Python 3.9's types.GenericAlias != typing._GenericAlias
 # We still want typing._GenericAlias for typing module's deprecated capital generic aliases
+from typing import _GenericAlias as GenericAlias  # type: ignore # Python 3.7+
 
 try:
     from typing import Final  # type: ignore # Python 3.8+
