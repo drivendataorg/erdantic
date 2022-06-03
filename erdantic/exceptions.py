@@ -1,11 +1,6 @@
-import sys
 from typing import Optional, TYPE_CHECKING
 
-try:
-    from typing import ForwardRef  # type: ignore # Python >= 3.7.4
-except ImportError:
-    from typing import _ForwardRef as ForwardRef  # type: ignore # Python < 3.7.4
-
+from typing import ForwardRef  # docs claim Python >= 3.7.4 but actually it's in Python 3.7.0+
 
 if TYPE_CHECKING:
     from erdantic.base import Model, Field
@@ -42,9 +37,6 @@ class StringForwardRefError(ErdanticException):
             "forward references that aren't transformed into typing.ForwardRef. Declare "
             f"explicitly with 'typing.ForwardRef(\"{forward_ref}\", is_argument=False)'."
         )
-        if sys.version_info[:3] < (3, 7, 4):
-            message = message.replace("typing.ForwardRef", "typing._ForwardRef")
-
         super().__init__(message)
 
 

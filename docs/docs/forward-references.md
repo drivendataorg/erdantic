@@ -86,9 +86,9 @@ Forward references must be evaluated along with the right namespace in order to 
 
 ## Untransformed String Forward References
 
-Under the hood, forward references usually—but not always—get converted from a string to a `typing.ForwardRef` (or in Python <3.7.4, `typing._ForwardRef`) instances. These objects track metadata about the type annotation, including what they get evaluated to.
+Under the hood, forward references usually—but not always—get converted from a string to a `typing.ForwardRef` instances. These objects track metadata about the type annotation, including what they get evaluated to.
 
-Unfortunately, sometimes the annotations remain as unconverted strings, and erdantic is unable to handle those cases. In such cases, erdantic will error with a `StringForwardRefError`. To work around that, you can explicitly declare those annotations with `typing.ForwardRef` (or `typing._ForwardRef` for Python <3.7.4).
+Unfortunately, sometimes the annotations remain as unconverted strings, and erdantic is unable to handle those cases. In such cases, erdantic will error with a `StringForwardRefError`. To work around that, you can explicitly declare those annotations with `typing.ForwardRef`.
 
 === "Pydantic"
 

@@ -1,54 +1,29 @@
 from enum import Enum
 from typing import Any, List, Type, Union
 
-try:
-    from typing import _GenericAlias as GenericAlias  # type: ignore # Python 3.7+
-
-    # Note Python 3.9's types.GenericAlias != typing._GenericAlias
-    # We still want typing._GenericAlias for typing module's deprecated capital generic aliases
-except ImportError:
-    from typing import GenericMeta as GenericAlias  # type: ignore # Python 3.6
+# Note Python 3.9's types.GenericAlias != typing._GenericAlias
+# We still want typing._GenericAlias for typing module's deprecated capital generic aliases
+from typing import _GenericAlias as GenericAlias  # type: ignore # Python 3.7+
 
 try:
     from typing import Final  # type: ignore # Python 3.8+
 except ImportError:
-    from typing_extensions import Final  # type: ignore # noqa: F401 # Python 3.6-3.7
+    from typing_extensions import Final  # type: ignore # noqa: F401 # Python 3.7
 
-try:
-    from typing import ForwardRef  # type: ignore # Python >= 3.7.4
-except ImportError:
-    from typing import _ForwardRef as ForwardRef  # type: ignore # Python < 3.7.4
+from typing import ForwardRef  # docs claim Python >= 3.7.4 but actually it's in Python 3.7.0+
 
 try:
     from typing import Literal  # type: ignore # Python >= 3.8
 except ImportError:
-    try:
-        from typing_extensions import Literal  # type: ignore # Python ==3.7.*
-    except ImportError:
-        Literal = None  # type: ignore # Python <3.7
+    from typing_extensions import Literal  # type: ignore # Python == 3.7.*
 
 from erdantic.exceptions import _StringForwardRefError, _UnevaluatedForwardRefError
-
-
-def _get_args(tp):
-    """Backport of typing.get_args for Python 3.6"""
-    return getattr(tp, "__args__", ())
-
-
-def _get_origin(tp):
-    """Backport of typing.get_origin for Python 3.6"""
-    return getattr(tp, "__origin__", None)
 
 
 try:
     from typing import get_args, get_origin  # type: ignore # Python 3.8+
 except ImportError:
-    try:
-        from typing_extensions import get_args, get_origin  # type: ignore # Python 3.7
-    except ImportError:
-        # Python 3.6
-        get_args = _get_args
-        get_origin = _get_origin
+    from typing_extensions import get_args, get_origin  # type: ignore # Python 3.7
 
 
 def get_depth1_bases(tp: type) -> List[type]:
@@ -101,9 +76,6 @@ def repr_type(tp: Union[type, GenericAlias]) -> str:
         # If generic alias from typing module, back out its name
         elif isinstance(tp, GenericAlias) and tp.__module__ == "typing":
             origin_name = str(tp).split("[")[0].replace("typing.", "")
-        # Case for Python 3.6's wacky Union
-        elif origin is Union:
-            origin_name = "Union"
         return f"{origin_name}[{', '.join(repr_type(a) for a in args)}]"
     if tp is Ellipsis:
         return "..."

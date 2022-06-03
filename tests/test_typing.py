@@ -2,10 +2,7 @@ from enum import Enum, IntFlag
 import sys
 import typing
 
-try:
-    from typing import ForwardRef  # type: ignore # Python >= 3.7.4
-except ImportError:
-    from typing import _ForwardRef as ForwardRef  # type: ignore # Python < 3.7.4
+from typing import ForwardRef  # docs claim Python >= 3.7.4 but actually it's in Python 3.7.0+
 
 try:
     from typing import Literal  # type: ignore # Python >=3.8
@@ -19,11 +16,7 @@ except ImportError:
 import pytest
 
 from erdantic.typing import (
-    _get_args,
-    _get_origin,
-    get_args,
     get_depth1_bases,
-    get_origin,
     get_recursive_args,
     repr_enum,
     repr_type,
@@ -136,26 +129,3 @@ def test_repr_type_with_mro():
         == "<mro (tests.test_typing.test_repr_type_with_mro.<locals>.FancyInt, int, object)>"
     )
     assert repr_type_with_mro(FancyInt()) == repr(FancyInt())
-
-
-# Test backports against typing module implementations
-if sys.version_info[:2] >= (3, 7):
-
-    backport_cases = [
-        int,
-        typing.List[int],
-        typing.Optional[int],
-        MyClass,
-        typing.List[MyClass],
-        typing.Optional[MyClass],
-    ]
-
-    @pytest.mark.parametrize("tp", backport_cases, ids=[repr_type(c) for c in backport_cases])
-    def test_get_args(tp):
-        assert _get_args is not get_args
-        assert _get_args(tp) == get_args(tp)
-
-    @pytest.mark.parametrize("tp", backport_cases, ids=[repr_type(c) for c in backport_cases])
-    def test_get_origin(tp):
-        assert _get_args is not get_origin
-        assert _get_origin(tp) == get_origin(tp)
