@@ -1,13 +1,9 @@
 from enum import Enum
 from typing import Any, List, Type, Union
 
-try:
-    from typing import _GenericAlias as GenericAlias  # type: ignore # Python 3.7+
-
-    # Note Python 3.9's types.GenericAlias != typing._GenericAlias
-    # We still want typing._GenericAlias for typing module's deprecated capital generic aliases
-except ImportError:
-    from typing import GenericMeta as GenericAlias  # type: ignore # Python 3.6
+from typing import _GenericAlias as GenericAlias  # type: ignore # Python 3.7+
+# Note Python 3.9's types.GenericAlias != typing._GenericAlias
+# We still want typing._GenericAlias for typing module's deprecated capital generic aliases
 
 try:
     from typing import Final  # type: ignore # Python 3.8+
@@ -22,10 +18,7 @@ except ImportError:
 try:
     from typing import Literal  # type: ignore # Python >= 3.8
 except ImportError:
-    try:
-        from typing_extensions import Literal  # type: ignore # Python ==3.7.*
-    except ImportError:
-        Literal = None  # type: ignore # Python <3.7
+    from typing_extensions import Literal  # type: ignore # Python ==3.7.*
 
 from erdantic.exceptions import _StringForwardRefError, _UnevaluatedForwardRefError
 
