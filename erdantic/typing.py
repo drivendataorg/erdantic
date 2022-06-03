@@ -76,9 +76,6 @@ def repr_type(tp: Union[type, GenericAlias]) -> str:
         # If generic alias from typing module, back out its name
         elif isinstance(tp, GenericAlias) and tp.__module__ == "typing":
             origin_name = str(tp).split("[")[0].replace("typing.", "")
-        # Case for Python 3.6's wacky Union
-        elif origin is Union:
-            origin_name = "Union"
         return f"{origin_name}[{', '.join(repr_type(a) for a in args)}]"
     if tp is Ellipsis:
         return "..."

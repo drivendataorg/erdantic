@@ -38,9 +38,6 @@ class StringForwardRefError(ErdanticException):
             "forward references that aren't transformed into typing.ForwardRef. Declare "
             f"explicitly with 'typing.ForwardRef(\"{forward_ref}\", is_argument=False)'."
         )
-        if sys.version_info[:3] < (3, 7, 4):
-            message = message.replace("typing.ForwardRef", "typing._ForwardRef")
-
         super().__init__(message)
 
 
