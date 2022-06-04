@@ -11,10 +11,11 @@ from erdantic.exceptions import (
     ModelAdapterNotFound,
     UnknownModelTypeError,
 )
-from erdantic.examples.pydantic import Party, Quest
+from erdantic.examples.pydantic import Party, Adventurer, Quest, QuestGiver
 import erdantic.examples.pydantic as examples_pydantic
 import erdantic.examples.dataclasses as examples_dataclasses
 from erdantic.pydantic import PydanticModel
+from erdantic.dataclasses import DataClassModel
 
 
 def test_diagram_comparisons():
@@ -63,6 +64,16 @@ def test_unknown_model_type_error():
     assert BadModel.__name__ in str(e)
 
 
+def test_create():
+    diagram = erd.create(Party)
+    assert {ma.model for ma in diagram.models} == {Party, Adventurer, Quest, QuestGiver}
+
+
+def test_create_with_terminus():
+    diagram = erd.create(Party, termini=[Quest])
+    assert {ma.model for ma in diagram.models} == {Party, Adventurer, Quest}
+
+
 def test_draw_with_terminus(tmp_path):
     # use EntityRelationshipDiagram.draw as expected
     expected_path = tmp_path / "expected.png"
@@ -79,6 +90,87 @@ def test_to_dot_with_terminus(tmp_path):
     # use EntityRelationshipDiagram.to_dot as expected
     diagram = erd.create(Party, termini=[Quest])
     assert erd.to_dot(Party, termini=[Quest]) == diagram.to_dot()
+
+
+def test_create_with_modules():
+    # Without search limits
+    diagram = erd.create(Quest, examples_dataclasses)
+    assert {ma.model for ma in diagram.models} == {
+        Quest,
+        QuestGiver,
+        examples_dataclasses.Party,
+        examples_dataclasses.Adventurer,
+        examples_dataclasses.Quest,
+        examples_dataclasses.QuestGiver,
+    }
+    diagram2 = erd.create(Quest, examples_dataclasses, examples_pydantic)
+    assert {ma.model for ma in diagram2.models} == {
+        Party,
+        Adventurer,
+        Quest,
+        QuestGiver,
+        examples_dataclasses.Party,
+        examples_dataclasses.Adventurer,
+        examples_dataclasses.Quest,
+        examples_dataclasses.QuestGiver,
+    }
+
+    # With search limits
+    diagram3 = erd.create(
+        Quest, examples_dataclasses, examples_pydantic, search_model_adapters=[DataClassModel]
+    )
+    assert {ma.model for ma in diagram3.models} == {
+        Quest,
+        QuestGiver,
+        examples_dataclasses.Party,
+        examples_dataclasses.Adventurer,
+        examples_dataclasses.Quest,
+        examples_dataclasses.QuestGiver,
+    }
+
+
+def test_draw_with_modules(tmp_path):
+    # use EntityRelationshipDiagram.draw as expected
+    expected_path = tmp_path / "expected.png"
+    diagram = erd.create(Quest, examples_dataclasses)
+    diagram.draw(expected_path)
+
+    # No search limits
+    path = tmp_path / "diagram.png"
+    erd.draw(Quest, examples_dataclasses, out=path)
+    assert imghdr.what(path) == "png"
+    assert filecmp.cmp(path, expected_path)
+
+    # With search limits
+    path2 = tmp_path / "diagram2.png"
+    erd.draw(
+        Quest,
+        examples_dataclasses,
+        examples_pydantic,
+        out=path2,
+        search_model_adapters=[DataClassModel],
+    )
+    assert imghdr.what(path2) == "png"
+    assert filecmp.cmp(path2, expected_path)
+
+
+def test_to_dot_with_modules(tmp_path):
+    # use EntityRelationshipDiagram.to_dot as expected
+    diagram = erd.create(Quest, examples_dataclasses)
+
+    # No search limits
+    assert erd.to_dot(Quest, examples_dataclasses) == diagram.to_dot()
+
+    # With search limits
+    assert (
+        erd.to_dot(
+            Quest,
+            examples_dataclasses,
+            examples_pydantic,
+            search_model_adapters=[DataClassModel],
+        )
+        == diagram.to_dot()
+    )
 
 
 def test_repr():
@@ -109,20 +201,20 @@ def test_find_models():
     }
     assert set(find_models(examples_pydantic)) == expected_pydantic_models
     assert (
-        set(find_models(examples_pydantic, model_adapters=["pydantic"]))
+        set(find_models(examples_pydantic, search_model_adapters=["pydantic"]))
         == expected_pydantic_models
     )
     assert (
-        set(find_models(examples_pydantic, model_adapters=[PydanticModel]))
+        set(find_models(examples_pydantic, search_model_adapters=[PydanticModel]))
         == expected_pydantic_models
     )
-    assert set(find_models(examples_pydantic, model_adapters=["dataclasses"])) == set()
+    assert set(find_models(examples_pydantic, search_model_adapters=["dataclasses"])) == set()
 
     with pytest.raises(ModelAdapterNotFound):
-        list(find_models(examples_pydantic, model_adapters=["unknown_key"]))
+        list(find_models(examples_pydantic, search_model_adapters=["unknown_key"]))
 
     with pytest.raises(InvalidModelAdapterError):
-        list(find_models(examples_pydantic, model_adapters=[examples_pydantic.Party]))
+        list(find_models(examples_pydantic, search_model_adapters=[examples_pydantic.Party]))
 
     expected_dataclasses_models = {
         examples_dataclasses.Party,

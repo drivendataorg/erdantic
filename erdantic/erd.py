@@ -168,24 +168,39 @@ class EntityRelationshipDiagram:
         return graph.draw(prog="dot", format="svg").decode(graph.encoding)
 
 
-def create(*models: type, termini: Sequence[type] = []) -> EntityRelationshipDiagram:
+def create(
+    *models_or_modules: Union[type, ModuleType],
+    termini: Sequence[type] = [],
+    search_model_adapters: Optional[Iterable[Union[str, Model]]] = None,
+) -> EntityRelationshipDiagram:
     """Construct [`EntityRelationshipDiagram`][erdantic.erd.EntityRelationshipDiagram] from given
     data model classes.
 
     Args:
-        *models (type): Data model classes to diagram.
+        *models_or_modules (type): Data model classes to diagram or modules containing them.
         termini (Sequence[type]): Data model classes to set as terminal nodes. erdantic will stop
             searching for component classes when it reaches these models
-
+        search_model_adapters (Optional[Iterable[Union[str, Model]]], optional): If model adapters
+            are specified, limit search in any input modules to those data model classes. Can be
+            key that adapter is registered under or the adapter class itself. Defaults to None
+            which will find all data model classes supported by erdantic.
     Raises:
         UnknownModelTypeError: If model is not recognized as a supported model type.
 
     Returns:
         EntityRelationshipDiagram: diagram object for given data model.
     """
-    for raw_model in models + tuple(termini):
-        if not isinstance(raw_model, type):
-            raise NotATypeError(f"Given model is not a type: {raw_model}")
+    models = []
+    for mm in models_or_modules:
+        if isinstance(mm, type):
+            models.append(mm)
+        elif isinstance(mm, ModuleType):
+            models.extend(find_models(mm, search_model_adapters=search_model_adapters))
+        else:
+            raise NotATypeError(f"Given model is not a type: {mm}")
+    for terminal_model in tuple(termini):
+        if not isinstance(terminal_model, type):
+            raise NotATypeError(f"Given terminal model is not a type: {terminal_model}")
 
     seen_models: Set[Model] = {adapt_model(t) for t in termini}
     seen_edges: Set[Edge] = set()
@@ -196,28 +211,28 @@ def create(*models: type, termini: Sequence[type] = []) -> EntityRelationshipDia
 
 
 def find_models(
-    module: ModuleType, model_adapters: Optional[Iterable[Union[str, Model]]] = None
+    module: ModuleType, search_model_adapters: Optional[Iterable[Union[str, Model]]] = None
 ) -> Iterator[type]:
     """Searches a module and yields all data model classes found.
 
     Args:
         module (ModuleType): Module to search for data model classes
-        model_adapters (Optional[Iterable[Union[str, Model]]], optional): If model adapters are
-            specified, limit data model classes to those. Can be key that adapter is registered
+        search_model_adapters (Optional[Iterable[Union[str, Model]]], optional): If model adapters
+            are specified, limit data model classes to those. Can be key that adapter is registered
             under or the adapter class itself. Defaults to None which will find all data model
             classes supported by erdantic.
 
     Yields:
         Iterator[type]: Members of module that are data model classes.
     """
-    if model_adapters is None:
-        model_adapters = model_adapter_registry.values()
+    if search_model_adapters is None:
+        search_model_adapters = model_adapter_registry.values()
     else:
-        model_adapters = [get_model_adapter(m) for m in model_adapters]
+        search_model_adapters = [get_model_adapter(m) for m in search_model_adapters]
 
     for _, member in inspect.getmembers(module, inspect.isclass):
         if member.__module__ == module.__name__:
-            for model_adapter in model_adapters:
+            for model_adapter in search_model_adapters:
                 if model_adapter.is_model_type(member):
                     yield member
 
@@ -276,31 +291,53 @@ def search_composition_graph(
                 ) from None
 
 
-def draw(*models: type, out: Union[str, os.PathLike], termini: Sequence[type] = [], **kwargs):
+def draw(
+    *models_or_modules: Union[type, ModuleType],
+    out: Union[str, os.PathLike],
+    termini: Sequence[type] = [],
+    search_model_adapters: Optional[Iterable[Union[str, Model]]] = None,
+    **kwargs,
+):
     """Render entity relationship diagram for given data model classes to file.
 
     Args:
-        *models (type): Data model classes to diagram.
+        *models_or_modules (type): Data model classes to diagram, or modules containing them.
         out (Union[str, os.PathLike]): Output file path for rendered diagram.
         termini (Sequence[type]): Data model classes to set as terminal nodes. erdantic will stop
             searching for component classes when it reaches these models
+        search_model_adapters (Optional[Iterable[Union[str, Model]]], optional): If model adapters
+            are specified, limit search in any input modules to those data model classes. Can be
+            key that adapter is registered under or the adapter class itself. Defaults to None
+            which will find all data model classes supported by erdantic.
         **kwargs: Additional keyword arguments to [`pygraphviz.AGraph.draw`](https://pygraphviz.github.io/documentation/latest/reference/agraph.html#pygraphviz.AGraph.draw).
     """
-    diagram = create(*models, termini=termini)
+    diagram = create(
+        *models_or_modules, termini=termini, search_model_adapters=search_model_adapters
+    )
     diagram.draw(out=out, **kwargs)
 
 
-def to_dot(*models: type, termini: Sequence[type] = []) -> str:
+def to_dot(
+    *models_or_modules: Union[type, ModuleType],
+    termini: Sequence[type] = [],
+    search_model_adapters: Optional[Iterable[Union[str, Model]]] = None,
+) -> str:
     """Generate Graphviz [DOT language](https://graphviz.org/doc/info/lang.html) representation of
     entity relationship diagram for given data model classes.
 
     Args:
-        *models (type): Data model classes to diagram.
+        *models_or_modules (type): Data model classes to diagram, or modules containing them.
         termini (Sequence[type]): Data model classes to set as terminal nodes. erdantic will stop
             searching for component classes when it reaches these models
+        search_model_adapters (Optional[Iterable[Union[str, Model]]], optional): If model adapters
+            are specified, limit search in any input modules to those data model classes. Can be
+            key that adapter is registered under or the adapter class itself. Defaults to None
+            which will find all data model classes supported by erdantic.
 
     Returns:
         str: DOT language representation of diagram
     """
-    diagram = create(*models, termini=termini)
+    diagram = create(
+        *models_or_modules, termini=termini, search_model_adapters=search_model_adapters
+    )
     return diagram.to_dot()
