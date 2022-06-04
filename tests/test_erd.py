@@ -119,10 +119,10 @@ def test_find_models():
     assert set(find_models(examples_pydantic, model_adapters=["dataclasses"])) == set()
 
     with pytest.raises(ModelAdapterNotFound):
-        find_models(examples_pydantic, model_adapters=["unknown_key"])
+        list(find_models(examples_pydantic, model_adapters=["unknown_key"]))
 
     with pytest.raises(InvalidModelAdapterError):
-        find_models(examples_pydantic, model_adapters=[examples_pydantic.Party])
+        list(find_models(examples_pydantic, model_adapters=[examples_pydantic.Party]))
 
     expected_dataclasses_models = {
         examples_dataclasses.Party,
