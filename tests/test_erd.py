@@ -8,14 +8,13 @@ from erdantic.erd import Edge, find_models
 from erdantic.exceptions import (
     NotATypeError,
     InvalidModelAdapterError,
-    ModelAdapterNotFound,
+    ModelAdapterNotFoundError,
     UnknownModelTypeError,
 )
 from erdantic.examples.pydantic import Party, Adventurer, Quest, QuestGiver
 import erdantic.examples.pydantic as examples_pydantic
 import erdantic.examples.dataclasses as examples_dataclasses
 from erdantic.pydantic import PydanticModel
-from erdantic.dataclasses import DataClassModel
 
 
 def test_diagram_comparisons():
@@ -117,7 +116,7 @@ def test_create_with_modules():
 
     # With search limits
     diagram3 = erd.create(
-        Quest, examples_dataclasses, examples_pydantic, search_model_adapters=[DataClassModel]
+        Quest, examples_dataclasses, examples_pydantic, limit_search_models_to=["dataclasses"]
     )
     assert {ma.model for ma in diagram3.models} == {
         Quest,
@@ -148,7 +147,7 @@ def test_draw_with_modules(tmp_path):
         examples_dataclasses,
         examples_pydantic,
         out=path2,
-        search_model_adapters=[DataClassModel],
+        limit_search_models_to=["dataclasses"],
     )
     assert imghdr.what(path2) == "png"
     assert filecmp.cmp(path2, expected_path)
@@ -167,7 +166,7 @@ def test_to_dot_with_modules(tmp_path):
             Quest,
             examples_dataclasses,
             examples_pydantic,
-            search_model_adapters=[DataClassModel],
+            limit_search_models_to=["dataclasses"],
         )
         == diagram.to_dot()
     )
@@ -201,20 +200,20 @@ def test_find_models():
     }
     assert set(find_models(examples_pydantic)) == expected_pydantic_models
     assert (
-        set(find_models(examples_pydantic, search_model_adapters=["pydantic"]))
+        set(find_models(examples_pydantic, limit_search_models_to=["pydantic"]))
         == expected_pydantic_models
     )
     assert (
-        set(find_models(examples_pydantic, search_model_adapters=[PydanticModel]))
+        set(find_models(examples_pydantic, limit_search_models_to=[PydanticModel]))
         == expected_pydantic_models
     )
-    assert set(find_models(examples_pydantic, search_model_adapters=["dataclasses"])) == set()
+    assert set(find_models(examples_pydantic, limit_search_models_to=["dataclasses"])) == set()
 
-    with pytest.raises(ModelAdapterNotFound):
-        list(find_models(examples_pydantic, search_model_adapters=["unknown_key"]))
+    with pytest.raises(ModelAdapterNotFoundError):
+        list(find_models(examples_pydantic, limit_search_models_to=["unknown_key"]))
 
     with pytest.raises(InvalidModelAdapterError):
-        list(find_models(examples_pydantic, search_model_adapters=[examples_pydantic.Party]))
+        list(find_models(examples_pydantic, limit_search_models_to=[examples_pydantic.Party]))
 
     expected_dataclasses_models = {
         examples_dataclasses.Party,
