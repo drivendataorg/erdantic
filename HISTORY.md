@@ -3,7 +3,7 @@
 ## v0.5.0 (2022-06-10)
 
 - Removed support for Python 3.6. ([Issue #51](https://github.com/drivendataorg/erdantic/issues/51), [PR #56](https://github.com/drivendataorg/erdantic/pull/56))
-- Added support for modules as inputs to all entrypoints to diagram creation (`create`, `draw`, `to_dot`, CLI). For all modules passed, erdantic will find all supported data model classes in each module.
+- Added support for modules as inputs to all entrypoints to diagram creation (`create`, `draw`, `to_dot`, CLI). For all modules passed, erdantic will find all supported data model classes in each module. ([Issue #23](https://github.com/drivendataorg/erdantic/issues/23), [PR #58](https://github.com/drivendataorg/erdantic/pull/58))
     - Added new parameter `limit_search_models_to` to all entrypoints to allow for limiting which data model classes will be yielded from searching a module.
 
 
