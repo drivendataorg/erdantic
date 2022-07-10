@@ -58,7 +58,15 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements-dev.txt
+          if [ "$RUNNER_OS" == "macOS" ]; then
+            pip install -r requirements-dev.txt \
+              --global-option=build_ext \
+              --global-option="-I$(brew --prefix graphviz)/include/" \
+              --global-option="-L$(brew --prefix graphviz)/lib/"
+          else
+            pip install -r requirements-dev.txt
+          fi
+          
 
       - name: Run tests
         run: |
