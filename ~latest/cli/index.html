@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://erdantic.drivendata.org/~latest/cli/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.3.0">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
     
     
       
@@ -21,7 +21,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.fd896c8a.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.1d29e8d0.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
@@ -560,38 +560,64 @@
 <h1 id="cli-help-documentation">CLI Help Documentation<a class="headerlink" href="#cli-help-documentation" title="Permanent link">&para;</a></h1>
 <div class="highlight"><pre><span></span><code>erdantic --help
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>Usage: erdantic [OPTIONS] MODELS...
+<div class="highlight"><pre><span></span><code>[1m                                                                                [0m
+[1m [0m[1;33mUsage: [0m[1merdantic [OPTIONS] MODELS...[0m[1m                                           [0m[1m [0m
+[1m                                                                                [0m
+ Draw entity relationship diagrams (ERDs) for Python data model classes.        
+ Diagrams are rendered using the Graphviz library. Currently supported data     
+ modeling frameworks are Pydantic and standard library dataclasses.             
 
-  Draw entity relationship diagrams (ERDs) for Python data model classes.
-  Diagrams are rendered using the Graphviz library. Currently supported data
-  modeling frameworks are Pydantic and standard library dataclasses.
-
-Arguments:
-  MODELS...  One or more full dotted paths for data model classes to include
-             in diagram, e.g., &#39;erdantic.examples.pydantic.Party&#39;. Only the
-             root models of composition trees are needed; erdantic will
-             traverse the composition tree to find component classes.
-             [required]
-
-Options:
-  -t, --terminus TEXT             Full dotted paths for data model classes to
-                                  set as terminal nodes in the diagram.
-                                  erdantic will stop searching for component
-                                  classes when it reaches these models. Repeat
-                                  this option if more than one.
-  -o, --out PATH                  Output filename.  [required]
-  -d, --dot                       Print out Graphviz DOT language
-                                  representation for generated graph to
-                                  console instead of rendering an image. The
-                                  --out option will be ignored.
-  --no-overwrite                  Prevent overwriting an existing file.
-  --version                       Show erdantic version and exit.
-  --install-completion [bash|zsh|fish|powershell|pwsh]
-                                  Install completion for the specified shell.
-  --show-completion [bash|zsh|fish|powershell|pwsh]
-                                  Show completion for the specified shell, to
-                                  copy it or customize the installation.
-  --help                          Show this message and exit.
+[2m╭─[0m[2m Arguments ─────────────────────────────────────────────────────────────────[0m[2m─╮[0m
+[2m│[0m [31m*[0m    models      [1;33mMODELS...[0m  One or more full dotted paths for data model     [2m│[0m
+[2m│[0m                             classes to include in diagram, e.g.,             [2m│[0m
+[2m│[0m                             &#39;erdantic.examples.pydantic.Party&#39;. Only the     [2m│[0m
+[2m│[0m                             root models of composition trees are needed;     [2m│[0m
+[2m│[0m                             erdantic will traverse the composition tree to   [2m│[0m
+[2m│[0m                             find component classes.                          [2m│[0m
+[2m│[0m                             [2m[default: None]                                 [0m [2m│[0m
+[2m│[0m                             [2;31m[required]                                      [0m [2m│[0m
+[2m╰──────────────────────────────────────────────────────────────────────────────╯[0m
+[2m╭─[0m[2m Options ───────────────────────────────────────────────────────────────────[0m[2m─╮[0m
+[2m│[0m    [1;36m-[0m[1;36m-terminus[0m            [1;32m-t[0m      [1;33mTEXT                [0m  Full dotted paths for [2m│[0m
+[2m│[0m                                                        data model classes to [2m│[0m
+[2m│[0m                                                        set as terminal nodes [2m│[0m
+[2m│[0m                                                        in the diagram.       [2m│[0m
+[2m│[0m                                                        erdantic will stop    [2m│[0m
+[2m│[0m                                                        searching for         [2m│[0m
+[2m│[0m                                                        component classes     [2m│[0m
+[2m│[0m                                                        when it reaches these [2m│[0m
+[2m│[0m                                                        models. Repeat this   [2m│[0m
+[2m│[0m                                                        option if more than   [2m│[0m
+[2m│[0m                                                        one.                  [2m│[0m
+[2m│[0m                                                        [2m[default: None]      [0m [2m│[0m
+[2m│[0m [31m*[0m  [1;36m-[0m[1;36m-out[0m                 [1;32m-o[0m      [1;33mPATH                [0m  Output filename.      [2m│[0m
+[2m│[0m                                                        [2m[default: None] [0m      [2m│[0m
+[2m│[0m                                                        [2;31m[required]      [0m      [2m│[0m
+[2m│[0m    [1;36m-[0m[1;36m-dot[0m                 [1;32m-d[0m      [1;33m                    [0m  Print out Graphviz    [2m│[0m
+[2m│[0m                                                        DOT language          [2m│[0m
+[2m│[0m                                                        representation for    [2m│[0m
+[2m│[0m                                                        generated graph to    [2m│[0m
+[2m│[0m                                                        console instead of    [2m│[0m
+[2m│[0m                                                        rendering an image.   [2m│[0m
+[2m│[0m                                                        The [1;36m-[0m[1;36m-out[0m option will [2m│[0m
+[2m│[0m                                                        be ignored.           [2m│[0m
+[2m│[0m    [1;36m-[0m[1;36m-no[0m[1;36m-overwrite[0m                [1;33m                    [0m  Prevent overwriting   [2m│[0m
+[2m│[0m                                                        an existing file.     [2m│[0m
+[2m│[0m    [1;36m-[0m[1;36m-version[0m                     [1;33m                    [0m  Show erdantic version [2m│[0m
+[2m│[0m                                                        and exit.             [2m│[0m
+[2m│[0m    [1;36m-[0m[1;36m-install[0m[1;36m-completion[0m          [1;2;33m[[0m[1;33mbash[0m[1;2;33m|[0m[1;33mzsh[0m[1;2;33m|[0m[1;33mfish[0m[1;2;33m|[0m[1;33mpower[0m  Install completion    [2m│[0m
+[2m│[0m                                  [1;33mshell[0m[1;2;33m|[0m[1;33mpwsh[0m[1;2;33m][0m[1;33m         [0m  for the specified     [2m│[0m
+[2m│[0m                                                        shell.                [2m│[0m
+[2m│[0m                                                        [2m[default: None]      [0m [2m│[0m
+[2m│[0m    [1;36m-[0m[1;36m-show[0m[1;36m-completion[0m             [1;2;33m[[0m[1;33mbash[0m[1;2;33m|[0m[1;33mzsh[0m[1;2;33m|[0m[1;33mfish[0m[1;2;33m|[0m[1;33mpower[0m  Show completion for   [2m│[0m
+[2m│[0m                                  [1;33mshell[0m[1;2;33m|[0m[1;33mpwsh[0m[1;2;33m][0m[1;33m         [0m  the specified shell,  [2m│[0m
+[2m│[0m                                                        to copy it or         [2m│[0m
+[2m│[0m                                                        customize the         [2m│[0m
+[2m│[0m                                                        installation.         [2m│[0m
+[2m│[0m                                                        [2m[default: None]      [0m [2m│[0m
+[2m│[0m    [1;36m-[0m[1;36m-help[0m                        [1;33m                    [0m  Show this message and [2m│[0m
+[2m│[0m                                                        exit.                 [2m│[0m
+[2m╰──────────────────────────────────────────────────────────────────────────────╯[0m
 </code></pre></div>
 
               
@@ -600,7 +626,7 @@ Options:
           </div>
         </div>
         
-          <a href="#" class="md-top md-top--hidden md-icon" data-md-component="top">
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
             Back to top
           </a>
@@ -665,10 +691,10 @@ Options:
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.top"], "search": "../assets/javascripts/workers/search.b028fd86.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.top"], "search": "../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.0f659f14.min.js"></script>
+      <script src="../assets/javascripts/bundle.6c7ad80a.min.js"></script>
       
     
   </body>
