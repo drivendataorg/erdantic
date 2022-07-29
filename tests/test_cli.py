@@ -8,6 +8,8 @@ from erdantic.cli import app
 from erdantic.examples.pydantic import Party, Quest
 from erdantic.version import __version__
 
+from tests.utils import strip_ansi_escape_codes
+
 
 runner = CliRunner()
 
@@ -61,10 +63,12 @@ def test_with_terminus(tmp_path):
     assert filecmp.cmp(path1, path_base)
 
 
-def test_missing_out(tmp_path):
+def test_missing_out():
     result = runner.invoke(app, ["erdantic.examples.pydantic.Party"])
     assert result.exit_code == 2
-    assert "Error: Missing option '--out' / '-o'." in result.stdout
+    stdout = strip_ansi_escape_codes(result.stdout)
+    assert "Error" in stdout, stdout
+    assert "Missing option '--out' / '-o'." in stdout, stdout
 
 
 def test_no_overwrite(tmp_path):
