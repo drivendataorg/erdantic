@@ -1,9 +1,10 @@
 import pytest
 
 import erdantic as erd
-from erdantic.base import Field, Model, register_model_adapter
+from erdantic.base import Field, get_model_adapter, Model, register_model_adapter
 from erdantic.examples.pydantic import Party
-from erdantic.exceptions import InvalidModelAdapterError
+from erdantic.exceptions import InvalidModelAdapterError, ModelAdapterNotFoundError
+from erdantic.pydantic import PydanticModel
 
 
 def test_abstract_field_instatiation():
@@ -31,3 +32,12 @@ def test_repr():
     diagram = erd.create(Party)
     assert repr(diagram.models[0]) and isinstance(repr(diagram.models[0]), str)
     assert repr(diagram.models[0].fields[0]) and isinstance(repr(diagram.models[0].fields[0]), str)
+
+
+def test_get_model_adapter():
+    assert get_model_adapter("pydantic") == PydanticModel
+    assert get_model_adapter(PydanticModel) == PydanticModel
+    with pytest.raises(ModelAdapterNotFoundError):
+        get_model_adapter("unknown_key")
+    with pytest.raises(InvalidModelAdapterError):
+        get_model_adapter(Party)

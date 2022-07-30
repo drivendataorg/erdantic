@@ -1,14 +1,34 @@
+from enum import Enum
 from importlib import import_module
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, TYPE_CHECKING
 
 import typer
 
+from erdantic.base import model_adapter_registry
 from erdantic.erd import create
+from erdantic.exceptions import ModelOrModuleNotFoundError
 from erdantic.version import __version__
 
 
 app = typer.Typer()
+
+
+class StrEnum(str, Enum):
+    pass
+
+
+if TYPE_CHECKING:
+    # mypy typechecking doesn't really support enums created with functional API
+    # https://github.com/python/mypy/issues/6037
+
+    class SupportedModelIdentifier(StrEnum):
+        pass
+
+else:
+    SupportedModelIdentifier = StrEnum(
+        "SupportedModelIdentifier", {key: key for key in model_adapter_registry.keys()}
+    )
 
 
 def version_callback(version: bool):
@@ -29,12 +49,13 @@ def dot_callback(ctx: typer.Context, dot: bool):
 
 @app.command()
 def main(
-    models: List[str] = typer.Argument(
+    models_or_modules: List[str] = typer.Argument(
         ...,
         help=(
-            "One or more full dotted paths for data model classes to include in diagram, "
-            "e.g., 'erdantic.examples.pydantic.Party'. Only the root models of composition trees "
-            "are needed; erdantic will traverse the composition tree to find component classes."
+            "One or more full dotted paths for data model classes, or modules containing data "
+            "model classes, to include in diagram, e.g., 'erdantic.examples.pydantic.Party'. Only "
+            "the root models of composition trees are needed; erdantic will traverse the "
+            "composition tree to find component classes."
         ),
     ),
     termini: List[str] = typer.Option(
@@ -45,6 +66,17 @@ def main(
             "Full dotted paths for data model classes to set as terminal nodes in the diagram. "
             "erdantic will stop searching for component classes when it reaches these models. "
             "Repeat this option if more than one."
+        ),
+    ),
+    limit_search_models_to: List[SupportedModelIdentifier] = typer.Option(
+        None,
+        "--limit-search-models-to",
+        "-m",
+        help=(
+            "Identifiers of model classes that erdantic supports. If any are specified, when "
+            "searching a module, limit data model classes to those ones. Repeat this option if "
+            "more than one.Defaults to None which will find all data model classes supported by "
+            "erdantic. "
         ),
     ),
     out: Path = typer.Option(..., "--out", "-o", help="Output filename."),
@@ -73,18 +105,16 @@ def main(
     rendered using the Graphviz library. Currently supported data modeling frameworks are Pydantic
     and standard library dataclasses.
     """
-    model_classes: List[type] = []
-    for model in models:
-        module_name, model_name = model.rsplit(".", 1)
-        module = import_module(module_name)
-        model_classes.append(getattr(module, model_name))
-    termini_classes: List[type] = []
-    for terminus in termini:
-        module_name, model_name = terminus.rsplit(".", 1)
-        module = import_module(module_name)
-        termini_classes.append(getattr(module, model_name))
-
-    diagram = create(*model_classes, termini=termini_classes)
+    model_or_module_objs = [import_object_from_name(mm) for mm in models_or_modules]
+    termini_classes = [import_object_from_name(mm) for mm in termini]
+    limit_search_models_to_str = [
+        m.value for m in limit_search_models_to
+    ] or None  # Don't want empty list
+    diagram = create(
+        *model_or_module_objs,
+        termini=termini_classes,
+        limit_search_models_to=limit_search_models_to_str,
+    )
     if dot:
         typer.echo(diagram.to_dot())
     else:
@@ -93,3 +123,16 @@ def main(
             raise typer.Exit(code=1)
         diagram.draw(out)
         typer.echo(f"Rendered diagram to {out}")
+
+
+def import_object_from_name(full_obj_name):
+    # Try to import as a module
+    try:
+        return import_module(full_obj_name)
+    except ModuleNotFoundError:
+        try:
+            module_name, obj_name = full_obj_name.rsplit(".", 1)
+            module = import_module(module_name)
+            return getattr(module, obj_name)
+        except (ImportError, AttributeError):
+            raise ModelOrModuleNotFoundError(f"{full_obj_name} not found")

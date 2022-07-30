@@ -15,11 +15,19 @@ class InvalidModelError(ValueError, ErdanticException):
 
 
 class InvalidModelAdapterError(ValueError, ErdanticException):
-    """Raised when trying to register a model adapter that is not subclassing Model."""
+    """Raised when a model adapter is expected but input is not subclassing Model."""
 
 
 class InvalidFieldError(ValueError, ErdanticException):
     """Raised when an invalid field object is passed to a field adapter."""
+
+
+class ModelAdapterNotFoundError(KeyError, ErdanticException):
+    """Raised when specified key does not match a registered model adapter."""
+
+
+class ModelOrModuleNotFoundError(ImportError, ErdanticException):
+    """Raised when specified fully qualified name of model class or module cannot be found."""
 
 
 class NotATypeError(ValueError, ErdanticException):
