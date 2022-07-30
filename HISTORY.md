@@ -1,6 +1,6 @@
 # erdantic Changelog
 
-## v0.5.0 (2022-06-10)
+## v0.5.0 (2022-07-29)
 
 - Removed support for Python 3.6. ([Issue #51](https://github.com/drivendataorg/erdantic/issues/51), [PR #56](https://github.com/drivendataorg/erdantic/pull/56))
 - Added support for modules as inputs to all entrypoints to diagram creation (`create`, `draw`, `to_dot`, CLI). For all modules passed, erdantic will find all supported data model classes in each module. ([Issue #23](https://github.com/drivendataorg/erdantic/issues/23), [PR #58](https://github.com/drivendataorg/erdantic/pull/58))
