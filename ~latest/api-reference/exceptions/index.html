@@ -486,6 +486,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#erdantic.exceptions.ModelAdapterNotFoundError" class="md-nav__link">
+    ModelAdapterNotFoundError
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erdantic.exceptions.ModelOrModuleNotFoundError" class="md-nav__link">
+    ModelOrModuleNotFoundError
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#erdantic.exceptions.NotATypeError" class="md-nav__link">
     NotATypeError
   </a>
@@ -700,6 +714,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#erdantic.exceptions.ModelAdapterNotFoundError" class="md-nav__link">
+    ModelAdapterNotFoundError
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erdantic.exceptions.ModelOrModuleNotFoundError" class="md-nav__link">
+    ModelOrModuleNotFoundError
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#erdantic.exceptions.NotATypeError" class="md-nav__link">
     NotATypeError
   </a>
@@ -853,12 +881,12 @@ InvalidModelAdapterError            (<span title="ValueError">ValueError</span>,
 
     <div class="doc doc-contents ">
 
-      <p>Raised when trying to register a model adapter that is not subclassing Model.</p>
+      <p>Raised when a model adapter is expected but input is not subclassing Model.</p>
 
         <details class="quote">
           <summary>Source code in <code>erdantic/exceptions.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">InvalidModelAdapterError</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="n">ErdanticException</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Raised when trying to register a model adapter that is not subclassing Model.&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Raised when a model adapter is expected but input is not subclassing Model.&quot;&quot;&quot;</span>
 </code></pre></div>
         </details>
 
@@ -890,6 +918,68 @@ InvalidModelError            (<span title="ValueError">ValueError</span>, <a cla
           <summary>Source code in <code>erdantic/exceptions.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">InvalidModelError</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="n">ErdanticException</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Raised when an invalid model object is passed to a model adapter.&quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="erdantic.exceptions.ModelAdapterNotFoundError" class="doc doc-heading">
+        <code>
+ModelAdapterNotFoundError            (<span title="KeyError">KeyError</span>, <a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a>)
+        </code>
+
+
+
+<a href="#erdantic.exceptions.ModelAdapterNotFoundError" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Raised when specified key does not match a registered model adapter.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>erdantic/exceptions.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">ModelAdapterNotFoundError</span><span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="n">ErdanticException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Raised when specified key does not match a registered model adapter.&quot;&quot;&quot;</span>
+</code></pre></div>
+        </details>
+
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="erdantic.exceptions.ModelOrModuleNotFoundError" class="doc doc-heading">
+        <code>
+ModelOrModuleNotFoundError            (<span title="ImportError">ImportError</span>, <a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a>)
+        </code>
+
+
+
+<a href="#erdantic.exceptions.ModelOrModuleNotFoundError" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Raised when specified fully qualified name of model class or module cannot be found.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>erdantic/exceptions.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">ModelOrModuleNotFoundError</span><span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="n">ErdanticException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Raised when specified fully qualified name of model class or module cannot be found.&quot;&quot;&quot;</span>
 </code></pre></div>
         </details>
 

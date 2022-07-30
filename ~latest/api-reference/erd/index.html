@@ -492,6 +492,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#erdantic.erd.find_models" class="md-nav__link">
+    find_models()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#erdantic.erd.search_composition_graph" class="md-nav__link">
     search_composition_graph()
   </a>
@@ -714,6 +721,13 @@
           <li class="md-nav__item">
   <a href="#erdantic.erd.draw" class="md-nav__link">
     draw()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erdantic.erd.find_models" class="md-nav__link">
+    find_models()
   </a>
   
 </li>
@@ -1453,7 +1467,7 @@ return instantiated adapter instance.</p>
 
 
 <h3 id="erdantic.erd.create" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">create</span><span class="p">(</span><span class="o">*</span><span class="n">models</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">termini</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">type</span><span class="p">]</span> <span class="o">=</span> <span class="p">[])</span> <span class="o">-&gt;</span> <span class="n">EntityRelationshipDiagram</span></code>
+<code class="highlight language-python"><span class="n">create</span><span class="p">(</span><span class="o">*</span><span class="n">models_or_modules</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">type</span><span class="p">,</span> <span class="n">module</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">termini</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">type</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">limit_search_models_to</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EntityRelationshipDiagram</span></code>
 
 
 <a href="#erdantic.erd.create" class="headerlink" title="Permanent link">&para;</a></h3>
@@ -1475,9 +1489,9 @@ data model classes.</p>
   </thead>
   <tbody>
       <tr>
-        <td><code>*models</code></td>
+        <td><code>*models_or_modules</code></td>
         <td><code>type</code></td>
-        <td><p>Data model classes to diagram.</p></td>
+        <td><p>Data model classes to diagram or modules containing them.</p></td>
         <td><code>()</code></td>
       </tr>
       <tr>
@@ -1486,6 +1500,15 @@ data model classes.</p>
         <td><p>Data model classes to set as terminal nodes. erdantic will stop
 searching for component classes when it reaches these models</p></td>
         <td><code>[]</code></td>
+      </tr>
+      <tr>
+        <td><code>limit_search_models_to</code></td>
+        <td><code>Optional[Iterable[sr]]</code></td>
+        <td><p>Iterable of identifiers of data
+model classes that erdantic supports. If any are specified, when searching a module,
+limit data model classes to those ones. Defaults to None which will find all data model
+classes supported by erdantic.</p></td>
+        <td><code>None</code></td>
       </tr>
   </tbody>
 </table>
@@ -1521,24 +1544,39 @@ searching for component classes when it reaches these models</p></td>
 </table>
         <details class="quote">
           <summary>Source code in <code>erdantic/erd.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="o">*</span><span class="n">models</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span> <span class="n">termini</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">type</span><span class="p">]</span> <span class="o">=</span> <span class="p">[])</span> <span class="o">-&gt;</span> <span class="n">EntityRelationshipDiagram</span><span class="p">:</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">create</span><span class="p">(</span>
+    <span class="o">*</span><span class="n">models_or_modules</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">type</span><span class="p">,</span> <span class="n">ModuleType</span><span class="p">],</span>
+    <span class="n">termini</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">type</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="n">limit_search_models_to</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EntityRelationshipDiagram</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Construct [`EntityRelationshipDiagram`][erdantic.erd.EntityRelationshipDiagram] from given</span>
 <span class="sd">    data model classes.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        *models (type): Data model classes to diagram.</span>
+<span class="sd">        *models_or_modules (type): Data model classes to diagram or modules containing them.</span>
 <span class="sd">        termini (Sequence[type]): Data model classes to set as terminal nodes. erdantic will stop</span>
 <span class="sd">            searching for component classes when it reaches these models</span>
-
+<span class="sd">        limit_search_models_to (Optional[Iterable[sr]], optional): Iterable of identifiers of data</span>
+<span class="sd">            model classes that erdantic supports. If any are specified, when searching a module,</span>
+<span class="sd">            limit data model classes to those ones. Defaults to None which will find all data model</span>
+<span class="sd">            classes supported by erdantic.</span>
 <span class="sd">    Raises:</span>
 <span class="sd">        UnknownModelTypeError: If model is not recognized as a supported model type.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        EntityRelationshipDiagram: diagram object for given data model.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">raw_model</span> <span class="ow">in</span> <span class="n">models</span> <span class="o">+</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">termini</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">raw_model</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">NotATypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Given model is not a type: </span><span class="si">{</span><span class="n">raw_model</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">models</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">mm</span> <span class="ow">in</span> <span class="n">models_or_modules</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mm</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
+            <span class="n">models</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mm</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mm</span><span class="p">,</span> <span class="n">ModuleType</span><span class="p">):</span>
+            <span class="n">models</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">find_models</span><span class="p">(</span><span class="n">mm</span><span class="p">,</span> <span class="n">limit_search_models_to</span><span class="o">=</span><span class="n">limit_search_models_to</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">NotATypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Given model is not a type: </span><span class="si">{</span><span class="n">mm</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">terminal_model</span> <span class="ow">in</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">termini</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">terminal_model</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">NotATypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Given terminal model is not a type: </span><span class="si">{</span><span class="n">terminal_model</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="n">seen_models</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">Model</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">adapt_model</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">termini</span><span class="p">}</span>
     <span class="n">seen_edges</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">Edge</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
@@ -1559,7 +1597,7 @@ searching for component classes when it reaches these models</p></td>
 
 
 <h3 id="erdantic.erd.draw" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">draw</span><span class="p">(</span><span class="o">*</span><span class="n">models</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">out</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">],</span> <span class="n">termini</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">type</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">draw</span><span class="p">(</span><span class="o">*</span><span class="n">models_or_modules</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">type</span><span class="p">,</span> <span class="n">module</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">out</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">],</span> <span class="n">termini</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">type</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">limit_search_models_to</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
 
 
 <a href="#erdantic.erd.draw" class="headerlink" title="Permanent link">&para;</a></h3>
@@ -1580,9 +1618,9 @@ searching for component classes when it reaches these models</p></td>
   </thead>
   <tbody>
       <tr>
-        <td><code>*models</code></td>
+        <td><code>*models_or_modules</code></td>
         <td><code>type</code></td>
-        <td><p>Data model classes to diagram.</p></td>
+        <td><p>Data model classes to diagram, or modules containing them.</p></td>
         <td><code>()</code></td>
       </tr>
       <tr>
@@ -1599,6 +1637,15 @@ searching for component classes when it reaches these models</p></td>
         <td><code>[]</code></td>
       </tr>
       <tr>
+        <td><code>limit_search_models_to</code></td>
+        <td><code>Optional[Iterable[sr]]</code></td>
+        <td><p>Iterable of identifiers of data
+model classes that erdantic supports. If any are specified, when searching a module,
+limit data model classes to those ones. Defaults to None which will find all data model
+classes supported by erdantic.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
         <td><code>**kwargs</code></td>
         <td></td>
         <td><p>Additional keyword arguments to <a href="https://pygraphviz.github.io/documentation/latest/reference/agraph.html#pygraphviz.AGraph.draw"><code>pygraphviz.AGraph.draw</code></a>.</p></td>
@@ -1608,18 +1655,123 @@ searching for component classes when it reaches these models</p></td>
 </table>
         <details class="quote">
           <summary>Source code in <code>erdantic/erd.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="o">*</span><span class="n">models</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span> <span class="n">out</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">],</span> <span class="n">termini</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">type</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">draw</span><span class="p">(</span>
+    <span class="o">*</span><span class="n">models_or_modules</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">type</span><span class="p">,</span> <span class="n">ModuleType</span><span class="p">],</span>
+    <span class="n">out</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">],</span>
+    <span class="n">termini</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">type</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="n">limit_search_models_to</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Render entity relationship diagram for given data model classes to file.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        *models (type): Data model classes to diagram.</span>
+<span class="sd">        *models_or_modules (type): Data model classes to diagram, or modules containing them.</span>
 <span class="sd">        out (Union[str, os.PathLike]): Output file path for rendered diagram.</span>
 <span class="sd">        termini (Sequence[type]): Data model classes to set as terminal nodes. erdantic will stop</span>
 <span class="sd">            searching for component classes when it reaches these models</span>
+<span class="sd">        limit_search_models_to (Optional[Iterable[sr]], optional): Iterable of identifiers of data</span>
+<span class="sd">            model classes that erdantic supports. If any are specified, when searching a module,</span>
+<span class="sd">            limit data model classes to those ones. Defaults to None which will find all data model</span>
+<span class="sd">            classes supported by erdantic.</span>
 <span class="sd">        **kwargs: Additional keyword arguments to [`pygraphviz.AGraph.draw`](https://pygraphviz.github.io/documentation/latest/reference/agraph.html#pygraphviz.AGraph.draw).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">diagram</span> <span class="o">=</span> <span class="n">create</span><span class="p">(</span><span class="o">*</span><span class="n">models</span><span class="p">,</span> <span class="n">termini</span><span class="o">=</span><span class="n">termini</span><span class="p">)</span>
+    <span class="n">diagram</span> <span class="o">=</span> <span class="n">create</span><span class="p">(</span>
+        <span class="o">*</span><span class="n">models_or_modules</span><span class="p">,</span> <span class="n">termini</span><span class="o">=</span><span class="n">termini</span><span class="p">,</span> <span class="n">limit_search_models_to</span><span class="o">=</span><span class="n">limit_search_models_to</span>
+    <span class="p">)</span>
     <span class="n">diagram</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="erdantic.erd.find_models" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">find_models</span><span class="p">(</span><span class="n">module</span><span class="p">:</span> <span class="n">module</span><span class="p">,</span> <span class="n">limit_search_models_to</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">type</span><span class="p">]</span></code>
+
+
+<a href="#erdantic.erd.find_models" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+      <p>Searches a module and yields all data model classes found.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>module</code></td>
+        <td><code>ModuleType</code></td>
+        <td><p>Module to search for data model classes</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>limit_search_models_to</code></td>
+        <td><code>Optional[Iterable[sr]]</code></td>
+        <td><p>Iterable of identifiers of data
+model classes that erdantic supports. If any are specified, when searching a module,
+limit data model classes to those ones. Defaults to None which will find all data model
+classes supported by erdantic.</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Yields:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Iterator[type]</code></td>
+      <td><p>Members of module that are data model classes.</p></td>
+    </tr>
+  </tbody>
+</table>
+        <details class="quote">
+          <summary>Source code in <code>erdantic/erd.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">find_models</span><span class="p">(</span>
+    <span class="n">module</span><span class="p">:</span> <span class="n">ModuleType</span><span class="p">,</span> <span class="n">limit_search_models_to</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">type</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Searches a module and yields all data model classes found.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        module (ModuleType): Module to search for data model classes</span>
+<span class="sd">        limit_search_models_to (Optional[Iterable[sr]], optional): Iterable of identifiers of data</span>
+<span class="sd">            model classes that erdantic supports. If any are specified, when searching a module,</span>
+<span class="sd">            limit data model classes to those ones. Defaults to None which will find all data model</span>
+<span class="sd">            classes supported by erdantic.</span>
+
+<span class="sd">    Yields:</span>
+<span class="sd">        Iterator[type]: Members of module that are data model classes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">limit_search_models_to_adapters</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">Model</span><span class="p">]]</span>
+    <span class="k">if</span> <span class="n">limit_search_models_to</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">limit_search_models_to_adapters</span> <span class="o">=</span> <span class="n">model_adapter_registry</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">limit_search_models_to_adapters</span> <span class="o">=</span> <span class="p">[</span><span class="n">get_model_adapter</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">limit_search_models_to</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">member</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmembers</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">member</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">==</span> <span class="n">module</span><span class="o">.</span><span class="vm">__name__</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">model_adapter</span> <span class="ow">in</span> <span class="n">limit_search_models_to_adapters</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">model_adapter</span><span class="o">.</span><span class="n">is_model_type</span><span class="p">(</span><span class="n">member</span><span class="p">):</span>
+                    <span class="k">yield</span> <span class="n">member</span>
 </code></pre></div>
         </details>
     </div>
@@ -1723,7 +1875,7 @@ the two respective provided set instances.</p>
 
 
 <h3 id="erdantic.erd.to_dot" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">to_dot</span><span class="p">(</span><span class="o">*</span><span class="n">models</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">termini</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">type</span><span class="p">]</span> <span class="o">=</span> <span class="p">[])</span> <span class="o">-&gt;</span> <span class="nb">str</span></code>
+<code class="highlight language-python"><span class="n">to_dot</span><span class="p">(</span><span class="o">*</span><span class="n">models_or_modules</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">type</span><span class="p">,</span> <span class="n">module</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">termini</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">type</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">limit_search_models_to</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span></code>
 
 
 <a href="#erdantic.erd.to_dot" class="headerlink" title="Permanent link">&para;</a></h3>
@@ -1745,9 +1897,9 @@ entity relationship diagram for given data model classes.</p>
   </thead>
   <tbody>
       <tr>
-        <td><code>*models</code></td>
+        <td><code>*models_or_modules</code></td>
         <td><code>type</code></td>
-        <td><p>Data model classes to diagram.</p></td>
+        <td><p>Data model classes to diagram, or modules containing them.</p></td>
         <td><code>()</code></td>
       </tr>
       <tr>
@@ -1756,6 +1908,15 @@ entity relationship diagram for given data model classes.</p>
         <td><p>Data model classes to set as terminal nodes. erdantic will stop
 searching for component classes when it reaches these models</p></td>
         <td><code>[]</code></td>
+      </tr>
+      <tr>
+        <td><code>limit_search_models_to</code></td>
+        <td><code>Optional[Iterable[sr]]</code></td>
+        <td><p>Iterable of identifiers of data
+model classes that erdantic supports. If any are specified, when searching a module,
+limit data model classes to those ones. Defaults to None which will find all data model
+classes supported by erdantic.</p></td>
+        <td><code>None</code></td>
       </tr>
   </tbody>
 </table>
@@ -1776,19 +1937,29 @@ searching for component classes when it reaches these models</p></td>
 </table>
         <details class="quote">
           <summary>Source code in <code>erdantic/erd.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">to_dot</span><span class="p">(</span><span class="o">*</span><span class="n">models</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span> <span class="n">termini</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">type</span><span class="p">]</span> <span class="o">=</span> <span class="p">[])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">to_dot</span><span class="p">(</span>
+    <span class="o">*</span><span class="n">models_or_modules</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">type</span><span class="p">,</span> <span class="n">ModuleType</span><span class="p">],</span>
+    <span class="n">termini</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">type</span><span class="p">]</span> <span class="o">=</span> <span class="p">[],</span>
+    <span class="n">limit_search_models_to</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Iterable</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Generate Graphviz [DOT language](https://graphviz.org/doc/info/lang.html) representation of</span>
 <span class="sd">    entity relationship diagram for given data model classes.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        *models (type): Data model classes to diagram.</span>
+<span class="sd">        *models_or_modules (type): Data model classes to diagram, or modules containing them.</span>
 <span class="sd">        termini (Sequence[type]): Data model classes to set as terminal nodes. erdantic will stop</span>
 <span class="sd">            searching for component classes when it reaches these models</span>
+<span class="sd">        limit_search_models_to (Optional[Iterable[sr]], optional): Iterable of identifiers of data</span>
+<span class="sd">            model classes that erdantic supports. If any are specified, when searching a module,</span>
+<span class="sd">            limit data model classes to those ones. Defaults to None which will find all data model</span>
+<span class="sd">            classes supported by erdantic.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        str: DOT language representation of diagram</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">diagram</span> <span class="o">=</span> <span class="n">create</span><span class="p">(</span><span class="o">*</span><span class="n">models</span><span class="p">,</span> <span class="n">termini</span><span class="o">=</span><span class="n">termini</span><span class="p">)</span>
+    <span class="n">diagram</span> <span class="o">=</span> <span class="n">create</span><span class="p">(</span>
+        <span class="o">*</span><span class="n">models_or_modules</span><span class="p">,</span> <span class="n">termini</span><span class="o">=</span><span class="n">termini</span><span class="p">,</span> <span class="n">limit_search_models_to</span><span class="o">=</span><span class="n">limit_search_models_to</span>
+    <span class="p">)</span>
     <span class="k">return</span> <span class="n">diagram</span><span class="o">.</span><span class="n">to_dot</span><span class="p">()</span>
 </code></pre></div>
         </details>

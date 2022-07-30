@@ -477,6 +477,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#erdantic.base.get_model_adapter" class="md-nav__link">
+    get_model_adapter()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#erdantic.base.register_model_adapter" class="md-nav__link">
     register_model_adapter()
   </a>
@@ -736,6 +743,13 @@
   
     <nav class="md-nav" aria-label="Functions">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#erdantic.base.get_model_adapter" class="md-nav__link">
+    get_model_adapter()
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#erdantic.base.register_model_adapter" class="md-nav__link">
@@ -1639,6 +1653,41 @@ representation.</p>
 
 
 <h2 id="erdantic.base-functions">Functions<a href="#erdantic.base-functions" class="headerlink" title="Permanent link">&para;</a></h2>
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="erdantic.base.get_model_adapter" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_model_adapter</span><span class="p">(</span><span class="n">key_or_adapter</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">])</span></code>
+
+
+<a href="#erdantic.base.get_model_adapter" class="headerlink" title="Permanent link">&para;</a></h3>
+
+    <div class="doc doc-contents ">
+
+
+        <details class="quote">
+          <summary>Source code in <code>erdantic/base.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_model_adapter</span><span class="p">(</span><span class="n">key_or_adapter</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">]):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key_or_adapter</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">model_adapter_registry</span><span class="p">[</span><span class="n">key_or_adapter</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ModelAdapterNotFoundError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;No model adapter registered with key </span><span class="si">{</span><span class="n">key_or_adapter</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key_or_adapter</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">key_or_adapter</span><span class="p">,</span> <span class="n">Model</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">key_or_adapter</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">InvalidModelAdapterError</span><span class="p">(</span><span class="s2">&quot;Input must be str or subclass of erdantic.base.Model.&quot;</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
 
   <div class="doc doc-object doc-function">
 
