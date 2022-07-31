@@ -12,8 +12,6 @@ from erdantic.examples.pydantic import Party, Quest
 from erdantic.exceptions import ModelOrModuleNotFoundError
 from erdantic.version import __version__
 
-from tests.utils import strip_ansi_escape_codes
-
 
 runner = CliRunner()
 
@@ -142,9 +140,8 @@ def test_with_modules(tmp_path):
 def test_missing_out():
     result = runner.invoke(app, ["erdantic.examples.pydantic.Party"])
     assert result.exit_code == 2
-    stdout = strip_ansi_escape_codes(result.stdout)
-    assert "Error" in stdout, stdout
-    assert "Missing option '--out' / '-o'." in stdout, stdout
+    assert "Error" in result.stdout
+    assert "Missing option '--out' / '-o'." in result.stdout
 
 
 def test_no_overwrite(tmp_path):
