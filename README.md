@@ -34,7 +34,7 @@ pip install erdantic
 You can get the development version from GitHub with:
 
 ```bash
-pip install https://github.com/drivendataorg/erdantic.git#egg=erdantic
+pip install git+https://github.com/drivendataorg/erdantic.git#egg=erdantic
 ```
 
 ## Quick Usage
