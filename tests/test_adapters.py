@@ -37,7 +37,6 @@ def version_patch(monkeypatch):
 
 
 def test_is_model_type(model_class, examples):
-
     assert model_class.is_model_type(examples.Party)
 
     class JustAClass:
