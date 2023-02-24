@@ -9,7 +9,7 @@ description = "Entity relationship diagrams for Python data model classes like P
 readme = "README.md"
 authors = [{ name = "DrivenData", email = "info@drivendata.org" }]
 license = { file = "LICENSE" }
-keywords = ["reprex", "reproducible examples"]
+keywords = ["erd", "entity relationship diagram", "dataclasses", "pydantic"]
 classifiers = [
   "Intended Audience :: Developers",
   "Topic :: Software Development :: Code Generators",
