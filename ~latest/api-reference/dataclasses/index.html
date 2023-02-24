@@ -979,7 +979,8 @@ reference in a field's type declaration.</p></td>
 </table>
         <details class="quote">
           <summary>Source code in <code>erdantic/dataclasses.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">DataClassModel</span><span class="p">(</span><span class="n">Model</span><span class="p">[</span><span class="nb">type</span><span class="p">]):</span>
+          <div class="highlight"><pre><span></span><code><span class="nd">@register_model_adapter</span><span class="p">(</span><span class="s2">&quot;dataclasses&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">DataClassModel</span><span class="p">(</span><span class="n">Model</span><span class="p">[</span><span class="nb">type</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Concrete model adapter class for a</span>
 <span class="sd">    [`dataclasses` module](https://docs.python.org/3/library/dataclasses.html) dataclass.</span>
 

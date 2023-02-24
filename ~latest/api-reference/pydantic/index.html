@@ -977,7 +977,8 @@ reference in a field's type declaration.</p></td>
 </table>
         <details class="quote">
           <summary>Source code in <code>erdantic/pydantic.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">PydanticModel</span><span class="p">(</span><span class="n">Model</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">pydantic</span><span class="o">.</span><span class="n">BaseModel</span><span class="p">]]):</span>
+          <div class="highlight"><pre><span></span><code><span class="nd">@register_model_adapter</span><span class="p">(</span><span class="s2">&quot;pydantic&quot;</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">PydanticModel</span><span class="p">(</span><span class="n">Model</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">pydantic</span><span class="o">.</span><span class="n">BaseModel</span><span class="p">]]):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Concrete model adapter class for a Pydantic</span>
 <span class="sd">    [`BaseModel`](https://pydantic-docs.helpmanual.io/usage/models/).</span>
 
