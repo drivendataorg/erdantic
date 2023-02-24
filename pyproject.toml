@@ -31,7 +31,7 @@ dependencies = [
 ]
 
 [project.scripts]
-reprex = "erdantic.cli:app"
+erdantic = "erdantic.cli:app"
 
 [project.urls]
 "Repository" = "https://github.com/drivendataorg/erdantic"
