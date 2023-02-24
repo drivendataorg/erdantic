@@ -1,6 +1,7 @@
 -e .
 
 black
+build
 flake8
 jupyterlab
 mdx_truly_sane_lists==1.2

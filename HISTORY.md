@@ -1,5 +1,9 @@
 # erdantic Changelog
 
+## v0.6.0 (Unreleased)
+
+- Changed to pyproject.toml-based build.
+
 ## v0.5.0 (2022-07-29)
 
 - Removed support for Python 3.6. ([Issue #51](https://github.com/drivendataorg/erdantic/issues/51), [PR #56](https://github.com/drivendataorg/erdantic/pull/56))

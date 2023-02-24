@@ -1,6 +1,47 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "erdantic"
+version = "0.6.0"
+description = "Entity relationship diagrams for Python data model classes like Pydantic."
+readme = "README.md"
+authors = [{ name = "DrivenData", email = "info@drivendata.org" }]
+license = { file = "LICENSE" }
+keywords = ["erd", "entity relationship diagram", "dataclasses", "pydantic"]
+classifiers = [
+  "Intended Audience :: Developers",
+  "Topic :: Software Development :: Code Generators",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+]
+requires-python = ">=3.7"
+dependencies = [
+  "importlib_metadata ; python_version < '3.8'",
+  "pydantic",
+  "pygraphviz",
+  "typer",
+  "typing_extensions>4 ; python_version < '3.8'",
+]
+
+[project.scripts]
+erdantic = "erdantic.cli:app"
+
+[project.urls]
+"Repository" = "https://github.com/drivendataorg/erdantic"
+"Documentation" = "https://erdantic.drivendata.org/"
+"Bug Tracker" = "https://github.com/drivendataorg/erdantic/issues"
+"Changelog" = "https://erdantic.drivendata.org/stable/changelog/"
+
+
 [tool.black]
 line-length = 99
-target-version = ['py37', 'py38', 'py39', 'py310']
 include = '\.pyi?$'
 exclude = '''
 /(
@@ -13,3 +54,14 @@ exclude = '''
   | dist
 )/
 '''
+
+[tool.mypy]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "--cov=erdantic --cov-report=term --cov-report=html --cov-report=xml"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["erdantic"]
