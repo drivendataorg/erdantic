@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://erdantic.drivendata.org/~latest/api-reference/erd/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-8.5.10">
     
     
       
@@ -1859,11 +1859,11 @@ the two respective provided set instances.</p>
             <span class="k">except</span> <span class="n">_UnevaluatedForwardRefError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">UnevaluatedForwardRefError</span><span class="p">(</span>
                     <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="n">field</span><span class="p">,</span> <span class="n">forward_ref</span><span class="o">=</span><span class="n">e</span><span class="o">.</span><span class="n">forward_ref</span>
-                <span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span>
+                <span class="p">)</span> <span class="kn">from</span> <span class="kc">None</span>
             <span class="k">except</span> <span class="n">_StringForwardRefError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">StringForwardRefError</span><span class="p">(</span>
                     <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="n">field</span><span class="p">,</span> <span class="n">forward_ref</span><span class="o">=</span><span class="n">e</span><span class="o">.</span><span class="n">forward_ref</span>
-                <span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span>
+                <span class="p">)</span> <span class="kn">from</span> <span class="kc">None</span>
 </code></pre></div>
         </details>
     </div>
