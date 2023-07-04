@@ -1,7 +1,8 @@
 # erdantic Changelog
 
-## v0.6.0 (Unreleased)
+## v0.5.1 (2023-07-04)
 
+- Changed pydantic dependency to be `< 2`. This will be the final version of erdantic that supports pydantic v1.
 - Changed to pyproject.toml-based build.
 
 ## v0.5.0 (2022-07-29)
