@@ -28,6 +28,8 @@ jobs:
 
       - name: Setup Graphviz
         uses: ts-graphviz/setup-graphviz@v1
+        with:
+          macos-skip-brew-update: 'true'
 
       - name: Install dependencies
         run: |
@@ -62,6 +64,8 @@ jobs:
 
       - name: Setup Graphviz
         uses: ts-graphviz/setup-graphviz@v1
+        with:
+          macos-skip-brew-update: 'true'
 
       - name: Install dependencies
         run: |
