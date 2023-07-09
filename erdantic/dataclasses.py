@@ -1,11 +1,10 @@
-import collections.abc
 import dataclasses
 from typing import Any, List, Union
 
 
 from erdantic.base import Field, Model, register_model_adapter
 from erdantic.exceptions import InvalidFieldError, InvalidModelError
-from erdantic.typing import GenericAlias, get_args, get_origin
+from erdantic.typing import GenericAlias, is_many, is_nullable
 
 
 class DataClassField(Field[dataclasses.Field]):
@@ -30,15 +29,10 @@ class DataClassField(Field[dataclasses.Field]):
         return self.field.type
 
     def is_many(self) -> bool:
-        origin = get_origin(self.type_obj)
-        return isinstance(origin, type) and (
-            issubclass(origin, collections.abc.Container)
-            or issubclass(origin, collections.abc.Iterable)
-            or issubclass(origin, collections.abc.Sized)
-        )
+        return is_many(self.type_obj)
 
     def is_nullable(self) -> bool:
-        return get_origin(self.type_obj) is Union and type(None) in get_args(self.type_obj)
+        return is_nullable(self.type_obj)
 
 
 @register_model_adapter("dataclasses")

@@ -1,3 +1,4 @@
+import collections.abc
 from enum import Enum
 from typing import Any, List, Type, Union
 
@@ -24,6 +25,19 @@ try:
     from typing import get_args, get_origin  # type: ignore # Python 3.8+
 except ImportError:
     from typing_extensions import get_args, get_origin  # type: ignore # Python 3.7
+
+
+def is_many(tp: Union[type, GenericAlias]) -> bool:
+    origin = get_origin(tp)
+    return isinstance(origin, type) and (
+        issubclass(origin, collections.abc.Container)
+        or issubclass(origin, collections.abc.Iterable)
+        or issubclass(origin, collections.abc.Sized)
+    )
+
+
+def is_nullable(tp: Union[type, GenericAlias]) -> bool:
+    return get_origin(tp) is Union and type(None) in get_args(tp)
 
 
 def get_depth1_bases(tp: type) -> List[type]:
