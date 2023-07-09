@@ -25,7 +25,8 @@ classifiers = [
 requires-python = ">=3.7"
 dependencies = [
   "importlib_metadata ; python_version < '3.8'",
-  "pydantic < 2",
+  "pydantic >= 2",
+  "pydantic-core",
   "pygraphviz",
   "typer",
   "typing_extensions > 4 ; python_version < '3.8'",
