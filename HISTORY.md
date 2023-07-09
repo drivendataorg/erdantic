@@ -1,5 +1,12 @@
 # erdantic Changelog
 
+## v0.6.0 (2023-07-09)
+
+- Added support for Pydantic V2.
+- Removed support for Pydantic V1.
+- Changed the init signature for `PydanticField` to work with Pydantic V2's API.
+- Added `is_many` and `is_nullable` functions to `erdantic.typing`.
+
 ## v0.5.1 (2023-07-04)
 
 - Changed pydantic dependency to be `< 2`. This will be the final version of erdantic that supports pydantic v1.

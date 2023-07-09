@@ -28,6 +28,14 @@ except ImportError:
 
 
 def is_many(tp: Union[type, GenericAlias]) -> bool:
+    """Given a type annotation, returns True if it represents a collection of many elements.
+
+    Args:
+        tp (Union[type, GenericAlias]): Type annotation
+
+    Returns:
+        bool: Result of check
+    """
     origin = get_origin(tp)
     return isinstance(origin, type) and (
         issubclass(origin, collections.abc.Container)
@@ -37,6 +45,15 @@ def is_many(tp: Union[type, GenericAlias]) -> bool:
 
 
 def is_nullable(tp: Union[type, GenericAlias]) -> bool:
+    """Given a type annotation, returns True if it is the typing.Optional type, meaning that a
+    value of None is accepted.
+
+    Args:
+        tp (Union[type, GenericAlias]): Type annotation
+
+    Returns:
+        bool: Result of check
+    """
     return get_origin(tp) is Union and type(None) in get_args(tp)
 
 
