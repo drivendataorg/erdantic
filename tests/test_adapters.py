@@ -99,12 +99,13 @@ def test_model_comparisons(model_class, examples):
 
 
 def test_field_comparisons(model_class, field_class, examples):
-    raw_fields = [f.field for f in model_class(examples.Party).fields]
-    assert field_class(raw_fields[0]) == field_class(raw_fields[0])
-    assert field_class(raw_fields[0]) != field_class(raw_fields[1])
-    assert field_class(raw_fields[0]) in [field_class(raw_fields[0])]
-    assert field_class(raw_fields[0]) in {field_class(raw_fields[0])}
-    assert field_class(raw_fields[0]) not in {field_class(raw_fields[1])}
+    model1 = model_class(examples.Party)
+    model2 = model_class(examples.Party)
+    assert model1.fields[0] == model2.fields[0]
+    assert model1.fields[0] != model1.fields[1]
+    assert model1.fields[0] in [model1.fields[0]]
+    assert model1.fields[0] in {model1.fields[0]}
+    assert model1.fields[0] not in [model1.fields[1]]
 
 
 def test_draw_png(key, examples, tmp_path, version_patch):

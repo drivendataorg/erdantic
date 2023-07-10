@@ -4,7 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "erdantic"
-version = "0.5.1"
+version = "0.6.0"
 description = "Entity relationship diagrams for Python data model classes like Pydantic."
 readme = "README.md"
 authors = [{ name = "DrivenData", email = "info@drivendata.org" }]
@@ -25,7 +25,8 @@ classifiers = [
 requires-python = ">=3.7"
 dependencies = [
   "importlib_metadata ; python_version < '3.8'",
-  "pydantic < 2",
+  "pydantic >= 2",
+  "pydantic-core",
   "pygraphviz",
   "typer",
   "typing_extensions > 4 ; python_version < '3.8'",

@@ -1,14 +1,15 @@
-from typing import Any, List, Optional, Union, Type
+from typing import Any, List, Union, Type
 
 import pydantic
 import pydantic.fields
+import pydantic_core
 
 from erdantic.base import Field, Model, register_model_adapter
 from erdantic.exceptions import InvalidFieldError, InvalidModelError
-from erdantic.typing import GenericAlias, repr_type_with_mro
+from erdantic.typing import GenericAlias, repr_type_with_mro, is_many, is_nullable
 
 
-class PydanticField(Field[pydantic.fields.ModelField]):
+class PydanticField(Field[pydantic.fields.FieldInfo]):
     """Concrete field adapter class for Pydantic fields.
 
     Attributes:
@@ -16,29 +17,27 @@ class PydanticField(Field[pydantic.fields.ModelField]):
             adapter instance.
     """
 
-    def __init__(self, field: pydantic.fields.ModelField):
-        if not isinstance(field, pydantic.fields.ModelField):
+    def __init__(self, name: str, field_info: pydantic.fields.FieldInfo):
+        self._name = name
+        if not isinstance(field_info, pydantic.fields.FieldInfo):
             raise InvalidFieldError(
-                f"field must be of type pydantic.fields.ModelField. Got: {type(field)}"
+                f"field_info must be of type pydantic.fields.FieldInfo. Got: {type(field_info)}"
             )
-        super().__init__(field=field)
+        super().__init__(field=field_info)
 
     @property
     def name(self) -> str:
-        return self.field.name
+        return self._name
 
     @property
     def type_obj(self) -> Union[type, GenericAlias]:
-        tp = self.field.outer_type_
-        if self.field.allow_none:
-            return Optional[tp]
-        return tp
+        return self.field.annotation
 
     def is_many(self) -> bool:
-        return self.field.shape > 1
+        return is_many(self.type_obj)
 
     def is_nullable(self) -> bool:
-        return self.field.allow_none
+        return is_nullable(self.type_obj)
 
 
 @register_model_adapter("pydantic")
@@ -72,24 +71,25 @@ class PydanticModel(Model[Type[pydantic.BaseModel]]):
 
     @property
     def fields(self) -> List[Field]:
-        return [PydanticField(field=f) for f in self.model.__fields__.values()]
+        return [
+            PydanticField(name=name, field_info=field_info)
+            for name, field_info in self.model.model_fields.items()
+        ]
 
     @property
     def docstring(self) -> str:
         out = super().docstring
-        field_descriptions = [
-            getattr(field.field.field_info, "description", None) for field in self.fields
-        ]
+        field_descriptions = [field.field.description for field in self.fields]
         if any(descr is not None for descr in field_descriptions):
             # Sometimes Pydantic models have field documentation as descriptions as metadata on the
             # field instead of in the docstring. If detected, construct docstring and add.
             out += "\nAttributes:\n"
-            field_defaults = [field.field.field_info.default for field in self.fields]
+            field_defaults = [field.field.default for field in self.fields]
             for field, descr, default in zip(self.fields, field_descriptions, field_defaults):
                 if descr is not None:
                     line = f"{field.name} ({field.type_name}): {descr}"
                     if (
-                        not isinstance(default, pydantic.fields.UndefinedType)
+                        not isinstance(default, pydantic_core.PydanticUndefinedType)
                         and default is not ...
                     ):
                         if not line.strip().endswith("."):

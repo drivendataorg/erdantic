@@ -2,10 +2,8 @@ import textwrap
 from typing import Any, Dict, List, Optional, Tuple
 
 from pydantic import BaseModel, Field
-import pytest
 
 import erdantic as erd
-from erdantic.exceptions import UnevaluatedForwardRefError
 from erdantic.pydantic import PydanticModel
 
 
@@ -28,18 +26,13 @@ def test_model_graph_search_nested_args():
 
 
 def test_unevaluated_forward_ref():
+    """Pydantic V2 handles typical forward reference cases automatically."""
+
     class PydanticItem(BaseModel):
         name: str
 
     class PydanticContainer(BaseModel):
         items: List["PydanticItem"]
-
-    # Unevaluated forward ref should error
-    with pytest.raises(UnevaluatedForwardRefError, match="update_forward_refs"):
-        _ = erd.create(PydanticContainer)
-
-    # Evaluate forward ref
-    PydanticContainer.update_forward_refs(**locals())
 
     # Test that model can be used
     _ = PydanticContainer(items=[PydanticItem(name="thingie")])
