@@ -739,15 +739,10 @@ adapter instance.</p></td>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="o">.</span><span class="n">type</span>
 
     <span class="k">def</span> <span class="nf">is_many</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="n">origin</span> <span class="o">=</span> <span class="n">get_origin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type_obj</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
-            <span class="nb">issubclass</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Container</span><span class="p">)</span>
-            <span class="ow">or</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Iterable</span><span class="p">)</span>
-            <span class="ow">or</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Sized</span><span class="p">)</span>
-        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">is_many</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type_obj</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">is_nullable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">get_origin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type_obj</span><span class="p">)</span> <span class="ow">is</span> <span class="n">Union</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="ow">in</span> <span class="n">get_args</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type_obj</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">is_nullable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type_obj</span><span class="p">)</span>
 </code></pre></div>
         </details>
 
@@ -871,12 +866,7 @@ adapter instance.</p></td>
         <details class="quote">
           <summary>Source code in <code>erdantic/dataclasses.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">is_many</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="n">origin</span> <span class="o">=</span> <span class="n">get_origin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type_obj</span><span class="p">)</span>
-    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
-        <span class="nb">issubclass</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Container</span><span class="p">)</span>
-        <span class="ow">or</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Iterable</span><span class="p">)</span>
-        <span class="ow">or</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">collections</span><span class="o">.</span><span class="n">abc</span><span class="o">.</span><span class="n">Sized</span><span class="p">)</span>
-    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">is_many</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type_obj</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
@@ -917,7 +907,7 @@ adapter instance.</p></td>
         <details class="quote">
           <summary>Source code in <code>erdantic/dataclasses.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">is_nullable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">get_origin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type_obj</span><span class="p">)</span> <span class="ow">is</span> <span class="n">Union</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="ow">in</span> <span class="n">get_args</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type_obj</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">is_nullable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type_obj</span><span class="p">)</span>
 </code></pre></div>
         </details>
     </div>
