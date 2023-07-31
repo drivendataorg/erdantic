@@ -4,7 +4,7 @@ black
 build
 flake8
 jupyterlab
-mdx_truly_sane_lists==1.2
+mdx_truly_sane_lists==1.3
 mike
 mkdocs>=1.2.2
 mkdocs-jupyter
