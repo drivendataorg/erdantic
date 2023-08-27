@@ -1,7 +1,7 @@
 import inspect
 import os
 from types import ModuleType
-from typing import Any, Iterable, Iterator, List, Optional, Sequence, Set, Type, Union
+from typing import Any, Iterable, Iterator, List, Optional, Sequence, Set, Type, Union, Literal
 
 import pygraphviz as pgv
 
@@ -28,20 +28,38 @@ class Edge:
         source (Model): Composite data model.
         source_field (Field): Field on `source` that has type of `target.
         target (Model): Component data model.
+        cardinality (Optional[Literal[`many`, `one`]], optional): Field to override the cardinality (`many` or `one`).
+        modality (Optional[Literal[`one`, `zero`]], optional): Field to override the modality  (`zero` or `one`).
     """
 
     source: "Model"
     source_field: "Field"
     target: "Model"
 
-    def __init__(self, source: "Model", source_field: "Field", target: "Model"):
+    def __init__(
+        self,
+        source: "Model",
+        source_field: "Field",
+        target: "Model",
+        cardinality: Optional[Literal["many", "one"]] = None,
+        modality: Optional[Literal["one", "zero"]] = None,
+    ):
         if source_field not in set(source.fields):
             raise UnknownFieldError(
                 f"source_field {source_field} is not a field of source {source}"
             )
+
         self.source = source
         self.source_field = source_field
         self.target = target
+        if cardinality not in ["many", "one", None]:
+            raise ValueError("Cardinality can only be set to `many`, `one` or None")
+        else:
+            self.cardinality = cardinality
+        if modality not in ["zero", "one", None]:
+            raise ValueError("Modality can only be set to `zero`, `one` or None")
+        else:
+            self.modality = modality
 
     def dot_arrowhead(self) -> str:
         """Arrow shape specification in Graphviz DOT language for this edge's head. See
@@ -52,10 +70,19 @@ class Edge:
         Returns:
             str: DOT language specification for arrow shape of this edge's head
         """
-        cardinality = "crow" if self.source_field.is_many() else "nonetee"
-        modality = (
-            "odot" if self.source_field.is_nullable() or self.source_field.is_many() else "tee"
-        )
+        if self.cardinality is not None:
+            cardinality = "crow" if self.cardinality == "many" else "nonetee"
+        else:
+            cardinality = "crow" if self.source_field.is_many() else "nonetee"
+
+        if self.modality is not None:
+            modality = "odot" if self.modality == "zero" else "tee"
+        elif self.cardinality is not None:
+            modality = "odot" if self.cardinality == "many" else "tee"
+        else:
+            modality = (
+                "odot" if self.source_field.is_nullable() or self.source_field.is_many() else "tee"
+            )
         return cardinality + modality
 
     def __hash__(self) -> int:
