@@ -27,7 +27,10 @@ except ImportError:
     from typing_extensions import get_args, get_origin  # type: ignore # Python 3.7
 
 
-def is_many(tp: Union[type, GenericAlias]) -> bool:
+TypeAnnotation = Union[type, GenericAlias]
+
+
+def is_many(obj: Any) -> bool:
     """Given a type annotation, returns True if it represents a collection of many elements.
 
     Args:
@@ -55,6 +58,27 @@ def is_nullable(tp: Union[type, GenericAlias]) -> bool:
         bool: Result of check
     """
     return get_origin(tp) is Union and type(None) in get_args(tp)
+
+
+def is_nullable_type(tp) -> bool:
+    return get_origin(tp) is Union and type(None) in get_args(tp)
+
+
+def is_collection_type(tp) -> bool:
+    """Given a type annotation, returns True if it represents a collection of many elements.
+
+    Args:
+        tp (Union[type, GenericAlias]): Type annotation
+
+    Returns:
+        bool: Result of check
+    """
+    origin = get_origin(tp)
+    return isinstance(origin, type) and (
+        issubclass(origin, collections.abc.Container)
+        or issubclass(origin, collections.abc.Iterable)
+        or issubclass(origin, collections.abc.Sized)
+    )
 
 
 def get_depth1_bases(tp: type) -> List[type]:
