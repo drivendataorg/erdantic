@@ -1,7 +1,6 @@
 from pathlib import Path
 from types import ModuleType
 
-
 import erdantic as erd
 import erdantic.erd
 import erdantic.examples.dataclasses

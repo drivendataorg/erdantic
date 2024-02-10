@@ -41,20 +41,21 @@ erdantic = "erdantic.cli:app"
 "Bug Tracker" = "https://github.com/drivendataorg/erdantic/issues"
 "Changelog" = "https://erdantic.drivendata.org/stable/changelog/"
 
-[tool.black]
+[tool.ruff]
 line-length = 99
-include = '\.pyi?$'
-exclude = '''
-/(
-    \.eggs
-  | \.git
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | build
-  | dist
-)/
-'''
+src = ["erdantic/**/*.py", "tests/**/*.py"]
+
+[tool.ruff.lint]
+select = [
+  "E", # Pyflakes
+  "F", # Pycodestyle
+  "I", # isort
+]
+unfixable = ["F"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["erdantic"]
+force-sort-within-sections = true
 
 [tool.mypy]
 ignore_missing_imports = true
