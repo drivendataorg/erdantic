@@ -24,7 +24,7 @@ jobs:
       - name: Install hatch
         run: |
           pipx install hatch
-          pipx inject hatch hatch-conda
+          pipx inject hatch git+https://github.com/jayqi/hatch-conda.git@27-fix-filenotfounderror-hatchling
 
       - uses: conda-incubator/setup-miniconda@v3
         with:
@@ -55,7 +55,7 @@ jobs:
       - name: Install hatch
         run: |
           pipx install hatch
-          pipx inject hatch hatch-conda
+          pipx inject hatch git+https://github.com/jayqi/hatch-conda.git@27-fix-filenotfounderror-hatchling
 
       - uses: conda-incubator/setup-miniconda@v3
         with:
