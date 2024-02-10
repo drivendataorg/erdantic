@@ -59,7 +59,7 @@ python = "3.10"
 
 [tool.hatch.envs.default.scripts]
 lint = ["ruff format --check {args:.}", "ruff check {args:.}"]
-typecheck = ["mypy {args:repro_tarfile.py cli} --install-types --non-interactive"]
+typecheck = ["mypy {args:erdantic} --install-types --non-interactive"]
 
 ## DOCS ENVIRONMENT ##
 
