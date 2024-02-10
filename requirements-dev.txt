@@ -9,7 +9,7 @@ mkdocs-jupyter
 mkdocs-material>=7.2.6
 mkdocstrings[python-legacy]>=0.19.0
 mypy
-nbconvert<6.5
+nbconvert>=7.7.0
 pytest<8
 pytest-cases
 pytest-cov
