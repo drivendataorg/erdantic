@@ -1,6 +1,6 @@
 [build-system]
-requires = ["flit_core >=3.2,<4"]
-build-backend = "flit_core.buildapi"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
 name = "erdantic"
@@ -32,6 +32,9 @@ dependencies = [
   "typing_extensions > 4 ; python_version < '3.8'",
 ]
 
+[project.optional-dependencies]
+tests = ["pytest>=6,<8", "pytest-cases"]
+
 [project.scripts]
 erdantic = "erdantic.cli:app"
 
@@ -40,6 +43,56 @@ erdantic = "erdantic.cli:app"
 "Documentation" = "https://erdantic.drivendata.org/"
 "Bug Tracker" = "https://github.com/drivendataorg/erdantic/issues"
 "Changelog" = "https://erdantic.drivendata.org/stable/changelog/"
+
+## DEFAULT ENVIRONMENT ##
+
+[tool.hatch.envs.default]
+type="conda"
+command="mamba"
+conda-forge=true
+pre-install-commands = [
+  "mamba install graphviz -y",
+]
+features = ["tests"]
+dependencies = ["ipython", "mypy>=1.0.0", "ruff>=0.1.14"]
+python = "3.10"
+
+[tool.hatch.envs.default.scripts]
+lint = ["ruff format --check {args:.}", "ruff check {args:.}"]
+typecheck = ["mypy {args:repro_tarfile.py cli} --install-types --non-interactive"]
+
+## DOCS ENVIRONMENT ##
+
+[tool.hatch.envs.docs]
+dependencies = [
+  "mdx_truly_sane_lists==1.3",
+  "mike",
+  "mkdocs>=1.2.2",
+  "mkdocs-jupyter",
+  "mkdocs-material>=7.2.6",
+  "mkdocstrings[python-legacy]>=0.19.0",
+]
+
+## TESTS ENVIRONMENT ##
+
+[tool.hatch.envs.tests]
+type="conda"
+command="mamba"
+conda-forge=true
+pre-install-commands = [
+  "mamba install graphviz -y",
+]
+features = ["tests"]
+dependencies = ["coverage>=6.5", "pytest-cov"]
+template = "tests"
+
+[[tool.hatch.envs.tests.matrix]]
+python = ["3.8", "3.9", "3.10", "3.11", "3.12"]
+
+[tool.hatch.envs.tests.scripts]
+test = "pytest {args:tests} -v --cov=. --cov-report=term --cov-report=html --cov-report=xml"
+
+## TOOLS ##
 
 [tool.ruff]
 line-length = 99
