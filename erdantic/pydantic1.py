@@ -1,4 +1,4 @@
-from typing import Any, List, Optional, Union, Type
+from typing import Any, List, Optional, Type, Union
 
 import pydantic.v1
 import pydantic.v1.fields
@@ -81,7 +81,7 @@ class PydanticModel(Model[Type[pydantic.v1.BaseModel]]):
             getattr(field.field.field_info, "description", None) for field in self.fields
         ]
         if any(descr is not None for descr in field_descriptions):
-            # Sometimes Pydantic  models have field documentation as descriptions as metadata on the
+            # Sometimes Pydantic models have field documentation as descriptions as metadata on the
             # field instead of in the docstring. If detected, construct docstring and add.
             out += "\nAttributes:\n"
             field_defaults = [field.field.field_info.default for field in self.fields]
