@@ -24,6 +24,7 @@ jobs:
       - name: Install hatch
         run: |
           pipx install hatch
+          pipx inject hatch hatch-conda
 
       - uses: conda-incubator/setup-miniconda@v3
         with:
@@ -54,6 +55,7 @@ jobs:
       - name: Install hatch
         run: |
           pipx install hatch
+          pipx inject hatch hatch-conda
 
       - uses: conda-incubator/setup-miniconda@v3
         with:
