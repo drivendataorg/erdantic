@@ -1,7 +1,6 @@
 from enum import Enum, IntFlag
 import sys
 import typing
-
 from typing import ForwardRef  # docs claim Python >= 3.7.4 but actually it's in Python 3.7.0+
 
 try:

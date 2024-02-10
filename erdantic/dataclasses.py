@@ -1,7 +1,6 @@
 import dataclasses
 from typing import Any, List, Union
 
-
 from erdantic.base import Field, Model, register_model_adapter
 from erdantic.exceptions import InvalidFieldError, InvalidModelError
 from erdantic.typing import GenericAlias, is_many, is_nullable

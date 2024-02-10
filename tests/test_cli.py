@@ -12,7 +12,6 @@ from erdantic.examples.pydantic import Party, Quest
 from erdantic.exceptions import ModelOrModuleNotFoundError
 from erdantic.version import __version__
 
-
 runner = CliRunner()
 
 

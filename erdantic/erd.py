@@ -5,15 +5,15 @@ from typing import Any, Iterable, Iterator, List, Optional, Sequence, Set, Type,
 
 import pygraphviz as pgv
 
-from erdantic.base import Field, get_model_adapter, Model, model_adapter_registry
+from erdantic.base import Field, Model, get_model_adapter, model_adapter_registry
 from erdantic.exceptions import (
     NotATypeError,
-    _StringForwardRefError,
     StringForwardRefError,
-    _UnevaluatedForwardRefError,
     UnevaluatedForwardRefError,
     UnknownFieldError,
     UnknownModelTypeError,
+    _StringForwardRefError,
+    _UnevaluatedForwardRefError,
 )
 from erdantic.typing import get_recursive_args
 from erdantic.version import __version__

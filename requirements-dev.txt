@@ -1,8 +1,6 @@
 -e .
 
-black
 build
-flake8
 jupyterlab
 mdx_truly_sane_lists==1.3
 mike
@@ -15,5 +13,6 @@ nbconvert<6.5
 pytest<8
 pytest-cases
 pytest-cov
+ruff>=0.1.14
 twine
 wheel

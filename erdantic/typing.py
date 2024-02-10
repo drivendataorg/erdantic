@@ -20,7 +20,6 @@ except ImportError:
 
 from erdantic.exceptions import _StringForwardRefError, _UnevaluatedForwardRefError
 
-
 try:
     from typing import get_args, get_origin  # type: ignore # Python 3.8+
 except ImportError:
