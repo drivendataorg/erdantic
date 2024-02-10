@@ -1,7 +1,11 @@
 import dataclasses
-from typing import Dict, List, Tuple, get_type_hints
-
-from typing import ForwardRef  # docs claim Python >= 3.7.4 but actually it's in Python 3.7.0+
+from typing import (
+    Dict,
+    ForwardRef,  # docs claim Python >= 3.7.4 but actually it's in Python 3.7.0+
+    List,
+    Tuple,
+    get_type_hints,
+)
 
 import pytest
 

@@ -68,8 +68,8 @@ help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
 lint: ## run linting and code quality checks
-	black --check erdantic tests docs
-	flake8 erdantic tests docs
+	ruff format --check erdantic tests docs
+	ruff check erdantic tests docs
 
 pypitest: dist
 	twine upload --repository testpypi dist/*

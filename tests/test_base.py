@@ -1,7 +1,7 @@
 import pytest
 
 import erdantic as erd
-from erdantic.base import Field, get_model_adapter, Model, register_model_adapter
+from erdantic.base import Field, Model, get_model_adapter, register_model_adapter
 from erdantic.examples.pydantic import Party
 from erdantic.exceptions import InvalidModelAdapterError, ModelAdapterNotFoundError
 from erdantic.pydantic import PydanticModel

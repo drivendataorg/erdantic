@@ -1,7 +1,7 @@
 from enum import Enum
 from importlib import import_module
 from pathlib import Path
-from typing import List, Optional, TYPE_CHECKING
+from typing import TYPE_CHECKING, List, Optional
 
 import typer
 
@@ -9,7 +9,6 @@ from erdantic.base import model_adapter_registry
 from erdantic.erd import create
 from erdantic.exceptions import ModelOrModuleNotFoundError
 from erdantic.version import __version__
-
 
 app = typer.Typer()
 

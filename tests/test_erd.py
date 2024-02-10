@@ -5,15 +5,15 @@ import pytest
 
 import erdantic as erd
 from erdantic.erd import Edge, find_models
+import erdantic.examples.dataclasses as examples_dataclasses
+import erdantic.examples.pydantic as examples_pydantic
+from erdantic.examples.pydantic import Adventurer, Party, Quest, QuestGiver
 from erdantic.exceptions import (
-    NotATypeError,
     InvalidModelAdapterError,
     ModelAdapterNotFoundError,
+    NotATypeError,
     UnknownModelTypeError,
 )
-from erdantic.examples.pydantic import Party, Adventurer, Quest, QuestGiver
-import erdantic.examples.pydantic as examples_pydantic
-import erdantic.examples.dataclasses as examples_dataclasses
 from erdantic.pydantic import PydanticModel
 
 

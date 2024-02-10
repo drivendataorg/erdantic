@@ -5,7 +5,6 @@ from typing import Any, Callable, Dict, Generic, List, Optional, Type, TypeVar, 
 from erdantic.exceptions import InvalidModelAdapterError, ModelAdapterNotFoundError
 from erdantic.typing import Final, GenericAlias, repr_type
 
-
 _row_template = """<tr><td>{name}</td><td port="{name}">{type_name}</td></tr>"""
 
 

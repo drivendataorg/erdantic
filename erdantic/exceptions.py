@@ -1,9 +1,11 @@
-from typing import Optional, TYPE_CHECKING
-
-from typing import ForwardRef  # docs claim Python >= 3.7.4 but actually it's in Python 3.7.0+
+from typing import (
+    TYPE_CHECKING,
+    ForwardRef,  # docs claim Python >= 3.7.4 but actually it's in Python 3.7.0+
+    Optional,
+)
 
 if TYPE_CHECKING:
-    from erdantic.base import Model, Field
+    from erdantic.base import Field, Model
 
 
 class ErdanticException(Exception):

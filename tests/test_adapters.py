@@ -7,14 +7,12 @@ import pytest
 from pytest_cases import param_fixtures
 
 import erdantic as erd
+from erdantic.dataclasses import DataClassField, DataClassModel
 import erdantic.erd
 import erdantic.examples.dataclasses
 import erdantic.examples.pydantic
-from erdantic.dataclasses import DataClassField, DataClassModel
 from erdantic.pydantic import PydanticField, PydanticModel
-
 from tests.utils import assert_dot_equals
-
 
 ASSETS_DIR = Path(__file__).parent / "assets"
 

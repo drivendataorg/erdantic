@@ -1,4 +1,4 @@
-from typing import Any, List, Union, Type
+from typing import Any, List, Type, Union
 
 import pydantic
 import pydantic.fields
@@ -6,7 +6,7 @@ import pydantic_core
 
 from erdantic.base import Field, Model, register_model_adapter
 from erdantic.exceptions import InvalidFieldError, InvalidModelError
-from erdantic.typing import GenericAlias, repr_type_with_mro, is_many, is_nullable
+from erdantic.typing import GenericAlias, is_many, is_nullable, repr_type_with_mro
 
 
 class PydanticField(Field[pydantic.fields.FieldInfo]):
