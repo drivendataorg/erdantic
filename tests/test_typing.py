@@ -1,7 +1,6 @@
 import typing
 from typing import Literal
 
-
 from erdantic.typing import (
     get_depth1_bases,
     get_recursive_args,
