@@ -13,7 +13,7 @@ from typing import (
     Union,
 )
 
-from typenames import typenames, REMOVE_ALL_MODULES
+from typenames import REMOVE_ALL_MODULES, typenames
 
 from erdantic.exceptions import InvalidModelAdapterError, ModelAdapterNotFoundError
 from erdantic.typing import GenericAlias
@@ -232,6 +232,4 @@ def get_model_adapter(key_or_adapter: Union[str, type]):
     elif isinstance(key_or_adapter, type) and issubclass(key_or_adapter, Model):
         return key_or_adapter
     else:
-        raise InvalidModelAdapterError(
-            "Input must be str or subclass of erdantic.base.Model."
-        )
+        raise InvalidModelAdapterError("Input must be str or subclass of erdantic.base.Model.")
