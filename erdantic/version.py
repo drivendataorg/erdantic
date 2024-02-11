@@ -1,3 +1,3 @@
-import importlib_metadata
+import importlib.metadata
 
-__version__ = importlib_metadata.version(__name__.split(".", 1)[0])
+__version__ = importlib.metadata.version(__name__.split(".", 1)[0])
