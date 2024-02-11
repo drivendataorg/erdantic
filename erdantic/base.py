@@ -13,8 +13,10 @@ from typing import (
     Union,
 )
 
+from typenames import REMOVE_ALL_MODULES, typenames
+
 from erdantic.exceptions import InvalidModelAdapterError, ModelAdapterNotFoundError
-from erdantic.typing import GenericAlias, repr_type
+from erdantic.typing import GenericAlias
 
 _row_template = """<tr><td>{name}</td><td port="{name}">{type_name}</td></tr>"""
 
@@ -73,7 +75,7 @@ class Field(ABC, Generic[FT]):
     @property
     def type_name(self) -> str:  # pragma: no cover
         """String representation of the Python type annotation for this field."""
-        return repr_type(self.type_obj)
+        return typenames(self.type_obj, remove_modules=REMOVE_ALL_MODULES)
 
     def dot_row(self) -> str:
         """Returns the DOT language "HTML-like" syntax specification of a row detailing this field

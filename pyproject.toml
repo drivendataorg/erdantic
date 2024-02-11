@@ -27,6 +27,7 @@ dependencies = [
   "pydantic >= 2",
   "pydantic-core",
   "pygraphviz",
+  "typenames",
   "typer",
 ]
 
