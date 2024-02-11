@@ -60,6 +60,7 @@ plugins:
             group_by_category: true
             show_category_heading: true
   - mike:
+      alias_type: copy
       canonical_version: stable
 
 extra:
