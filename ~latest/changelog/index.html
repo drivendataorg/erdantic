@@ -777,6 +777,8 @@
 <h2 id="v080-unreleased">v0.8.0 (Unreleased)<a class="headerlink" href="#v080-unreleased" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Removed support for Python 3.7. (<a href="https://github.com/drivendataorg/erdantic/pull/102">PR #102</a>)</li>
+<li>Changed rendering of type names to use the <a href="https://github.com/jayqi/typenames">typenames</a> library. This should generally produce with same rendered outputs, with the following exception:
+    - Removed the special case behavior for rendering enum classes. Enums now just show the class name without inheritance information.</li>
 </ul>
 <h2 id="v070-2024-02-11">v0.7.0 (2024-02-11)<a class="headerlink" href="#v070-2024-02-11" title="Permanent link">&para;</a></h2>
 <p>This will be the last version that supports Python 3.7.</p>
