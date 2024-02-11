@@ -1,5 +1,9 @@
 # erdantic Changelog
 
+## v0.7.0 (2024-02-11)
+
+- Added support for Pydantic V1 legacy models. These are models created from the `pydantic.v1` namespace when Pydantic V2 is installed. ([PR #94](https://github.com/drivendataorg/erdantic/pull/94) from [@ursereg](https://github.com/ursereg))
+
 ## v0.6.0 (2023-07-09)
 
 - Added support for Pydantic V2.
@@ -9,7 +13,7 @@
 
 ## v0.5.1 (2023-07-04)
 
-- Changed pydantic dependency to be `< 2`. This will be the final version of erdantic that supports pydantic v1.
+- Changed Pydantic dependency to be `< 2`. This will be the final version of erdantic that supports Pydantic V1.
 - Changed to pyproject.toml-based build.
 
 ## v0.5.0 (2022-07-29)
