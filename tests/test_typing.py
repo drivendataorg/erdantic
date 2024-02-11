@@ -1,16 +1,7 @@
 from enum import Enum, IntFlag
 import sys
 import typing
-from typing import ForwardRef  # docs claim Python >= 3.7.4 but actually it's in Python 3.7.0+
-
-try:
-    from typing import Literal  # type: ignore # Python >=3.8
-except ImportError:
-    try:
-        from typing_extensions import Literal  # type: ignore # Python ==3.7.*
-    except ImportError:
-        Literal = None  # type: ignore # Python <3.7
-
+from typing import ForwardRef, Literal
 
 import pytest
 

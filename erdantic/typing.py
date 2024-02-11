@@ -1,29 +1,21 @@
 import collections.abc
 from enum import Enum
-from typing import Any, List, Type, Union
+from typing import (
+    Any,
+    ForwardRef,
+    List,
+    Literal,
+    Type,
+    Union,
+    get_args,
+    get_origin,
+)
 
 # Note Python 3.9's types.GenericAlias != typing._GenericAlias
 # We still want typing._GenericAlias for typing module's deprecated capital generic aliases
 from typing import _GenericAlias as GenericAlias  # type: ignore # Python 3.7+
 
-try:
-    from typing import Final  # type: ignore # Python 3.8+
-except ImportError:
-    from typing_extensions import Final  # type: ignore # noqa: F401 # Python 3.7
-
-from typing import ForwardRef  # docs claim Python >= 3.7.4 but actually it's in Python 3.7.0+
-
-try:
-    from typing import Literal  # type: ignore # Python >= 3.8
-except ImportError:
-    from typing_extensions import Literal  # type: ignore # Python == 3.7.*
-
 from erdantic.exceptions import _StringForwardRefError, _UnevaluatedForwardRefError
-
-try:
-    from typing import get_args, get_origin  # type: ignore # Python 3.8+
-except ImportError:
-    from typing_extensions import get_args, get_origin  # type: ignore # Python 3.7
 
 
 def is_many(tp: Union[type, GenericAlias]) -> bool:

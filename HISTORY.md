@@ -1,5 +1,9 @@
 # erdantic Changelog
 
+## v0.8.0 (Unreleased)
+
+- Removed support for Python 3.7. ([PR #102](https://github.com/drivendataorg/erdantic/pull/102))
+
 ## v0.7.0 (2024-02-11)
 
 This will be the last version that supports Python 3.7.
