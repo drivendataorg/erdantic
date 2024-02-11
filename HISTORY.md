@@ -3,6 +3,8 @@
 ## v0.8.0 (Unreleased)
 
 - Removed support for Python 3.7. ([PR #102](https://github.com/drivendataorg/erdantic/pull/102))
+- Changed rendering of type names to use the [typenames](https://github.com/jayqi/typenames) library. This should generally produce with same rendered outputs, with the following exception:
+    - Removed the special case behavior for rendering enum classes. Enums now just show the class name without inheritance information.
 
 ## v0.7.0 (2024-02-11)
 

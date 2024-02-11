@@ -10,7 +10,7 @@ digraph "Entity Relationship Diagram" {
 		label="\N",
 		shape=plain
 	];
-	"erdantic.examples.dataclasses.Adventurer"	[label=<<table border="0" cellborder="1" cellspacing="0"><tr><td port="_root" colspan="2"><b>Adventurer</b></td></tr><tr><td>name</td><td port="name">str</td></tr><tr><td>profession</td><td port="profession">str</td></tr><tr><td>level</td><td port="level">int</td></tr><tr><td>alignment</td><td port="alignment">Alignment(str, Enum)</td></tr></table>>,
+	"erdantic.examples.dataclasses.Adventurer"	[label=<<table border="0" cellborder="1" cellspacing="0"><tr><td port="_root" colspan="2"><b>Adventurer</b></td></tr><tr><td>name</td><td port="name">str</td></tr><tr><td>profession</td><td port="profession">str</td></tr><tr><td>level</td><td port="level">int</td></tr><tr><td>alignment</td><td port="alignment">Alignment</td></tr></table>>,
 		tooltip="erdantic.examples.dataclasses.Adventurer&#xA;&#xA;A person often late for dinner but with a tale or two to tell.&#xA;&#xA;Attributes:&#\
 xA;    name (str): Name of this adventurer&#xA;    profession (str): Profession of this adventurer&#xA;    level (int): Level of \
 this adventurer&#xA;    alignment (Alignment): Alignment of this adventurer&#xA;"];

@@ -13,8 +13,10 @@ from typing import (
     Union,
 )
 
+from typenames import typenames, REMOVE_ALL_MODULES
+
 from erdantic.exceptions import InvalidModelAdapterError, ModelAdapterNotFoundError
-from erdantic.typing import GenericAlias, repr_type
+from erdantic.typing import GenericAlias
 
 _row_template = """<tr><td>{name}</td><td port="{name}">{type_name}</td></tr>"""
 
@@ -73,7 +75,7 @@ class Field(ABC, Generic[FT]):
     @property
     def type_name(self) -> str:  # pragma: no cover
         """String representation of the Python type annotation for this field."""
-        return repr_type(self.type_obj)
+        return typenames(self.type_obj, remove_modules=REMOVE_ALL_MODULES)
 
     def dot_row(self) -> str:
         """Returns the DOT language "HTML-like" syntax specification of a row detailing this field
@@ -230,4 +232,6 @@ def get_model_adapter(key_or_adapter: Union[str, type]):
     elif isinstance(key_or_adapter, type) and issubclass(key_or_adapter, Model):
         return key_or_adapter
     else:
-        raise InvalidModelAdapterError("Input must be str or subclass of erdantic.base.Model.")
+        raise InvalidModelAdapterError(
+            "Input must be str or subclass of erdantic.base.Model."
+        )

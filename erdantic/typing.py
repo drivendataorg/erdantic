@@ -1,11 +1,9 @@
 import collections.abc
-from enum import Enum
 from typing import (
     Any,
     ForwardRef,
     List,
     Literal,
-    Type,
     Union,
     get_args,
     get_origin,
@@ -77,42 +75,6 @@ def get_recursive_args(tp: Union[type, GenericAlias]) -> List[type]:
             yield t
 
     return list(recurse(tp))
-
-
-def repr_type(tp: Union[type, GenericAlias]) -> str:
-    """Return pretty, compact string representation of a type. Principles of behavior:
-
-    - Names without module path
-    - Generic capitalization matches which was used (`typing` module's aliases vs. builtin types)
-    - Union[..., None] -> Optional[...]
-    - Enums show base classes, e.g., `MyEnum(str, Enum)`
-    """
-    origin = get_origin(tp)
-    if origin:
-        origin_name = getattr(origin, "__name__", str(origin))
-        args = get_args(tp)
-        # Union[..., None] -> Optional[...]
-        if origin is Union and args[-1] is type(None):  # noqa: E721
-            origin_name = "Optional"
-            args = args[:-1]
-        # If generic alias from typing module, back out its name
-        elif isinstance(tp, GenericAlias) and tp.__module__ == "typing":
-            origin_name = str(tp).split("[")[0].replace("typing.", "")
-        return f"{origin_name}[{', '.join(repr_type(a) for a in args)}]"
-    if tp is Ellipsis:
-        return "..."
-    if isinstance(tp, type) and issubclass(tp, Enum):
-        return repr_enum(tp)
-    if isinstance(tp, ForwardRef):
-        return tp.__forward_arg__
-    return getattr(tp, "__name__", repr(tp).replace("typing.", ""))
-
-
-def repr_enum(tp: Type[Enum]) -> str:
-    """Return pretty, compact string representation of an Enum type with its depth-1 base
-    classes, e.g., `MyEnum(str, Enum)`."""
-    depth1_bases = get_depth1_bases(tp)
-    return f"{tp.__name__}({', '.join(b.__name__ for b in depth1_bases)})"
 
 
 def repr_type_with_mro(obj: Any) -> str:
