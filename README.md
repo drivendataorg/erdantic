@@ -9,7 +9,8 @@
 
 **erdantic** is a simple tool for drawing [entity relationship diagrams (ERDs)](https://en.wikipedia.org/wiki/Data_modeling#Entity%E2%80%93relationship_diagrams) for Python data model classes. Diagrams are rendered using the venerable [Graphviz](https://graphviz.org/) library. Supported data modeling frameworks are:
 
-- [Pydantic](https://pydantic-docs.helpmanual.io/)
+- [Pydantic V2](https://docs.pydantic.dev/latest/)
+- [Pydantic V1 legacy](https://docs.pydantic.dev/latest/migration/#continue-using-pydantic-v1-features)
 - [dataclasses](https://docs.python.org/3/library/dataclasses.html) from the Python standard library
 
 Features include a convenient CLI, automatic native rendering in Jupyter notebooks, and easy extensibility to other data modeling frameworks. Docstrings are even accessible as tooltips for SVG outputs. Great for adding a simple and clean data model reference to your documentation.
