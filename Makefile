@@ -62,7 +62,8 @@ docs-notebooks:
 	rm -f docs/docs/examples/diagram.png
 
 format: ## format code with black
-	black erdantic tests docs
+	ruff format erdantic tests docs
+	ruff check --fix erdantic tests docs
 
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
