@@ -15,8 +15,10 @@ from typing import _GenericAlias as GenericAlias  # type: ignore # Python 3.7+
 
 from erdantic.exceptions import _StringForwardRefError, _UnevaluatedForwardRefError
 
+TypeAnnotation = Union[type, GenericAlias]
 
-def is_many(tp: Union[type, GenericAlias]) -> bool:
+
+def is_collection_type(tp: Union[type, GenericAlias]) -> bool:
     """Given a type annotation, returns True if it represents a collection of many elements.
 
     Args:
@@ -33,7 +35,7 @@ def is_many(tp: Union[type, GenericAlias]) -> bool:
     )
 
 
-def is_nullable(tp: Union[type, GenericAlias]) -> bool:
+def is_nullable_type(tp: Union[type, GenericAlias]) -> bool:
     """Given a type annotation, returns True if it is the typing.Optional type, meaning that a
     value of None is accepted.
 
