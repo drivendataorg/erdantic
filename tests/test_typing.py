@@ -4,8 +4,35 @@ from typing import Literal
 from erdantic.typing import (
     get_depth1_bases,
     get_recursive_args,
+    is_many,
+    is_nullable,
     repr_type_with_mro,
 )
+
+
+def test_is_many():
+    class Target:
+        ...
+
+    assert is_many(typing.List[Target], Target)
+    assert is_many(typing.Optional[typing.List[Target]], Target)
+    assert is_many(typing.List[typing.Optional[Target]], Target)
+    assert is_many(typing.Union[Target, typing.List[Target], None], Target)
+
+    assert not is_many(Target, Target)
+    assert not is_many(typing.Optional[Target], Target)
+    assert not is_many(typing.Union[Target, int], Target)
+    assert not is_many(typing.List[int], Target)
+    assert not is_many(typing.Union[Target, typing.List[int]], Target)
+
+
+def test_is_nullable():
+    assert is_nullable(typing.Optional[int])
+    assert is_nullable(typing.Union[int, None])
+    assert is_nullable(typing.Union[int, str, None])
+
+    assert not is_nullable(int)
+    assert not is_nullable(typing.Union[int, str])
 
 
 def test_get_recursive_args():
