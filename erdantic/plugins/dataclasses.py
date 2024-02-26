@@ -1,9 +1,8 @@
 import dataclasses
 from typing import TYPE_CHECKING, Any, Dict, Type, TypeGuard
 
-import typenames
-
-from erdantic.refactor.core import FieldInfo, FullyQualifiedName, registry
+from erdantic.plugins import registry
+from erdantic.core import FieldInfo, FullyQualifiedName
 
 if TYPE_CHECKING:
     from _typeshed import DataclassInstance
@@ -19,7 +18,7 @@ def is_dataclass_type(obj: Any) -> TypeGuard[DataclassType]:
 def get_fields_from_dataclass(model: DataclassType) -> Dict[str, FieldInfo]:
     return {
         f.name: FieldInfo.from_raw_type(
-            model_full_name=FullyQualifiedName.from_object(f),
+            model_full_name=FullyQualifiedName.from_object(model),
             name=f.name,
             raw_type=f.type,
         )
@@ -27,4 +26,6 @@ def get_fields_from_dataclass(model: DataclassType) -> Dict[str, FieldInfo]:
     }
 
 
-registry.register(predicate_fn=is_dataclass_type, get_fields_fn=get_fields_from_dataclass)
+registry.register(
+    key="dataclasses", predicate_fn=is_dataclass_type, get_fields_fn=get_fields_from_dataclass
+)

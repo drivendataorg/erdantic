@@ -10,7 +10,7 @@ import erdantic.examples.dataclasses as examples_dataclasses
 import erdantic.examples.pydantic as examples_pydantic
 from erdantic.examples.pydantic import Party, Quest
 from erdantic.exceptions import ModelOrModuleNotFoundError
-from erdantic.version import __version__
+from erdantic._version import __version__
 
 runner = CliRunner()
 

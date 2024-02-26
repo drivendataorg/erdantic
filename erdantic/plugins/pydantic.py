@@ -1,14 +1,17 @@
-from typing import Type, TypeGuard
+from typing import Any, Type, TypeGuard
 
 import pydantic
 import pydantic.v1
 
-from erdantic.refactor.core import FieldInfo, FullyQualifiedName, registry
+from erdantic.plugins import registry
+from erdantic.core import FieldInfo, FullyQualifiedName
+
+## Pydantic v2
 
 PydanticModel = Type[pydantic.BaseModel]
 
 
-def is_pydantic_model(obj) -> TypeGuard[PydanticModel]:
+def is_pydantic_model(obj: Any) -> TypeGuard[PydanticModel]:
     return isinstance(obj, type) and issubclass(obj, pydantic.BaseModel)
 
 
@@ -23,7 +26,11 @@ def get_fields_from_pydantic_model(model: PydanticModel):
     }
 
 
-registry.register(predicate_fn=is_pydantic_model, get_fields_fn=get_fields_from_pydantic_model)
+registry.register(
+    key="pydantic", predicate_fn=is_pydantic_model, get_fields_fn=get_fields_from_pydantic_model
+)
+
+## Pydantic v1 legacy
 
 PydanticV1Model = Type[pydantic.v1.BaseModel]
 
@@ -48,3 +55,10 @@ def get_type_annotation_from_pydantic_v1_field(field_info: pydantic.v1.fields.Mo
     if field_info.allow_none:
         return tp
     return tp
+
+
+registry.register(
+    key="pydantic_v1",
+    predicate_fn=is_pydantic_v1_model,
+    get_fields_fn=get_fields_from_pydantic_v1_model,
+)

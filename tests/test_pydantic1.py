@@ -6,7 +6,19 @@ import pytest
 
 import erdantic as erd
 from erdantic.exceptions import UnevaluatedForwardRefError
-from erdantic.pydantic1 import PydanticModel
+from erdantic.plugins.pydantic import is_pydantic_v1_model
+
+
+def test_is_pydantic_v1_model():
+    class MyModel(BaseModel):
+        ...
+
+    assert is_pydantic_v1_model(MyModel)
+
+    class YourModel(BaseModel):
+        ...
+
+    assert not is_pydantic_v1_model(YourModel)
 
 
 def test_model_graph_search_nested_args():

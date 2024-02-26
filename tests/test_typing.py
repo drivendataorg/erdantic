@@ -1,11 +1,37 @@
 import typing
-from typing import Literal
 
 from erdantic.typing import (
     get_depth1_bases,
     get_recursive_args,
+    is_collection_type_of,
+    is_nullable_type,
     repr_type_with_mro,
 )
+
+
+def test_is_collection_type_of():
+    class Target:
+        ...
+
+    assert is_collection_type_of(typing.List[Target], Target)
+    assert is_collection_type_of(typing.Optional[typing.List[Target]], Target)
+    assert is_collection_type_of(typing.List[typing.Optional[Target]], Target)
+    assert is_collection_type_of(typing.Union[Target, typing.List[Target], None], Target)
+
+    assert not is_collection_type_of(Target, Target)
+    assert not is_collection_type_of(typing.Optional[Target], Target)
+    assert not is_collection_type_of(typing.Union[Target, int], Target)
+    assert not is_collection_type_of(typing.List[int], Target)
+    assert not is_collection_type_of(typing.Union[Target, typing.List[int]], Target)
+
+
+def test_is_nullable_type():
+    assert is_nullable_type(typing.Optional[int])
+    assert is_nullable_type(typing.Union[int, None])
+    assert is_nullable_type(typing.Union[int, str, None])
+
+    assert not is_nullable_type(int)
+    assert not is_nullable_type(typing.Union[int, str])
 
 
 def test_get_recursive_args():
@@ -15,8 +41,10 @@ def test_get_recursive_args():
     assert set(args) == {str, int, float, type(None)}
 
     assert get_recursive_args(str) == [str]
-    if Literal is not None:
-        assert get_recursive_args(Literal["batman"]) in [[Literal], [Literal["batman"]]]
+    assert get_recursive_args(typing.Union[int, typing.Literal["batman"]]) == [
+        int,
+        typing.Literal["batman"],
+    ]
 
 
 def test_get_depth1_bases():

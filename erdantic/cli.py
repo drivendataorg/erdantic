@@ -8,7 +8,7 @@ import typer
 from erdantic.base import model_adapter_registry
 from erdantic.erd import create
 from erdantic.exceptions import ModelOrModuleNotFoundError
-from erdantic.version import __version__
+from erdantic._version import __version__
 
 app = typer.Typer()
 

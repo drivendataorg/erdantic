@@ -4,28 +4,25 @@ import inspect
 import logging
 import os
 import textwrap
-from typing import Any, Dict, Generic, List, Optional, Set, Tuple, Union
+from typing import Any, Dict, Generic, Optional, Set, Union
 
 import pydantic
 import pygraphviz as pgv
 from typenames import REMOVE_ALL_MODULES, typenames
 
+from erdantic._version import __version__
 from erdantic.exceptions import (
     UnknownModelTypeError,
 )
+from erdantic.plugins import registry
 from erdantic.typing import (
-    ModelFieldExtractor,
-    ModelPredicate,
     ModelType,
-    TypeAnnotation,
     get_recursive_args,
     is_collection_type_of,
     is_nullable_type,
 )
-from erdantic.version import __version__
 
 logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO)
 
 
 class FullyQualifiedName(pydantic.BaseModel):
@@ -96,7 +93,7 @@ class FieldInfo(pydantic.BaseModel):
     name: str
     type_name: str
 
-    _raw_type: Optional[TypeAnnotation] = pydantic.PrivateAttr(None)
+    _raw_type: Optional[type] = pydantic.PrivateAttr(None)
 
     model_config = pydantic.ConfigDict(
         extra="forbid",
@@ -231,30 +228,11 @@ class Edge(pydantic.BaseModel):
         return cardinality + modality
 
 
-class Registry:
-    implementations: List[Tuple[ModelPredicate, ModelFieldExtractor]]
-
-    def __init__(self) -> None:
-        self.implementations = []
-
-    def register(self, predicate_fn: ModelPredicate, get_fields_fn: ModelFieldExtractor):
-        self.implementations.append((predicate_fn, get_fields_fn))
-
-    def get_field_extractor_fn(self, tp: type) -> Optional[ModelFieldExtractor]:
-        for predicate_fn, get_fields_fn in self.implementations:
-            if predicate_fn(tp):
-                return get_fields_fn
-        return None
-
-
-registry = Registry()
-
-
 class EntityRelationshipDiagram(pydantic.BaseModel):
     models: Dict[str, ModelInfo] = {}
     edges: Set[Edge] = set()
 
-    def _search(self, model) -> bool:
+    def _add_model(self, model, recurse) -> bool:
         logger.info("Searching model %s", model)
         get_fields_fn = registry.get_field_extractor_fn(model)
         if get_fields_fn:
@@ -262,16 +240,17 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
             if key not in self.models:
                 model_info = ModelInfo.from_raw_model(model)
                 self.models[key] = model_info
-                for field_info in model_info.fields.values():
-                    for arg in get_recursive_args(field_info.raw_type):
-                        is_model = self._search(arg)
-                        if is_model:
-                            edge = Edge.from_field_info(arg, field_info)
-                            self.edges.add(edge)
+                if recurse:
+                    for field_info in model_info.fields.values():
+                        for arg in get_recursive_args(field_info.raw_type):
+                            is_model = self._add_model(arg)
+                            if is_model:
+                                edge = Edge.from_field_info(arg, field_info)
+                                self.edges.add(edge)
         return bool(get_fields_fn)
 
-    def add_model(self, model):
-        is_model = self._search(model)
+    def add_model(self, model, recurse=True, stop_at=None, limit_types_to=None):
+        is_model = self._add_model(model, recurse=recurse)
         if not is_model:
             raise UnknownModelTypeError(model)
 

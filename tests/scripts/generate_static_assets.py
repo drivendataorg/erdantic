@@ -5,12 +5,12 @@ import erdantic as erd
 import erdantic.erd
 import erdantic.examples.dataclasses
 import erdantic.examples.pydantic
-import erdantic.version
+import erdantic._version
 
 ASSETS_DIR = Path(__file__).resolve().parents[1] / "assets"
 
 # monkeypatch __version__
-erd.__version__ = erdantic.erd.__version__ = erdantic.version.__version__ = "TEST"
+erd.__version__ = erdantic.erd.__version__ = erdantic._version.__version__ = "TEST"
 
 
 def create_assets(examples: ModuleType):

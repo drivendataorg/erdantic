@@ -1,9 +1,8 @@
-# import erdantic.dataclasses  # noqa: F401
-
-# from erdantic.erd import EntityRelationshipDiagram, create, draw, to_dot
-# import erdantic.pydantic  # noqa: F401
-# import erdantic.pydantic1  # noqa: F401
-from erdantic.version import __version__
+# from erdantic.refactor.convenience import create, draw, to_dot
+import erdantic._logging  # noqa: F401
+from erdantic._version import __version__
+from erdantic.core import EntityRelationshipDiagram
+from erdantic.plugins import load_plugins
 
 __version__
 
@@ -13,3 +12,5 @@ __all__ = [
     "EntityRelationshipDiagram",
     "to_dot",
 ]
+
+load_plugins()

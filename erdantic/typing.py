@@ -7,7 +7,6 @@ from typing import (
     ForwardRef,
     List,
     Literal,
-    Protocol,
     TypeGuard,
     TypeVar,
     Union,
@@ -24,10 +23,9 @@ from typenames import BaseNode, GenericNode, parse_type_tree
 from erdantic.exceptions import _StringForwardRefError, _UnevaluatedForwardRefError
 
 if TYPE_CHECKING:
-    from erdantic.refactor.core import FieldInfo
+    from erdantic.core import FieldInfo
 
 ModelType = TypeVar("ModelType", bound=type)
-TypeAnnotation = Union[type, GenericAlias]
 ModelPredicate = Callable[[Any], TypeGuard[ModelType]]
 ModelFieldExtractor = Callable[[ModelType], Dict[str, "FieldInfo"]]
 
@@ -94,9 +92,8 @@ def get_recursive_args(tp: Union[type, GenericAlias]) -> List[type]:
                 raise _UnevaluatedForwardRefError(forward_ref=t)
 
         args = get_args(t)
-        is_literal = Literal is not None and get_origin(t) is Literal
-        if is_literal:
-            yield Literal
+        if get_origin(t) is Literal:
+            yield t
         elif args:
             for arg in args:
                 yield from recurse(arg)
