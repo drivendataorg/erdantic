@@ -1,0 +1,50 @@
+from typing import Type, TypeGuard
+
+import pydantic
+import pydantic.v1
+
+from erdantic.refactor.core import FieldInfo, FullyQualifiedName, registry
+
+PydanticModel = Type[pydantic.BaseModel]
+
+
+def is_pydantic_model(obj) -> TypeGuard[PydanticModel]:
+    return isinstance(obj, type) and issubclass(obj, pydantic.BaseModel)
+
+
+def get_fields_from_pydantic_model(model: PydanticModel):
+    return {
+        name: FieldInfo.from_raw_type(
+            model_full_name=FullyQualifiedName.from_object(model),
+            name=name,
+            raw_type=field_info.annotation,
+        )
+        for name, field_info in model.model_fields.items()
+    }
+
+
+registry.register(predicate_fn=is_pydantic_model, get_fields_fn=get_fields_from_pydantic_model)
+
+PydanticV1Model = Type[pydantic.v1.BaseModel]
+
+
+def is_pydantic_v1_model(obj) -> TypeGuard[PydanticV1Model]:
+    return isinstance(obj, type) and issubclass(obj, pydantic.v1.BaseModel)
+
+
+def get_fields_from_pydantic_v1_model(model: PydanticV1Model):
+    return {
+        name: FieldInfo.from_raw_type(
+            model_full_name=FullyQualifiedName.from_object(model),
+            name=name,
+            raw_type=get_type_annotation_from_pydantic_v1_field(field),
+        )
+        for name, field in model.__fields__.items()
+    }
+
+
+def get_type_annotation_from_pydantic_v1_field(field_info: pydantic.v1.fields.ModelField):
+    tp = field_info.outer_type_
+    if field_info.allow_none:
+        return tp
+    return tp

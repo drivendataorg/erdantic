@@ -1,9 +1,15 @@
 import collections.abc
 from typing import (
+    TYPE_CHECKING,
     Any,
+    Callable,
+    Dict,
     ForwardRef,
     List,
     Literal,
+    Protocol,
+    TypeGuard,
+    TypeVar,
     Union,
     get_args,
     get_origin,
@@ -13,31 +19,52 @@ from typing import (
 # We still want typing._GenericAlias for typing module's deprecated capital generic aliases
 from typing import _GenericAlias as GenericAlias  # type: ignore # Python 3.7+
 
+from typenames import BaseNode, GenericNode, parse_type_tree
+
 from erdantic.exceptions import _StringForwardRefError, _UnevaluatedForwardRefError
 
+if TYPE_CHECKING:
+    from erdantic.refactor.core import FieldInfo
+
+ModelType = TypeVar("ModelType", bound=type)
 TypeAnnotation = Union[type, GenericAlias]
+ModelPredicate = Callable[[Any], TypeGuard[ModelType]]
+ModelFieldExtractor = Callable[[ModelType], Dict[str, "FieldInfo"]]
 
 
-def is_collection_type(tp: Union[type, GenericAlias]) -> bool:
-    """Given a type annotation, returns True if it represents a collection of many elements.
+def _walk_type_tree(node: BaseNode, target: type) -> bool:
+    """Recursively walk a type tree to check if type is many in target type."""
+    if isinstance(node, GenericNode):
+        if isinstance(node.origin, type) and (
+            issubclass(node.origin, collections.abc.Container)
+            or issubclass(node.origin, collections.abc.Iterable)
+            or issubclass(node.origin, collections.abc.Sized)
+        ):
+            # Check recursive args for target type
+            return target in get_recursive_args(node.tp)
+        elif node.origin is Union:
+            return any(_walk_type_tree(arg_node, target) for arg_node in node.arg_nodes)
+    return False
+
+
+def is_collection_type_of(tp: Union[type, GenericAlias], target: type) -> bool:
+    """Given a type annotation, returns True if it represents a collection of many elements of the
+    target type.
 
     Args:
         tp (Union[type, GenericAlias]): Type annotation
+        target (type): Type to check for many-ness of
 
     Returns:
         bool: Result of check
     """
-    origin = get_origin(tp)
-    return isinstance(origin, type) and (
-        issubclass(origin, collections.abc.Container)
-        or issubclass(origin, collections.abc.Iterable)
-        or issubclass(origin, collections.abc.Sized)
-    )
+    root = parse_type_tree(tp)
+    return _walk_type_tree(root, target)
 
 
 def is_nullable_type(tp: Union[type, GenericAlias]) -> bool:
-    """Given a type annotation, returns True if it is the typing.Optional type, meaning that a
-    value of None is accepted.
+    """Given a type annotation, returns True if it is a union with None as a possible option,
+    such as typing.Optional.
 
     Args:
         tp (Union[type, GenericAlias]): Type annotation
