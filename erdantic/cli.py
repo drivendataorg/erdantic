@@ -1,16 +1,21 @@
 from enum import Enum
 from importlib import import_module
+import logging
 from pathlib import Path
-from typing import TYPE_CHECKING, List, Optional
+import sys
+from typing import TYPE_CHECKING, Annotated, List, Optional
 
 import typer
 
-from erdantic.base import model_adapter_registry
-from erdantic.erd import create
-from erdantic.exceptions import ModelOrModuleNotFoundError
 from erdantic._version import __version__
+from erdantic.convenience import create
+from erdantic.exceptions import ModelOrModuleNotFoundError
+from erdantic.plugins import registry
 
 app = typer.Typer()
+
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.NullHandler())
 
 
 class StrEnum(str, Enum):
@@ -18,7 +23,7 @@ class StrEnum(str, Enum):
 
 
 if TYPE_CHECKING:
-    # mypy typechecking doesn't really support enums created with functional API
+    # mypy typechecking doesn't support enums created with functional API
     # https://github.com/python/mypy/issues/6037
 
     class SupportedModelIdentifier(StrEnum):
@@ -26,7 +31,7 @@ if TYPE_CHECKING:
 
 else:
     SupportedModelIdentifier = StrEnum(
-        "SupportedModelIdentifier", {key: key for key in model_adapter_registry.keys()}
+        "SupportedModelIdentifier", {key: key for key in registry.keys()}
     )
 
 
@@ -57,15 +62,20 @@ def main(
             "composition tree to find component classes."
         ),
     ),
-    termini: List[str] = typer.Option(
+    terminal_models: List[str] = typer.Option(
         None,
-        "--terminus",
+        "--terminal-model",
         "-t",
         help=(
             "Full dotted paths for data model classes to set as terminal nodes in the diagram. "
             "erdantic will stop searching for component classes when it reaches these models. "
             "Repeat this option if more than one."
         ),
+    ),
+    termini: List[str] = typer.Option(
+        None,
+        "--terminus",
+        help=("Deprecated. Use --terminal-model instead."),
     ),
     limit_search_models_to: List[SupportedModelIdentifier] = typer.Option(
         None,
@@ -92,6 +102,26 @@ def main(
     no_overwrite: Optional[bool] = typer.Option(
         None, "--no-overwrite", help="Prevent overwriting an existing file."
     ),
+    quiet: Annotated[
+        int,
+        typer.Option(
+            "--quiet",
+            "-q",
+            count=True,
+            show_default=False,
+            help="Use to decrease log verbosity.",
+        ),
+    ] = 0,
+    verbose: Annotated[
+        int,
+        typer.Option(
+            "--verbose",
+            "-v",
+            count=True,
+            show_default=False,
+            help="Use to increase log verbosity.",
+        ),
+    ] = 0,
     version: Optional[bool] = typer.Option(
         None,
         "--version",
@@ -104,13 +134,24 @@ def main(
     rendered using the Graphviz library. Currently supported data modeling frameworks are Pydantic
     and standard library dataclasses.
     """
+    # Set up logger
+    log_level = logging.INFO + 10 * quiet - 10 * verbose
+    logger.setLevel(log_level)
+    log_handler = logging.StreamHandler()
+    logger.addHandler(log_handler)
+    prog_name = Path(sys.argv[0]).stem
+    log_formatter = logging.Formatter(f"%(asctime)s | {prog_name} | %(levelname)s | %(message)s")
+    log_handler.setFormatter(log_formatter)
+
     model_or_module_objs = [import_object_from_name(mm) for mm in models_or_modules]
+    terminal_model_classes = [import_object_from_name(mm) for mm in terminal_models]
     termini_classes = [import_object_from_name(mm) for mm in termini]
     limit_search_models_to_str = [
         m.value for m in limit_search_models_to
     ] or None  # Don't want empty list
     diagram = create(
         *model_or_module_objs,
+        terminal_models=terminal_model_classes,
         termini=termini_classes,
         limit_search_models_to=limit_search_models_to_str,
     )
@@ -118,10 +159,10 @@ def main(
         typer.echo(diagram.to_dot())
     else:
         if out.exists() and no_overwrite:
-            typer.echo(f"{out} already exists, and you specified --no-overwrite.")
+            logger.error(f"{out} already exists, and you specified --no-overwrite.")
             raise typer.Exit(code=1)
         diagram.draw(out)
-        typer.echo(f"Rendered diagram to {out}")
+        logger.info(f"Rendered diagram to {out}")
 
 
 def import_object_from_name(full_obj_name):

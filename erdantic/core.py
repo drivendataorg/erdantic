@@ -76,29 +76,20 @@ MODALITY_DOT_MAPPING = {
     Modality.ONE: "tee",
 }
 
-_TABLE_TEMPLATE = textwrap.dedent(
-    """\
-    <<table border="0" cellborder="1" cellspacing="0">
-    <tr><td port="_root" colspan="2"><b>{name}</b></td></tr>
-    {rows}
-    </table>>
-    """
-)
-
-_ROW_TEMPLATE = """<tr><td>{name}</td><td port="{name}">{type_name}</td></tr>"""
-
 
 class FieldInfo(pydantic.BaseModel):
     model_full_name: FullyQualifiedName
     name: str
     type_name: str
 
-    _raw_type: Optional[type] = pydantic.PrivateAttr(None)
-
     model_config = pydantic.ConfigDict(
         extra="forbid",
         protected_namespaces=(),
     )
+
+    _ROW_TEMPLATE = """<tr><td>{name}</td><td port="{name}">{type_name}</td></tr>"""
+
+    _raw_type: Optional[type] = pydantic.PrivateAttr(None)
 
     @classmethod
     def from_raw_type(cls, model_full_name, name, raw_type):
@@ -129,7 +120,7 @@ class FieldInfo(pydantic.BaseModel):
         Returns:
             str: DOT language for table row
         """
-        return _ROW_TEMPLATE.format(name=self.name, type_name=self.type_name)
+        return self._ROW_TEMPLATE.format(name=self.name, type_name=self.type_name)
 
 
 class ModelInfo(pydantic.BaseModel, Generic[ModelType]):
@@ -138,11 +129,20 @@ class ModelInfo(pydantic.BaseModel, Generic[ModelType]):
     fields: Dict[str, FieldInfo]
     description: str = ""
 
-    _raw_model: Optional[ModelType] = None
-
     model_config = pydantic.ConfigDict(
         extra="forbid",
     )
+
+    _TABLE_TEMPLATE = textwrap.dedent(
+        """\
+        <<table border="0" cellborder="1" cellspacing="0">
+        <tr><td port="_root" colspan="2"><b>{name}</b></td></tr>
+        {rows}
+        </table>>
+        """
+    )
+
+    _raw_model: Optional[ModelType] = None
 
     @classmethod
     def from_raw_model(cls, raw_model: ModelType):
@@ -159,7 +159,7 @@ class ModelInfo(pydantic.BaseModel, Generic[ModelType]):
         model_info = cls(
             full_name=full_name,
             name=raw_model.__name__,
-            fields=get_fields_fn(raw_model),
+            fields={field_info.name: field_info for field_info in get_fields_fn(raw_model)},
             description=description,
         )
         model_info._raw_model = raw_model
@@ -180,7 +180,7 @@ class ModelInfo(pydantic.BaseModel, Generic[ModelType]):
             str: DOT language for table
         """
         rows = "\n".join(field_info.to_dot_row() for field_info in self.fields.values()) + "\n"
-        return _TABLE_TEMPLATE.format(name=self.name, rows=rows).replace("\n", "")
+        return self._TABLE_TEMPLATE.format(name=self.name, rows=rows).replace("\n", "")
 
 
 class Edge(pydantic.BaseModel):
@@ -232,24 +232,27 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
     models: Dict[str, ModelInfo] = {}
     edges: Set[Edge] = set()
 
+    _model_info_cls = ModelInfo
+    _edge_cls = Edge
+
     def _add_model(self, model, recurse) -> bool:
-        logger.info("Searching model %s", model)
+        logger.debug("Adding model %s", model)
         get_fields_fn = registry.get_field_extractor_fn(model)
         if get_fields_fn:
             key = str(FullyQualifiedName.from_object(model))
             if key not in self.models:
-                model_info = ModelInfo.from_raw_model(model)
+                model_info = self._model_info_cls.from_raw_model(model)
                 self.models[key] = model_info
                 if recurse:
                     for field_info in model_info.fields.values():
                         for arg in get_recursive_args(field_info.raw_type):
-                            is_model = self._add_model(arg)
+                            is_model = self._add_model(arg, recurse=recurse)
                             if is_model:
-                                edge = Edge.from_field_info(arg, field_info)
+                                edge = self._edge_cls.from_field_info(arg, field_info)
                                 self.edges.add(edge)
         return bool(get_fields_fn)
 
-    def add_model(self, model, recurse=True, stop_at=None, limit_types_to=None):
+    def add_model(self, model, recurse=True):
         is_model = self._add_model(model, recurse=recurse)
         if not is_model:
             raise UnknownModelTypeError(model)
@@ -261,6 +264,7 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
             out (Union[str, os.PathLike]): Output file path for rendered diagram.
             **kwargs: Additional keyword arguments to [`pygraphviz.AGraph.draw`](https://pygraphviz.github.io/documentation/latest/reference/agraph.html#pygraphviz.AGraph.draw).
         """
+        logger.info("Rendering diagram to %s", out)
         self.to_graphviz().draw(out, prog="dot", **kwargs)
 
     def to_graphviz(self) -> pgv.AGraph:

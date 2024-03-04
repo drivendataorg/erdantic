@@ -1,6 +1,6 @@
 import importlib.metadata
 import logging
-from typing import TYPE_CHECKING, Any, Callable, Dict, Optional, Protocol, Tuple, TypeGuard
+from typing import TYPE_CHECKING, Any, Dict, Optional, Protocol, Tuple, TypeGuard
 
 from erdantic.typing import ModelType
 
@@ -40,8 +40,11 @@ class Registry:
     def __getitem__(self, key: str):
         return self._dict[key]
 
-    def keys(self):
-        return list(self._dict.keys())
+    def keys(self) -> Tuple[str]:
+        return tuple(self._dict.keys())
+
+    def items(self) -> Tuple[str, Tuple[ModelPredicate, ModelFieldExtractor]]:
+        return tuple(self._dict.items())
 
     def register(self, key: str, predicate_fn: ModelPredicate, get_fields_fn: ModelFieldExtractor):
         if key in self._dict:

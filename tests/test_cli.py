@@ -5,12 +5,12 @@ import pytest
 from typer.testing import CliRunner
 
 import erdantic as erd
+from erdantic._version import __version__
 from erdantic.cli import app, import_object_from_name
 import erdantic.examples.dataclasses as examples_dataclasses
 import erdantic.examples.pydantic as examples_pydantic
 from erdantic.examples.pydantic import Party, Quest
 from erdantic.exceptions import ModelOrModuleNotFoundError
-from erdantic._version import __version__
 
 runner = CliRunner()
 
@@ -52,10 +52,10 @@ def test_draw(tmp_path):
     assert filecmp.cmp(path2, path_base)
 
 
-def test_with_terminus(tmp_path):
+def test_with_terminal_model(tmp_path):
     # With library for comparison
     path_base = tmp_path / "diagram_base.png"
-    erd.draw(Party, out=path_base, termini=[Quest])
+    erd.draw(Party, out=path_base, terminal_models=[Quest])
     assert path_base.exists()
 
     # With CLI

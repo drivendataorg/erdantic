@@ -1,121 +1,90 @@
-import textwrap
-from typing import Any, Dict, List, Optional, Tuple
-
-from pydantic import BaseModel, Field
-
-import erdantic as erd
-from erdantic.pydantic import PydanticModel
-
-
-def test_model_graph_search_nested_args():
-    class Inner0(BaseModel):
-        id: int
-
-    class Inner1(BaseModel):
-        id: int
-
-    class Outer(BaseModel):
-        inner: Dict[str, Tuple[Inner0, Inner1]]
-
-    diagram = erd.create(Outer)
-    assert {m.model for m in diagram.models} == {Outer, Inner0, Inner1}
-    assert {(e.source.model, e.target.model) for e in diagram.edges} == {
-        (Outer, Inner0),
-        (Outer, Inner1),
-    }
+from erdantic.core import FullyQualifiedName
+import erdantic.examples.pydantic as pydantic_examples
+import erdantic.examples.pydantic_v1 as pydantic_v1_examples
+from erdantic.plugins.pydantic import (
+    get_fields_from_pydantic_model,
+    get_fields_from_pydantic_v1_model,
+    get_type_annotation_from_pydantic_v1_field,
+    is_pydantic_model,
+    is_pydantic_v1_model,
+)
 
 
-def test_unevaluated_forward_ref():
-    """Pydantic V2 handles typical forward reference cases automatically."""
+def test_is_pydantic_model():
+    class NotAPydanticModel:
+        pass
 
-    class PydanticItem(BaseModel):
-        name: str
-
-    class PydanticContainer(BaseModel):
-        items: List["PydanticItem"]
-
-    # Test that model can be used
-    _ = PydanticContainer(items=[PydanticItem(name="thingie")])
-
-    diagram = erd.create(PydanticContainer)
-    assert {m.model for m in diagram.models} == {PydanticContainer, PydanticItem}
-    assert {(e.source.model, e.target.model) for e in diagram.edges} == {
-        (PydanticContainer, PydanticItem)
-    }
-
-
-def test_field_names():
-    class MyClass(BaseModel):
-        a: str
-        b: Optional[str]
-        c: List[str]
-        d: Tuple[str, ...]
-        e: Tuple[str, int]
-        f: Dict[str, List[int]]
-        g: Optional[List[str]]
-        h: Dict[str, Optional[int]]
-
-    model = PydanticModel(MyClass)
-    assert [f.type_name for f in model.fields] == [
-        "str",
-        "Optional[str]",
-        "List[str]",
-        "Tuple[str, ...]",
-        "Tuple[str, int]",
-        "Dict[str, List[int]]",
-        "Optional[List[str]]",
-        "Dict[str, Optional[int]]",
-    ]
-
-
-def test_docstring_field_descriptions():
-    # Does not use pydantic.Field with descriptions. Shouldn't add anything.
-    class MyClassWithoutDescriptions(BaseModel):
-        """This is the docstring for my class without descriptions."""
-
-        hint_only: str
-        no_descr_has_default: Any = Field(10)
-
-    model = PydanticModel(MyClassWithoutDescriptions)
-    print("===Actual w/o Descriptions===")
-    print(model.docstring)
-    print("============")
-
-    expected = textwrap.dedent(
-        """\
-        tests.test_pydantic.test_docstring_field_descriptions.<locals>.MyClassWithoutDescriptions
-
-        This is the docstring for my class without descriptions.
-        """
+    assert is_pydantic_model(pydantic_examples.Party)
+    assert is_pydantic_model(pydantic_examples.QuestGiver)
+    assert not is_pydantic_model(
+        pydantic_examples.QuestGiver(name="Gandalf", faction=None, location="Shire")
     )
-    assert model.docstring == expected
+    assert not is_pydantic_model("Hello")
+    assert not is_pydantic_model(str)
+    assert not is_pydantic_model(NotAPydanticModel)
+    assert not is_pydantic_model(pydantic_v1_examples.Party)
 
-    # Does use pydantic.Field with descriptions. Should add attributes section
 
-    class MyClassWithDescriptions(BaseModel):
-        """This is the docstring for my class with descriptions."""
+def test_get_fields_from_pydantic_model():
+    fields_dict = get_fields_from_pydantic_model(pydantic_examples.Party)
+    assert all(k == v.name for k, v in fields_dict.items())
 
-        hint_only: str
-        has_descr_no_default: List[int] = Field(description="An array of numbers.")
-        has_descr_ellipsis_default: List[int] = Field(..., description="Another array of numbers.")
-        no_descr_has_default: Any = Field(10)
-        has_descr_has_default: Optional[str] = Field(None, description="An optional string.")
+    fields = list(fields_dict.values())
+    assert len(fields) == 4
 
-    model = PydanticModel(MyClassWithDescriptions)
-    print("===Actual w/ Descriptions===")
-    print(model.docstring)
-    print("============")
+    # name
+    assert fields[0].model_full_name == FullyQualifiedName.from_object(pydantic_examples.Party)
+    assert fields[0].name == "name"
+    assert fields[0].type_name == "str"
+    # formed_datetime
+    assert fields[1].model_full_name == FullyQualifiedName.from_object(pydantic_examples.Party)
+    assert fields[1].name == "formed_datetime"
+    assert fields[1].type_name == "datetime"
+    # members
+    assert fields[2].model_full_name == FullyQualifiedName.from_object(pydantic_examples.Party)
+    assert fields[2].name == "members"
+    assert fields[2].type_name == "List[Adventurer]"
+    # active_quest
+    assert fields[3].model_full_name == FullyQualifiedName.from_object(pydantic_examples.Party)
+    assert fields[3].name == "active_quest"
+    assert fields[3].type_name == "Optional[Quest]"
 
-    expected = textwrap.dedent(
-        """\
-        tests.test_pydantic.test_docstring_field_descriptions.<locals>.MyClassWithDescriptions
 
-        This is the docstring for my class with descriptions.
+def test_is_pydantic_v1_model():
+    class NotAPydanticModel:
+        pass
 
-        Attributes:
-            has_descr_no_default (List[int]): An array of numbers.
-            has_descr_ellipsis_default (List[int]): Another array of numbers.
-            has_descr_has_default (Optional[str]): An optional string. Default is None.
-        """
+    assert is_pydantic_v1_model(pydantic_v1_examples.Party)
+    assert is_pydantic_v1_model(pydantic_v1_examples.QuestGiver)
+    assert not is_pydantic_v1_model(
+        pydantic_v1_examples.QuestGiver(name="Gandalf", faction=None, location="Shire")
     )
-    assert model.docstring == expected
+    assert not is_pydantic_v1_model("Hello")
+    assert not is_pydantic_v1_model(str)
+    assert not is_pydantic_v1_model(NotAPydanticModel)
+    assert not is_pydantic_v1_model(pydantic_examples.Party)
+
+
+def test_get_fields_from_pydantic_v1_model():
+    fields_dict = get_fields_from_pydantic_v1_model(pydantic_v1_examples.Party)
+    assert all(k == v.name for k, v in fields_dict.items())
+
+    fields = list(fields_dict.values())
+    assert len(fields) == 4
+
+    # name
+    assert fields[0].model_full_name == FullyQualifiedName.from_object(pydantic_v1_examples.Party)
+    assert fields[0].name == "name"
+    assert fields[0].type_name == "str"
+    # formed_datetime
+    assert fields[1].model_full_name == FullyQualifiedName.from_object(pydantic_v1_examples.Party)
+    assert fields[1].name == "formed_datetime"
+    assert fields[1].type_name == "datetime"
+    # members
+    assert fields[2].model_full_name == FullyQualifiedName.from_object(pydantic_v1_examples.Party)
+    assert fields[2].name == "members"
+    assert fields[2].type_name == "List[Adventurer]"
+    # active_quest
+    assert fields[3].model_full_name == FullyQualifiedName.from_object(pydantic_v1_examples.Party)
+    assert fields[3].name == "active_quest"
+    assert fields[3].type_name == "Optional[Quest]"

@@ -1,10 +1,10 @@
-from typing import Any, Type, TypeGuard
+from typing import Any, Optional, Type, TypeGuard
 
 import pydantic
 import pydantic.v1
 
-from erdantic.plugins import registry
 from erdantic.core import FieldInfo, FullyQualifiedName
+from erdantic.plugins import registry
 
 ## Pydantic v2
 
@@ -53,7 +53,7 @@ def get_fields_from_pydantic_v1_model(model: PydanticV1Model):
 def get_type_annotation_from_pydantic_v1_field(field_info: pydantic.v1.fields.ModelField):
     tp = field_info.outer_type_
     if field_info.allow_none:
-        return tp
+        return Optional[tp]
     return tp
 
 
