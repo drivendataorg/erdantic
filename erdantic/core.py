@@ -3,8 +3,14 @@ from importlib import import_module
 import inspect
 import logging
 import os
+import sys
 import textwrap
 from typing import Any, Dict, Generic, Optional, Set, Union
+
+if sys.version_info >= (3, 11):
+    from typing import Self
+else:
+    from typing_extensions import Self
 
 import pydantic
 import pygraphviz as pgv
@@ -14,8 +20,8 @@ from erdantic._version import __version__
 from erdantic.exceptions import (
     UnknownModelTypeError,
 )
-from erdantic.plugins import registry
-from erdantic.typing import (
+from erdantic.plugins import identify_field_extractor_fn
+from erdantic.typing_utils import (
     ModelType,
     get_recursive_args,
     is_collection_type_of,
@@ -92,7 +98,7 @@ class FieldInfo(pydantic.BaseModel):
     _raw_type: Optional[type] = pydantic.PrivateAttr(None)
 
     @classmethod
-    def from_raw_type(cls, model_full_name, name, raw_type):
+    def from_raw_type(cls, model_full_name: str, name: str, raw_type: type) -> Self:
         field_info = cls(
             model_full_name=model_full_name,
             name=name,
@@ -102,12 +108,16 @@ class FieldInfo(pydantic.BaseModel):
         return field_info
 
     @property
-    def raw_type(self):
+    def raw_type(self) -> type:
         if self._raw_type is None:
             model = self.model_full_name.import_object()
-            get_fields_fn = registry.get_field_extractor_fn(model)
+            get_fields_fn = identify_field_extractor_fn(model)
             if get_fields_fn:
-                self._raw_type = get_fields_fn(model)[self.name]._raw_type
+                for field_info in get_fields_fn(model):
+                    if field_info.name == self.name:
+                        self._raw_type = field_info._raw_type
+                        break
+                    raise Exception(f"Field {self.name} not found in model {self.model_full_name}")
             else:
                 raise UnknownModelTypeError(model)
         return self._raw_type
@@ -145,8 +155,8 @@ class ModelInfo(pydantic.BaseModel, Generic[ModelType]):
     _raw_model: Optional[ModelType] = None
 
     @classmethod
-    def from_raw_model(cls, raw_model: ModelType):
-        get_fields_fn = registry.get_field_extractor_fn(raw_model)
+    def from_raw_model(cls, raw_model: ModelType) -> Self:
+        get_fields_fn = identify_field_extractor_fn(raw_model)
         if not get_fields_fn:
             raise UnknownModelTypeError(raw_model)
 
@@ -166,7 +176,7 @@ class ModelInfo(pydantic.BaseModel, Generic[ModelType]):
         return model_info
 
     @property
-    def raw_model(self):
+    def raw_model(self) -> ModelType:
         if self._raw_model is None:
             self._raw_model = self.full_name.import_object()
         return self._raw_model
@@ -198,7 +208,7 @@ class Edge(pydantic.BaseModel):
         )
 
     @classmethod
-    def from_field_info(cls, target_model, source_field_info: FieldInfo):
+    def from_field_info(cls, target_model: ModelType, source_field_info: FieldInfo) -> Self:
         is_collection = is_collection_type_of(source_field_info.raw_type, target_model)
         is_nullable = is_nullable_type(source_field_info.raw_type)
         cardinality = Cardinality.MANY if is_collection else Cardinality.ONE
@@ -235,9 +245,9 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
     _model_info_cls = ModelInfo
     _edge_cls = Edge
 
-    def _add_model(self, model, recurse) -> bool:
+    def _add_model(self, model: ModelType, recurse: bool) -> bool:
         logger.debug("Adding model %s", model)
-        get_fields_fn = registry.get_field_extractor_fn(model)
+        get_fields_fn = identify_field_extractor_fn(model)
         if get_fields_fn:
             key = str(FullyQualifiedName.from_object(model))
             if key not in self.models:
@@ -252,7 +262,7 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
                                 self.edges.add(edge)
         return bool(get_fields_fn)
 
-    def add_model(self, model, recurse=True):
+    def add_model(self, model: ModelType, recurse=True):
         is_model = self._add_model(model, recurse=recurse)
         if not is_model:
             raise UnknownModelTypeError(model)

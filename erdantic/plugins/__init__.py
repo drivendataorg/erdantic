@@ -1,6 +1,15 @@
-from erdantic.plugins._registry import load_plugins, registry
+from erdantic.plugins._registry import (
+    get_field_extractor_fn,
+    get_predicate_fn,
+    identify_field_extractor_fn,
+    list_keys,
+    register_plugin,
+)
 
 __all__ = [
-    "load_plugins",
-    "registry",
+    "get_predicate_fn",
+    "get_field_extractor_fn",
+    "identify_field_extractor_fn",
+    "list_keys",
+    "register_plugin",
 ]

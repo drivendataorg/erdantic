@@ -10,7 +10,7 @@ import typer
 from erdantic._version import __version__
 from erdantic.convenience import create
 from erdantic.exceptions import ModelOrModuleNotFoundError
-from erdantic.plugins import registry
+from erdantic.plugins import list_keys
 
 app = typer.Typer()
 
@@ -31,7 +31,7 @@ if TYPE_CHECKING:
 
 else:
     SupportedModelIdentifier = StrEnum(
-        "SupportedModelIdentifier", {key: key for key in registry.keys()}
+        "SupportedModelIdentifier", {key: key for key in list_keys()}
     )
 
 

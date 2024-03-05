@@ -34,11 +34,6 @@ dependencies = [
 [project.scripts]
 erdantic = "erdantic.cli:app"
 
-[project.entry-points.'erdantic']
-attrs = "erdantic.plugins.attrs"
-dataclasses = "erdantic.plugins.dataclasses"
-pydantic = "erdantic.plugins.pydantic"
-
 [project.urls]
 "Repository" = "https://github.com/drivendataorg/erdantic"
 "Documentation" = "https://erdantic.drivendata.org/"

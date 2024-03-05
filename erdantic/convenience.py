@@ -6,7 +6,7 @@ import warnings
 
 from erdantic.core import EntityRelationshipDiagram
 from erdantic.exceptions import NotATypeError
-from erdantic.plugins import registry
+from erdantic.plugins import get_predicate_fn, list_keys
 
 
 def create(
@@ -78,8 +78,8 @@ def find_models(
         Iterator[type]: Members of module that are data model classes.
     """
     predicate_fns = [
-        predicate_fn
-        for key, (predicate_fn, _) in registry.items()
+        get_predicate_fn(key)
+        for key in list_keys()
         if limit_search_models_to is None or key in limit_search_models_to
     ]
     for _, member in inspect.getmembers(module, inspect.isclass):

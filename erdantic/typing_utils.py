@@ -1,13 +1,9 @@
 import collections.abc
 from typing import (
-    TYPE_CHECKING,
     Any,
-    Callable,
-    Dict,
     ForwardRef,
     List,
     Literal,
-    TypeGuard,
     TypeVar,
     Union,
     get_args,
@@ -22,12 +18,7 @@ from typenames import BaseNode, GenericNode, parse_type_tree
 
 from erdantic.exceptions import _StringForwardRefError, _UnevaluatedForwardRefError
 
-if TYPE_CHECKING:
-    from erdantic.core import FieldInfo
-
 ModelType = TypeVar("ModelType", bound=type)
-ModelPredicate = Callable[[Any], TypeGuard[ModelType]]
-ModelFieldExtractor = Callable[[ModelType], Dict[str, "FieldInfo"]]
 
 
 def _walk_type_tree(node: BaseNode, target: type) -> bool:

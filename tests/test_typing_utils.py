@@ -1,6 +1,6 @@
 import typing
 
-from erdantic.typing import (
+from erdantic.typing_utils import (
     get_depth1_bases,
     get_recursive_args,
     is_collection_type_of,
@@ -78,6 +78,6 @@ def test_repr_type_with_mro():
 
     assert (
         repr_type_with_mro(FancyInt)
-        == "<mro (tests.test_typing.test_repr_type_with_mro.<locals>.FancyInt, int, object)>"
+        == "<mro (tests.test_typing_utils.test_repr_type_with_mro.<locals>.FancyInt, int, object)>"
     )
     assert repr_type_with_mro(FancyInt()) == repr(FancyInt())

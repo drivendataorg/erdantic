@@ -1,20 +1,21 @@
 import importlib.metadata
 import logging
-from typing import TYPE_CHECKING, Any, Dict, Optional, Protocol, Tuple, TypeGuard
+from typing import TYPE_CHECKING, Any, List, Optional, Protocol, TypeGuard
 
-from erdantic.typing import ModelType
+from erdantic.typing_utils import ModelType
 
 if TYPE_CHECKING:
     from erdantic.core import FieldInfo
 
 logger = logging.getLogger(__name__)
 
+CORE_PLUGINS = ("pydantic", "attrs", "dataclasses")
+
 
 def load_plugins():
-    entry_points = importlib.metadata.entry_points(group="erdantic")
-    for entry_point in entry_points:
-        logger.debug("Loading plugin: %s", entry_point.name)
-        entry_point.load()
+    for plugin in CORE_PLUGINS:
+        logger.debug("Loading plugin: %s", plugin)
+        importlib.import_module(f"erdantic.plugins.{plugin}")
 
 
 class ModelPredicate(Protocol[ModelType]):
@@ -27,39 +28,37 @@ class ModelPredicate(Protocol[ModelType]):
 class ModelFieldExtractor(Protocol[ModelType]):
     """"""
 
-    def __call__(self, model: ModelType) -> Dict[str, "FieldInfo"]:
+    def __call__(self, model: ModelType) -> "FieldInfo":
         """"""
 
 
-class Registry:
-    _dict: Dict[str, Tuple[ModelPredicate, ModelFieldExtractor]]
-
-    def __init__(self) -> None:
-        self._dict = {}
-
-    def __getitem__(self, key: str):
-        return self._dict[key]
-
-    def keys(self) -> Tuple[str]:
-        return tuple(self._dict.keys())
-
-    def items(self) -> Tuple[str, Tuple[ModelPredicate, ModelFieldExtractor]]:
-        return tuple(self._dict.items())
-
-    def register(self, key: str, predicate_fn: ModelPredicate, get_fields_fn: ModelFieldExtractor):
-        if key in self._dict:
-            logger.warn("Overwriting existing implementation for key '%s'", key)
-        self._dict[key] = (predicate_fn, get_fields_fn)
-
-    def get_field_extractor_fn(
-        self, tp: type, limit_types_to=None
-    ) -> Optional[ModelFieldExtractor]:
-        for key, (predicate_fn, get_fields_fn) in self._dict.items():
-            if limit_types_to and key not in limit_types_to:
-                continue
-            if predicate_fn(tp):
-                return get_fields_fn
-        return None
+_dict = {}
 
 
-registry = Registry()
+def register_plugin(
+    key: str,
+    predicate_fn: ModelPredicate[ModelType],
+    get_fields_fn: ModelFieldExtractor[ModelType],
+):
+    if key in _dict:
+        logger.warn("Overwriting existing implementation for key '%s'", key)
+    _dict[key] = (predicate_fn, get_fields_fn)
+
+
+def list_keys() -> List[str]:
+    return list(_dict.keys())
+
+
+def get_predicate_fn(key: str) -> ModelPredicate:
+    return _dict[key][0]
+
+
+def get_field_extractor_fn(key: str) -> ModelFieldExtractor:
+    return _dict[key][1]
+
+
+def identify_field_extractor_fn(tp: type) -> Optional[ModelFieldExtractor]:
+    for predicate_fn, get_fields_fn in _dict.values():
+        if predicate_fn(tp):
+            return get_fields_fn
+    return None

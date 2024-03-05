@@ -4,7 +4,6 @@ import erdantic.examples.pydantic_v1 as pydantic_v1_examples
 from erdantic.plugins.pydantic import (
     get_fields_from_pydantic_model,
     get_fields_from_pydantic_v1_model,
-    get_type_annotation_from_pydantic_v1_field,
     is_pydantic_model,
     is_pydantic_v1_model,
 )
@@ -26,10 +25,7 @@ def test_is_pydantic_model():
 
 
 def test_get_fields_from_pydantic_model():
-    fields_dict = get_fields_from_pydantic_model(pydantic_examples.Party)
-    assert all(k == v.name for k, v in fields_dict.items())
-
-    fields = list(fields_dict.values())
+    fields = get_fields_from_pydantic_model(pydantic_examples.Party)
     assert len(fields) == 4
 
     # name
@@ -66,10 +62,7 @@ def test_is_pydantic_v1_model():
 
 
 def test_get_fields_from_pydantic_v1_model():
-    fields_dict = get_fields_from_pydantic_v1_model(pydantic_v1_examples.Party)
-    assert all(k == v.name for k, v in fields_dict.items())
-
-    fields = list(fields_dict.values())
+    fields = get_fields_from_pydantic_v1_model(pydantic_v1_examples.Party)
     assert len(fields) == 4
 
     # name
