@@ -59,6 +59,7 @@ force-sort-within-sections = true
 
 [tool.mypy]
 ignore_missing_imports = true
+plugins = ["pydantic.mypy"]
 
 [tool.pytest.ini_options]
 minversion = "6.0"

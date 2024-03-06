@@ -20,7 +20,7 @@ def get_fields_from_pydantic_model(model: PydanticModel) -> List[FieldInfo]:
         FieldInfo.from_raw_type(
             model_full_name=FullyQualifiedName.from_object(model),
             name=name,
-            raw_type=field_info.annotation,
+            raw_type=field_info.annotation or Any,
         )
         for name, field_info in model.model_fields.items()
     ]
@@ -53,7 +53,7 @@ def get_fields_from_pydantic_v1_model(model: PydanticV1Model) -> List[FieldInfo]
 def get_type_annotation_from_pydantic_v1_field(field_info: pydantic.v1.fields.ModelField) -> type:
     tp = field_info.outer_type_
     if field_info.allow_none:
-        return Optional[tp]
+        return Optional[tp]  # type: ignore
     return tp
 
 
