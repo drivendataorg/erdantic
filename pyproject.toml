@@ -27,6 +27,7 @@ dependencies = [
   "pydantic >= 2",
   "pydantic-core",
   "pygraphviz",
+  "sortedcontainers-pydantic@git+https://github.com/jayqi/sortedcontainers-pydantic.git",
   "typenames",
   "typer",
 ]

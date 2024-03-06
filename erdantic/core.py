@@ -1,11 +1,12 @@
 from enum import Enum
+from functools import total_ordering
 from importlib import import_module
 import inspect
 import logging
 import os
 import sys
 import textwrap
-from typing import Any, Dict, Generic, Optional, Set, Union
+from typing import Any, Dict, Generic, Optional, Tuple, Union
 
 if sys.version_info >= (3, 11):
     from typing import Self
@@ -14,6 +15,7 @@ else:
 
 import pydantic
 import pygraphviz as pgv
+from sortedcontainers_pydantic import SortedDict, SortedSet
 from typenames import REMOVE_ALL_MODULES, typenames
 
 from erdantic._version import __version__
@@ -31,6 +33,7 @@ from erdantic.typing_utils import (
 logger = logging.getLogger(__name__)
 
 
+@total_ordering
 class FullyQualifiedName(pydantic.BaseModel):
     module: str
     qual_name: str
@@ -53,6 +56,11 @@ class FullyQualifiedName(pydantic.BaseModel):
         for name in self.qual_name.split("."):
             obj = getattr(obj, name)
         return obj
+
+    def __lt__(self, other: Self) -> bool:
+        if not isinstance(other, FullyQualifiedName):
+            return NotImplemented
+        return (self.module, self.qual_name) < (other.module, other.qual_name)
 
 
 class Cardinality(Enum):
@@ -98,7 +106,7 @@ class FieldInfo(pydantic.BaseModel):
     _raw_type: Optional[type] = pydantic.PrivateAttr(None)
 
     @classmethod
-    def from_raw_type(cls, model_full_name: str, name: str, raw_type: type) -> Self:
+    def from_raw_type(cls, model_full_name: FullyQualifiedName, name: str, raw_type: type) -> Self:
         field_info = cls(
             model_full_name=model_full_name,
             name=name,
@@ -115,12 +123,18 @@ class FieldInfo(pydantic.BaseModel):
             if get_fields_fn:
                 for field_info in get_fields_fn(model):
                     if field_info.name == self.name:
-                        self._raw_type = field_info._raw_type
+                        self._raw_type = field_info.raw_type
                         break
+                else:
                     raise Exception(f"Field {self.name} not found in model {self.model_full_name}")
             else:
                 raise UnknownModelTypeError(model)
         return self._raw_type
+
+    def __eq__(self, other: Any) -> bool:
+        if not isinstance(other, FieldInfo):
+            return NotImplemented
+        return self.model_dump() == other.model_dump()
 
     def to_dot_row(self) -> str:
         """Returns the DOT language "HTML-like" syntax specification of a row detailing this field
@@ -181,6 +195,11 @@ class ModelInfo(pydantic.BaseModel, Generic[ModelType]):
             self._raw_model = self.full_name.import_object()
         return self._raw_model
 
+    def __eq__(self, other: Any) -> bool:
+        if not isinstance(other, ModelInfo):
+            return NotImplemented
+        return self.model_dump() == other.model_dump()
+
     def to_dot_label(self) -> str:
         """Returns the DOT language "HTML-like" syntax specification of a table for this data
         model. It is used as the `label` attribute of data model's node in the graph's DOT
@@ -193,6 +212,7 @@ class ModelInfo(pydantic.BaseModel, Generic[ModelType]):
         return self._TABLE_TEMPLATE.format(name=self.name, rows=rows).replace("\n", "")
 
 
+@total_ordering
 class Edge(pydantic.BaseModel):
     source_model_full_name: FullyQualifiedName
     source_field_name: str
@@ -207,13 +227,26 @@ class Edge(pydantic.BaseModel):
             (self.source_model_full_name, self.source_field_name, self.target_model_full_name)
         )
 
+    @property
+    def _sort_key(self) -> Tuple[FullyQualifiedName, str, FullyQualifiedName]:
+        return (
+            self.source_model_full_name,
+            self.source_field_name,
+            self.target_model_full_name,
+        )
+
+    def __lt__(self, other) -> bool:
+        if not isinstance(other, Edge):
+            return NotImplemented
+        return self._sort_key < other._sort_key
+
     @classmethod
     def from_field_info(cls, target_model: ModelType, source_field_info: FieldInfo) -> Self:
         is_collection = is_collection_type_of(source_field_info.raw_type, target_model)
         is_nullable = is_nullable_type(source_field_info.raw_type)
         cardinality = Cardinality.MANY if is_collection else Cardinality.ONE
         modality = Modality.ZERO if is_nullable or is_collection else Modality.ONE
-        return Edge(
+        return cls(
             source_model_full_name=source_field_info.model_full_name,
             source_field_name=source_field_info.name,
             target_model_full_name=FullyQualifiedName.from_object(target_model),
@@ -239,20 +272,21 @@ class Edge(pydantic.BaseModel):
 
 
 class EntityRelationshipDiagram(pydantic.BaseModel):
-    models: Dict[str, ModelInfo] = {}
-    edges: Set[Edge] = set()
+    models: SortedDict[str, ModelInfo] = SortedDict()
+    edges: SortedSet[Edge] = SortedSet()
 
     _model_info_cls = ModelInfo
     _edge_cls = Edge
 
     def _add_model(self, model: ModelType, recurse: bool) -> bool:
-        logger.debug("Adding model %s", model)
+        logger.debug("_add_model called with %s", repr(model))
         get_fields_fn = identify_field_extractor_fn(model)
         if get_fields_fn:
             key = str(FullyQualifiedName.from_object(model))
             if key not in self.models:
                 model_info = self._model_info_cls.from_raw_model(model)
                 self.models[key] = model_info
+                logger.info("Added model %s", key)
                 if recurse:
                     for field_info in model_info.fields.values():
                         for arg in get_recursive_args(field_info.raw_type):
@@ -263,6 +297,7 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
         return bool(get_fields_fn)
 
     def add_model(self, model: ModelType, recurse=True):
+        logger.info("add_model called with %s", repr(model))
         is_model = self._add_model(model, recurse=recurse)
         if not is_model:
             raise UnknownModelTypeError(model)

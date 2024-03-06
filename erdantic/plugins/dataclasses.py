@@ -5,7 +5,7 @@ from erdantic.core import FieldInfo, FullyQualifiedName
 from erdantic.plugins import register_plugin
 
 if TYPE_CHECKING:
-    from _typeshed import DataclassInstance
+    from _typeshed import DataclassInstance  # pragma: no cover
 
 
 DataclassType = Type["DataclassInstance"]

@@ -2,15 +2,13 @@ from pathlib import Path
 from types import ModuleType
 
 import erdantic as erd
-import erdantic.erd
-import erdantic.examples.dataclasses
-import erdantic.examples.pydantic
 import erdantic._version
+import erdantic.examples
 
 ASSETS_DIR = Path(__file__).resolve().parents[1] / "assets"
 
 # monkeypatch __version__
-erd.__version__ = erdantic.erd.__version__ = erdantic._version.__version__ = "TEST"
+erd.__version__ = erdantic.core.__version__ = erdantic._version.__version__ = "TEST"
 
 
 def create_assets(examples: ModuleType):
@@ -22,8 +20,15 @@ def create_assets(examples: ModuleType):
     diagram.draw(out=ASSETS_DIR / stem / "diagram.svg")
     with (ASSETS_DIR / stem / "diagram.dot").open("w") as fp:
         fp.write(diagram.to_dot())
+    with (ASSETS_DIR / stem / "diagram.json").open("w") as fp:
+        fp.write(diagram.model_dump_json(indent=2))
 
 
 if __name__ == "__main__":
-    for module in [erdantic.examples.dataclasses, erdantic.examples.pydantic]:
+    for module in [
+        erdantic.examples.attrs,
+        erdantic.examples.dataclasses,
+        erdantic.examples.pydantic,
+        erdantic.examples.pydantic_v1,
+    ]:
         create_assets(module)

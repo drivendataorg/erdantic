@@ -1,6 +1,6 @@
 import importlib.metadata
 import logging
-from typing import TYPE_CHECKING, Any, List, Optional, Protocol, TypeGuard
+from typing import TYPE_CHECKING, Any, List, Optional, Protocol, Sequence, TypeGuard
 
 from erdantic.typing_utils import ModelType
 
@@ -28,7 +28,7 @@ class ModelPredicate(Protocol[ModelType]):
 class ModelFieldExtractor(Protocol[ModelType]):
     """"""
 
-    def __call__(self, model: ModelType) -> "FieldInfo":
+    def __call__(self, model: ModelType) -> Sequence["FieldInfo"]:
         """"""
 
 
