@@ -4,7 +4,6 @@ from typing import (
     ForwardRef,
     List,
     Literal,
-    TypeVar,
     Union,
     get_args,
     get_origin,
@@ -17,8 +16,6 @@ from typing import _GenericAlias as GenericAlias  # type: ignore # Python 3.7+
 from typenames import BaseNode, GenericNode, parse_type_tree
 
 from erdantic.exceptions import _StringForwardRefError, _UnevaluatedForwardRefError
-
-ModelType = TypeVar("ModelType", bound=type)
 
 
 def _walk_type_tree(node: BaseNode, target: type) -> bool:
@@ -82,10 +79,12 @@ def get_recursive_args(tp: Union[type, GenericAlias]) -> List[type]:
             else:
                 raise _UnevaluatedForwardRefError(forward_ref=t)
 
-        args = get_args(t)
         if get_origin(t) is Literal:
             yield t
-        elif args:
+            return
+
+        args = get_args(t)
+        if args:
             for arg in args:
                 yield from recurse(arg)
         else:

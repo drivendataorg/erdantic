@@ -16,6 +16,12 @@ ASSETS_DIR = Path(__file__).resolve().parent / "assets"
 @pytest.fixture()
 def version_patch(monkeypatch):
     """Monkeypatch version to stable value to compare with static test assets."""
+    default_graph_attrs = dict(erdantic.core._DEFAULT_GRAPH_ATTRS)
+    default_graph_attrs["label"] = default_graph_attrs["label"].replace(
+        f"v{erdantic.__version__}", "vTEST"
+    )
+    monkeypatch.setattr(erdantic.core, "_DEFAULT_GRAPH_ATTRS", tuple(default_graph_attrs.items()))
+
     monkeypatch.setattr(erd, "__version__", "TEST")
     monkeypatch.setattr(erdantic._version, "__version__", "TEST")
     monkeypatch.setattr(erdantic.core, "__version__", "TEST")

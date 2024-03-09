@@ -1,7 +1,7 @@
 import inspect
 import os
 from types import ModuleType
-from typing import Collection, Iterator, Optional, Union
+from typing import Any, Collection, Iterator, Mapping, Optional, Union
 import warnings
 
 from erdantic.core import EntityRelationshipDiagram
@@ -95,6 +95,9 @@ def draw(
     terminal_models: Collection[type] = tuple(),
     termini: Collection[type] = tuple(),
     limit_search_models_to: Optional[Collection[str]] = None,
+    graph_attrs: Optional[Mapping[str, Any]] = None,
+    node_attrs: Optional[Mapping[str, Any]] = None,
+    edge_attrs: Optional[Mapping[str, Any]] = None,
     **kwargs,
 ):
     """Render entity relationship diagram for given data model classes to file.
@@ -115,13 +118,18 @@ def draw(
         terminal_models=terminal_models,
         limit_search_models_to=limit_search_models_to,
     )
-    diagram.draw(out=out, **kwargs)
+    diagram.draw(
+        out=out, graph_attrs=graph_attrs, node_attrs=node_attrs, edge_attrs=edge_attrs, **kwargs
+    )
 
 
 def to_dot(
     *models_or_modules: Union[type, ModuleType],
     terminal_models: Collection[type] = [],
     limit_search_models_to: Optional[Collection[str]] = None,
+    graph_attrs: Optional[Mapping[str, Any]] = None,
+    node_attrs: Optional[Mapping[str, Any]] = None,
+    edge_attrs: Optional[Mapping[str, Any]] = None,
 ) -> str:
     """Generate Graphviz [DOT language](https://graphviz.org/doc/info/lang.html) representation of
     entity relationship diagram for given data model classes.
@@ -143,4 +151,4 @@ def to_dot(
         terminal_models=terminal_models,
         limit_search_models_to=limit_search_models_to,
     )
-    return diagram.to_dot()
+    return diagram.to_dot(graph_attrs=graph_attrs, node_attrs=node_attrs, edge_attrs=edge_attrs)

@@ -7,7 +7,12 @@ import erdantic.examples
 
 ASSETS_DIR = Path(__file__).resolve().parents[1] / "assets"
 
-# monkeypatch __version__
+# monkeypatch __version__ and watermark
+_default_graph_attrs = dict(erdantic.core.DEFAULT_GRAPH_ATTRS)
+_default_graph_attrs["label"] = _default_graph_attrs["label"].replace(
+    f"v{erd.__version__}", "vTEST"
+)
+erdantic.core._DEFAULT_GRAPH_ATTRS = tuple(_default_graph_attrs.items())
 erd.__version__ = erdantic.core.__version__ = erdantic._version.__version__ = "TEST"
 
 

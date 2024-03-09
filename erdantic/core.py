@@ -6,7 +6,7 @@ import logging
 import os
 import sys
 import textwrap
-from typing import Any, Dict, Generic, Optional, Tuple, Union
+from typing import Any, Dict, Generic, Mapping, Optional, Tuple, TypeVar, Union
 
 if sys.version_info >= (3, 11):
     from typing import Self
@@ -20,17 +20,22 @@ from typenames import REMOVE_ALL_MODULES, typenames
 
 from erdantic._version import __version__
 from erdantic.exceptions import (
+    StringForwardRefError,
+    UnevaluatedForwardRefError,
     UnknownModelTypeError,
+    _StringForwardRefError,
+    _UnevaluatedForwardRefError,
 )
 from erdantic.plugins import identify_field_extractor_fn
 from erdantic.typing_utils import (
-    ModelType,
     get_recursive_args,
     is_collection_type_of,
     is_nullable_type,
 )
 
 logger = logging.getLogger(__name__)
+
+_ModelType = TypeVar("_ModelType", bound=type)
 
 
 @total_ordering
@@ -147,7 +152,7 @@ class FieldInfo(pydantic.BaseModel):
         return self._ROW_TEMPLATE.format(name=self.name, type_name=self.type_name)
 
 
-class ModelInfo(pydantic.BaseModel, Generic[ModelType]):
+class ModelInfo(pydantic.BaseModel, Generic[_ModelType]):
     full_name: FullyQualifiedName
     name: str
     fields: Dict[str, FieldInfo]
@@ -166,10 +171,10 @@ class ModelInfo(pydantic.BaseModel, Generic[ModelType]):
         """
     )
 
-    _raw_model: Optional[ModelType] = None
+    _raw_model: Optional[_ModelType] = None
 
     @classmethod
-    def from_raw_model(cls, raw_model: ModelType) -> Self:
+    def from_raw_model(cls, raw_model: _ModelType) -> Self:
         get_fields_fn = identify_field_extractor_fn(raw_model)
         if not get_fields_fn:
             raise UnknownModelTypeError(raw_model)
@@ -190,7 +195,7 @@ class ModelInfo(pydantic.BaseModel, Generic[ModelType]):
         return model_info
 
     @property
-    def raw_model(self) -> ModelType:
+    def raw_model(self) -> _ModelType:
         if self._raw_model is None:
             self._raw_model = self.full_name.import_object()
         return self._raw_model
@@ -241,7 +246,7 @@ class Edge(pydantic.BaseModel):
         return self._sort_key < other._sort_key
 
     @classmethod
-    def from_field_info(cls, target_model: ModelType, source_field_info: FieldInfo) -> Self:
+    def from_field_info(cls, target_model: type, source_field_info: FieldInfo) -> Self:
         is_collection = is_collection_type_of(source_field_info.raw_type, target_model)
         is_nullable = is_nullable_type(source_field_info.raw_type)
         cardinality = Cardinality.MANY if is_collection else Cardinality.ONE
@@ -271,6 +276,23 @@ class Edge(pydantic.BaseModel):
         return cardinality + modality
 
 
+_DEFAULT_GRAPH_ATTRS = (
+    ("nodesep", "0.5"),
+    ("ranksep", "1.5"),
+    ("rankdir", "LR"),
+    ("label", f"Created by erdantic v{__version__} <https://github.com/drivendataorg/erdantic>"),
+    ("fontsize", "9"),
+    ("fontcolor", "gray66"),
+)
+
+_DEFAULT_NODE_ATTRS = (
+    ("fontsize", 14),
+    ("shape", "plain"),
+)
+
+_DEFAULT_EDGE_ATTRS = ()
+
+
 class EntityRelationshipDiagram(pydantic.BaseModel):
     models: SortedDict[str, ModelInfo] = SortedDict()
     edges: SortedSet[Edge] = SortedSet()
@@ -278,7 +300,8 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
     _model_info_cls = ModelInfo
     _edge_cls = Edge
 
-    def _add_model(self, model: ModelType, recurse: bool) -> bool:
+    def _add_model(self, model: type, recurse: bool) -> bool:
+        """Private recursive method to add a model to the diagram."""
         logger.debug("_add_model called with %s", repr(model))
         get_fields_fn = identify_field_extractor_fn(model)
         if get_fields_fn:
@@ -296,13 +319,20 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
                                 self.edges.add(edge)
         return bool(get_fields_fn)
 
-    def add_model(self, model: ModelType, recurse=True):
+    def add_model(self, model: type, recurse=True):
         logger.info("add_model called with %s", repr(model))
         is_model = self._add_model(model, recurse=recurse)
         if not is_model:
             raise UnknownModelTypeError(model)
 
-    def draw(self, out: Union[str, os.PathLike], **kwargs):
+    def draw(
+        self,
+        out: Union[str, os.PathLike],
+        graph_attrs: Optional[Mapping[str, Any]] = None,
+        node_attrs: Optional[Mapping[str, Any]] = None,
+        edge_attrs: Optional[Mapping[str, Any]] = None,
+        **kwargs,
+    ):
         """Render entity relationship diagram for given data model classes to file.
 
         Args:
@@ -310,9 +340,18 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
             **kwargs: Additional keyword arguments to [`pygraphviz.AGraph.draw`](https://pygraphviz.github.io/documentation/latest/reference/agraph.html#pygraphviz.AGraph.draw).
         """
         logger.info("Rendering diagram to %s", out)
-        self.to_graphviz().draw(out, prog="dot", **kwargs)
+        self.to_graphviz(
+            graph_attrs=graph_attrs,
+            node_attrs=node_attrs,
+            edge_attrs=edge_attrs,
+        ).draw(out, prog="dot", **kwargs)
 
-    def to_graphviz(self) -> pgv.AGraph:
+    def to_graphviz(
+        self,
+        graph_attrs: Optional[Mapping[str, Any]] = None,
+        node_attrs: Optional[Mapping[str, Any]] = None,
+        edge_attrs: Optional[Mapping[str, Any]] = None,
+    ) -> pgv.AGraph:
         """Return [`pygraphviz.AGraph`](https://pygraphviz.github.io/documentation/latest/reference/agraph.html)
         instance for diagram.
 
@@ -320,18 +359,16 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
             pygraphviz.AGraph: graph object for diagram
         """
         g = pgv.AGraph(
+            name="Entity Relationship Diagram",
             directed=True,
             strict=False,
-            nodesep=0.5,
-            ranksep=1.5,
-            rankdir="LR",
-            name="Entity Relationship Diagram",
-            label=f"Created by erdantic v{__version__} <https://github.com/drivendataorg/erdantic>",
-            fontsize=9,
-            fontcolor="gray66",
         )
-        g.node_attr["fontsize"] = 14
-        g.node_attr["shape"] = "plain"
+        g.graph_attr.update(_DEFAULT_GRAPH_ATTRS)
+        g.graph_attr.update(graph_attrs or {})
+        g.node_attr.update(_DEFAULT_NODE_ATTRS)
+        g.node_attr.update(node_attrs or {})
+        g.edge_attr.update(_DEFAULT_EDGE_ATTRS)
+        g.edge_attr.update(edge_attrs or {})
         for full_name, model_info in self.models.items():
             g.add_node(
                 full_name,
@@ -349,11 +386,20 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
             )
         return g
 
-    def to_dot(self) -> str:
+    def to_dot(
+        self,
+        graph_attrs: Optional[Mapping[str, Any]] = None,
+        node_attrs: Optional[Mapping[str, Any]] = None,
+        edge_attrs: Optional[Mapping[str, Any]] = None,
+    ) -> str:
         """Generate Graphviz [DOT language](https://graphviz.org/doc/info/lang.html) representation
         of entity relationship diagram for given data model classes.
 
         Returns:
             str: DOT language representation of diagram
         """
-        return self.to_graphviz().string()
+        return self.to_graphviz(
+            graph_attrs=graph_attrs,
+            node_attrs=node_attrs,
+            edge_attrs=edge_attrs,
+        ).string()
