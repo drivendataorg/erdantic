@@ -21,6 +21,8 @@ classifiers = [
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Framework :: Pydantic",
+  "Framework :: Pydantic :: 2",
 ]
 requires-python = ">=3.8"
 dependencies = [
@@ -58,6 +60,7 @@ known-first-party = ["erdantic"]
 force-sort-within-sections = true
 
 [tool.mypy]
+files = ["erdantic"]
 ignore_missing_imports = true
 plugins = ["pydantic.mypy"]
 
