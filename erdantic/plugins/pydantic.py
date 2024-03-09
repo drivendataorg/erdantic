@@ -20,9 +20,11 @@ def get_fields_from_pydantic_model(model: PydanticModel) -> List[FieldInfo]:
         FieldInfo.from_raw_type(
             model_full_name=FullyQualifiedName.from_object(model),
             name=name,
-            raw_type=field_info.annotation or Any,
+            # typing special forms currently get typed as object
+            # https://github.com/python/mypy/issues/9773
+            raw_type=pydantic_field_info.annotation or Any,  # type: ignore
         )
-        for name, field_info in model.model_fields.items()
+        for name, pydantic_field_info in model.model_fields.items()
     ]
 
 

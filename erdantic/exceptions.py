@@ -5,7 +5,7 @@ from typing import (
 )
 
 if TYPE_CHECKING:
-    from erdantic.base import Field, Model
+    from erdantic.core import FieldInfo
 
 
 class ErdanticException(Exception):
@@ -36,13 +36,19 @@ class NotATypeError(ValueError, ErdanticException):
     pass
 
 
+class UnresolvableForwardRefError(ErdanticException):
+    ...
+
+
 class StringForwardRefError(ErdanticException):
     """Raised when a field's type declaration is stored as a string literal and not transformed
     into a typing.ForwardRef object."""
 
-    def __init__(self, model: "Model", field: "Field", forward_ref: ForwardRef) -> None:
+    def __init__(self, field_info: "FieldInfo", forward_ref: ForwardRef) -> None:
+        field_name = field_info.name
+        model_name = field_info.model_full_name
         message = (
-            f"Forward reference '{forward_ref}' for field '{field.name}' on model '{model.name}' "
+            f"Forward reference '{forward_ref}' for field '{field_name}' on model '{model_name}' "
             "is a string literal and not a typing.ForwardRef object. erdantic is unable to handle "
             "forward references that aren't transformed into typing.ForwardRef. Declare "
             f"explicitly with 'typing.ForwardRef(\"{forward_ref}\", is_argument=False)'."
@@ -62,13 +68,13 @@ class _StringForwardRefError(ErdanticException):
 class UnevaluatedForwardRefError(ErdanticException):
     """Raised when a field's type declaration has an unevaluated forward reference."""
 
-    def __init__(self, model: "Model", field: "Field", forward_ref: ForwardRef) -> None:
+    def __init__(self, field_info: "FieldInfo", forward_ref: ForwardRef) -> None:
+        field_name = field_info.name
+        model_name = field_info.model_full_name
         message = (
             f"Unevaluated forward reference '{forward_ref.__forward_arg__}' "
-            f"for field {field.name} on model {model.name}."
+            f"for field {field_name} on model {model_name}."
         )
-        if model.forward_ref_help:
-            message += " " + model.forward_ref_help
         super().__init__(message)
 
 
