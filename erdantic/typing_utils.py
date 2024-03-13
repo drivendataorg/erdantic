@@ -15,7 +15,7 @@ from typing import _GenericAlias as GenericAlias  # type: ignore # Python 3.7+
 
 from typenames import BaseNode, GenericNode, parse_type_tree
 
-from erdantic.exceptions import _StringForwardRefError, _UnevaluatedForwardRefError
+from erdantic.exceptions import _UnevaluatedForwardRefError
 
 
 def _walk_type_tree(node: BaseNode, target: type) -> bool:
@@ -72,12 +72,12 @@ def get_recursive_args(tp: Union[type, GenericAlias]) -> List[type]:
 
     def recurse(t):
         if isinstance(t, str):
-            raise _StringForwardRefError(forward_ref=t)
+            raise _UnevaluatedForwardRefError(forward_ref=t)
         elif isinstance(t, ForwardRef):
             if t.__forward_evaluated__:
                 t = t.__forward_value__
             else:
-                raise _UnevaluatedForwardRefError(forward_ref=t)
+                raise _UnevaluatedForwardRefError(forward_ref=t.__forward_arg__)
 
         if get_origin(t) is Literal:
             yield t

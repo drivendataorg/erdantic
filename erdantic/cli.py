@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING, Annotated, List, Optional
 
 import typer
 
+from erdantic._logging import package_logger
 from erdantic._version import __version__
 from erdantic.convenience import create
 from erdantic.exceptions import ModelOrModuleNotFoundError
@@ -15,7 +16,6 @@ from erdantic.plugins import list_keys
 app = typer.Typer()
 
 logger = logging.getLogger(__name__)
-logger.addHandler(logging.NullHandler())
 
 
 class StrEnum(str, Enum):
@@ -136,11 +136,10 @@ def main(
     """
     # Set up logger
     log_level = logging.INFO + 10 * quiet - 10 * verbose
-    logger.setLevel(log_level)
+    package_logger.setLevel(log_level)
     log_handler = logging.StreamHandler()
-    logger.addHandler(log_handler)
-    prog_name = Path(sys.argv[0]).stem
-    log_formatter = logging.Formatter(f"%(asctime)s | {prog_name} | %(levelname)s | %(message)s")
+    package_logger.addHandler(log_handler)
+    log_formatter = logging.Formatter(f"%(asctime)s | %(name)s | %(levelname)s | %(message)s")
     log_handler.setFormatter(log_formatter)
 
     model_or_module_objs = [import_object_from_name(mm) for mm in models_or_modules]

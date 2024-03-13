@@ -5,7 +5,7 @@ from typing import (
 )
 
 if TYPE_CHECKING:
-    from erdantic.core import FieldInfo
+    from erdantic.core import FullyQualifiedName
 
 
 class ErdanticException(Exception):
@@ -40,40 +40,22 @@ class UnresolvableForwardRefError(ErdanticException):
     ...
 
 
-class StringForwardRefError(ErdanticException):
-    """Raised when a field's type declaration is stored as a string literal and not transformed
-    into a typing.ForwardRef object."""
-
-    def __init__(self, field_info: "FieldInfo", forward_ref: ForwardRef) -> None:
-        field_name = field_info.name
-        model_name = field_info.model_full_name
-        message = (
-            f"Forward reference '{forward_ref}' for field '{field_name}' on model '{model_name}' "
-            "is a string literal and not a typing.ForwardRef object. erdantic is unable to handle "
-            "forward references that aren't transformed into typing.ForwardRef. Declare "
-            f"explicitly with 'typing.ForwardRef(\"{forward_ref}\", is_argument=False)'."
-        )
-        super().__init__(message)
-
-
-class _StringForwardRefError(ErdanticException):
-    """Internal exception for forward references that are stored as a string literal rather than
-    a typing.ForwardRef object."""
-
-    def __init__(self, forward_ref: ForwardRef) -> None:
-        self.forward_ref = forward_ref
-        super().__init__("Unexpected error while flagging forward reference stored as a string.")
-
-
 class UnevaluatedForwardRefError(ErdanticException):
     """Raised when a field's type declaration has an unevaluated forward reference."""
 
-    def __init__(self, field_info: "FieldInfo", forward_ref: ForwardRef) -> None:
-        field_name = field_info.name
-        model_name = field_info.model_full_name
+    def __init__(
+        self,
+        model_full_name: "FullyQualifiedName",
+        field_name: str,
+        forward_ref: ForwardRef,
+    ) -> None:
         message = (
-            f"Unevaluated forward reference '{forward_ref.__forward_arg__}' "
-            f"for field {field_name} on model {model_name}."
+            f"Unevaluated forward reference '{forward_ref}' "
+            f"for field '{field_name}' on model '{model_full_name}'. "
+            "Normally, erdantic plugins try to resolve forward references, and this error "
+            "indicates that this didn't happen. If you are using a built-in plugin, please report "
+            "this as a bug. If you are using a custom or third-party plugin, then that plugin "
+            "needs to add support for resolving forward references. "
         )
         super().__init__(message)
 

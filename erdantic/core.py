@@ -19,7 +19,11 @@ from sortedcontainers_pydantic import SortedDict, SortedSet
 from typenames import REMOVE_ALL_MODULES, typenames
 
 from erdantic._version import __version__
-from erdantic.exceptions import UnknownModelTypeError
+from erdantic.exceptions import (
+    UnevaluatedForwardRefError,
+    UnknownModelTypeError,
+    _UnevaluatedForwardRefError,
+)
 from erdantic.plugins import identify_field_extractor_fn
 from erdantic.typing_utils import (
     get_recursive_args,
@@ -294,28 +298,39 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
     _model_info_cls = ModelInfo
     _edge_cls = Edge
 
-    def _add_model(self, model: type, recurse: bool) -> bool:
+    def _add_if_model(self, model: type, recurse: bool) -> bool:
         """Private recursive method to add a model to the diagram."""
-        logger.debug("_add_model called with %s", repr(model))
-        get_fields_fn = identify_field_extractor_fn(model)
-        if get_fields_fn:
-            key = str(FullyQualifiedName.from_object(model))
-            if key not in self.models:
+        key = str(FullyQualifiedName.from_object(model))
+        if key not in self.models:
+            try:
                 model_info = self._model_info_cls.from_raw_model(model)
                 self.models[key] = model_info
-                logger.info("Added model %s", key)
+                logger.debug("Sucessfully added model '%s'.", key)
                 if recurse:
+                    logger.debug("Searching fields of '%s' for other models...", key)
                     for field_info in model_info.fields.values():
-                        for arg in get_recursive_args(field_info.raw_type):
-                            is_model = self._add_model(arg, recurse=recurse)
-                            if is_model:
-                                edge = self._edge_cls.from_field_info(arg, field_info)
-                                self.edges.add(edge)
-        return bool(get_fields_fn)
+                        try:
+                            for arg in get_recursive_args(field_info.raw_type):
+                                is_model = self._add_if_model(arg, recurse=recurse)
+                                if is_model:
+                                    edge = self._edge_cls.from_field_info(arg, field_info)
+                                    self.edges.add(edge)
+                        except _UnevaluatedForwardRefError as e:
+                            raise UnevaluatedForwardRefError(
+                                model_full_name=model_info.full_name,
+                                field_name=field_info.name,
+                                forward_ref=e.forward_ref,
+                            )
+            except UnknownModelTypeError:
+                logger.debug("'%s' is not a known model type.", typenames(model))
+                return False
+        else:
+            logger.debug("Model '%s' already exists in diagram.", key)
+        return True
 
     def add_model(self, model: type, recurse=True):
-        logger.info("add_model called with %s", repr(model))
-        is_model = self._add_model(model, recurse=recurse)
+        logger.info("Adding model to '%s' to diagram...", typenames(model))
+        is_model = self._add_if_model(model, recurse=recurse)
         if not is_model:
             raise UnknownModelTypeError(model)
 

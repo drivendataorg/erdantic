@@ -1,4 +1,3 @@
-# from erdantic.refactor.convenience import create, draw, to_dot
 import erdantic._logging  # noqa: F401
 from erdantic._version import __version__
 from erdantic.convenience import create, draw, to_dot

@@ -12,7 +12,7 @@ import erdantic.examples.pydantic as examples_pydantic
 from erdantic.examples.pydantic import Party, Quest
 from erdantic.exceptions import ModelOrModuleNotFoundError
 
-runner = CliRunner()
+runner = CliRunner(mix_stderr=False)
 
 
 def test_import_object_from_name():
@@ -43,8 +43,7 @@ def test_draw(tmp_path):
     path2 = tmp_path / "diagram2.png"
     result = subprocess.run(
         ["python", "-m", "erdantic", "erdantic.examples.pydantic.Party", "-o", str(path2)],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        capture_output=True,
         universal_newlines=True,
     )
     assert result.returncode == 0
@@ -139,8 +138,8 @@ def test_with_modules(tmp_path):
 def test_missing_out():
     result = runner.invoke(app, ["erdantic.examples.pydantic.Party"])
     assert result.exit_code == 2
-    assert "Error" in result.stdout
-    assert "Missing option '--out' / '-o'." in result.stdout
+    assert "Error" in result.stderr
+    assert "Missing option '--out' / '-o'." in result.stderr
 
 
 def test_no_overwrite(tmp_path):
@@ -174,8 +173,7 @@ def test_dot(tmp_path):
     # python -m erdantic
     result = subprocess.run(
         ["python", "-m", "erdantic", "erdantic.examples.pydantic.Party", "-d"],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        capture_output=True,
         universal_newlines=True,
     )
     assert result.returncode == 0

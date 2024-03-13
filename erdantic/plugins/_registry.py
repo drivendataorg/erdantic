@@ -1,7 +1,8 @@
 import importlib.metadata
 import logging
-import sys
 from typing import TYPE_CHECKING, Any, List, Optional, Protocol, Sequence, TypeGuard, TypeVar
+
+from typenames import typenames
 
 if TYPE_CHECKING:
     from erdantic.core import FieldInfo
@@ -61,7 +62,8 @@ def get_field_extractor_fn(key: str) -> ModelFieldExtractor:
 
 
 def identify_field_extractor_fn(tp: type) -> Optional[ModelFieldExtractor]:
-    for predicate_fn, get_fields_fn in _dict.values():
+    for key, (predicate_fn, get_fields_fn) in _dict.items():
         if predicate_fn(tp):
+            logger.debug("Identified '%s' as a '%s' model.", typenames(tp), key)
             return get_fields_fn
     return None
