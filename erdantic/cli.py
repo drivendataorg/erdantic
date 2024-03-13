@@ -11,7 +11,7 @@ from erdantic._logging import package_logger
 from erdantic._version import __version__
 from erdantic.convenience import create
 from erdantic.exceptions import ModelOrModuleNotFoundError
-from erdantic.plugins import list_keys
+from erdantic.plugins import list_plugins
 
 app = typer.Typer()
 
@@ -31,7 +31,7 @@ if TYPE_CHECKING:
 
 else:
     SupportedModelIdentifier = StrEnum(
-        "SupportedModelIdentifier", {key: key for key in list_keys()}
+        "SupportedModelIdentifier", {key: key for key in list_plugins()}
     )
 
 
@@ -139,8 +139,14 @@ def main(
     package_logger.setLevel(log_level)
     log_handler = logging.StreamHandler()
     package_logger.addHandler(log_handler)
-    log_formatter = logging.Formatter(f"%(asctime)s | %(name)s | %(levelname)s | %(message)s")
+    log_formatter = logging.Formatter("%(asctime)s | %(name)s | %(levelname)s | %(message)s")
     log_handler.setFormatter(log_formatter)
+
+    logger.debug("models_or_modules: %s", models_or_modules)
+    logger.debug("terminal_models: %s", terminal_models)
+    logger.debug("termini: %s", termini)
+
+    logger.debug("Registered plugins: %s", ", ".join(list_plugins()))
 
     model_or_module_objs = [import_object_from_name(mm) for mm in models_or_modules]
     terminal_model_classes = [import_object_from_name(mm) for mm in terminal_models]
@@ -174,4 +180,4 @@ def import_object_from_name(full_obj_name):
             module = import_module(module_name)
             return getattr(module, obj_name)
         except (ImportError, AttributeError):
-            raise ModelOrModuleNotFoundError(f"{full_obj_name} not found")
+            raise ModelOrModuleNotFoundError(f"Unable to import {full_obj_name}.")

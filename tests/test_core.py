@@ -5,7 +5,7 @@ import pytest
 
 from erdantic.core import EntityRelationshipDiagram, FieldInfo, FullyQualifiedName
 from erdantic.examples.dataclasses import Party
-import erdantic.plugins._registry
+import erdantic.plugins
 from erdantic.plugins.dataclasses import DataclassType
 
 
@@ -25,12 +25,12 @@ def test_unsupported_forward_ref_resolution(monkeypatch):
         ]
 
     # Patch dataclasses plugin
-    dataclasses_predicate_fn = erdantic.plugins._registry.get_predicate_fn("dataclasses")
+    dataclasses_predicate_fn = erdantic.plugins.get_predicate_fn("dataclasses")
     patch = (
         dataclasses_predicate_fn,
         get_fields_from_dataclass_no_get_type_hints,
     )
-    monkeypatch.setitem(erdantic.plugins._registry._dict, "dataclasses", patch)
+    monkeypatch.setitem(erdantic.plugins._dict, "dataclasses", patch)
 
     @dataclasses.dataclass
     class Game:

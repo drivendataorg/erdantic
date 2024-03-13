@@ -6,7 +6,7 @@ import warnings
 
 from erdantic.core import EntityRelationshipDiagram
 from erdantic.exceptions import NotATypeError
-from erdantic.plugins import get_predicate_fn, list_keys
+from erdantic.plugins import get_predicate_fn, list_plugins
 
 
 def create(
@@ -79,7 +79,7 @@ def find_models(
     """
     predicate_fns = [
         get_predicate_fn(key)
-        for key in list_keys()
+        for key in list_plugins()
         if limit_search_models_to is None or key in limit_search_models_to
     ]
     for _, member in inspect.getmembers(module, inspect.isclass):

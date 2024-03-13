@@ -295,15 +295,12 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
     models: SortedDict[str, ModelInfo] = SortedDict()
     edges: SortedSet[Edge] = SortedSet()
 
-    _model_info_cls = ModelInfo
-    _edge_cls = Edge
-
     def _add_if_model(self, model: type, recurse: bool) -> bool:
         """Private recursive method to add a model to the diagram."""
         key = str(FullyQualifiedName.from_object(model))
         if key not in self.models:
             try:
-                model_info = self._model_info_cls.from_raw_model(model)
+                model_info = ModelInfo.from_raw_model(model)
                 self.models[key] = model_info
                 logger.debug("Sucessfully added model '%s'.", key)
                 if recurse:
@@ -313,7 +310,7 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
                             for arg in get_recursive_args(field_info.raw_type):
                                 is_model = self._add_if_model(arg, recurse=recurse)
                                 if is_model:
-                                    edge = self._edge_cls.from_field_info(arg, field_info)
+                                    edge = Edge.from_field_info(arg, field_info)
                                     self.edges.add(edge)
                         except _UnevaluatedForwardRefError as e:
                             raise UnevaluatedForwardRefError(
