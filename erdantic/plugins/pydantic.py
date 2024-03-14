@@ -1,9 +1,11 @@
+import re
 from typing import Any, List, Optional, Type, TypeGuard
 
 import pydantic
 import pydantic.v1
 
 from erdantic.core import FieldInfo, FullyQualifiedName
+from erdantic.exceptions import UnresolvableForwardRefError
 from erdantic.plugins import register_plugin
 
 ## Pydantic v2
@@ -16,6 +18,18 @@ def is_pydantic_model(obj: Any) -> TypeGuard[PydanticModel]:
 
 
 def get_fields_from_pydantic_model(model: PydanticModel) -> List[FieldInfo]:
+    try:
+        # Rebuild model schema to resolve forward references
+        model.model_rebuild()
+    except pydantic.errors.PydanticUndefinedAnnotation as e:
+        model_full_name = FullyQualifiedName.from_object(model)
+        forward_ref = e.name
+        msg = (
+            f"Failed to resolve forward reference '{forward_ref}' in the type annotations for "
+            f"Pydantic model {model_full_name}. "
+            "You should use the model's model_rebuild() method to manually resolve it."
+        )
+        raise UnresolvableForwardRefError(msg, name=forward_ref) from e
     return [
         FieldInfo.from_raw_type(
             model_full_name=FullyQualifiedName.from_object(model),
@@ -42,6 +56,20 @@ def is_pydantic_v1_model(obj) -> TypeGuard[PydanticV1Model]:
 
 
 def get_fields_from_pydantic_v1_model(model: PydanticV1Model) -> List[FieldInfo]:
+    try:
+        model.update_forward_refs()
+    except NameError as e:
+        model_full_name = FullyQualifiedName.from_object(model)
+        # NameError attribute 'name' was added in Python 3.10
+        forward_ref = getattr(e, "name", re.search(r"(?<=')(?:[^'])*(?=')", str(e)).group(0))
+        msg = (
+            f"Failed to resolve forward reference '{forward_ref}' in the type annotations for "
+            f"Pydantic V1 model {model_full_name}. "
+            "You should call the method update_forward_refs(**locals()) on the model in "
+            "the scope where it has been defined to manually resolve it."
+        )
+        raise UnresolvableForwardRefError(msg, name=forward_ref) from e
+
     return [
         FieldInfo.from_raw_type(
             model_full_name=FullyQualifiedName.from_object(model),

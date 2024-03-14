@@ -36,8 +36,14 @@ class NotATypeError(ValueError, ErdanticException):
     pass
 
 
-class UnresolvableForwardRefError(ErdanticException):
-    ...
+class UnresolvableForwardRefError(NameError, ErdanticException):
+    def __init__(
+        self,
+        *args: object,
+        name: str,
+    ) -> None:
+        self.name = name
+        super().__init__(*args)
 
 
 class UnevaluatedForwardRefError(ErdanticException):
@@ -47,8 +53,11 @@ class UnevaluatedForwardRefError(ErdanticException):
         self,
         model_full_name: "FullyQualifiedName",
         field_name: str,
-        forward_ref: ForwardRef,
+        forward_ref: str,
     ) -> None:
+        self.model_full_name = model_full_name
+        self.field_name = field_name
+        self.forward_ref = forward_ref
         message = (
             f"Unevaluated forward reference '{forward_ref}' "
             f"for field '{field_name}' on model '{model_full_name}'. "
@@ -64,7 +73,7 @@ class _UnevaluatedForwardRefError(ErdanticException):
     """Internal exception for unevaluated forward references that is caught and raised instead
     as UnevaluatedForwardRefError."""
 
-    def __init__(self, forward_ref: ForwardRef) -> None:
+    def __init__(self, forward_ref: str) -> None:
         self.forward_ref = forward_ref
         super().__init__("Unexpected error while flagging unevaluated forward reference.")
 
