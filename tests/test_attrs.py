@@ -3,7 +3,7 @@ from typing import Optional
 from attrs import define, resolve_types
 import pytest
 
-from erdantic.core import FullyQualifiedName
+from erdantic.core import EntityRelationshipDiagram, FullyQualifiedName
 import erdantic.examples.attrs as attrs_examples
 from erdantic.exceptions import UnresolvableForwardRefError
 from erdantic.plugins.attrs import (
@@ -57,6 +57,7 @@ class HasForwardRefs:
 
 
 def test_forward_references():
+    """Handles forward references on class defined in global module scope."""
     fields = {fi.name: fi for fi in get_fields_from_attrs_class(HasForwardRefs)}
     print(fields)
     assert fields["fwd_ref"].type_name == "Party"
@@ -68,6 +69,13 @@ def test_forward_references():
     assert fields["nested_self_fwd_ref"].type_name == "Optional[HasForwardRefs]"
     assert fields["nested_self_fwd_ref"].raw_type == Optional[HasForwardRefs]
 
+    diagram = EntityRelationshipDiagram()
+    diagram.add_model(HasForwardRefs)
+
+
+def test_forward_ref_fn_scope():
+    """Forward references on class defined in a function scope."""
+
     # Class is defined in a function scope
     @define
     class FnScopeHasForwardRefs:
@@ -78,6 +86,14 @@ def test_forward_references():
         fwd_ref_of_local: "FnScopeHasForwardRefs"
         nested_fwd_ref_of_local: Optional["FnScopeHasForwardRefs"]
 
+    # Should error because FnScopeHasForwardRefs can't be resolved
+    with pytest.raises(UnresolvableForwardRefError, match="'FnScopeHasForwardRefs'"):
+        get_fields_from_attrs_class(FnScopeHasForwardRefs)
+    with pytest.raises(UnresolvableForwardRefError, match="'FnScopeHasForwardRefs'"):
+        diagram = EntityRelationshipDiagram()
+        diagram.add_model(FnScopeHasForwardRefs)
+
+    # Manually resolve using attrs.resolve_types
     resolve_types(FnScopeHasForwardRefs, globalns=globals(), localns=locals())
 
     fields = {fi.name: fi for fi in get_fields_from_attrs_class(FnScopeHasForwardRefs)}
@@ -95,11 +111,6 @@ def test_forward_references():
     assert fields["nested_fwd_ref_of_local"].type_name == "Optional[FnScopeHasForwardRefs]"
     assert fields["nested_fwd_ref_of_local"].raw_type == Optional[FnScopeHasForwardRefs]
 
-
-def test_forward_ref_of_local_class_unresolved():
-    @define
-    class FnScopeHasForwardRefsUnresolved:
-        fwd_ref_of_local: "FnScopeHasForwardRefsUnresolved"
-
-    with pytest.raises(UnresolvableForwardRefError):
-        _ = {fi.name: fi for fi in get_fields_from_attrs_class(FnScopeHasForwardRefsUnresolved)}
+    # Can add to diagram without error
+    diagram = EntityRelationshipDiagram()
+    diagram.add_model(FnScopeHasForwardRefs)

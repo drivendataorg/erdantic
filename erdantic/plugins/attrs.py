@@ -1,3 +1,4 @@
+import re
 from typing import Any, List, Type, TypeGuard
 
 import attrs
@@ -15,20 +16,16 @@ def is_attrs_class(obj: Any) -> TypeGuard[AttrsClassType]:
 
 def get_fields_from_attrs_class(model: AttrsClassType) -> List[FieldInfo]:
     try:
+        # Try to automatically resolve forward references
         attrs.resolve_types(model)
     except NameError as e:
         model_full_name = FullyQualifiedName.from_object(model)
-        if getattr(e, "name", None):
-            msg = (
-                f"Failed to resolve forward reference '{e.name}' in the type annotations for "
-                f"attrs class {model_full_name}."
-            )
-        else:
-            msg = (
-                "Failed to resolve a forward reference in the type annotations for "
-                f"attrs class {model_full_name}."
-            )
-        msg += " " + "You should use attrs.resolve_types with locals() where you define the class."
+        forward_ref = getattr(e, "name", re.search(r"(?<=')(?:[^'])*(?=')", str(e)).group(1))
+        msg = (
+            f"Failed to resolve forward reference '{forward_ref}' in the type annotations for "
+            f"attrs class {model_full_name}. "
+            "You should use attrs.resolve_types with locals() where you define the class."
+        )
         raise UnresolvableForwardRefError(msg) from e
     return [
         FieldInfo.from_raw_type(
