@@ -21,11 +21,16 @@ def get_fields_from_dataclass(model: DataclassType) -> List[FieldInfo]:
     try:
         # Try to automatically resolve forward references
         resolve_types_on_dataclass(model)
-    except NameError:
-        # Don't error if a forward reference can't be resolved
-        # typing.get_type_hints will error even if forward references had been resolved manually
-        # We'll just have to let EntityRelationDiagram.add_model error later
-        pass
+    except NameError as e:
+        model_full_name = FullyQualifiedName.from_object(model)
+        forward_ref = getattr(e, "name", re.search(r"(?<=')(?:[^'])*(?=')", str(e)).group(0))
+        msg = (
+            f"Failed to resolve forward reference '{forward_ref}' in the type annotations for "
+            f"dataclass {model_full_name}. "
+            "You should use erdantic.plugins.dataclasses.resolve_types_on_dataclass with locals() "
+            "where you define the class."
+        )
+        raise UnresolvableForwardRefError(msg, name=forward_ref) from e
     return [
         FieldInfo.from_raw_type(
             model_full_name=FullyQualifiedName.from_object(model),
@@ -44,7 +49,14 @@ register_plugin(
 def resolve_types_on_dataclass(
     cls: DataclassType, globalns=None, localns=None, include_extras=False
 ) -> DataclassType:
-    hints = get_type_hints(cls, globalns=globalns, localns=localns, include_extras=include_extras)
-    for field in dataclasses.fields(cls):
-        field.type = hints[field.name]
+    # Cache whether we have already run this on a cls
+    # Inspired by attrs.resolve_types
+    if getattr(cls, "__erdantic_dataclass_types_resolved__", None) != cls:
+        hints = get_type_hints(
+            cls, globalns=globalns, localns=localns, include_extras=include_extras
+        )
+        for field in dataclasses.fields(cls):
+            field.type = hints[field.name]
+        # Use reference to cls as indicator in case of subclasses
+        cls.__erdantic_dataclass_types_resolved__ = cls
     return cls

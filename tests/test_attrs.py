@@ -1,3 +1,4 @@
+from pprint import pprint
 from typing import Optional
 
 from attrs import define, resolve_types
@@ -49,68 +50,144 @@ def test_get_fields_from_attrs_class():
 
 
 @define
-class HasForwardRefs:
-    fwd_ref: "attrs_examples.Party"
-    nested_fwd_ref: Optional["attrs_examples.Quest"]
-    self_fwd_ref: "HasForwardRefs"
-    nested_self_fwd_ref: Optional["HasForwardRefs"]
+class GlobalOtherClassBefore:
+    """Another attrs class to be referenced as a forward reference. Defined before the class that
+    references it."""
+
+    my_field: str
 
 
-def test_forward_references():
-    """Handles forward references on class defined in global module scope."""
-    fields = {fi.name: fi for fi in get_fields_from_attrs_class(HasForwardRefs)}
-    print(fields)
-    assert fields["fwd_ref"].type_name == "Party"
-    assert fields["fwd_ref"].raw_type == attrs_examples.Party
-    assert fields["nested_fwd_ref"].type_name == "Optional[Quest]"
-    assert fields["nested_fwd_ref"].raw_type == Optional[attrs_examples.Quest]
-    assert fields["self_fwd_ref"].type_name == "HasForwardRefs"
-    assert fields["self_fwd_ref"].raw_type == HasForwardRefs
-    assert fields["nested_self_fwd_ref"].type_name == "Optional[HasForwardRefs]"
-    assert fields["nested_self_fwd_ref"].raw_type == Optional[HasForwardRefs]
+@define
+class GlobalWithFwdRefs:
+    """Globally defined attrs class with forward references. This should have no problems being
+    automatically resolved."""
 
-    diagram = EntityRelationshipDiagram()
-    diagram.add_model(HasForwardRefs)
+    # Resolved by attrs.resolve_types() in  get_fields_from_attrs_class
+    imported_ref: "attrs_examples.Party"
+    nested_imported_ref: Optional["attrs_examples.Quest"]
+    self_ref: "GlobalWithFwdRefs"
+    nested_self_ref: Optional["GlobalWithFwdRefs"]
+    global_ref_before: "GlobalOtherClassBefore"
+    nested_global_ref_before: Optional["GlobalOtherClassBefore"]
+    global_ref_after: "GlobalOtherClassAfter"
+    nested_global_ref_after: Optional["GlobalOtherClassAfter"]
 
 
-def test_forward_ref_fn_scope():
-    """Forward references on class defined in a function scope."""
+@define
+class GlobalOtherClassAfter:
+    """Another attrs class to be referenced as a forward reference. Defined after the class that
+    references it."""
 
-    # Class is defined in a function scope
-    @define
-    class FnScopeHasForwardRefs:
-        fwd_ref: "attrs_examples.Party"
-        nested_fwd_ref: Optional["attrs_examples.Quest"]
-        global_fwd_ref: "HasForwardRefs"
-        nested_global_fwd_ref: Optional["HasForwardRefs"]
-        fwd_ref_of_local: "FnScopeHasForwardRefs"
-        nested_fwd_ref_of_local: Optional["FnScopeHasForwardRefs"]
+    my_field: str
 
-    # Should error because FnScopeHasForwardRefs can't be resolved
-    with pytest.raises(UnresolvableForwardRefError, match="'FnScopeHasForwardRefs'"):
-        get_fields_from_attrs_class(FnScopeHasForwardRefs)
-    with pytest.raises(UnresolvableForwardRefError, match="'FnScopeHasForwardRefs'"):
-        diagram = EntityRelationshipDiagram()
-        diagram.add_model(FnScopeHasForwardRefs)
 
-    # Manually resolve using attrs.resolve_types
-    resolve_types(FnScopeHasForwardRefs, globalns=globals(), localns=locals())
-
-    fields = {fi.name: fi for fi in get_fields_from_attrs_class(FnScopeHasForwardRefs)}
-    print(fields)
-    assert fields["fwd_ref"].type_name == "Party"
-    assert fields["fwd_ref"].raw_type == attrs_examples.Party
-    assert fields["nested_fwd_ref"].type_name == "Optional[Quest]"
-    assert fields["nested_fwd_ref"].raw_type == Optional[attrs_examples.Quest]
-    assert fields["global_fwd_ref"].type_name == "HasForwardRefs"
-    assert fields["global_fwd_ref"].raw_type == HasForwardRefs
-    assert fields["nested_global_fwd_ref"].type_name == "Optional[HasForwardRefs]"
-    assert fields["nested_global_fwd_ref"].raw_type == Optional[HasForwardRefs]
-    assert fields["fwd_ref_of_local"].type_name == "FnScopeHasForwardRefs"
-    assert fields["fwd_ref_of_local"].raw_type == FnScopeHasForwardRefs
-    assert fields["nested_fwd_ref_of_local"].type_name == "Optional[FnScopeHasForwardRefs]"
-    assert fields["nested_fwd_ref_of_local"].raw_type == Optional[FnScopeHasForwardRefs]
+def test_forward_refs_global_scope():
+    """Global scope attrs class with forward references that we can handle automatically."""
+    # Class is defined in the global scope
+    fields = {fi.name: fi for fi in get_fields_from_attrs_class(GlobalWithFwdRefs)}
+    pprint({name: (fi.type_name, fi.raw_type) for name, fi in fields.items()})
+    # Resolved by attrs.resolve_types() in get_fields_from_attrs_class
+    assert fields["imported_ref"].type_name == "Party"
+    assert fields["imported_ref"].raw_type == attrs_examples.Party
+    assert fields["nested_imported_ref"].type_name == "Optional[Quest]"
+    assert fields["nested_imported_ref"].raw_type == Optional[attrs_examples.Quest]
+    assert fields["self_ref"].type_name == "GlobalWithFwdRefs"
+    assert fields["self_ref"].raw_type == GlobalWithFwdRefs
+    assert fields["nested_self_ref"].type_name == "Optional[GlobalWithFwdRefs]"
+    assert fields["nested_self_ref"].raw_type == Optional[GlobalWithFwdRefs]
+    assert fields["global_ref_before"].type_name == "GlobalOtherClassBefore"
+    assert fields["global_ref_before"].raw_type == GlobalOtherClassBefore
+    assert fields["nested_global_ref_before"].type_name == "Optional[GlobalOtherClassBefore]"
+    assert fields["nested_global_ref_before"].raw_type == Optional[GlobalOtherClassBefore]
+    assert fields["global_ref_after"].type_name == "GlobalOtherClassAfter"
+    assert fields["global_ref_after"].raw_type == GlobalOtherClassAfter
+    assert fields["nested_global_ref_after"].type_name == "Optional[GlobalOtherClassAfter]"
+    assert fields["nested_global_ref_after"].raw_type == Optional[GlobalOtherClassAfter]
 
     # Can add to diagram without error
     diagram = EntityRelationshipDiagram()
-    diagram.add_model(FnScopeHasForwardRefs)
+    diagram.add_model(GlobalWithFwdRefs)
+
+
+def test_forward_refs_fn_scope_auto_resolvable():
+    """Function scope attrs class with forward references that we can automatically resolve."""
+
+    # Resolved by attrs.resolve_types() in get_fields_from_attrs_class
+    @define
+    class FnScopeAutomaticallyResolvable:
+        imported_ref: "attrs_examples.Party"
+        nested_imported_ref: Optional["attrs_examples.Quest"]
+        global_ref: "GlobalOtherClassBefore"
+        nested_global_ref: Optional["GlobalOtherClassBefore"]
+
+    fields = {fi.name: fi for fi in get_fields_from_attrs_class(FnScopeAutomaticallyResolvable)}
+    pprint({name: (fi.type_name, fi.raw_type) for name, fi in fields.items()})
+    assert fields["imported_ref"].type_name == "Party"
+    assert fields["imported_ref"].raw_type == attrs_examples.Party
+    assert fields["nested_imported_ref"].type_name == "Optional[Quest]"
+    assert fields["nested_imported_ref"].raw_type == Optional[attrs_examples.Quest]
+    assert fields["global_ref"].type_name == "GlobalOtherClassBefore"
+    assert fields["global_ref"].raw_type == GlobalOtherClassBefore
+    assert fields["nested_global_ref"].type_name == "Optional[GlobalOtherClassBefore]"
+    assert fields["nested_global_ref"].raw_type == Optional[GlobalOtherClassBefore]
+
+    # Can add to diagram without error
+    diagram = EntityRelationshipDiagram()
+    diagram.add_model(FnScopeAutomaticallyResolvable)
+
+
+def test_forward_refs_fn_scope_manual_resolvable():
+    """Function scope model with forward references that we need to manually resolve."""
+
+    @define
+    class FnScopeOtherClassBefore:
+        """Another class to be referenced as a forward reference. Defined before the class that
+        references it."""
+
+        my_field: str
+
+    @define
+    class FnScopeManuallyResolvable:
+        self_ref: "FnScopeManuallyResolvable"
+        nested_self_ref: Optional["FnScopeManuallyResolvable"]
+        sibling_ref_before: "FnScopeOtherClassBefore"
+        nested_sibling_ref_before: "Optional[FnScopeOtherClassBefore]"
+        sibling_ref_after: "FnScopeOtherClassAfter"
+        nested_sibling_ref_after: Optional["FnScopeOtherClassAfter"]
+
+    @define
+    class FnScopeOtherClassAfter:
+        """Another class to be referenced as a forward reference. Defined after the class that
+        references it."""
+
+        my_field: str
+
+    with pytest.raises(UnresolvableForwardRefError, match="'FnScopeManuallyResolvable'"):
+        diagram = EntityRelationshipDiagram()
+        diagram.add_model(FnScopeManuallyResolvable)
+
+    with pytest.raises(UnresolvableForwardRefError, match="'FnScopeManuallyResolvable'"):
+        get_fields_from_attrs_class(FnScopeManuallyResolvable)
+
+    # Call attrs.resolve_types() to manually resolve
+    resolve_types(FnScopeManuallyResolvable, localns=locals())
+
+    # Adding to diagram should now work without error
+    diagram = EntityRelationshipDiagram()
+    diagram.add_model(FnScopeManuallyResolvable)
+
+    # Fields should match expected
+    fields = {fi.name: fi for fi in get_fields_from_attrs_class(FnScopeManuallyResolvable)}
+    pprint({name: (fi.type_name, fi.raw_type) for name, fi in fields.items()})
+    assert fields["self_ref"].type_name == "FnScopeManuallyResolvable"
+    assert fields["self_ref"].raw_type == FnScopeManuallyResolvable
+    assert fields["nested_self_ref"].type_name == "Optional[FnScopeManuallyResolvable]"
+    assert fields["nested_self_ref"].raw_type == Optional[FnScopeManuallyResolvable]
+    assert fields["sibling_ref_before"].type_name == "FnScopeOtherClassBefore"
+    assert fields["sibling_ref_before"].raw_type == FnScopeOtherClassBefore
+    assert fields["nested_sibling_ref_before"].type_name == "Optional[FnScopeOtherClassBefore]"
+    assert fields["nested_sibling_ref_before"].raw_type == Optional[FnScopeOtherClassBefore]
+    assert fields["sibling_ref_after"].type_name == "FnScopeOtherClassAfter"
+    assert fields["sibling_ref_after"].raw_type == FnScopeOtherClassAfter
+    assert fields["nested_sibling_ref_after"].type_name == "Optional[FnScopeOtherClassAfter]"
+    assert fields["nested_sibling_ref_after"].raw_type == Optional[FnScopeOtherClassAfter]
