@@ -17,8 +17,7 @@ import erdantic.plugins.pydantic
 def test_register_plugin():
     """Custom plugin can be sucessfully registered and used."""
 
-    class CustomBaseModel:
-        ...
+    class CustomBaseModel: ...
 
     def is_custom_model(obj):
         return (
@@ -34,8 +33,7 @@ def test_register_plugin():
 
     assert "test_plugin" in list_plugins()
 
-    class MyModel(CustomBaseModel):
-        ...
+    class MyModel(CustomBaseModel): ...
 
     assert identify_field_extractor_fn(MyModel) == get_fields_from_custom_model
     assert identify_field_extractor_fn(erdantic.examples.pydantic.Party) not in (
@@ -43,8 +41,7 @@ def test_register_plugin():
         None,
     )
 
-    class NotAModel:
-        ...
+    class NotAModel: ...
 
     assert identify_field_extractor_fn(NotAModel) is None
 
@@ -81,8 +78,7 @@ def test_identify_field_extractor_fn():
     ]:
         assert identify_field_extractor_fn(example_module.Party) == get_fields_fn
 
-    class NotAModel:
-        ...
+    class NotAModel: ...
 
     assert identify_field_extractor_fn(NotAModel) is None
 

@@ -1,4 +1,4 @@
-"""Example data model classes using legacy 
+"""Example data model classes using legacy
 [Pydantic V1](https://docs.pydantic.dev/latest/migration/#continue-using-pydantic-v1-features)."""
 
 from datetime import datetime

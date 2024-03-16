@@ -10,8 +10,7 @@ from erdantic.typing_utils import (
 
 
 def test_is_collection_type_of():
-    class Target:
-        ...
+    class Target: ...
 
     assert is_collection_type_of(typing.List[Target], Target)
     assert is_collection_type_of(typing.Optional[typing.List[Target]], Target)
