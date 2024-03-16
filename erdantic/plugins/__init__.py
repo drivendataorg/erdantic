@@ -4,6 +4,8 @@ from typing import TYPE_CHECKING, Any, List, Optional, Protocol, Sequence, TypeG
 
 from typenames import typenames
 
+from erdantic.exceptions import PluginNotFoundError
+
 if TYPE_CHECKING:
     from erdantic.core import FieldInfo
 
@@ -55,11 +57,17 @@ def list_plugins() -> List[str]:
 
 
 def get_predicate_fn(key: str) -> ModelPredicate:
-    return _dict[key][0]
+    try:
+        return _dict[key][0]
+    except KeyError:
+        raise PluginNotFoundError(key=key)
 
 
 def get_field_extractor_fn(key: str) -> ModelFieldExtractor:
-    return _dict[key][1]
+    try:
+        return _dict[key][1]
+    except KeyError:
+        raise PluginNotFoundError(key=key)
 
 
 def identify_field_extractor_fn(tp: type) -> Optional[ModelFieldExtractor]:
@@ -67,4 +75,5 @@ def identify_field_extractor_fn(tp: type) -> Optional[ModelFieldExtractor]:
         if predicate_fn(tp):
             logger.debug("Identified '%s' as a '%s' model.", typenames(tp), key)
             return get_fields_fn
+    logger.debug("'%s' is not a known model type.", typenames(tp))
     return None

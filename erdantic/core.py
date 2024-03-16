@@ -20,6 +20,7 @@ from typenames import REMOVE_ALL_MODULES, typenames
 
 from erdantic._version import __version__
 from erdantic.exceptions import (
+    FieldNotFoundError,
     UnevaluatedForwardRefError,
     UnknownModelTypeError,
     _UnevaluatedForwardRefError,
@@ -129,9 +130,11 @@ class FieldInfo(pydantic.BaseModel):
                         self._raw_type = field_info.raw_type
                         break
                 else:
-                    raise Exception(f"Field {self.name} not found in model {self.model_full_name}")
+                    raise FieldNotFoundError(
+                        name=self.name, obj=model, model_full_name=self.model_full_name
+                    )
             else:
-                raise UnknownModelTypeError(model)
+                raise UnknownModelTypeError(model=model)
         return self._raw_type
 
     def __eq__(self, other: Any) -> bool:
@@ -175,7 +178,7 @@ class ModelInfo(pydantic.BaseModel, Generic[_ModelType]):
     def from_raw_model(cls, raw_model: _ModelType) -> Self:
         get_fields_fn = identify_field_extractor_fn(raw_model)
         if not get_fields_fn:
-            raise UnknownModelTypeError(raw_model)
+            raise UnknownModelTypeError(model=raw_model)
 
         full_name = FullyQualifiedName.from_object(raw_model)
         description = str(full_name)
@@ -306,6 +309,12 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
                 if recurse:
                     logger.debug("Searching fields of '%s' for other models...", key)
                     for field_info in model_info.fields.values():
+                        logger.debug(
+                            "Analyzing model '%s' field '%s' of type '%s'...",
+                            key,
+                            field_info.name,
+                            field_info.type_name,
+                        )
                         try:
                             for arg in get_recursive_args(field_info.raw_type):
                                 is_model = self._add_if_model(arg, recurse=recurse)
@@ -319,7 +328,6 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
                                 forward_ref=e.forward_ref,
                             )
             except UnknownModelTypeError:
-                logger.debug("'%s' is not a known model type.", typenames(model))
                 return False
         else:
             logger.debug("Model '%s' already exists in diagram.", key)
@@ -329,7 +337,7 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
         logger.info("Adding model to '%s' to diagram...", typenames(model))
         is_model = self._add_if_model(model, recurse=recurse)
         if not is_model:
-            raise UnknownModelTypeError(model)
+            raise UnknownModelTypeError(model=model)
 
     def draw(
         self,

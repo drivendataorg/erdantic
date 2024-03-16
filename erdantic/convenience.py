@@ -1,12 +1,14 @@
 import inspect
+import logging
 import os
 from types import ModuleType
 from typing import Any, Collection, Iterator, Mapping, Optional, Union
 import warnings
 
 from erdantic.core import EntityRelationshipDiagram
-from erdantic.exceptions import NotATypeError
 from erdantic.plugins import get_predicate_fn, list_plugins
+
+logger = logging.getLogger(__name__)
 
 
 def create(
@@ -51,14 +53,12 @@ def create(
         diagram.add_model(model, recurse=False)
 
     for mm in models_or_modules:
-        if isinstance(mm, type):
-            diagram.add_model(mm)
-        elif isinstance(mm, ModuleType):
+        if isinstance(mm, ModuleType):
+            logger.debug("Searching input module '%s' for data model classes", mm.__name__)
             for member in find_models(mm, limit_search_models_to=limit_search_models_to):
                 diagram.add_model(member)
         else:
-            raise NotATypeError(f"Given model is not a type: {mm}")
-
+            diagram.add_model(mm)
     return diagram
 
 
@@ -77,15 +77,18 @@ def find_models(
     Yields:
         Iterator[type]: Members of module that are data model classes.
     """
-    predicate_fns = [
-        get_predicate_fn(key)
-        for key in list_plugins()
-        if limit_search_models_to is None or key in limit_search_models_to
-    ]
+    all_plugins = list_plugins()
+    if limit_search_models_to is not None:
+        predicate_fns = [get_predicate_fn(key) for key in limit_search_models_to]
+    else:
+        predicate_fns = [get_predicate_fn(key) for key in all_plugins]
     for _, member in inspect.getmembers(module, inspect.isclass):
         if member.__module__ == module.__name__:
             for predicate_fn in predicate_fns:
                 if predicate_fn(member):
+                    logger.debug(
+                        "Found data model class '%s' in module '%s'", member, module.__name__
+                    )
                     yield member
 
 

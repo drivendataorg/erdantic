@@ -6,7 +6,7 @@ import pytest
 
 from erdantic.core import EntityRelationshipDiagram, FullyQualifiedName
 import erdantic.examples.dataclasses as dataclasses_examples
-from erdantic.exceptions import UnevaluatedForwardRefError, UnresolvableForwardRefError
+from erdantic.exceptions import UnresolvableForwardRefError
 from erdantic.plugins.dataclasses import (
     get_fields_from_dataclass,
     is_dataclass_type,
@@ -192,78 +192,3 @@ def test_forward_refs_fn_scope_manual_resolvable():
     assert fields["sibling_ref_after"].raw_type == FnScopeOtherClassAfter
     assert fields["nested_sibling_ref_after"].type_name == "Optional[FnScopeOtherClassAfter]"
     assert fields["nested_sibling_ref_after"].raw_type == Optional[FnScopeOtherClassAfter]
-
-
-############
-
-
-# @dataclass
-# class HasForwardRefs:
-#     fwd_ref: "dataclasses_examples.Party"
-#     nested_fwd_ref: Optional["dataclasses_examples.Quest"]
-#     self_fwd_ref: "HasForwardRefs"
-#     nested_self_fwd_ref: Optional["HasForwardRefs"]
-
-
-# def test_forward_refs():
-#     """Global namespace and imported forward references are automatically resolved."""
-#     # Class is defined in the global scope
-#     fields = {fi.name: fi for fi in get_fields_from_dataclass(HasForwardRefs)}
-#     print({name: (fi.type_name, fi.raw_type) for name, fi in fields.items()})
-#     assert fields["fwd_ref"].type_name == "Party"
-#     assert fields["fwd_ref"].raw_type == dataclasses_examples.Party
-#     assert fields["nested_fwd_ref"].type_name == "Optional[Quest]"
-#     assert fields["nested_fwd_ref"].raw_type == Optional[dataclasses_examples.Quest]
-#     assert fields["self_fwd_ref"].type_name == "HasForwardRefs"
-#     assert fields["self_fwd_ref"].raw_type == HasForwardRefs
-#     assert fields["nested_self_fwd_ref"].type_name == "Optional[HasForwardRefs]"
-#     assert fields["nested_self_fwd_ref"].raw_type == Optional[HasForwardRefs]
-
-#     # Class is defined in a function scope
-#     @dataclass
-#     class FnScopeHasForwardRefs:
-#         fwd_ref: "dataclasses_examples.Party"
-#         nested_fwd_ref: Optional["dataclasses_examples.Quest"]
-#         global_fwd_ref: "HasForwardRefs"
-#         nested_global_fwd_ref: Optional["HasForwardRefs"]
-
-#     fields = {fi.name: fi for fi in get_fields_from_dataclass(FnScopeHasForwardRefs)}
-#     print({name: (fi.type_name, fi.raw_type) for name, fi in fields.items()})
-#     assert fields["fwd_ref"].type_name == "Party"
-#     assert fields["fwd_ref"].raw_type == dataclasses_examples.Party
-#     assert fields["nested_fwd_ref"].type_name == "Optional[Quest]"
-#     assert fields["nested_fwd_ref"].raw_type == Optional[dataclasses_examples.Quest]
-#     assert fields["global_fwd_ref"].type_name == "HasForwardRefs"
-#     assert fields["global_fwd_ref"].raw_type == HasForwardRefs
-#     assert fields["nested_global_fwd_ref"].type_name == "Optional[HasForwardRefs]"
-#     assert fields["nested_global_fwd_ref"].raw_type == Optional[HasForwardRefs]
-
-
-# def test_resolve_types_on_dataclass():
-#     """Use resolve_types_on_dataclass to resolve function-scoped forward reference."""
-
-#     @dataclass
-#     class FnScopeHasForwardRefs:
-#         bare_fwd_ref: "FnScopeHasForwardRefs"
-#         nested_fwd_ref: Optional["FnScopeHasForwardRefs"]
-
-#     # These are forward references and not resolved yet
-#     fields = {fi.name: fi for fi in get_fields_from_dataclass(FnScopeHasForwardRefs)}
-#     print({name: (fi.type_name, fi.raw_type) for name, fi in fields.items()})
-#     assert fields["bare_fwd_ref"].raw_type != FnScopeHasForwardRefs
-#     assert fields["nested_fwd_ref"].raw_type != Optional[FnScopeHasForwardRefs]
-
-#     # Trying to add to a diagram raises an error
-#     diagram = EntityRelationshipDiagram()
-#     with pytest.raises(UnevaluatedForwardRefError):
-#         diagram.add_model(FnScopeHasForwardRefs)
-
-#     # Resolve forward references
-#     resolve_types_on_dataclass(FnScopeHasForwardRefs, localns=locals())
-
-#     fields = {fi.name: fi for fi in get_fields_from_dataclass(FnScopeHasForwardRefs)}
-#     print({name: (fi.type_name, fi.raw_type) for name, fi in fields.items()})
-#     assert fields["bare_fwd_ref"].type_name == "FnScopeHasForwardRefs"
-#     assert fields["bare_fwd_ref"].raw_type == FnScopeHasForwardRefs
-#     assert fields["nested_fwd_ref"].type_name == "Optional[FnScopeHasForwardRefs]"
-#     assert fields["nested_fwd_ref"].raw_type == Optional[FnScopeHasForwardRefs]
