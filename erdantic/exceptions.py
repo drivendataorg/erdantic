@@ -18,7 +18,11 @@ class ErdanticException(Exception):
 
 
 class PluginNotFoundError(KeyError, ErdanticException):
-    """Raised when specified plugin key does not match a registered plugin."""
+    """Raised when specified plugin key does not match a registered plugin.
+
+    Attributes:
+        key (str): The plugin key that was not found.
+    """
 
     def __init__(self, *args: object, key: str) -> None:
         self.key = key
@@ -31,6 +35,12 @@ class ModelOrModuleNotFoundError(ImportError, ErdanticException):
 
 
 class UnresolvableForwardRefError(NameError, ErdanticException):
+    """Raised when a forward reference in a type annotation cannot be resolved automatically.
+
+    Attributes:
+        name (str): The string representation of the unresolvable forward reference.
+    """
+
     def __init__(
         self,
         *args: object,
@@ -44,7 +54,14 @@ class UnresolvableForwardRefError(NameError, ErdanticException):
 
 
 class UnevaluatedForwardRefError(ErdanticException):
-    """Raised when a field's type declaration has an unevaluated forward reference."""
+    """Raised when a field's type declaration has an unevaluated forward reference.
+
+    Attributes:
+        model_full_name (FullyQualifiedName): The fully qualified name of the model with the field
+            with the unevaluated forward reference.
+        field_name (str): The name of the field with the unevaluated forward reference.
+        forward_ref (str): The string representation of the unevaluated forward reference.
+    """
 
     def __init__(
         self,
@@ -59,10 +76,10 @@ class UnevaluatedForwardRefError(ErdanticException):
         message = (
             f"Unevaluated forward reference '{forward_ref}' "
             f"for field '{field_name}' on model '{model_full_name}'. "
-            "Normally, erdantic plugins try to resolve forward references, and this error "
-            "indicates that this didn't happen. If you are using a built-in plugin, please report "
-            "this as a bug. If you are using a custom or third-party plugin, then that plugin "
-            "needs to add support for resolving forward references. "
+            "Normally, erdantic plugins try to resolve forward references automatically, and this "
+            "error indicates that this didn't happen. If you are using a built-in plugin, please "
+            "report this as a bug. If you are using a custom or third-party plugin, then that "
+            "plugin needs to add support for automatically resolving forward references. "
         )
         super().__init__(*args, message)
 
@@ -73,12 +90,22 @@ class _UnevaluatedForwardRefError(ErdanticException):
 
     def __init__(self, *args, forward_ref: str) -> None:
         self.forward_ref = forward_ref
-        super().__init__(*args, "Unexpected error while flagging unevaluated forward reference.")
+        msg = (
+            "Unexpected error while flagging unevaluated forward reference. "
+            "If you see this error, something is wrong. Please report this as a bug."
+        )
+        super().__init__(*args, msg)
 
 
 class FieldNotFoundError(AttributeError, ErdanticException):
     """Raised trying to access a field name that does not match any fields returned by the
-    field extractor function for a model."""
+    field extractor function for a model.
+
+    Attributes:
+        name (str): The name of the field that was not found.
+        obj (object): The model object that the field was being accessed on.
+        model_full_name (FullyQualifiedName): The fully qualified name of the model.
+    """
 
     def __init__(self, *args, name: str, obj: object, model_full_name: "FullyQualifiedName"):
         self.model_full_name = model_full_name
@@ -92,7 +119,11 @@ class FieldNotFoundError(AttributeError, ErdanticException):
 
 
 class UnknownModelTypeError(ValueError, ErdanticException):
-    """Raised when a given model does not match known supported class types."""
+    """Raised when a given model does not match known supported class types.
+
+    Attributes:
+        model (type): The model class that was not recognized.
+    """
 
     def __init__(self, *args, model: type):
         display = getattr(model, "__mro__", str(model))

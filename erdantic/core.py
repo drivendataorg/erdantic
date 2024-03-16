@@ -39,14 +39,28 @@ _ModelType = TypeVar("_ModelType", bound=type)
 
 @total_ordering
 class FullyQualifiedName(pydantic.BaseModel):
+    """Holds the fully qualified name components (module and qualified name) of a Python object.
+    This is used to uniquely identify an object, can be used to import it.
+
+    Attributes:
+        module (str): Name of the module that the object is defined in.
+        qual_name (str): Qualified name of the object.
+    """
+
     module: str
     qual_name: str
 
     @classmethod
-    def from_object(cls, obj: Any):
-        module = obj.__module__
-        qual_name = obj.__qualname__
-        return FullyQualifiedName(module=module, qual_name=qual_name)
+    def from_object(cls, obj: Any) -> Self:
+        """Constructor method to create a new instance from a Python object.
+
+        Args:
+            obj (Any): Python object.
+
+        Returns:
+            Self: Fully qualified name of the object.
+        """
+        return FullyQualifiedName(module=obj.__module__, qual_name=obj.__qualname__)
 
     def __hash__(self) -> int:
         return hash((self.module, self.qual_name))
@@ -54,7 +68,12 @@ class FullyQualifiedName(pydantic.BaseModel):
     def __str__(self) -> str:
         return f"{self.module}.{self.qual_name}"
 
-    def import_object(self):
+    def import_object(self) -> Any:
+        """Imports the object from the module and returns it.
+
+        Returns:
+            Any: Object referenced by this FullyQualifiedName instance.
+        """
         module = import_module(self.module)
         obj = module
         for name in self.qual_name.split("."):
@@ -68,34 +87,59 @@ class FullyQualifiedName(pydantic.BaseModel):
 
 
 class Cardinality(Enum):
+    """Enumeration of possible cardinality values for a relationship between two data model
+    classes. Cardinality measures the maximum number of associations—valid values are 'one' or
+    'many'.
+    """
+
     ONE = "one"
     MANY = "many"
 
     def to_dot(self) -> str:
-        return CARDINALITY_DOT_MAPPING[self]
+        """Returns the DOT language specification for the arrowhead styling associated with the
+        cardinality value.
+        """
+        return _CARDINALITY_DOT_MAPPING[self]
 
 
-CARDINALITY_DOT_MAPPING = {
+_CARDINALITY_DOT_MAPPING = {
     Cardinality.ONE: "nonetee",
     Cardinality.MANY: "crow",
 }
 
 
 class Modality(Enum):
+    """Enumeration of possible cardinality values for a relationship between two data model
+    classes. Cardinality measures the minimum number of associations—valid values are 'zero' or
+    'one'.
+    """
+
     ZERO = "zero"
     ONE = "one"
 
     def to_dot(self) -> str:
-        return MODALITY_DOT_MAPPING[self]
+        """Returns the DOT language specification for the arrowhead styling associated with the
+        modality value.
+        """
+        return _MODALITY_DOT_MAPPING[self]
 
 
-MODALITY_DOT_MAPPING = {
+_MODALITY_DOT_MAPPING = {
     Modality.ZERO: "odot",
     Modality.ONE: "tee",
 }
 
 
 class FieldInfo(pydantic.BaseModel):
+    """Holds information about a field of an analyzed data model class.
+
+    Attributes:
+        model_full_name (FullyQualifiedName): Fully qualified name of the data model class that
+            the field belongs to.
+        name (str): Name of the field.
+        type_name (str): String representation of the field's type.
+    """
+
     model_full_name: FullyQualifiedName
     name: str
     type_name: str
@@ -111,6 +155,17 @@ class FieldInfo(pydantic.BaseModel):
 
     @classmethod
     def from_raw_type(cls, model_full_name: FullyQualifiedName, name: str, raw_type: type) -> Self:
+        """Constructor method to create a new instance from a raw type annotation.
+
+        Args:
+            model_full_name (FullyQualifiedName): Fully qualified name of the data model class that
+            the field belongs to.
+            name (str): Name of field.
+            raw_type (type): Type annotation.
+
+        Returns:
+            Self: _description_
+        """
         field_info = cls(
             model_full_name=model_full_name,
             name=name,
@@ -121,6 +176,17 @@ class FieldInfo(pydantic.BaseModel):
 
     @property
     def raw_type(self) -> type:
+        """Returns the raw type annotation of the field. This is a cached property. If the raw
+        type is not already known, it will attempt to import the data model class and reextract
+        the field's type annotation.
+
+        Raises:
+            FieldNotFoundError: _description_
+            UnknownModelTypeError: _description_
+
+        Returns:
+            type: Type annotation.
+        """
         if self._raw_type is None:
             model = self.model_full_name.import_object()
             get_fields_fn = identify_field_extractor_fn(model)
@@ -154,6 +220,16 @@ class FieldInfo(pydantic.BaseModel):
 
 
 class ModelInfo(pydantic.BaseModel, Generic[_ModelType]):
+    """Holds information about an analyzed data model class.
+
+    Attributes:
+        full_name (FullyQualifiedName): Fully qualified name of the data model class.
+        name (str): Name of the data model class.
+        fields (Dict[str, FieldInfo]): A mapping to FieldInfo instances for each field of the data
+            model class.
+        description (str): Docstring or other description of the data model class.
+    """
+
     full_name: FullyQualifiedName
     name: str
     fields: Dict[str, FieldInfo]
@@ -172,10 +248,18 @@ class ModelInfo(pydantic.BaseModel, Generic[_ModelType]):
         """
     )
 
-    _raw_model: Optional[_ModelType] = None
+    _raw_model: Optional[_ModelType] = pydantic.PrivateAttr(None)
 
     @classmethod
     def from_raw_model(cls, raw_model: _ModelType) -> Self:
+        """Constructor method to create a new instance from a raw data model class.
+
+        Args:
+            raw_model (type): Data model class.
+
+        Returns:
+            Self: New instance of ModelInfo.
+        """
         get_fields_fn = identify_field_extractor_fn(raw_model)
         if not get_fields_fn:
             raise UnknownModelTypeError(model=raw_model)
@@ -197,6 +281,9 @@ class ModelInfo(pydantic.BaseModel, Generic[_ModelType]):
 
     @property
     def raw_model(self) -> _ModelType:
+        """Returns the raw data model class. This is a cached property. If the raw model is not
+        already known, it will attempt to import the data model class.
+        """
         if self._raw_model is None:
             self._raw_model = self.full_name.import_object()
         return self._raw_model
@@ -220,6 +307,30 @@ class ModelInfo(pydantic.BaseModel, Generic[_ModelType]):
 
 @total_ordering
 class Edge(pydantic.BaseModel):
+    """Hold information about a relationship between two data model classes. These represent
+    directed edges in the entity relationship diagram.
+
+    Attributes:
+        source_model_full_name (FullyQualifiedName): Fully qualified name of the source model,
+            i.e., the model that contains a field that references the target model.
+        source_field_name (str): Name of the field on the source model that references the target
+            model.
+        target_model_full_name (FullyQualifiedName): Fully qualified name of the target model,
+            i.e., the model that is referenced by the source model's field.
+        target_cardinality (Cardinality): Cardinality of the target model in the relationship,
+            e.g., if the relationship is one (source) to many (target), this value will be
+            `Cardinality.MANY`.
+        target_modality (Modality): Modality of the target model in the relationship, e.g., if the
+            relationship is one (source) to zero (target), meaning that the target is optional,
+            this value will be `Modality.ZERO`.
+        source_cardinality (Optional[Cardinality]): Cardinality of the source model in the
+            relationship. This will never be set for Edges created by erdantic, but you can set it
+            manually to notate an externally known cardinality.
+        source_modality (Optional[Modality]): Modality of the source model in the relationship.
+            This will never be set for Edges created by erdantic, but you can set it manually to
+            notate an externally known modality.
+    """
+
     source_model_full_name: FullyQualifiedName
     source_field_name: str
     target_model_full_name: FullyQualifiedName
@@ -235,6 +346,7 @@ class Edge(pydantic.BaseModel):
 
     @property
     def _sort_key(self) -> Tuple[FullyQualifiedName, str, FullyQualifiedName]:
+        """Used to define an ordering for instances of Edges."""
         return (
             self.source_model_full_name,
             self.source_field_name,
@@ -248,6 +360,17 @@ class Edge(pydantic.BaseModel):
 
     @classmethod
     def from_field_info(cls, target_model: type, source_field_info: FieldInfo) -> Self:
+        """Constructor method to create a new instance from a target model instance and a source
+        model's FieldInfo.
+
+        Args:
+            target_model (type): Target model class.
+            source_field_info (FieldInfo): FieldInfo instance for the field on the source model
+                that references the target model.
+
+        Returns:
+            Self: New instance of Edge.
+        """
         is_collection = is_collection_type_of(source_field_info.raw_type, target_model)
         is_nullable = is_nullable_type(source_field_info.raw_type)
         cardinality = Cardinality.MANY if is_collection else Cardinality.ONE
@@ -295,6 +418,16 @@ _DEFAULT_EDGE_ATTRS = ()
 
 
 class EntityRelationshipDiagram(pydantic.BaseModel):
+    """Holds information about an entity relationship diagram for a set of data model classes and
+    their relationships, and provides methods to render the diagram.
+
+    Attributes:
+        models (SortedDict[str, ModelInfo]): Mapping of ModelInfo instances for models included
+            in the diagram. Each key is the string representation of the fully qualified name of
+            the model.
+        edges (SortedSet[Edge]): Set of edges representing relationships between the models.
+    """
+
     models: SortedDict[str, ModelInfo] = SortedDict()
     edges: SortedSet[Edge] = SortedSet()
 
@@ -334,6 +467,17 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
         return True
 
     def add_model(self, model: type, recurse=True):
+        """Add a data model class to the diagram.
+
+        Args:
+            model (type): Data model class to add to the diagram.
+            recurse (bool, optional): Whether to recursively add models referenced by fields of
+                the given model. Defaults to True.
+
+        Raises:
+            UnknownModelTypeError: If the model is not recognized as a data model class type that
+                is supported by registered plugins.
+        """
         logger.info("Adding model to '%s' to diagram...", typenames(model))
         is_model = self._add_if_model(model, recurse=recurse)
         if not is_model:
@@ -347,10 +491,18 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
         edge_attrs: Optional[Mapping[str, Any]] = None,
         **kwargs,
     ):
-        """Render entity relationship diagram for given data model classes to file.
+        """Render entity relationship diagram for given data model classes to file. The file format
+        can be inferred from the file extension. Typical formats include '.png', '.svg', and
+        '.pdf'.
 
         Args:
-            out (Union[str, os.PathLike]): Output file path for rendered diagram.
+            out (str | os.PathLike): Output file path for rendered diagram.
+            graph_attrs (Mapping[str, Any] | None, optional): Override any graph attributes on
+                the `pygraphviz.AGraph` instance. Defaults to None.
+            node_attrs (Mapping[str, Any] | None, optional): Override any node attributes for all
+                nodes on the `pygraphviz.AGraph` instance. Defaults to None.
+            edge_attrs (Mapping[str, Any] | None, optional): Override any edge attributes for all
+                edges on the `pygraphviz.AGraph` instance. Defaults to None.
             **kwargs: Additional keyword arguments to [`pygraphviz.AGraph.draw`](https://pygraphviz.github.io/documentation/latest/reference/agraph.html#pygraphviz.AGraph.draw).
         """
         logger.info("Rendering diagram to %s", out)
@@ -368,6 +520,14 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
     ) -> pgv.AGraph:
         """Return [`pygraphviz.AGraph`](https://pygraphviz.github.io/documentation/latest/reference/agraph.html)
         instance for diagram.
+
+        Args:
+            graph_attrs (Mapping[str, Any] | None, optional): Override any graph attributes on
+                the `pygraphviz.AGraph` instance. Defaults to None.
+            node_attrs (Mapping[str, Any] | None, optional): Override any node attributes for all
+                nodes on the `pygraphviz.AGraph` instance. Defaults to None.
+            edge_attrs (Mapping[str, Any] | None, optional): Override any edge attributes for all
+                edges on the `pygraphviz.AGraph` instance. Defaults to None.
 
         Returns:
             pygraphviz.AGraph: graph object for diagram
@@ -408,6 +568,14 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
     ) -> str:
         """Generate Graphviz [DOT language](https://graphviz.org/doc/info/lang.html) representation
         of entity relationship diagram for given data model classes.
+
+        Args:
+            graph_attrs (Mapping[str, Any] | None, optional): Override any graph attributes on
+                the `pygraphviz.AGraph` instance. Defaults to None.
+            node_attrs (Mapping[str, Any] | None, optional): Override any node attributes for all
+                nodes on the `pygraphviz.AGraph` instance. Defaults to None.
+            edge_attrs (Mapping[str, Any] | None, optional): Override any edge attributes for all
+                edges on the `pygraphviz.AGraph` instance. Defaults to None.
 
         Returns:
             str: DOT language representation of diagram

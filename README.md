@@ -11,6 +11,7 @@
 
 - [Pydantic V2](https://docs.pydantic.dev/latest/)
 - [Pydantic V1 legacy](https://docs.pydantic.dev/latest/migration/#continue-using-pydantic-v1-features)
+- [attrs](https://www.attrs.org/en/stable/)
 - [dataclasses](https://docs.python.org/3/library/dataclasses.html) from the Python standard library
 
 Features include a convenient CLI, automatic native rendering in Jupyter notebooks, and easy extensibility to other data modeling frameworks. Docstrings are even accessible as tooltips for SVG outputs. Great for adding a simple and clean data model reference to your documentation.

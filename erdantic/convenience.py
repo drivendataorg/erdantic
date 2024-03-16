@@ -18,18 +18,20 @@ def create(
     limit_search_models_to: Optional[Collection[str]] = None,
 ) -> EntityRelationshipDiagram:
     """Construct [`EntityRelationshipDiagram`][erdantic.erd.EntityRelationshipDiagram] from given
-    data model classes.
+    data model classes or modules.
 
     Args:
-        *models_or_modules (type): Data model classes to diagram or modules containing them.
-        terminal_models (Sequence[type]): Data model classes to set as terminal nodes. erdantic will stop
-            searching for component classes when it reaches these models
-        limit_search_models_to (Optional[Iterable[sr]], optional): Iterable of identifiers of data
-            model classes that erdantic supports. If any are specified, when searching a module,
-            limit data model classes to those ones. Defaults to None which will find all data model
-            classes supported by erdantic.
+        *models_or_modules (type | ModuleType): Data model classes to add to diagram, or modules
+            to search for data model classes.
+        terminal_models (Collection[type]): Data model classes to set as terminal nodes. erdantic
+            will stop searching for component classes when it reaches these models
+        termini (Collection[type]): Deprecated. Use `terminal_models` instead.
+        limit_search_models_to (Collection[str] | None): Plugin identifiers to limit to when
+            searching modules for data model classes. Defaults to None which will not impose any
+            limits.
     Raises:
         UnknownModelTypeError: If model is not recognized as a supported model type.
+        PluginNotFoundError: If a plugin key does not match any registered plugins.
 
     Returns:
         EntityRelationshipDiagram: diagram object for given data model.
@@ -68,11 +70,10 @@ def find_models(
     """Searches a module and yields all data model classes found.
 
     Args:
-        module (ModuleType): Module to search for data model classes
-        limit_search_models_to (Optional[Collection[str]], optional): Collection of identifiers of
-            data model class types that erdantic supports. If any are specified, when searching a
-            module, limit data model classes to those ones. Defaults to None which will find all
-            data model classes supported by erdantic.
+        module (ModuleType): Module to search for data model classes.
+        limit_search_models_to (Collection[str] | None): Plugin identifiers to limit to when
+            searching modules for data model classes. Defaults to None which will not impose any
+            limits.
 
     Yields:
         Iterator[type]: Members of module that are data model classes.
@@ -106,15 +107,25 @@ def draw(
     """Render entity relationship diagram for given data model classes to file.
 
     Args:
-        *models_or_modules (type): Data model classes to diagram, or modules containing them.
-        out (Union[str, os.PathLike]): Output file path for rendered diagram.
-        terminal_models (Sequence[type]): Data model classes to set as terminal nodes. erdantic will stop
-            searching for component classes when it reaches these models
-        limit_search_models_to (Optional[Iterable[sr]], optional): Iterable of identifiers of data
-            model classes that erdantic supports. If any are specified, when searching a module,
-            limit data model classes to those ones. Defaults to None which will find all data model
-            classes supported by erdantic.
+        *models_or_modules (type | ModuleType): Data model classes to add to diagram, or modules
+            to search for data model classes.
+        terminal_models (Collection[type]): Data model classes to set as terminal nodes. erdantic
+            will stop searching for component classes when it reaches these models
+        termini (Collection[type]): Deprecated. Use `terminal_models` instead.
+        limit_search_models_to (Optional[Collection[str]]): Plugin identifiers to limit to when
+            searching modules for data model classes. Defaults to None which will not impose any
+            limits.
+        graph_attrs (Mapping[str, Any] | None, optional): Override any graph attributes on
+            the `pygraphviz.AGraph` instance. Defaults to None.
+        node_attrs (Mapping[str, Any] | None, optional): Override any node attributes for all
+            nodes on the `pygraphviz.AGraph` instance. Defaults to None.
+        edge_attrs (Mapping[str, Any] | None, optional): Override any edge attributes for all
+            edges on the `pygraphviz.AGraph` instance. Defaults to None.
         **kwargs: Additional keyword arguments to [`pygraphviz.AGraph.draw`](https://pygraphviz.github.io/documentation/latest/reference/agraph.html#pygraphviz.AGraph.draw).
+
+    Raises:
+        UnknownModelTypeError: If model is not recognized as a supported model type.
+        PluginNotFoundError: If a plugin key does not match any registered plugins.
     """
     diagram = create(
         *models_or_modules,
@@ -138,13 +149,20 @@ def to_dot(
     entity relationship diagram for given data model classes.
 
     Args:
-        *models_or_modules (type): Data model classes to diagram, or modules containing them.
-        terminal_models (Sequence[type]): Data model classes to set as terminal nodes. erdantic will stop
-            searching for component classes when it reaches these models
-        limit_search_models_to (Optional[Iterable[sr]], optional): Iterable of identifiers of data
-            model classes that erdantic supports. If any are specified, when searching a module,
-            limit data model classes to those ones. Defaults to None which will find all data model
-            classes supported by erdantic.
+        *models_or_modules (type | ModuleType): Data model classes to add to diagram, or modules
+            to search for data model classes.
+        terminal_models (Collection[type]): Data model classes to set as terminal nodes. erdantic
+            will stop searching for component classes when it reaches these models
+        termini (Collection[type]): Deprecated. Use `terminal_models` instead.
+        limit_search_models_to (Optional[Collection[str]]): Plugin identifiers to limit to when
+            searching modules for data model classes. Defaults to None which will not impose any
+            limits.
+        graph_attrs (Mapping[str, Any] | None, optional): Override any graph attributes on
+            the `pygraphviz.AGraph` instance. Defaults to None.
+        node_attrs (Mapping[str, Any] | None, optional): Override any node attributes for all
+            nodes on the `pygraphviz.AGraph` instance. Defaults to None.
+        edge_attrs (Mapping[str, Any] | None, optional): Override any edge attributes for all
+            edges on the `pygraphviz.AGraph` instance. Defaults to None.
 
     Returns:
         str: DOT language representation of diagram

@@ -11,10 +11,26 @@ AttrsClassType = Type[attrs.AttrsInstance]
 
 
 def is_attrs_class(obj: Any) -> TypeGuard[AttrsClassType]:
+    """Predicate function to determine if an object is an attrs class (not an instance).
+
+    Args:
+        obj (Any): The object to check.
+
+    Returns:
+        bool: True if the object is an attrs class, False otherwise.
+    """
     return isinstance(obj, type) and attrs.has(obj)
 
 
 def get_fields_from_attrs_class(model: AttrsClassType) -> List[FieldInfo]:
+    """Given an attrs class, return a list of FieldInfo instances for each field in the class.
+
+    Args:
+        model (AttrsClassType): The attrs class to get fields from.
+
+    Returns:
+        List[FieldInfo]: List of FieldInfo instances for each field in the class
+    """
     try:
         # Try to automatically resolve forward references
         attrs.resolve_types(model)

@@ -14,10 +14,26 @@ DataclassType = Type["DataclassInstance"]
 
 
 def is_dataclass_type(obj: Any) -> TypeGuard[DataclassType]:
+    """Predicate function to determine if an object is a dataclass (not an instance).
+
+    Args:
+        obj (Any): The object to check.
+
+    Returns:
+        bool: True if the object is a dataclass, False otherwise.
+    """
     return isinstance(obj, type) and dataclasses.is_dataclass(obj)
 
 
 def get_fields_from_dataclass(model: DataclassType) -> List[FieldInfo]:
+    """Given a dataclass, return a list of FieldInfo instances for each field in the class.
+
+    Args:
+        model (DataclassType): The dataclass to get fields from.
+
+    Returns:
+        List[FieldInfo]: List of FieldInfo instances for each field in the class
+    """
     try:
         # Try to automatically resolve forward references
         resolve_types_on_dataclass(model)
@@ -49,6 +65,18 @@ register_plugin(
 def resolve_types_on_dataclass(
     cls: DataclassType, globalns=None, localns=None, include_extras=False
 ) -> DataclassType:
+    """Resolve forward references in type annotations on a dataclass. This will modify the fields
+    metadata on the class to replace forward references with the actual types.
+
+    Args:
+        cls (DataclassType): The dataclass to resolve forward references on.
+        globalns (Dict[str, Any] | None, optional): A global namespace to evaluate forward
+            references against. Defaults to None.
+        localns (Dict[str, Any] | None, optional): A local namespace to evaluate forward
+            references against. Defaults to None.
+        include_extras (bool, optional): Whether to keep extra metadata from `typing.Annotated`.
+            Defaults to False.
+    """
     # Cache whether we have already run this on a cls
     # Inspired by attrs.resolve_types
     if getattr(cls, "__erdantic_dataclass_types_resolved__", None) != cls:

@@ -4,12 +4,12 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "erdantic"
-version = "0.8.0.dev"
+version = "1.0.0.dev"
 description = "Entity relationship diagrams for Python data model classes like Pydantic."
 readme = "README.md"
 authors = [{ name = "DrivenData", email = "info@drivendata.org" }]
 license = { file = "LICENSE" }
-keywords = ["erd", "entity relationship diagram", "dataclasses", "pydantic"]
+keywords = ["erd", "entity relationship diagram", "dataclasses", "pydantic", "attrs"]
 classifiers = [
   "Intended Audience :: Developers",
   "Topic :: Software Development :: Code Generators",

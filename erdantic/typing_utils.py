@@ -38,11 +38,11 @@ def is_collection_type_of(tp: Union[type, GenericAlias], target: type) -> bool:
     target type.
 
     Args:
-        tp (Union[type, GenericAlias]): Type annotation
-        target (type): Type to check for many-ness of
+        tp (Union[type, GenericAlias]): Type annotation.
+        target (type): Type to check for many-ness of.
 
     Returns:
-        bool: Result of check
+        bool: Result of check.
     """
     root = parse_type_tree(tp)
     return _walk_type_tree(root, target)
@@ -53,10 +53,10 @@ def is_nullable_type(tp: Union[type, GenericAlias]) -> bool:
     such as typing.Optional.
 
     Args:
-        tp (Union[type, GenericAlias]): Type annotation
+        tp (Union[type, GenericAlias]): Type annotation.
 
     Returns:
-        bool: Result of check
+        bool: Result of check.
     """
     return get_origin(tp) is Union and type(None) in get_args(tp)
 

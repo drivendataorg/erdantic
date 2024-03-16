@@ -14,10 +14,26 @@ PydanticModel = Type[pydantic.BaseModel]
 
 
 def is_pydantic_model(obj: Any) -> TypeGuard[PydanticModel]:
+    """Predicate function to determine if an object is a Pydantic model (not an instance).
+
+    Args:
+        obj (Any): The object to check.
+
+    Returns:
+        bool: True if the object is a Pydantic model, False otherwise.
+    """
     return isinstance(obj, type) and issubclass(obj, pydantic.BaseModel)
 
 
 def get_fields_from_pydantic_model(model: PydanticModel) -> List[FieldInfo]:
+    """Given a Pydantic model, return a list of FieldInfo instances for each field in the model.
+
+    Args:
+        model (PydanticModel): The Pydantic model to get fields from.
+
+    Returns:
+        List[FieldInfo]: List of FieldInfo instances for each field in the model
+    """
     try:
         # Rebuild model schema to resolve forward references
         model.model_rebuild()
@@ -52,10 +68,27 @@ PydanticV1Model = Type[pydantic.v1.BaseModel]
 
 
 def is_pydantic_v1_model(obj) -> TypeGuard[PydanticV1Model]:
+    """Predicate function to determine if an object is a Pydantic V1 model (not an instance). This
+    is for models that use the legacy `pydantic.v1` namespace.
+
+    Args:
+        obj (Any): The object to check.
+
+    Returns:
+        bool: True if the object is a Pydantic V1 model, False otherwise.
+    """
     return isinstance(obj, type) and issubclass(obj, pydantic.v1.BaseModel)
 
 
 def get_fields_from_pydantic_v1_model(model: PydanticV1Model) -> List[FieldInfo]:
+    """Given a Pydantic V1 model, return a list of FieldInfo instances for each field in the model.
+
+    Args:
+        model (PydanticV1Model): The Pydantic V1 model to get fields from.
+
+    Returns:
+        List[FieldInfo]: List of FieldInfo instances for each field in the model
+    """
     try:
         model.update_forward_refs()
     except NameError as e:
@@ -81,6 +114,7 @@ def get_fields_from_pydantic_v1_model(model: PydanticV1Model) -> List[FieldInfo]
 
 
 def get_type_annotation_from_pydantic_v1_field(field_info: pydantic.v1.fields.ModelField) -> type:
+    """Utility function to get the type annotation from a Pydantic V1 field info object."""
     tp = field_info.outer_type_
     if field_info.allow_none:
         return Optional[tp]  # type: ignore
