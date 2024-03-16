@@ -82,7 +82,7 @@ class FieldNotFoundError(AttributeError, ErdanticException):
 
     def __init__(self, *args, name: str, obj: object, model_full_name: "FullyQualifiedName"):
         self.model_full_name = model_full_name
-        msg = f"Model '{self.model_full_name}' has no field '{self.name}'."
+        msg = f"Model '{model_full_name}' has no field '{name}'."
         if sys.version_info >= (3, 10):
             super().__init__(*args, msg, name=name, obj=obj)
         else:

@@ -71,3 +71,8 @@ testpaths = ["tests"]
 
 [tool.coverage.run]
 source = ["erdantic"]
+
+[tool.coverage.report]
+exclude_also = [
+  "if TYPE_CHECKING:",
+]

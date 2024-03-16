@@ -26,7 +26,7 @@ if TYPE_CHECKING:
     # mypy typechecking doesn't support enums created with functional API
     # https://github.com/python/mypy/issues/6037
 
-    class SupportedModelIdentifier(StrEnum): ...  # pragma: no cover
+    class SupportedModelIdentifier(StrEnum): ...
 
 else:
     SupportedModelIdentifier = StrEnum(

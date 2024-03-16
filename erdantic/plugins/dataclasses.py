@@ -7,7 +7,7 @@ from erdantic.exceptions import UnresolvableForwardRefError
 from erdantic.plugins import register_plugin
 
 if TYPE_CHECKING:
-    from _typeshed import DataclassInstance  # pragma: no cover
+    from _typeshed import DataclassInstance
 
 
 DataclassType = Type["DataclassInstance"]
