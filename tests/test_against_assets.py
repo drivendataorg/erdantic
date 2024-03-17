@@ -41,6 +41,7 @@ CASES = (
 
 @pytest.mark.parametrize("case", CASES)
 def test_draw_png_against_static_assets(case, tmp_path, version_patch):
+    """Uses draw convenience function."""
     plugin, model_or_module = case
     expected_path = ASSETS_DIR / plugin / "diagram.png"
 
@@ -52,6 +53,7 @@ def test_draw_png_against_static_assets(case, tmp_path, version_patch):
 
 @pytest.mark.parametrize("case", CASES)
 def test_draw_svg_against_static_assets(case, tmp_path, version_patch):
+    """Uses draw convenience function."""
     plugin, model_or_module = case
     expected_path = ASSETS_DIR / plugin / "diagram.svg"
 
@@ -62,6 +64,7 @@ def test_draw_svg_against_static_assets(case, tmp_path, version_patch):
 
 @pytest.mark.parametrize("case", CASES)
 def test_to_dot_against_static_assets(case, tmp_path, version_patch):
+    """Uses to_dot convenience function."""
     plugin, model_or_module = case
     expected_path = ASSETS_DIR / plugin / "diagram.dot"
 

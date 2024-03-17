@@ -2,7 +2,6 @@ from enum import Enum
 from importlib import import_module
 import logging
 from pathlib import Path
-import sys
 from typing import TYPE_CHECKING, Annotated, List, Optional
 
 import typer

@@ -1,6 +1,6 @@
 import pytest
 
-from erdantic.convenience import create, draw, find_models, to_dot
+from erdantic.convenience import create, find_models
 from erdantic.core import EntityRelationshipDiagram, FullyQualifiedName
 import erdantic.examples.dataclasses as dataclasses_examples
 import erdantic.examples.pydantic as pydantic_examples
