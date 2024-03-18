@@ -73,6 +73,7 @@ jobs:
       - name: Build distribution and test installation
         shell: bash
         run: |
+          nox -s build
           nox -s test_wheel-${{ matrix.python-version }} --verbose
           nox -s test_sdist-${{ matrix.python-version }} --verbose
 
