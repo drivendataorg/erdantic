@@ -28,11 +28,11 @@ jobs:
 
       - name: Lint
         run: |
-          nox -s lint
+          nox -s lint --verbose
       
       - name: Typecheck
         run: |
-          nox -s typecheck
+          nox -s typecheck --verbose
 
   tests:
     name: Tests (${{ matrix.os }}, Python ${{ matrix.python-version }})
@@ -57,7 +57,7 @@ jobs:
 
       - name: Run tests
         run: |
-          nox -s tests-${{ matrix.python-version }}
+          nox -s tests-${{ matrix.python-version }} --verbose
 
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@v3
@@ -70,8 +70,8 @@ jobs:
       - name: Build distribution and test installation
         shell: bash
         run: |
-          nox -s test_wheel-${{ matrix.python-version }}
-          nox -s test_sdist-${{ matrix.python-version }}
+          nox -s test_wheel-${{ matrix.python-version }} --verbose
+          nox -s test_sdist-${{ matrix.python-version }} --verbose
 
   docs:
     name: Docs
@@ -90,7 +90,7 @@ jobs:
 
       - name: Test building documentation
         run: |
-          nox -s docs
+          nox -s docs --verbose
 
       - name: Deploy site preview to Netlify
         uses: nwtgck/actions-netlify@v1.1
