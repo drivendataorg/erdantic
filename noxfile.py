@@ -42,7 +42,7 @@ def test_wheel(session):
     session.install("build")
     session.run("python", "-m", "build")
     wheel_path = next(Path("dist").glob("*.whl"))
-    session.install(f"erdantic@{wheel_path}")
+    session.install(f"erdantic@file://{wheel_path}")
     session.run("erdantic", "--version")
 
 
@@ -55,7 +55,7 @@ def test_sdist(session):
     session.install("build")
     session.run("python", "-m", "build")
     sdist_path = next(Path("dist").glob("*.tar.gz"))
-    session.install(f"erdantic@{sdist_path}")
+    session.install(f"erdantic@file://{sdist_path}")
     session.run("erdantic", "--version")
 
 
