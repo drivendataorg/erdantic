@@ -42,7 +42,7 @@ erdantic = "erdantic.cli:app"
 
 [tool.ruff]
 line-length = 99
-src = ["erdantic/**/*.py", "tests/**/*.py"]
+src = ["erdantic/**/*.py", "tests/**/*.py", "docs/**/*.py"]
 
 [tool.ruff.lint]
 select = [
