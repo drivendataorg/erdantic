@@ -46,8 +46,8 @@ def build(session):
 )
 def test_wheel(session):
     session.conda_install("graphviz", channel="conda-forge")
-    wheel_path = next(Path("dist").glob("*.whl"))
-    session.install(f"erdantic@./{wheel_path}")
+    wheel_path = next(Path("dist").glob("*.whl")).resolve()
+    session.install(f"erdantic @ file://{wheel_path}")
     session.run("erdantic", "--version")
 
 
@@ -59,8 +59,8 @@ def test_wheel(session):
 def test_sdist(session):
     session.conda_install("graphviz", channel="conda-forge")
 
-    sdist_path = next(Path("dist").glob("*.tar.gz"))
-    session.install(f"erdantic@./{sdist_path}")
+    sdist_path = next(Path("dist").glob("*.tar.gz")).resolve()
+    session.install(f"erdantic @ file://{sdist_path}")
     session.run("erdantic", "--version")
 
 
