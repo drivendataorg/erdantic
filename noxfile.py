@@ -1,4 +1,5 @@
 from pathlib import Path
+import platform
 
 import nox
 
@@ -6,6 +7,8 @@ import nox
 @nox.session(venv_backend="mamba|conda", python="3.11", reuse_venv=True)
 def dev(session):
     session.conda_install("graphviz", channel="conda-forge")
+    if platform.system() == "Windows":
+        session.conda_install("pygraphviz", channel="conda-forge")
     session.install("-r", "requirements/dev.txt")
 
 
@@ -29,6 +32,8 @@ def typecheck(session):
 )
 def tests(session):
     session.conda_install("graphviz", channel="conda-forge")
+    if platform.system() == "Windows":
+        session.conda_install("pygraphviz", channel="conda-forge")
     session.install("-r", "requirements/tests.txt")
     session.run("pytest", "-vv")
 
@@ -46,6 +51,8 @@ def build(session):
 )
 def test_wheel(session):
     session.conda_install("graphviz", channel="conda-forge")
+    if platform.system() == "Windows":
+        session.conda_install("pygraphviz", channel="conda-forge")
     wheel_path = next(Path("dist").glob("*.whl")).resolve()
     session.install(f"erdantic @ file://{wheel_path}")
     session.run("erdantic", "--version")
@@ -58,7 +65,8 @@ def test_wheel(session):
 )
 def test_sdist(session):
     session.conda_install("graphviz", channel="conda-forge")
-
+    if platform.system() == "Windows":
+        session.conda_install("pygraphviz", channel="conda-forge")
     sdist_path = next(Path("dist").glob("*.tar.gz")).resolve()
     session.install(f"erdantic @ file://{sdist_path}")
     session.run("erdantic", "--version")
@@ -67,5 +75,7 @@ def test_sdist(session):
 @nox.session(venv_backend="mamba|conda", python="3.11", reuse_venv=True)
 def docs(session):
     session.conda_install("graphviz", channel="conda-forge")
+    if platform.system() == "Windows":
+        session.conda_install("pygraphviz", channel="conda-forge")
     session.install("-r", "requirements/docs.txt")
     session.run("make", "docs")
