@@ -5,7 +5,7 @@ import nox
 
 @nox.session(python="3.11", reuse_venv=True)
 def dev(session):
-    session.mamba_install("graphviz")
+    session.conda_install("graphviz", channel="conda-forge")
     session.install("-r", "requirements/dev.txt")
 
 
@@ -28,7 +28,7 @@ def typecheck(session):
     reuse_venv=True,
 )
 def tests(session):
-    session.conda_install("graphviz")
+    session.conda_install("graphviz", channel="conda-forge")
     session.install("-r", "requirements/tests.txt")
     session.run("pytest", "-vv")
 
