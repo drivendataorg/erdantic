@@ -54,7 +54,7 @@ def test_wheel(session):
     if platform.system() == "Windows":
         session.conda_install("pygraphviz", channel="conda-forge")
     wheel_path = next(Path("dist").glob("*.whl")).resolve()
-    session.install(f"erdantic @ file://{wheel_path}")
+    session.install(wheel_path)
     session.run("erdantic", "--version")
 
 
@@ -68,7 +68,7 @@ def test_sdist(session):
     if platform.system() == "Windows":
         session.conda_install("pygraphviz", channel="conda-forge")
     sdist_path = next(Path("dist").glob("*.tar.gz")).resolve()
-    session.install(f"erdantic @ file://{sdist_path}")
+    session.install(sdist_path)
     session.run("erdantic", "--version")
 
 
