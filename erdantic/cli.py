@@ -2,7 +2,13 @@ from enum import Enum
 from importlib import import_module
 import logging
 from pathlib import Path
-from typing import TYPE_CHECKING, Annotated, List, Optional
+import sys
+from typing import TYPE_CHECKING, List, Optional
+
+if sys.version_info >= (3, 9):
+    from typing import Annotated
+else:
+    from typing_extensions import Annotated
 
 import typer
 

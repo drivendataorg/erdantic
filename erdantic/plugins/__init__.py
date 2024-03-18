@@ -1,6 +1,12 @@
 import importlib.metadata
 import logging
-from typing import TYPE_CHECKING, Any, List, Optional, Protocol, Sequence, TypeGuard, TypeVar
+import sys
+from typing import TYPE_CHECKING, Any, List, Optional, Protocol, Sequence, TypeVar
+
+if sys.version_info >= (3, 10):
+    from typing import TypeGuard
+else:
+    from typing_extensions import TypeGuard
 
 from typenames import typenames
 

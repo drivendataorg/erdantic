@@ -1,5 +1,11 @@
 import re
-from typing import Any, List, Type, TypeGuard
+import sys
+from typing import Any, List, Type
+
+if sys.version_info >= (3, 10):
+    from typing import TypeGuard
+else:
+    from typing_extensions import TypeGuard
 
 import attrs
 

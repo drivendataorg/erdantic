@@ -34,6 +34,9 @@ dependencies = [
   "typer",
 ]
 
+[project.optional-dependencies]
+attrs = ["attrs"]
+
 [project.scripts]
 erdantic = "erdantic.cli:app"
 

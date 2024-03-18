@@ -1,6 +1,12 @@
 import dataclasses
 import re
-from typing import TYPE_CHECKING, Any, List, Type, TypeGuard, get_type_hints
+import sys
+from typing import TYPE_CHECKING, Any, List, Type, get_type_hints
+
+if sys.version_info >= (3, 10):
+    from typing import TypeGuard
+else:
+    from typing_extensions import TypeGuard
 
 from erdantic.core import FieldInfo, FullyQualifiedName
 from erdantic.exceptions import UnresolvableForwardRefError
@@ -86,9 +92,13 @@ def resolve_types_on_dataclass(
     # Cache whether we have already run this on a cls
     # Inspired by attrs.resolve_types
     if getattr(cls, "__erdantic_dataclass_types_resolved__", None) != cls:
-        hints = get_type_hints(
-            cls, globalns=globalns, localns=localns, include_extras=include_extras
-        )
+        if sys.version_info >= (3, 9):
+            # include_extras was added in Python 3.9
+            hints = get_type_hints(
+                cls, globalns=globalns, localns=localns, include_extras=include_extras
+            )
+        else:
+            hints = get_type_hints(cls, globalns=globalns, localns=localns)
         for field in dataclasses.fields(cls):
             field.type = hints[field.name]
         # Use reference to cls as indicator in case of subclasses
