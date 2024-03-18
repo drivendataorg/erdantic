@@ -57,6 +57,7 @@ known-first-party = ["erdantic"]
 force-sort-within-sections = true
 
 [tool.mypy]
+files = ["erdantic"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]
