@@ -60,7 +60,7 @@ class FullyQualifiedName(pydantic.BaseModel):
         Returns:
             Self: Fully qualified name of the object.
         """
-        return FullyQualifiedName(module=obj.__module__, qual_name=obj.__qualname__)
+        return cls(module=obj.__module__, qual_name=obj.__qualname__)
 
     def __hash__(self) -> int:
         return hash((self.module, self.qual_name))
@@ -267,6 +267,7 @@ class Cardinality(Enum):
     'many'.
     """
 
+    UNSPECIFIED = "unspecified"
     ONE = "one"
     MANY = "many"
 
@@ -278,6 +279,7 @@ class Cardinality(Enum):
 
 
 _CARDINALITY_DOT_MAPPING = {
+    Cardinality.UNSPECIFIED: "none",
     Cardinality.ONE: "nonetee",
     Cardinality.MANY: "crow",
 }
@@ -338,7 +340,7 @@ class Edge(pydantic.BaseModel):
     target_model_full_name: FullyQualifiedName
     target_cardinality: Cardinality
     target_modality: Modality
-    source_cardinality: Cardinality = Cardinality.ONE
+    source_cardinality: Cardinality = Cardinality.UNSPECIFIED
     source_modality: Modality = Modality.UNSPECIFIED
 
     def __hash__(self) -> int:
@@ -400,7 +402,7 @@ class Edge(pydantic.BaseModel):
         return self.target_cardinality.to_dot() + self.target_modality.to_dot()
 
     def source_dot_arrow_shape(self) -> str:
-        self.source_cardinality.to_dot() + self.source_modality.to_dot()
+        return self.source_cardinality.to_dot() + self.source_modality.to_dot()
 
 
 _DEFAULT_GRAPH_ATTRS = (
@@ -417,7 +419,7 @@ _DEFAULT_NODE_ATTRS = (
     ("shape", "plain"),
 )
 
-_DEFAULT_EDGE_ATTRS = ()
+_DEFAULT_EDGE_ATTRS = (("dir", "both"),)
 
 
 class EntityRelationshipDiagram(pydantic.BaseModel):

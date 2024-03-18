@@ -166,7 +166,7 @@
       },
       "target_cardinality": "one",
       "target_modality": "zero",
-      "source_cardinality": "one",
+      "source_cardinality": "unspecified",
       "source_modality": "unspecified"
     },
     {
@@ -181,7 +181,7 @@
       },
       "target_cardinality": "many",
       "target_modality": "unspecified",
-      "source_cardinality": "one",
+      "source_cardinality": "unspecified",
       "source_modality": "unspecified"
     },
     {
@@ -196,7 +196,7 @@
       },
       "target_cardinality": "one",
       "target_modality": "one",
-      "source_cardinality": "one",
+      "source_cardinality": "unspecified",
       "source_modality": "unspecified"
     }
   ]
