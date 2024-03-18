@@ -36,13 +36,19 @@ def get_fields_from_attrs_class(model: AttrsClassType) -> List[FieldInfo]:
         attrs.resolve_types(model)
     except NameError as e:
         model_full_name = FullyQualifiedName.from_object(model)
-        forward_ref = getattr(e, "name", re.search(r"(?<=')(?:[^'])*(?=')", str(e)).group(0))
+        forward_ref = getattr(
+            e,
+            "name",
+            re.search(r"(?<=')(?:[^'])*(?=')", str(e)).group(0),  # type: ignore [union-attr]
+        )
         msg = (
             f"Failed to resolve forward reference '{forward_ref}' in the type annotations for "
             f"attrs class {model_full_name}. "
             "You should use attrs.resolve_types with locals() where you define the class."
         )
-        raise UnresolvableForwardRefError(msg, name=forward_ref) from e
+        raise UnresolvableForwardRefError(
+            msg, name=forward_ref, model_full_name=model_full_name
+        ) from e
     return [
         FieldInfo.from_raw_type(
             model_full_name=FullyQualifiedName.from_object(model),

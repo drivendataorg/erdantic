@@ -39,14 +39,20 @@ def get_fields_from_dataclass(model: DataclassType) -> List[FieldInfo]:
         resolve_types_on_dataclass(model)
     except NameError as e:
         model_full_name = FullyQualifiedName.from_object(model)
-        forward_ref = getattr(e, "name", re.search(r"(?<=')(?:[^'])*(?=')", str(e)).group(0))
+        forward_ref = getattr(
+            e,
+            "name",
+            re.search(r"(?<=')(?:[^'])*(?=')", str(e)).group(0),  # type: ignore [union-attr]
+        )
         msg = (
             f"Failed to resolve forward reference '{forward_ref}' in the type annotations for "
             f"dataclass {model_full_name}. "
             "You should use erdantic.plugins.dataclasses.resolve_types_on_dataclass with locals() "
             "where you define the class."
         )
-        raise UnresolvableForwardRefError(msg, name=forward_ref) from e
+        raise UnresolvableForwardRefError(
+            msg, name=forward_ref, model_full_name=model_full_name
+        ) from e
     return [
         FieldInfo.from_raw_type(
             model_full_name=FullyQualifiedName.from_object(model),
@@ -86,5 +92,5 @@ def resolve_types_on_dataclass(
         for field in dataclasses.fields(cls):
             field.type = hints[field.name]
         # Use reference to cls as indicator in case of subclasses
-        cls.__erdantic_dataclass_types_resolved__ = cls
+        setattr(cls, "__erdantic_dataclass_types_resolved__", cls)
     return cls

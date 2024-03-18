@@ -45,7 +45,9 @@ def get_fields_from_pydantic_model(model: PydanticModel) -> List[FieldInfo]:
             f"Pydantic model {model_full_name}. "
             "You should use the model's model_rebuild() method to manually resolve it."
         )
-        raise UnresolvableForwardRefError(msg, name=forward_ref) from e
+        raise UnresolvableForwardRefError(
+            msg, name=forward_ref, model_full_name=model_full_name
+        ) from e
     return [
         FieldInfo.from_raw_type(
             model_full_name=FullyQualifiedName.from_object(model),
@@ -94,14 +96,20 @@ def get_fields_from_pydantic_v1_model(model: PydanticV1Model) -> List[FieldInfo]
     except NameError as e:
         model_full_name = FullyQualifiedName.from_object(model)
         # NameError attribute 'name' was added in Python 3.10
-        forward_ref = getattr(e, "name", re.search(r"(?<=')(?:[^'])*(?=')", str(e)).group(0))
+        forward_ref = getattr(
+            e,
+            "name",
+            re.search(r"(?<=')(?:[^'])*(?=')", str(e)).group(0),  # type: ignore [union-attr]
+        )
         msg = (
             f"Failed to resolve forward reference '{forward_ref}' in the type annotations for "
             f"Pydantic V1 model {model_full_name}. "
             "You should call the method update_forward_refs(**locals()) on the model in "
             "the scope where it has been defined to manually resolve it."
         )
-        raise UnresolvableForwardRefError(msg, name=forward_ref) from e
+        raise UnresolvableForwardRefError(
+            msg, name=forward_ref, model_full_name=model_full_name
+        ) from e
 
     return [
         FieldInfo.from_raw_type(
