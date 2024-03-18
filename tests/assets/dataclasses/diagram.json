@@ -166,8 +166,8 @@
       },
       "target_cardinality": "one",
       "target_modality": "zero",
-      "source_cardinality": null,
-      "source_modality": null
+      "source_cardinality": "one",
+      "source_modality": "unspecified"
     },
     {
       "source_model_full_name": {
@@ -180,9 +180,9 @@
         "qual_name": "Adventurer"
       },
       "target_cardinality": "many",
-      "target_modality": "zero",
-      "source_cardinality": null,
-      "source_modality": null
+      "target_modality": "unspecified",
+      "source_cardinality": "one",
+      "source_modality": "unspecified"
     },
     {
       "source_model_full_name": {
@@ -196,8 +196,8 @@
       },
       "target_cardinality": "one",
       "target_modality": "one",
-      "source_cardinality": null,
-      "source_modality": null
+      "source_cardinality": "one",
+      "source_modality": "unspecified"
     }
   ]
 }

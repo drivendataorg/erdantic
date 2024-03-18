@@ -86,50 +86,6 @@ class FullyQualifiedName(pydantic.BaseModel):
         return (self.module, self.qual_name) < (other.module, other.qual_name)
 
 
-class Cardinality(Enum):
-    """Enumeration of possible cardinality values for a relationship between two data model
-    classes. Cardinality measures the maximum number of associations—valid values are 'one' or
-    'many'.
-    """
-
-    ONE = "one"
-    MANY = "many"
-
-    def to_dot(self) -> str:
-        """Returns the DOT language specification for the arrowhead styling associated with the
-        cardinality value.
-        """
-        return _CARDINALITY_DOT_MAPPING[self]
-
-
-_CARDINALITY_DOT_MAPPING = {
-    Cardinality.ONE: "nonetee",
-    Cardinality.MANY: "crow",
-}
-
-
-class Modality(Enum):
-    """Enumeration of possible cardinality values for a relationship between two data model
-    classes. Cardinality measures the minimum number of associations—valid values are 'zero' or
-    'one'.
-    """
-
-    ZERO = "zero"
-    ONE = "one"
-
-    def to_dot(self) -> str:
-        """Returns the DOT language specification for the arrowhead styling associated with the
-        modality value.
-        """
-        return _MODALITY_DOT_MAPPING[self]
-
-
-_MODALITY_DOT_MAPPING = {
-    Modality.ZERO: "odot",
-    Modality.ONE: "tee",
-}
-
-
 class FieldInfo(pydantic.BaseModel):
     """Holds information about a field of an analyzed data model class.
 
@@ -305,6 +261,52 @@ class ModelInfo(pydantic.BaseModel, Generic[_ModelType]):
         return self._TABLE_TEMPLATE.format(name=self.name, rows=rows).replace("\n", "")
 
 
+class Cardinality(Enum):
+    """Enumeration of possible cardinality values for a relationship between two data model
+    classes. Cardinality measures the maximum number of associations—valid values are 'one' or
+    'many'.
+    """
+
+    ONE = "one"
+    MANY = "many"
+
+    def to_dot(self) -> str:
+        """Returns the DOT language specification for the arrowhead styling associated with the
+        cardinality value.
+        """
+        return _CARDINALITY_DOT_MAPPING[self]
+
+
+_CARDINALITY_DOT_MAPPING = {
+    Cardinality.ONE: "nonetee",
+    Cardinality.MANY: "crow",
+}
+
+
+class Modality(Enum):
+    """Enumeration of possible cardinality values for a relationship between two data model
+    classes. Cardinality measures the minimum number of associations—valid values are 'zero' or
+    'one'.
+    """
+
+    UNSPECIFIED = "unspecified"
+    ZERO = "zero"
+    ONE = "one"
+
+    def to_dot(self) -> str:
+        """Returns the DOT language specification for the arrowhead styling associated with the
+        modality value.
+        """
+        return _MODALITY_DOT_MAPPING[self]
+
+
+_MODALITY_DOT_MAPPING = {
+    Modality.UNSPECIFIED: "none",
+    Modality.ZERO: "odot",
+    Modality.ONE: "tee",
+}
+
+
 @total_ordering
 class Edge(pydantic.BaseModel):
     """Hold information about a relationship between two data model classes. These represent
@@ -336,8 +338,8 @@ class Edge(pydantic.BaseModel):
     target_model_full_name: FullyQualifiedName
     target_cardinality: Cardinality
     target_modality: Modality
-    source_cardinality: Optional[Cardinality] = None
-    source_modality: Optional[Modality] = None
+    source_cardinality: Cardinality = Cardinality.ONE
+    source_modality: Modality = Modality.UNSPECIFIED
 
     def __hash__(self) -> int:
         return hash(
@@ -374,7 +376,10 @@ class Edge(pydantic.BaseModel):
         is_collection = is_collection_type_of(source_field_info.raw_type, target_model)
         is_nullable = is_nullable_type(source_field_info.raw_type)
         cardinality = Cardinality.MANY if is_collection else Cardinality.ONE
-        modality = Modality.ZERO if is_nullable or is_collection else Modality.ONE
+        if is_nullable:
+            modality = Modality.ZERO
+        else:
+            modality = Modality.UNSPECIFIED if is_collection else Modality.ONE
         return cls(
             source_model_full_name=source_field_info.model_full_name,
             source_field_name=source_field_info.name,
@@ -395,9 +400,7 @@ class Edge(pydantic.BaseModel):
         return self.target_cardinality.to_dot() + self.target_modality.to_dot()
 
     def source_dot_arrow_shape(self) -> str:
-        cardinality = self.source_cardinality.to_dot() if self.source_cardinality else ""
-        modality = self.source_modality.to_dot() if self.source_modality else ""
-        return cardinality + modality
+        self.source_cardinality.to_dot() + self.source_modality.to_dot()
 
 
 _DEFAULT_GRAPH_ATTRS = (

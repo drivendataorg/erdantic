@@ -63,9 +63,9 @@
 <!-- erdantic.examples.pydantic.Party&#45;&gt;erdantic.examples.pydantic.Adventurer -->
 <g id="edge1" class="edge">
 <title>erdantic.examples.pydantic.Party:e&#45;&gt;erdantic.examples.pydantic.Adventurer:w</title>
-<path fill="none" stroke="black" d="M196,-223.5C246.81,-223.5 252.29,-270.97 291.77,-282.84"/>
-<polygon fill="black" stroke="black" points="300.76,-284.08 310.05,-289.91 306.05,-284.81 310.34,-285.41 310.34,-285.41 310.34,-285.41 306.05,-284.81 311.29,-281 300.76,-284.08"/>
-<ellipse fill="none" stroke="black" cx="295.1" cy="-283.3" rx="4" ry="4"/>
+<path fill="none" stroke="black" d="M196,-223.5C248.51,-223.5 252.61,-274.2 295.85,-283.91"/>
+<polygon fill="black" stroke="black" points="300.72,-284.42 310.2,-289.94 306.03,-284.98 310.33,-285.43 310.33,-285.43 310.33,-285.43 306.03,-284.98 311.14,-280.99 300.72,-284.42"/>
+<polyline fill="none" stroke="black" points="299.51,-284.29 294.54,-283.77"/>
 </g>
 <!-- erdantic.examples.pydantic.Quest -->
 <g id="node3" class="node">
