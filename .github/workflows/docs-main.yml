@@ -19,9 +19,10 @@ jobs:
           activate-environment: ""
           use-mamba: true
 
-      - name: Install nox
+      - name: Install nox and uv
         run: |
           pipx install nox
+          pipx install uv
 
       - name: Build documentation
         run: |
