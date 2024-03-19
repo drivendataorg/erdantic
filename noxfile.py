@@ -6,10 +6,13 @@ import nox
 
 @nox.session(venv_backend="mamba|conda", python="3.11", reuse_venv=True)
 def dev(session):
+    """Set up a development environment."""
     session.conda_install("graphviz", channel="conda-forge")
     if platform.system() == "Windows":
         session.conda_install("pygraphviz", channel="conda-forge")
     session.install("-r", "requirements/dev.txt")
+    conda_cmd = session.virtualenv.conda_cmd
+    session.log(f"Activate with: {conda_cmd} activate {session.virtualenv.location}")
 
 
 @nox.session(venv_backend="uv|virtualenv", python="3.11", reuse_venv=True)
