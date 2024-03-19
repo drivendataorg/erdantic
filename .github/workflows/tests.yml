@@ -78,7 +78,7 @@ jobs:
           nox -s test_sdist-${{ matrix.python-version }} --verbose
 
   docs:
-    name: Docs
+    name: Docs preview
     needs: code-quality
     if: github.event.pull_request != null
     runs-on: ubuntu-latest
