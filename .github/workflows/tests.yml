@@ -77,6 +77,29 @@ jobs:
           nox -s test_wheel-${{ matrix.python-version }} --verbose
           nox -s test_sdist-${{ matrix.python-version }} --verbose
 
+  test-build-and-install:
+    name: Build distribution and test installation
+    needs: code-quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          miniforge-version: latest
+          activate-environment: ""
+          use-mamba: true
+
+      - name: Install nox and uv
+        run: |
+          pipx install nox
+          pipx install uv
+
+      - name: Build distribution and test installation
+        shell: bash
+        run: |
+          nox -s build
+          nox -s test_wheel --verbose
+          nox -s test_sdist --verbose
+
   docs:
     name: Docs preview
     needs: code-quality
@@ -117,7 +140,7 @@ jobs:
 
   notify:
     name: Notify failed build
-    needs: [code-quality, tests, docs]
+    needs: [code-quality, tests, test-build-and-install, docs]
     if: failure() && github.event.pull_request == null
     runs-on: ubuntu-latest
     steps:
