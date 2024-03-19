@@ -1,4 +1,4 @@
--e .
+-e .[attrs]
 
 pytest<8
 pytest-cases
