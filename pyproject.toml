@@ -42,7 +42,7 @@ erdantic = "erdantic.cli:app"
 
 [tool.ruff]
 line-length = 99
-src = ["erdantic/**/*.py", "tests/**/*.py"]
+src = ["erdantic/**/*.py", "tests/**/*.py", "docs/**/*.py"]
 
 [tool.ruff.lint]
 select = [
@@ -57,6 +57,7 @@ known-first-party = ["erdantic"]
 force-sort-within-sections = true
 
 [tool.mypy]
+files = ["erdantic"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]
