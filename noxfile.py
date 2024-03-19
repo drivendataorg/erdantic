@@ -14,6 +14,7 @@ def dev(session):
 
 @nox.session(venv_backend="uv|virtualenv", python="3.11", reuse_venv=True)
 def lint(session):
+    session.env.pop("CONDA_PREFIX", None)  # uv errors if both venv and conda env are active
     session.install("-r", "requirements/lint.txt")
     session.run("ruff", "format", "--check")
     session.run("ruff", "check")
@@ -21,6 +22,7 @@ def lint(session):
 
 @nox.session(venv_backend="uv|virtualenv", python="3.11", reuse_venv=True)
 def typecheck(session):
+    session.env.pop("CONDA_PREFIX", None)  # uv errors if both venv and conda env are active
     session.install("-r", "requirements/typecheck.txt")
     session.run("mypy")
 
@@ -40,6 +42,7 @@ def tests(session):
 
 @nox.session(venv_backend="uv|virtualenv", reuse_venv=True)
 def build(session):
+    session.env.pop("CONDA_PREFIX", None)  # uv errors if both venv and conda env are active
     session.install("build")
     session.run("python", "-m", "build")
 
