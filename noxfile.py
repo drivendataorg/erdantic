@@ -1,7 +1,20 @@
 from pathlib import Path
 import platform
+import shutil
 
 import nox
+
+
+def find_uv() -> tuple[bool, str]:
+    # Inspired by:
+    # https://github.com/wntrblm/nox/blob/08813c3c6b0d2171c280bbfcf219d089a16d1ac2/nox/virtualenv.py#L42
+    uv = shutil.which("uv")
+    if uv is not None:
+        return True, uv
+    return False, "uv"
+
+
+HAS_UV, UV = find_uv()
 
 
 @nox.session(venv_backend="mamba|conda", python="3.11", reuse_venv=True)
@@ -10,7 +23,10 @@ def dev(session):
     session.conda_install("graphviz", channel="conda-forge")
     if platform.system() == "Windows":
         session.conda_install("pygraphviz", channel="conda-forge")
-    session.install("-r", "requirements/dev.txt")
+    if HAS_UV:
+        session.run(UV, "pip", "install", "-r", "requirements/dev.txt", external=True)
+    else:
+        session.install("-r", "requirements/dev.txt")
     conda_cmd = session.virtualenv.conda_cmd
     env_path = Path(session.virtualenv.location).relative_to(Path.cwd())
     session.log(f"Activate with: {conda_cmd} activate {env_path}")
@@ -40,7 +56,10 @@ def tests(session):
     session.conda_install("graphviz", channel="conda-forge")
     if platform.system() == "Windows":
         session.conda_install("pygraphviz", channel="conda-forge")
-    session.install("-r", "requirements/tests.txt")
+    if HAS_UV:
+        session.run(UV, "pip", "install", "-r", "requirements/tests.txt", external=True)
+    else:
+        session.install("-r", "requirements/tests.txt")
     session.run("pytest", "-vv")
 
 
@@ -51,31 +70,29 @@ def build(session):
     session.run("python", "-m", "build")
 
 
-@nox.session(
-    venv_backend="mamba|conda",
-    python=["3.8", "3.9", "3.10", "3.11", "3.12"],
-    reuse_venv=False,
-)
+@nox.session(venv_backend="mamba|conda", python="3.12", reuse_venv=False)
 def test_wheel(session):
     session.conda_install("graphviz", channel="conda-forge")
     if platform.system() == "Windows":
         session.conda_install("pygraphviz", channel="conda-forge")
     wheel_path = next(Path("dist").glob("*.whl")).resolve()
-    session.install(wheel_path)
+    if HAS_UV:
+        session.run(UV, "pip", "install", f"erdantic @ {wheel_path}", external=True)
+    else:
+        session.install(wheel_path)
     session.run("erdantic", "--version")
 
 
-@nox.session(
-    venv_backend="mamba|conda",
-    python=["3.8", "3.9", "3.10", "3.11", "3.12"],
-    reuse_venv=False,
-)
+@nox.session(venv_backend="mamba|conda", python="3.12", reuse_venv=False)
 def test_sdist(session):
     session.conda_install("graphviz", channel="conda-forge")
     if platform.system() == "Windows":
         session.conda_install("pygraphviz", channel="conda-forge")
     sdist_path = next(Path("dist").glob("*.tar.gz")).resolve()
-    session.install(sdist_path)
+    if HAS_UV:
+        session.run(UV, "pip", "install", f"erdantic @ {sdist_path}", external=True)
+    else:
+        session.install(sdist_path)
     session.run("erdantic", "--version")
 
 
@@ -84,5 +101,8 @@ def docs(session):
     session.conda_install("graphviz", channel="conda-forge")
     if platform.system() == "Windows":
         session.conda_install("pygraphviz", channel="conda-forge")
-    session.install("-r", "requirements/docs.txt")
+    if HAS_UV:
+        session.run(UV, "pip", "install", "-r", "requirements/docs.txt", external=True)
+    else:
+        session.install("-r", "requirements/docs.txt")
     session.run("make", "docs")
