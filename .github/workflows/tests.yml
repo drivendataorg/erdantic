@@ -85,15 +85,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - uses: conda-incubator/setup-miniconda@v3
         with:
-          python-version: "3.11"
+          miniforge-version: latest
+          activate-environment: ""
+          use-mamba: true
 
-      - name: Install nox and uv
+      - name: Install nox
         run: |
           pipx install nox
-          pipx install uv
 
       - name: Test building documentation
         run: |
