@@ -12,7 +12,8 @@ def dev(session):
         session.conda_install("pygraphviz", channel="conda-forge")
     session.install("-r", "requirements/dev.txt")
     conda_cmd = session.virtualenv.conda_cmd
-    session.log(f"Activate with: {conda_cmd} activate {session.virtualenv.location}")
+    env_path = Path(session.virtualenv.location).relative_to(Path.cwd())
+    session.log(f"Activate with: {conda_cmd} activate {env_path}")
 
 
 @nox.session(venv_backend="uv|virtualenv", python="3.11", reuse_venv=True)
