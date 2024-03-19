@@ -36,11 +36,11 @@ jobs:
 
       - name: Build package
         run: |
-          nox -s build
+          nox -s build --verbose
 
       - name: Build docs
         run: |
-          nox -s docs
+          nox -s docs --verbose
 
       - name: Publish to Test PyPI
         uses: pypa/gh-action-pypi-publish@v1.3.0
