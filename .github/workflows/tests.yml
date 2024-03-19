@@ -70,13 +70,6 @@ jobs:
           fail_ci_if_error: true
         if: ${{ matrix.os == 'ubuntu-latest' }}
 
-      - name: Build distribution and test installation
-        shell: bash
-        run: |
-          nox -s build
-          nox -s test_wheel-${{ matrix.python-version }} --verbose
-          nox -s test_sdist-${{ matrix.python-version }} --verbose
-
   test-build-and-install:
     name: Build distribution and test installation
     needs: code-quality
@@ -93,6 +86,13 @@ jobs:
           pipx install nox
           pipx install uv
 
+      - name: Build distribution and test installation
+        shell: bash
+        run: |
+          nox -s build
+          nox -s test_wheel --verbose
+          nox -s test_sdist --verbose
+
   docs:
     name: Docs preview
     needs: code-quality
@@ -107,9 +107,10 @@ jobs:
           activate-environment: ""
           use-mamba: true
 
-      - name: Install nox
+      - name: Install nox and uv
         run: |
           pipx install nox
+          pipx install uv
 
       - name: Test building documentation
         run: |
