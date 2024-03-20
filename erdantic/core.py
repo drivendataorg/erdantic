@@ -410,11 +410,13 @@ _DEFAULT_GRAPH_ATTRS = (
     ("ranksep", "1.5"),
     ("rankdir", "LR"),
     ("label", f"Created by erdantic v{__version__} <https://github.com/drivendataorg/erdantic>"),
+    ("fontname", "Liberation Serif,Times,serif"),
     ("fontsize", "9"),
     ("fontcolor", "gray66"),
 )
 
 _DEFAULT_NODE_ATTRS = (
+    ("fontname", "Liberation Serif,Times,serif"),
     ("fontsize", 14),
     ("shape", "plain"),
 )

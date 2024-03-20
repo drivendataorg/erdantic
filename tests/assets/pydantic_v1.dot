@@ -1,12 +1,14 @@
 digraph "Entity Relationship Diagram" {
 	graph [fontcolor=gray66,
+		fontname="Liberation Serif, Times-Roman",
 		fontsize=9,
 		label="Created by erdantic vTEST <https://github.com/drivendataorg/erdantic>",
 		nodesep=0.5,
 		rankdir=LR,
 		ranksep=1.5
 	];
-	node [fontsize=14,
+	node [fontname="Liberation Serif, Times-Roman",
+		fontsize=14,
 		label="\N",
 		shape=plain
 	];
