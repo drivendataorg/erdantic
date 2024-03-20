@@ -1,4 +1,5 @@
 import filecmp
+from pathlib import Path
 import subprocess
 
 import pytest
@@ -14,6 +15,8 @@ from erdantic.exceptions import ModelOrModuleNotFoundError
 
 runner = CliRunner(mix_stderr=False)
 
+OUTPUTS_DIR = Path(__file__).resolve().parent / "_outputs"
+
 
 def test_import_object_from_name():
     assert import_object_from_name("erdantic.examples.pydantic.Party") is Party
@@ -26,21 +29,24 @@ def test_import_object_from_name():
         import_object_from_name("erdantic.examples.pydantic.not_a_model_class")
 
 
-def test_draw(tmp_path):
+def test_draw(outputs_dir):
+    out_dir = outputs_dir / "test_cli-test_draw"
+    out_dir.mkdir()
+
     # With library for comparison
-    path_base = tmp_path / "diagram_base.png"
+    path_base = out_dir / "diagram_base.png"
     erd.draw(Party, out=path_base)
     assert path_base.exists()
 
     # With CLI
-    path1 = tmp_path / "diagram1.png"
+    path1 = out_dir / "diagram1.png"
     result = runner.invoke(app, ["erdantic.examples.pydantic.Party", "-o", str(path1)])
     assert result.exit_code == 0
     assert path1.exists()
     assert filecmp.cmp(path1, path_base)
 
     # python -m erdantic
-    path2 = tmp_path / "diagram2.png"
+    path2 = out_dir / "diagram2.png"
     result = subprocess.run(
         ["python", "-m", "erdantic", "erdantic.examples.pydantic.Party", "-o", str(path2)],
         capture_output=True,
