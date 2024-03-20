@@ -40,11 +40,16 @@ def lint(session):
     session.run("ruff", "check")
 
 
-@nox.session(venv_backend="uv|virtualenv", python="3.11", reuse_venv=True)
+@nox.session(venv_backend="mamba|conda", python="3.11", reuse_venv=True)
 def typecheck(session):
-    session.env.pop("CONDA_PREFIX", None)  # uv errors if both venv and conda env are active
-    session.install("-r", "requirements/typecheck.txt")
-    session.run("mypy")
+    session.conda_install("graphviz", channel="conda-forge")
+    if platform.system() == "Windows":
+        session.conda_install("pygraphviz", channel="conda-forge")
+    if HAS_UV:
+        session.run(UV, "pip", "install", "-r", "requirements/typecheck.txt", external=True)
+    else:
+        session.install("-r", "requirements/typecheck.txt")
+    session.run("mypy", "--install-types", "--non-interactive")
 
 
 @nox.session(

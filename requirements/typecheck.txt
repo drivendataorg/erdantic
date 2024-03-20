@@ -1,1 +1,6 @@
+attrs
 mypy
+pydantic>=2
+sortedcontainers-pydantic@git+https://github.com/jayqi/sortedcontainers-pydantic.git
+typenames
+typer
