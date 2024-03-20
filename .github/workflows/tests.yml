@@ -58,6 +58,10 @@ jobs:
           pipx install nox
           pipx install uv
 
+      - name: Check font availability
+        run: |
+          fc-list
+
       - name: Run tests
         run: |
           nox -s tests-${{ matrix.python-version }} --verbose
