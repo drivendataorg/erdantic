@@ -17,15 +17,15 @@ erd.__version__ = erdantic.core.__version__ = erdantic._version.__version__ = "T
 
 
 def create_assets(examples: ModuleType):
-    stem = examples.__name__.rsplit(".", 1)[1]
-    (ASSETS_DIR / stem).mkdir(exist_ok=True)
+    plugin = examples.__name__.rsplit(".", 1)[1]
+    (ASSETS_DIR).mkdir(exist_ok=True)
     diagram = erd.create(examples.Party)
 
-    diagram.draw(out=ASSETS_DIR / stem / "diagram.png")
-    diagram.draw(out=ASSETS_DIR / stem / "diagram.svg")
-    with (ASSETS_DIR / stem / "diagram.dot").open("w") as fp:
+    diagram.draw(out=ASSETS_DIR / f"{plugin}.png")
+    diagram.draw(out=ASSETS_DIR / f"{plugin}.svg")
+    with (ASSETS_DIR / f"{plugin}.dot").open("w") as fp:
         fp.write(diagram.to_dot())
-    with (ASSETS_DIR / stem / "diagram.json").open("w") as fp:
+    with (ASSETS_DIR / f"{plugin}.json").open("w") as fp:
         fp.write(diagram.model_dump_json(indent=2))
 
 

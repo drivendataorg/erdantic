@@ -52,7 +52,7 @@ def outputs_dir():
 def test_draw_png_against_static_assets(case, version_patch):
     """Uses draw convenience function."""
     plugin, model_or_module = case
-    expected_path = ASSETS_DIR / plugin / "diagram.png"
+    expected_path = ASSETS_DIR / f"{plugin}.png"
 
     out_path = OUTPUTS_DIR / f"{plugin}.png"
 
@@ -65,7 +65,7 @@ def test_draw_png_against_static_assets(case, version_patch):
 def test_draw_svg_against_static_assets(case, version_patch):
     """Uses draw convenience function."""
     plugin, model_or_module = case
-    expected_path = ASSETS_DIR / plugin / "diagram.svg"
+    expected_path = ASSETS_DIR / f"{plugin}.svg"
 
     out_path = OUTPUTS_DIR / f"{plugin}.svg"
     erd.draw(model_or_module, out=out_path)
@@ -76,7 +76,7 @@ def test_draw_svg_against_static_assets(case, version_patch):
 def test_to_dot_against_static_assets(case, version_patch):
     """Uses to_dot convenience function."""
     plugin, model_or_module = case
-    expected_path = ASSETS_DIR / plugin / "diagram.dot"
+    expected_path = ASSETS_DIR / f"{plugin}.dot"
 
     out_path = OUTPUTS_DIR / f"{plugin}.dot"
     out = erd.to_dot(model_or_module)
@@ -87,7 +87,7 @@ def test_to_dot_against_static_assets(case, version_patch):
 @pytest.mark.parametrize("case", CASES)
 def test_json_against_static_assets(case, version_patch):
     plugin, model_or_module = case
-    expected_path = ASSETS_DIR / plugin / "diagram.json"
+    expected_path = ASSETS_DIR / f"{plugin}.json"
 
     out_path = OUTPUTS_DIR / f"{plugin}.json"
     diagram = erd.create(model_or_module)
