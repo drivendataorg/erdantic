@@ -9,29 +9,29 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 304.5)">
 <title>Entity Relationship Diagram</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-304.5 682,-304.5 682,4 -4,4"/>
-<text text-anchor="middle" x="339" y="-5.95" font-family="Liberation Serif,Times,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic vTEST &lt;https://github.com/drivendataorg/erdantic&gt;</text>
+<text text-anchor="middle" x="339" y="-5.95" font-family="Times,serif" font-size="9.00" fill="#a8a8a8">Created by erdantic vTEST &lt;https://github.com/drivendataorg/erdantic&gt;</text>
 <!-- erdantic.examples.pydantic.Adventurer -->
 <g id="node1" class="node">
 <title>erdantic.examples.pydantic.Adventurer</title>
 <g id="a_node1"><a xlink:title="erdantic.examples.pydantic.Adventurer&#10;&#10;A person often late for dinner but with a tale or two to tell.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;name (str): Name of this adventurer&#10; &#160;&#160;&#160;profession (str): Profession of this adventurer&#10; &#160;&#160;&#160;level (int): Level of this adventurer&#10; &#160;&#160;&#160;alignment (Alignment): Alignment of this adventurer&#10;">
 <polygon fill="none" stroke="black" points="312,-274.5 312,-296.5 438,-296.5 438,-274.5 312,-274.5"/>
-<text text-anchor="start" x="341.25" y="-281.2" font-family="Liberation Serif,Times,serif" font-weight="bold" font-size="14.00">Adventurer</text>
+<text text-anchor="start" x="341.25" y="-281.2" font-family="Times,serif" font-weight="bold" font-size="14.00">Adventurer</text>
 <polygon fill="none" stroke="black" points="312,-252.5 312,-274.5 374,-274.5 374,-252.5 312,-252.5"/>
-<text text-anchor="start" x="328" y="-258.2" font-family="Liberation Serif,Times,serif" font-size="14.00">name</text>
+<text text-anchor="start" x="328" y="-258.2" font-family="Times,serif" font-size="14.00">name</text>
 <polygon fill="none" stroke="black" points="374,-252.5 374,-274.5 438,-274.5 438,-252.5 374,-252.5"/>
-<text text-anchor="start" x="399.25" y="-258.2" font-family="Liberation Serif,Times,serif" font-size="14.00">str</text>
+<text text-anchor="start" x="399.25" y="-258.2" font-family="Times,serif" font-size="14.00">str</text>
 <polygon fill="none" stroke="black" points="312,-230.5 312,-252.5 374,-252.5 374,-230.5 312,-230.5"/>
-<text text-anchor="start" x="314.88" y="-236.2" font-family="Liberation Serif,Times,serif" font-size="14.00">profession</text>
+<text text-anchor="start" x="314.88" y="-236.2" font-family="Times,serif" font-size="14.00">profession</text>
 <polygon fill="none" stroke="black" points="374,-230.5 374,-252.5 438,-252.5 438,-230.5 374,-230.5"/>
-<text text-anchor="start" x="399.25" y="-236.2" font-family="Liberation Serif,Times,serif" font-size="14.00">str</text>
+<text text-anchor="start" x="399.25" y="-236.2" font-family="Times,serif" font-size="14.00">str</text>
 <polygon fill="none" stroke="black" points="312,-208.5 312,-230.5 374,-230.5 374,-208.5 312,-208.5"/>
-<text text-anchor="start" x="329.88" y="-214.2" font-family="Liberation Serif,Times,serif" font-size="14.00">level</text>
+<text text-anchor="start" x="329.88" y="-214.2" font-family="Times,serif" font-size="14.00">level</text>
 <polygon fill="none" stroke="black" points="374,-208.5 374,-230.5 438,-230.5 438,-208.5 374,-208.5"/>
-<text text-anchor="start" x="398.88" y="-214.2" font-family="Liberation Serif,Times,serif" font-size="14.00">int</text>
+<text text-anchor="start" x="398.88" y="-214.2" font-family="Times,serif" font-size="14.00">int</text>
 <polygon fill="none" stroke="black" points="312,-186.5 312,-208.5 374,-208.5 374,-186.5 312,-186.5"/>
-<text text-anchor="start" x="315.62" y="-192.2" font-family="Liberation Serif,Times,serif" font-size="14.00">alignment</text>
+<text text-anchor="start" x="315.62" y="-192.2" font-family="Times,serif" font-size="14.00">alignment</text>
 <polygon fill="none" stroke="black" points="374,-186.5 374,-208.5 438,-208.5 438,-186.5 374,-186.5"/>
-<text text-anchor="start" x="376.75" y="-192.2" font-family="Liberation Serif,Times,serif" font-size="14.00">Alignment</text>
+<text text-anchor="start" x="376.75" y="-192.2" font-family="Times,serif" font-size="14.00">Alignment</text>
 </a>
 </g>
 </g>
@@ -40,23 +40,23 @@
 <title>erdantic.examples.pydantic.Party</title>
 <g id="a_node2"><a xlink:title="erdantic.examples.pydantic.Party&#10;&#10;A group of adventurers finding themselves doing and saying things altogether unexpected.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;name (str): Name that party is known by&#10; &#160;&#160;&#160;formed_datetime (datetime): Timestamp of when the party was formed&#10; &#160;&#160;&#160;members (List[Adventurer]): Adventurers that belong to this party&#10; &#160;&#160;&#160;active_quest (Optional[Quest]): Current quest that party is actively tackling&#10;">
 <polygon fill="none" stroke="black" points="0,-278.5 0,-300.5 196,-300.5 196,-278.5 0,-278.5"/>
-<text text-anchor="start" x="81.88" y="-285.2" font-family="Liberation Serif,Times,serif" font-weight="bold" font-size="14.00">Party</text>
+<text text-anchor="start" x="81.88" y="-285.2" font-family="Times,serif" font-weight="bold" font-size="14.00">Party</text>
 <polygon fill="none" stroke="black" points="0,-256.5 0,-278.5 99,-278.5 99,-256.5 0,-256.5"/>
-<text text-anchor="start" x="34.5" y="-262.2" font-family="Liberation Serif,Times,serif" font-size="14.00">name</text>
+<text text-anchor="start" x="34.5" y="-262.2" font-family="Times,serif" font-size="14.00">name</text>
 <polygon fill="none" stroke="black" points="99,-256.5 99,-278.5 196,-278.5 196,-256.5 99,-256.5"/>
-<text text-anchor="start" x="140.75" y="-262.2" font-family="Liberation Serif,Times,serif" font-size="14.00">str</text>
+<text text-anchor="start" x="140.75" y="-262.2" font-family="Times,serif" font-size="14.00">str</text>
 <polygon fill="none" stroke="black" points="0,-234.5 0,-256.5 99,-256.5 99,-234.5 0,-234.5"/>
-<text text-anchor="start" x="2.62" y="-240.2" font-family="Liberation Serif,Times,serif" font-size="14.00">formed_datetime</text>
+<text text-anchor="start" x="2.62" y="-240.2" font-family="Times,serif" font-size="14.00">formed_datetime</text>
 <polygon fill="none" stroke="black" points="99,-234.5 99,-256.5 196,-256.5 196,-234.5 99,-234.5"/>
-<text text-anchor="start" x="123.88" y="-240.2" font-family="Liberation Serif,Times,serif" font-size="14.00">datetime</text>
+<text text-anchor="start" x="123.88" y="-240.2" font-family="Times,serif" font-size="14.00">datetime</text>
 <polygon fill="none" stroke="black" points="0,-212.5 0,-234.5 99,-234.5 99,-212.5 0,-212.5"/>
-<text text-anchor="start" x="24" y="-218.2" font-family="Liberation Serif,Times,serif" font-size="14.00">members</text>
+<text text-anchor="start" x="24" y="-218.2" font-family="Times,serif" font-size="14.00">members</text>
 <polygon fill="none" stroke="black" points="99,-212.5 99,-234.5 196,-234.5 196,-212.5 99,-212.5"/>
-<text text-anchor="start" x="101.75" y="-218.2" font-family="Liberation Serif,Times,serif" font-size="14.00">List[Adventurer]</text>
+<text text-anchor="start" x="101.75" y="-218.2" font-family="Times,serif" font-size="14.00">List[Adventurer]</text>
 <polygon fill="none" stroke="black" points="0,-190.5 0,-212.5 99,-212.5 99,-190.5 0,-190.5"/>
-<text text-anchor="start" x="15.75" y="-196.2" font-family="Liberation Serif,Times,serif" font-size="14.00">active_quest</text>
+<text text-anchor="start" x="15.75" y="-196.2" font-family="Times,serif" font-size="14.00">active_quest</text>
 <polygon fill="none" stroke="black" points="99,-190.5 99,-212.5 196,-212.5 196,-190.5 99,-190.5"/>
-<text text-anchor="start" x="103.62" y="-196.2" font-family="Liberation Serif,Times,serif" font-size="14.00">Optional[Quest]</text>
+<text text-anchor="start" x="103.62" y="-196.2" font-family="Times,serif" font-size="14.00">Optional[Quest]</text>
 </a>
 </g>
 </g>
@@ -74,19 +74,19 @@
 <title>erdantic.examples.pydantic.Quest</title>
 <g id="a_node3"><a xlink:title="erdantic.examples.pydantic.Quest&#10;&#10;A task to complete, with some monetary reward.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;name (str): Name by which this quest is referred to&#10; &#160;&#160;&#160;giver (QuestGiver): Person who offered the quest&#10; &#160;&#160;&#160;reward_gold (int): Amount of gold to be rewarded for quest completion&#10;">
 <polygon fill="none" stroke="black" points="304,-128.5 304,-150.5 446,-150.5 446,-128.5 304,-128.5"/>
-<text text-anchor="start" x="357.75" y="-135.2" font-family="Liberation Serif,Times,serif" font-weight="bold" font-size="14.00">Quest</text>
+<text text-anchor="start" x="357.75" y="-135.2" font-family="Times,serif" font-weight="bold" font-size="14.00">Quest</text>
 <polygon fill="none" stroke="black" points="304,-106.5 304,-128.5 378,-128.5 378,-106.5 304,-106.5"/>
-<text text-anchor="start" x="326" y="-112.2" font-family="Liberation Serif,Times,serif" font-size="14.00">name</text>
+<text text-anchor="start" x="326" y="-112.2" font-family="Times,serif" font-size="14.00">name</text>
 <polygon fill="none" stroke="black" points="378,-106.5 378,-128.5 446,-128.5 446,-106.5 378,-106.5"/>
-<text text-anchor="start" x="405.25" y="-112.2" font-family="Liberation Serif,Times,serif" font-size="14.00">str</text>
+<text text-anchor="start" x="405.25" y="-112.2" font-family="Times,serif" font-size="14.00">str</text>
 <polygon fill="none" stroke="black" points="304,-84.5 304,-106.5 378,-106.5 378,-84.5 304,-84.5"/>
-<text text-anchor="start" x="327.12" y="-90.2" font-family="Liberation Serif,Times,serif" font-size="14.00">giver</text>
+<text text-anchor="start" x="327.12" y="-90.2" font-family="Times,serif" font-size="14.00">giver</text>
 <polygon fill="none" stroke="black" points="378,-84.5 378,-106.5 446,-106.5 446,-84.5 378,-84.5"/>
-<text text-anchor="start" x="380.88" y="-90.2" font-family="Liberation Serif,Times,serif" font-size="14.00">QuestGiver</text>
+<text text-anchor="start" x="380.88" y="-90.2" font-family="Times,serif" font-size="14.00">QuestGiver</text>
 <polygon fill="none" stroke="black" points="304,-62.5 304,-84.5 378,-84.5 378,-62.5 304,-62.5"/>
-<text text-anchor="start" x="306.88" y="-68.2" font-family="Liberation Serif,Times,serif" font-size="14.00">reward_gold</text>
+<text text-anchor="start" x="306.88" y="-68.2" font-family="Times,serif" font-size="14.00">reward_gold</text>
 <polygon fill="none" stroke="black" points="378,-62.5 378,-84.5 446,-84.5 446,-62.5 378,-62.5"/>
-<text text-anchor="start" x="404.88" y="-68.2" font-family="Liberation Serif,Times,serif" font-size="14.00">int</text>
+<text text-anchor="start" x="404.88" y="-68.2" font-family="Times,serif" font-size="14.00">int</text>
 </a>
 </g>
 </g>
@@ -106,19 +106,19 @@
 <title>erdantic.examples.pydantic.QuestGiver</title>
 <g id="a_node4"><a xlink:title="erdantic.examples.pydantic.QuestGiver&#10;&#10;A person who offers a task that needs completing.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;name (str): Name of this quest giver&#10; &#160;&#160;&#160;faction (str): Faction that this quest giver belongs to&#10; &#160;&#160;&#160;location (str): Location this quest giver can be found&#10;">
 <polygon fill="none" stroke="black" points="554,-84.5 554,-106.5 678,-106.5 678,-84.5 554,-84.5"/>
-<text text-anchor="start" x="581.88" y="-91.2" font-family="Liberation Serif,Times,serif" font-weight="bold" font-size="14.00">QuestGiver</text>
+<text text-anchor="start" x="581.88" y="-91.2" font-family="Times,serif" font-weight="bold" font-size="14.00">QuestGiver</text>
 <polygon fill="none" stroke="black" points="554,-62.5 554,-84.5 603,-84.5 603,-62.5 554,-62.5"/>
-<text text-anchor="start" x="563.5" y="-68.2" font-family="Liberation Serif,Times,serif" font-size="14.00">name</text>
+<text text-anchor="start" x="563.5" y="-68.2" font-family="Times,serif" font-size="14.00">name</text>
 <polygon fill="none" stroke="black" points="603,-62.5 603,-84.5 678,-84.5 678,-62.5 603,-62.5"/>
-<text text-anchor="start" x="633.75" y="-68.2" font-family="Liberation Serif,Times,serif" font-size="14.00">str</text>
+<text text-anchor="start" x="633.75" y="-68.2" font-family="Times,serif" font-size="14.00">str</text>
 <polygon fill="none" stroke="black" points="554,-40.5 554,-62.5 603,-62.5 603,-40.5 554,-40.5"/>
-<text text-anchor="start" x="559.75" y="-46.2" font-family="Liberation Serif,Times,serif" font-size="14.00">faction</text>
+<text text-anchor="start" x="559.75" y="-46.2" font-family="Times,serif" font-size="14.00">faction</text>
 <polygon fill="none" stroke="black" points="603,-40.5 603,-62.5 678,-62.5 678,-40.5 603,-40.5"/>
-<text text-anchor="start" x="605.62" y="-46.2" font-family="Liberation Serif,Times,serif" font-size="14.00">Optional[str]</text>
+<text text-anchor="start" x="605.62" y="-46.2" font-family="Times,serif" font-size="14.00">Optional[str]</text>
 <polygon fill="none" stroke="black" points="554,-18.5 554,-40.5 603,-40.5 603,-18.5 554,-18.5"/>
-<text text-anchor="start" x="556.75" y="-24.2" font-family="Liberation Serif,Times,serif" font-size="14.00">location</text>
+<text text-anchor="start" x="556.75" y="-24.2" font-family="Times,serif" font-size="14.00">location</text>
 <polygon fill="none" stroke="black" points="603,-18.5 603,-40.5 678,-40.5 678,-18.5 603,-18.5"/>
-<text text-anchor="start" x="633.75" y="-24.2" font-family="Liberation Serif,Times,serif" font-size="14.00">str</text>
+<text text-anchor="start" x="633.75" y="-24.2" font-family="Times,serif" font-size="14.00">str</text>
 </a>
 </g>
 </g>
