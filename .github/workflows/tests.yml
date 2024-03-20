@@ -96,11 +96,16 @@ jobs:
           pipx install nox
           pipx install uv
 
-      - name: Build distribution and test installation
-        shell: bash
+      - name: Build distribution
         run: |
           nox -s build
+
+      - name: Test wheel with extras matrix
+        run: |
           nox -s test_wheel --verbose
+      
+      - name: Test sdist
+        run: |
           nox -s test_sdist --verbose
 
   docs:

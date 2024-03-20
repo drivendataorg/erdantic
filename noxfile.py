@@ -76,16 +76,18 @@ def build(session):
 
 
 @nox.session(venv_backend="mamba|conda", python="3.12", reuse_venv=False)
-def test_wheel(session):
+@nox.parametrize("extras", ["", "[attrs]"])
+def test_wheel(session, extras):
     session.conda_install("graphviz", channel="conda-forge")
     if platform.system() == "Windows":
         session.conda_install("pygraphviz", channel="conda-forge")
     wheel_path = next(Path("dist").glob("*.whl")).resolve()
     if HAS_UV:
-        session.run(UV, "pip", "install", f"erdantic @ {wheel_path}", external=True)
+        session.run(UV, "pip", "install", f"erdantic{extras} @ {wheel_path}", external=True)
     else:
-        session.install(wheel_path)
-    session.run("erdantic", "--version")
+        session.install(str(wheel_path) + extras)
+    session.run("python", "-m", "erdantic", "--version")
+    session.run("python", "-c", "import erdantic; print(erdantic.list_plugins())")
 
 
 @nox.session(venv_backend="mamba|conda", python="3.12", reuse_venv=False)
@@ -98,7 +100,7 @@ def test_sdist(session):
         session.run(UV, "pip", "install", f"erdantic @ {sdist_path}", external=True)
     else:
         session.install(sdist_path)
-    session.run("erdantic", "--version")
+    session.run("python", "-m", "erdantic", "--version")
 
 
 @nox.session(venv_backend="mamba|conda", python="3.11", reuse_venv=True)

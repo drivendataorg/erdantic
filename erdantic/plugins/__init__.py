@@ -27,7 +27,11 @@ _ModelType_contra = TypeVar("_ModelType_contra", bound=type, contravariant=True)
 def load_plugins():
     for plugin in CORE_PLUGINS:
         logger.debug("Loading plugin: %s", plugin)
-        importlib.import_module(f"erdantic.plugins.{plugin}")
+        try:
+            importlib.import_module(f"erdantic.plugins.{plugin}")
+            logger.debug("Plugin successfully loaded: %s", plugin)
+        except ModuleNotFoundError:
+            logger.debug("Plugin dependencies not found. Skipping: %s", plugin)
 
 
 class ModelPredicate(Protocol[_ModelType_co]):
