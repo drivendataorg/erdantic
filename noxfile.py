@@ -112,4 +112,5 @@ def docs(session):
         session.run(UV, "pip", "install", "-r", "requirements/docs.txt", external=True)
     else:
         session.install("-r", "requirements/docs.txt")
-    session.run("make", "docs")
+    with session.chdir("docs"):
+        session.run("mkdocs", "build")
