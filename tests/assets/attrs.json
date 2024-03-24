@@ -153,8 +153,8 @@
       "description": "erdantic.examples.attrs.QuestGiver\n\nA person who offers a task that needs completing.\n\nAttributes:\n    name (str): Name of this quest giver\n    faction (str): Faction that this quest giver belongs to\n    location (str): Location this quest giver can be found\n"
     }
   },
-  "edges": [
-    {
+  "edges": {
+    "erdantic.examples.attrs.Party-active_quest-erdantic.examples.attrs.Quest": {
       "source_model_full_name": {
         "module": "erdantic.examples.attrs",
         "qual_name": "Party"
@@ -169,7 +169,7 @@
       "source_cardinality": "unspecified",
       "source_modality": "unspecified"
     },
-    {
+    "erdantic.examples.attrs.Party-members-erdantic.examples.attrs.Adventurer": {
       "source_model_full_name": {
         "module": "erdantic.examples.attrs",
         "qual_name": "Party"
@@ -184,7 +184,7 @@
       "source_cardinality": "unspecified",
       "source_modality": "unspecified"
     },
-    {
+    "erdantic.examples.attrs.Quest-giver-erdantic.examples.attrs.QuestGiver": {
       "source_model_full_name": {
         "module": "erdantic.examples.attrs",
         "qual_name": "Quest"
@@ -199,5 +199,5 @@
       "source_cardinality": "unspecified",
       "source_modality": "unspecified"
     }
-  ]
+  }
 }
