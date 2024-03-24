@@ -236,6 +236,14 @@ class ModelInfo(pydantic.BaseModel, Generic[_ModelType]):
         return model_info
 
     @property
+    def key(self) -> str:
+        """Returns the key used to identify this instance of ModelInfo in the
+        EntityRelationshipDiagram.models mapping. This value is the string representation of the
+        `full_name` field.
+        """
+        return str(self.full_name)
+
+    @property
     def raw_model(self) -> _ModelType:
         """Returns the raw data model class. This is a cached property. If the raw model is not
         already known, it will attempt to import the data model class.
@@ -349,6 +357,14 @@ class Edge(pydantic.BaseModel):
         )
 
     @property
+    def key(self) -> str:
+        """Returns the key used to identify this instance of Edge in the
+        EntityRelationshipDiagram.edges mapping. This value is a hyphenated string of the fields
+        `source_model_full_name`, `source_field_name`, and `target_model_full_name`.
+        """
+        return "-".join(str(part) for part in self._sort_key)
+
+    @property
     def _sort_key(self) -> Tuple[FullyQualifiedName, str, FullyQualifiedName]:
         """Used to define an ordering for instances of Edges."""
         return (
@@ -405,7 +421,7 @@ class Edge(pydantic.BaseModel):
         return self.source_cardinality.to_dot() + self.source_modality.to_dot()
 
 
-_DEFAULT_GRAPH_ATTRS = (
+DEFAULT_GRAPH_ATTR = (
     ("nodesep", "0.5"),
     ("ranksep", "1.5"),
     ("rankdir", "LR"),
@@ -415,13 +431,13 @@ _DEFAULT_GRAPH_ATTRS = (
     ("fontcolor", "gray66"),
 )
 
-_DEFAULT_NODE_ATTRS = (
+DEFAULT_NODE_ATTR = (
     ("fontname", "Times New Roman,Times,Liberation Serif,serif"),
     ("fontsize", 14),
     ("shape", "plain"),
 )
 
-_DEFAULT_EDGE_ATTRS = (("dir", "both"),)
+DEFAULT_EDGE_ATTR = (("dir", "both"),)
 
 
 class EntityRelationshipDiagram(pydantic.BaseModel):
@@ -436,7 +452,7 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
     """
 
     models: SortedDict[str, ModelInfo] = SortedDict()
-    edges: SortedSet[Edge] = SortedSet()
+    edges: SortedDict[str, Edge] = SortedDict()
 
     def _add_if_model(self, model: type, recurse: bool) -> bool:
         """Private recursive method to add a model to the diagram."""
@@ -460,7 +476,13 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
                                 is_model = self._add_if_model(arg, recurse=recurse)
                                 if is_model:
                                     edge = Edge.from_field_info(arg, field_info)
-                                    self.edges.add(edge)
+                                    self.edges[edge.key] = edge
+                                    logger.debug(
+                                        "Added edge from model '%s' field '%s' to model '%s'.",
+                                        edge.source_model_full_name,
+                                        edge.source_field_name,
+                                        edge.target_model_full_name,
+                                    )
                         except _UnevaluatedForwardRefError as e:
                             raise UnevaluatedForwardRefError(
                                 model_full_name=model_info.full_name,
@@ -485,7 +507,7 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
             UnknownModelTypeError: If the model is not recognized as a data model class type that
                 is supported by registered plugins.
         """
-        logger.info("Adding model to '%s' to diagram...", typenames(model))
+        logger.info("Adding model '%s' to diagram...", typenames(model))
         is_model = self._add_if_model(model, recurse=recurse)
         if not is_model:
             raise UnknownModelTypeError(model=model)
@@ -493,9 +515,9 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
     def draw(
         self,
         out: Union[str, os.PathLike],
-        graph_attrs: Optional[Mapping[str, Any]] = None,
-        node_attrs: Optional[Mapping[str, Any]] = None,
-        edge_attrs: Optional[Mapping[str, Any]] = None,
+        graph_attr: Optional[Mapping[str, Any]] = None,
+        node_attr: Optional[Mapping[str, Any]] = None,
+        edge_attr: Optional[Mapping[str, Any]] = None,
         **kwargs,
     ):
         """Render entity relationship diagram for given data model classes to file. The file format
@@ -504,36 +526,36 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
 
         Args:
             out (str | os.PathLike): Output file path for rendered diagram.
-            graph_attrs (Mapping[str, Any] | None, optional): Override any graph attributes on
+            graph_attr (Mapping[str, Any] | None, optional): Override any graph attributes on
                 the `pygraphviz.AGraph` instance. Defaults to None.
-            node_attrs (Mapping[str, Any] | None, optional): Override any node attributes for all
+            node_attr (Mapping[str, Any] | None, optional): Override any node attributes for all
                 nodes on the `pygraphviz.AGraph` instance. Defaults to None.
-            edge_attrs (Mapping[str, Any] | None, optional): Override any edge attributes for all
+            edge_attr (Mapping[str, Any] | None, optional): Override any edge attributes for all
                 edges on the `pygraphviz.AGraph` instance. Defaults to None.
             **kwargs: Additional keyword arguments to [`pygraphviz.AGraph.draw`](https://pygraphviz.github.io/documentation/latest/reference/agraph.html#pygraphviz.AGraph.draw).
         """
         logger.info("Rendering diagram to %s", out)
         self.to_graphviz(
-            graph_attrs=graph_attrs,
-            node_attrs=node_attrs,
-            edge_attrs=edge_attrs,
+            graph_attr=graph_attr,
+            node_attr=node_attr,
+            edge_attr=edge_attr,
         ).draw(out, prog="dot", **kwargs)
 
     def to_graphviz(
         self,
-        graph_attrs: Optional[Mapping[str, Any]] = None,
-        node_attrs: Optional[Mapping[str, Any]] = None,
-        edge_attrs: Optional[Mapping[str, Any]] = None,
+        graph_attr: Optional[Mapping[str, Any]] = None,
+        node_attr: Optional[Mapping[str, Any]] = None,
+        edge_attr: Optional[Mapping[str, Any]] = None,
     ) -> pgv.AGraph:
         """Return [`pygraphviz.AGraph`](https://pygraphviz.github.io/documentation/latest/reference/agraph.html)
         instance for diagram.
 
         Args:
-            graph_attrs (Mapping[str, Any] | None, optional): Override any graph attributes on
+            graph_attr (Mapping[str, Any] | None, optional): Override any graph attributes on
                 the `pygraphviz.AGraph` instance. Defaults to None.
-            node_attrs (Mapping[str, Any] | None, optional): Override any node attributes for all
+            node_attr (Mapping[str, Any] | None, optional): Override any node attributes for all
                 nodes on the `pygraphviz.AGraph` instance. Defaults to None.
-            edge_attrs (Mapping[str, Any] | None, optional): Override any edge attributes for all
+            edge_attr (Mapping[str, Any] | None, optional): Override any edge attributes for all
                 edges on the `pygraphviz.AGraph` instance. Defaults to None.
 
         Returns:
@@ -544,19 +566,19 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
             directed=True,
             strict=False,
         )
-        g.graph_attr.update(_DEFAULT_GRAPH_ATTRS)
-        g.graph_attr.update(graph_attrs or {})
-        g.node_attr.update(_DEFAULT_NODE_ATTRS)
-        g.node_attr.update(node_attrs or {})
-        g.edge_attr.update(_DEFAULT_EDGE_ATTRS)
-        g.edge_attr.update(edge_attrs or {})
+        g.graph_attr.update(DEFAULT_GRAPH_ATTR)
+        g.graph_attr.update(graph_attr or {})
+        g.node_attr.update(DEFAULT_NODE_ATTR)
+        g.node_attr.update(node_attr or {})
+        g.edge_attr.update(DEFAULT_EDGE_ATTR)
+        g.edge_attr.update(edge_attr or {})
         for full_name, model_info in self.models.items():
             g.add_node(
                 full_name,
                 label=model_info.to_dot_label(),
                 tooltip=model_info.description.replace("\n", "&#xA;"),
             )
-        for edge in self.edges:
+        for edge in self.edges.values():
             g.add_edge(
                 edge.source_model_full_name,
                 edge.target_model_full_name,
@@ -569,26 +591,26 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
 
     def to_dot(
         self,
-        graph_attrs: Optional[Mapping[str, Any]] = None,
-        node_attrs: Optional[Mapping[str, Any]] = None,
-        edge_attrs: Optional[Mapping[str, Any]] = None,
+        graph_attr: Optional[Mapping[str, Any]] = None,
+        node_attr: Optional[Mapping[str, Any]] = None,
+        edge_attr: Optional[Mapping[str, Any]] = None,
     ) -> str:
         """Generate Graphviz [DOT language](https://graphviz.org/doc/info/lang.html) representation
         of entity relationship diagram for given data model classes.
 
         Args:
-            graph_attrs (Mapping[str, Any] | None, optional): Override any graph attributes on
+            graph_attr (Mapping[str, Any] | None, optional): Override any graph attributes on
                 the `pygraphviz.AGraph` instance. Defaults to None.
-            node_attrs (Mapping[str, Any] | None, optional): Override any node attributes for all
+            node_attr (Mapping[str, Any] | None, optional): Override any node attributes for all
                 nodes on the `pygraphviz.AGraph` instance. Defaults to None.
-            edge_attrs (Mapping[str, Any] | None, optional): Override any edge attributes for all
+            edge_attr (Mapping[str, Any] | None, optional): Override any edge attributes for all
                 edges on the `pygraphviz.AGraph` instance. Defaults to None.
 
         Returns:
             str: DOT language representation of diagram
         """
         return self.to_graphviz(
-            graph_attrs=graph_attrs,
-            node_attrs=node_attrs,
-            edge_attrs=edge_attrs,
+            graph_attr=graph_attr,
+            node_attr=node_attr,
+            edge_attr=edge_attr,
         ).string()

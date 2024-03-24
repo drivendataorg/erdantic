@@ -5,6 +5,8 @@ from types import ModuleType
 from typing import Any, Collection, Iterator, Mapping, Optional, Union
 import warnings
 
+from typenames import REMOVE_ALL_MODULES, typenames
+
 from erdantic.core import EntityRelationshipDiagram
 from erdantic.plugins import get_predicate_fn, list_plugins
 
@@ -56,7 +58,7 @@ def create(
 
     for mm in models_or_modules:
         if isinstance(mm, ModuleType):
-            logger.debug("Searching input module '%s' for data model classes", mm.__name__)
+            logger.debug("Searching input module '%s' for data model classes...", mm.__name__)
             for member in find_models(mm, limit_search_models_to=limit_search_models_to):
                 diagram.add_model(member)
         else:
@@ -88,7 +90,9 @@ def find_models(
             for predicate_fn in predicate_fns:
                 if predicate_fn(member):
                     logger.debug(
-                        "Found data model class '%s' in module '%s'", member, module.__name__
+                        "Found data model class '%s' in module '%s'",
+                        typenames(member, remove_modules=REMOVE_ALL_MODULES),
+                        module.__name__,
                     )
                     yield member
 
@@ -99,9 +103,9 @@ def draw(
     terminal_models: Collection[type] = tuple(),
     termini: Collection[type] = tuple(),
     limit_search_models_to: Optional[Collection[str]] = None,
-    graph_attrs: Optional[Mapping[str, Any]] = None,
-    node_attrs: Optional[Mapping[str, Any]] = None,
-    edge_attrs: Optional[Mapping[str, Any]] = None,
+    graph_attr: Optional[Mapping[str, Any]] = None,
+    node_attr: Optional[Mapping[str, Any]] = None,
+    edge_attr: Optional[Mapping[str, Any]] = None,
     **kwargs,
 ):
     """Render entity relationship diagram for given data model classes to file.
@@ -115,11 +119,11 @@ def draw(
         limit_search_models_to (Optional[Collection[str]]): Plugin identifiers to limit to when
             searching modules for data model classes. Defaults to None which will not impose any
             limits.
-        graph_attrs (Mapping[str, Any] | None, optional): Override any graph attributes on
+        graph_attr (Mapping[str, Any] | None, optional): Override any graph attributes on
             the `pygraphviz.AGraph` instance. Defaults to None.
-        node_attrs (Mapping[str, Any] | None, optional): Override any node attributes for all
+        node_attr (Mapping[str, Any] | None, optional): Override any node attributes for all
             nodes on the `pygraphviz.AGraph` instance. Defaults to None.
-        edge_attrs (Mapping[str, Any] | None, optional): Override any edge attributes for all
+        edge_attr (Mapping[str, Any] | None, optional): Override any edge attributes for all
             edges on the `pygraphviz.AGraph` instance. Defaults to None.
         **kwargs: Additional keyword arguments to [`pygraphviz.AGraph.draw`](https://pygraphviz.github.io/documentation/latest/reference/agraph.html#pygraphviz.AGraph.draw).
 
@@ -133,17 +137,18 @@ def draw(
         limit_search_models_to=limit_search_models_to,
     )
     diagram.draw(
-        out=out, graph_attrs=graph_attrs, node_attrs=node_attrs, edge_attrs=edge_attrs, **kwargs
+        out=out, graph_attr=graph_attr, node_attr=node_attr, edge_attr=edge_attr, **kwargs
     )
 
 
 def to_dot(
     *models_or_modules: Union[type, ModuleType],
     terminal_models: Collection[type] = [],
+    termini: Collection[type] = tuple(),
     limit_search_models_to: Optional[Collection[str]] = None,
-    graph_attrs: Optional[Mapping[str, Any]] = None,
-    node_attrs: Optional[Mapping[str, Any]] = None,
-    edge_attrs: Optional[Mapping[str, Any]] = None,
+    graph_attr: Optional[Mapping[str, Any]] = None,
+    node_attr: Optional[Mapping[str, Any]] = None,
+    edge_attr: Optional[Mapping[str, Any]] = None,
 ) -> str:
     """Generate Graphviz [DOT language](https://graphviz.org/doc/info/lang.html) representation of
     entity relationship diagram for given data model classes.
@@ -157,11 +162,11 @@ def to_dot(
         limit_search_models_to (Optional[Collection[str]]): Plugin identifiers to limit to when
             searching modules for data model classes. Defaults to None which will not impose any
             limits.
-        graph_attrs (Mapping[str, Any] | None, optional): Override any graph attributes on
+        graph_attr (Mapping[str, Any] | None, optional): Override any graph attributes on
             the `pygraphviz.AGraph` instance. Defaults to None.
-        node_attrs (Mapping[str, Any] | None, optional): Override any node attributes for all
+        node_attr (Mapping[str, Any] | None, optional): Override any node attributes for all
             nodes on the `pygraphviz.AGraph` instance. Defaults to None.
-        edge_attrs (Mapping[str, Any] | None, optional): Override any edge attributes for all
+        edge_attr (Mapping[str, Any] | None, optional): Override any edge attributes for all
             edges on the `pygraphviz.AGraph` instance. Defaults to None.
 
     Returns:
@@ -170,6 +175,7 @@ def to_dot(
     diagram = create(
         *models_or_modules,
         terminal_models=terminal_models,
+        termini=termini,
         limit_search_models_to=limit_search_models_to,
     )
-    return diagram.to_dot(graph_attrs=graph_attrs, node_attrs=node_attrs, edge_attrs=edge_attrs)
+    return diagram.to_dot(graph_attr=graph_attr, node_attr=node_attr, edge_attr=edge_attr)
