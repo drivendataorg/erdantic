@@ -67,7 +67,7 @@ def main(
         ),
     ),
     terminal_models: List[str] = typer.Option(
-        tuple(),
+        [],
         "--terminal-model",
         "-t",
         help=(
@@ -77,12 +77,12 @@ def main(
         ),
     ),
     termini: List[str] = typer.Option(
-        tuple(),
+        [],
         "--terminus",
         help=("Deprecated. Use --terminal-model instead."),
     ),
     limit_search_models_to: List[SupportedModelIdentifier] = typer.Option(
-        None,
+        [],
         "--limit-search-models-to",
         "-m",
         help=(
