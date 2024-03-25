@@ -19,7 +19,7 @@ def create(
     termini: Collection[type] = tuple(),
     limit_search_models_to: Optional[Collection[str]] = None,
 ) -> EntityRelationshipDiagram:
-    """Construct [`EntityRelationshipDiagram`][erdantic.erd.EntityRelationshipDiagram] from given
+    """Construct [`EntityRelationshipDiagram`][erdantic.core.EntityRelationshipDiagram] from given
     data model classes or modules.
 
     Args:
@@ -125,7 +125,8 @@ def draw(
             nodes on the `pygraphviz.AGraph` instance. Defaults to None.
         edge_attr (Mapping[str, Any] | None, optional): Override any edge attributes for all
             edges on the `pygraphviz.AGraph` instance. Defaults to None.
-        **kwargs: Additional keyword arguments to [`pygraphviz.AGraph.draw`](https://pygraphviz.github.io/documentation/latest/reference/agraph.html#pygraphviz.AGraph.draw).
+        **kwargs: Additional keyword arguments to
+            [`pygraphviz.AGraph.draw`][pygraphviz.AGraph.draw].
 
     Raises:
         UnknownModelTypeError: If model is not recognized as a supported model type.

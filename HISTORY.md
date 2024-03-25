@@ -1,10 +1,22 @@
 # erdantic Changelog
 
+## v1.0.0 (Unreleased)
+
+This release features significant changes to erdantic, primarily to how data is represented in the backend. If you have been primarily using the CLI or the convenience functions `create`, `draw`, and `to_dot`, then your should not be majorly impacted.
+
+### Rendering changes
+
+A few changes have been made to the content of rendered diagrams. 
+
+- Changed the extraction of type names to use the [typenames](https://github.com/jayqi/typenames) library. This should generally produce with same rendered outputs, with the following exception:
+    - Removed the special case behavior for rendering enum classes. Enums now just show the class name without inheritance information.
+- Changed collection fields (e.g., `List[TargetModel]`) to display as a "many" relationship (crow) instead of a "zero-or-many" relationship (odot + crow), treating the modality of the field as unspecified. A field will only be displayed as "zero-or-many" (odot + crow) if it is explicitly optional, like `Optional[List[TargetModel]]`.
+
+### Backend changes
+
 ## v0.8.0 (Unreleased)
 
 - Removed support for Python 3.7. ([PR #102](https://github.com/drivendataorg/erdantic/pull/102))
-- Changed rendering of type names to use the [typenames](https://github.com/jayqi/typenames) library. This should generally produce with same rendered outputs, with the following exception:
-    - Removed the special case behavior for rendering enum classes. Enums now just show the class name without inheritance information.
 
 ## v0.7.0 (2024-02-11)
 

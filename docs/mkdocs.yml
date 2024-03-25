@@ -16,8 +16,9 @@ nav:
       - Pydantic: "examples/pydantic.ipynb"
       - dataclasses: "examples/dataclasses.ipynb"
   - Advanced Usage:
+      - Customizing Diagrams: "customizing.md"
       - Handling Forward References: "forward-references.md"
-      - Supporting New Frameworks: "extending.md"
+      - Plugins for Model Frameworks: "extending.md"
   - API Reference:
       - erdantic.convenience: "api-reference/convenience.md"
       - erdantic.core: "api-reference/core.md"
@@ -38,6 +39,8 @@ hooks:
   - hooks.py
 
 markdown_extensions:
+  - admonition:
+  - def_list:
   - pymdownx.highlight:
   - pymdownx.superfences:
   - pymdownx.tabbed:
@@ -74,6 +77,10 @@ plugins:
             separate_signature: true
             show_signature_annotations: true
             signature_crossrefs: true
+          import:
+            - https://docs.pydantic.dev/latest/objects.inv
+            - https://www.attrs.org/en/stable/objects.inv
+            - https://pygraphviz.github.io/documentation/stable/objects.inv
   - mike:
       alias_type: copy
       canonical_version: stable

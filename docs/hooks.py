@@ -1,10 +1,13 @@
+import inspect
 import logging
 from pathlib import Path
 import re
+import textwrap
 
 from typer.testing import CliRunner
 
 from erdantic.cli import app
+import erdantic.plugins
 
 logger = logging.getLogger("mkdocs")
 runner = CliRunner(mix_stderr=False)
@@ -41,7 +44,37 @@ def _inject_cli_help(markdown: str):
     return markdown.replace("{{INJECT CLI HELP}}", help_text)
 
 
+def _inject_model_predicate_source(markdown: str):
+    logger.info("Injecting ModelPRedicate source code into page markdown")
+    source = inspect.getsource(erdantic.plugins.ModelPredicate)
+    code_block = textwrap.dedent("""\
+    ```python
+    {source}
+    ```
+    """)
+    code_block = code_block.format(source=source)
+    code_block = textwrap.indent(code_block, "    ")
+    return markdown.replace("{{INJECT MODELPREDICATE SOURCE}}", code_block)
+
+
+def _inject_model_field_extractor_source(markdown: str):
+    logger.info("Injecting ModelFieldExtractor source code into page markdown")
+    source = inspect.getsource(erdantic.plugins.ModelFieldExtractor)
+    code_block = textwrap.dedent("""\
+    ```python
+    {source}
+    ```
+    """)
+    code_block = code_block.format(source=source)
+    code_block = textwrap.indent(code_block, "    ")
+    return markdown.replace("{{INJECT MODELFIELDEXTRACTOR SOURCE}}", code_block)
+
+
 def on_page_markdown(markdown, page, **kwargs):
     if page.title == "CLI Help":
         return _inject_cli_help(markdown)
+    if page.title == "Plugins for Model Frameworks":
+        markdown = _inject_model_predicate_source(markdown)
+        markdown = _inject_model_field_extractor_source(markdown)
+        return markdown
     return None

@@ -115,7 +115,7 @@ class FieldInfo(pydantic.BaseModel):
 
         Args:
             model_full_name (FullyQualifiedName): Fully qualified name of the data model class that
-            the field belongs to.
+                the field belongs to.
             name (str): Name of field.
             raw_type (type): Type annotation.
 
@@ -430,14 +430,17 @@ DEFAULT_GRAPH_ATTR = (
     ("fontsize", "9"),
     ("fontcolor", "gray66"),
 )
+"""Default graph attributes passed to Graphviz."""
 
 DEFAULT_NODE_ATTR = (
     ("fontname", "Times New Roman,Times,Liberation Serif,serif"),
     ("fontsize", 14),
     ("shape", "plain"),
 )
+"""Default node attributes passed to Graphviz."""
 
 DEFAULT_EDGE_ATTR = (("dir", "both"),)
+"""Default edge attributes passed to Graphviz."""
 
 
 class EntityRelationshipDiagram(pydantic.BaseModel):
@@ -532,7 +535,8 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
                 nodes on the `pygraphviz.AGraph` instance. Defaults to None.
             edge_attr (Mapping[str, Any] | None, optional): Override any edge attributes for all
                 edges on the `pygraphviz.AGraph` instance. Defaults to None.
-            **kwargs: Additional keyword arguments to [`pygraphviz.AGraph.draw`](https://pygraphviz.github.io/documentation/latest/reference/agraph.html#pygraphviz.AGraph.draw).
+            **kwargs: Additional keyword arguments to
+                [`pygraphviz.AGraph.draw`][pygraphviz.AGraph.draw].
         """
         logger.info("Rendering diagram to %s", out)
         self.to_graphviz(
@@ -547,8 +551,7 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
         node_attr: Optional[Mapping[str, Any]] = None,
         edge_attr: Optional[Mapping[str, Any]] = None,
     ) -> pgv.AGraph:
-        """Return [`pygraphviz.AGraph`](https://pygraphviz.github.io/documentation/latest/reference/agraph.html)
-        instance for diagram.
+        """Return [`pygraphviz.AGraph`][pygraphviz.agraph.AGraph] instance for diagram.
 
         Args:
             graph_attr (Mapping[str, Any] | None, optional): Override any graph attributes on
@@ -562,7 +565,7 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
             pygraphviz.AGraph: graph object for diagram
         """
         g = pgv.AGraph(
-            name="Entity Relationship Diagram",
+            name="Entity Relationship Diagram created by erdantic",
             directed=True,
             strict=False,
         )

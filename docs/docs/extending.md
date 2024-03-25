@@ -1,76 +1,56 @@
-# Adding New Frameworks
+# Plugins for model frameworks
 
-Adding a new data model framework is pretty straightforward. There are three key elements involved, all found in the [`erdantic.base` module](api-reference/base/).
+!!! note
 
-1. [`Field`](../api-reference/base/#erdantic.base.Field): The adapter interface for fields on the data model classes from whatever framework
-2. [`Model`](../api-reference/base/#erdantic.base.Model): The adapter interface for those models themselves
-3. [`@register_model_adapter`](../api-reference/base/#erdantic.base.register_model_adapter): The decorator you use to register a concrete model adapter so that `erdantic` knows about it
+    The backend of erdantic was significantly updated in v1.0. This now works very differently than previous versions.
 
-You will be making concrete subclasses of the `Field` and `Model` [abstract base classes](https://docs.python.org/3/library/abc.html) and filling in several abstract methods.
+erdantic supports data modeling frameworks through a **plugins** system. Each plugin must implement specific functionality and get registered for erdantic to use it. 
 
-Some tips:
+The following built-in plugins are provided by erdantic:
 
-- You can check out the docstrings on the base classes to understand what methods are supposed to do.
-- You can also use the source code for the [`erdantic.pydantic`](https://github.com/drivendataorg/erdantic/blob/main/erdantic/pydantic.py) or [`erdantic.dataclasses`](https://github.com/drivendataorg/erdantic/blob/main/erdantic/dataclasses.py) modules as examples.
-- The erdantic library is thoroughly type-annotated, so you can use a static typechecker like [mypy](https://mypy.readthedocs.io/en/stable/) to help you ensure correctness.
+1. `attrs` — for classes decorated using the [attrs](https://www.attrs.org/en/stable/index.html) package
+2. `dataclasses` — for classes decorated using the [dataclasses](https://docs.python.org/3/library/dataclasses.html) standard library module
+3. `pydantic` — for classes that subclass Pydantic's `BaseModel` class
+4. `pydantic_v1` — for classes that subclass Pydantic's legacy `pydantic.v1.BaseModel` class
 
-## Field Subclass
+It is possible to customize erdantic by registering a custom plugin, either by overriding a provided one or adding as a new one. The following sections document what you need to register your own plugin.
 
-First, make a subclass of `Field`. You can use the template below, which stubs out all of the abstract methods, to get started. You should replace `MyDataField`—both in the class definition and in the `__init__` method definition—with the actual class of field objects in the framework you're adapting. Then fill in the rest of the methods that are being passed.
+## Components of a plugin
 
-```python
-from erdantic.base import Field, InvalidFieldError
+A plugin must implement the following two components: a predicate function and a field extractor function.
 
+### Predicate function
 
-class MyField(Field[MyDataField]):
+A **predicate function** takes a single object as an input and return a boolean value `True` if the object is a data model class that this plugin is for and `False` otherwise. The return type of this function is a [`TypeGuard`](https://typing.readthedocs.io/en/latest/spec/narrowing.html) for the model class. A [protocol](https://typing.readthedocs.io/en/latest/spec/protocol.html) class [`ModelPredicate`][erdantic.plugins.ModelPredicate] defines the specification for a valid predicate function. 
 
-    def __init__(self, field: MyDataField):
-        if not isinstance(field, MyDataField):
-            raise InvalidFieldError(f"field must be of type MyDataField. Got: {type(field)}")
-        super().__init__(field=field)
+!!! info "Source from `erdantic/plugins/__init__.py`"
 
-    @property
-    def name(self) -> str:
-        pass
+{{INJECT MODELPREDICATE SOURCE}}
 
-    @property
-    def type_obj(self) -> type:
-        pass
+Example implementations of predicate functions include [`is_pydantic_model`][erdantic.plugins.pydantic.is_pydantic_model] and [`is_dataclass_class`][erdantic.plugins.dataclasses.is_dataclass_class].
 
-    def is_many(self) -> bool:
-        pass
+### Field extractor function
 
-    def is_nullable(self) -> bool:
-        pass
-```
+A **field extractor function** takes a single model class of the appropriate type and returns a sequence of [`FieldInfo`][erdantic.core.FieldInfo] instances. A [protocol](https://typing.readthedocs.io/en/latest/spec/protocol.html) class [`ModelFieldExtractor`][erdantic.plugins.ModelFieldExtractor] defines the specification for a valid field extractor function. 
 
-## Model Subclass and Decorator
+!!! info "Source from `erdantic/plugins/__init__.py`"
 
-Next, make a subclass of `Model`. It is similarly an abstract base class. Check out the template below with the required methods stubbed. Replace `MyDataClass` in the class declaration and in `__init__` with the actual class of the data class you're adapting.
+{{INJECT MODELFIELDEXTRACTOR SOURCE}}
 
-You'll also need to decorate this class with `@register_model_adapter`. Note that it is actually a decorator factory; calling it with a string input returns the actual decorator. The string input should be a concise unique identifier for your framework, such as the name of its package.
+Example implementations of field extractor functions include [`get_fields_from_pydantic_model`][erdantic.plugins.pydantic.get_fields_from_pydantic_model] and [`get_fields_from_dataclass`][erdantic.plugins.dataclasses.get_fields_from_dataclass].
 
-```python
-from erdantic.base import InvalidModelError, Model, register_model_adapter
-from erdantic.typing import repr_type_with_mro
+The field extractor function is the place where you should try to resolve forward references. Some frameworks provide utility functions to resolve forward references, like Pydantic's [`model_rebuild`][pydantic.BaseModel.model_rebuild] and attr's [`resolve_types`][attrs.resolve_types]. If there isn't one, you should write your own using erdantic's [`resolve_types_on_dataclass`][erdantic.plugins.dataclasses.resolve_types_on_dataclass] as a reference implementation.
 
+## Registering a plugin
 
-@register_model_adapter("mydataclass")
-class MyModel(Model[MyDataClass]):
+A plugin must be registered by calling the [`register_plugin`][erdantic.plugins.register_plugin] function with a key identifier and the two functions. If you use a key that already exists, it will overwrite the existing plugin. 
 
-    def __init__(self, model: Type[MyDataClass]):
-        if not self.is_model_type(model):
-            raise InvalidModelError(
-                "Argument model must be a subclass of MyDataClass. "
-                f"Got {repr_type_with_mro(model)}"
-            )
-        super().__init__(model=model)
+!!! info
 
-    @staticmethod
-    def is_model_type(obj: Any) -> bool:
-        pass
+    ::: erdantic.plugins.register_plugin
+        options:
+            show_root_heading: true
+            heading_level: 3
+            show_source: false
 
-    @property
-    def fields(self) -> List[Field]:
-        pass
-```
+Currently, manual registration is required. This means that custom plugins can only be loaded when using erdantic as a library, and not as a CLI. In the future, we may support automatic loading of plugins that are distributed with packages through the [entry points specification](https://packaging.python.org/en/latest/specifications/entry-points/). 

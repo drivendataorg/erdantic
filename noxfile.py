@@ -114,3 +114,16 @@ def docs(session):
         session.install("-r", "requirements/docs.txt")
     with session.chdir("docs"):
         session.run("mkdocs", "build")
+
+
+@nox.session(venv_backend="mamba|conda", python="3.11", reuse_venv=True)
+def docs_serve(session):
+    session.conda_install("graphviz", channel="conda-forge")
+    if platform.system() == "Windows":
+        session.conda_install("pygraphviz", channel="conda-forge")
+    if HAS_UV:
+        session.run(UV, "pip", "install", "-r", "requirements/docs.txt", external=True)
+    else:
+        session.install("-r", "requirements/docs.txt")
+    with session.chdir("docs"):
+        session.run("mkdocs", "serve")

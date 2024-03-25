@@ -35,17 +35,15 @@ def load_plugins():
 
 
 class ModelPredicate(Protocol[_ModelType_co]):
-    """"""
+    """Protocol class for a predicate function for a plugin."""
 
-    def __call__(self, obj: Any) -> TypeGuard[_ModelType_co]:
-        """"""
+    def __call__(self, obj: Any) -> TypeGuard[_ModelType_co]: ...
 
 
 class ModelFieldExtractor(Protocol[_ModelType_contra]):
-    """"""
+    """Protocol class for a field extractor function for a plugin."""
 
-    def __call__(self, model: _ModelType_contra) -> Sequence["FieldInfo"]:
-        """"""
+    def __call__(self, model: _ModelType_contra) -> Sequence["FieldInfo"]: ...
 
 
 _dict = {}
@@ -56,6 +54,15 @@ def register_plugin(
     predicate_fn: ModelPredicate[_ModelType],
     get_fields_fn: ModelFieldExtractor[_ModelType],
 ):
+    """Register a plugin for a specific model class type.
+
+    Args:
+        key (str): An identifier for this plugin.
+        predicate_fn (ModelPredicate): A predicate function to determine if an object is a class
+            of the model that is supported by this plugin.
+        get_fields_fn (ModelFieldExtractor): A function to extract fields from a model class that
+            is supported by this plugin.
+    """
     logger.debug("Registering plugin '%s'", key)
     if key in _dict:
         logger.warn("Overwriting existing implementation for key '%s'", key)
@@ -63,10 +70,12 @@ def register_plugin(
 
 
 def list_plugins() -> List[str]:
+    """List the keys of all registered plugins."""
     return list(_dict.keys())
 
 
 def get_predicate_fn(key: str) -> ModelPredicate:
+    """Get the predicate function for a plugin by its key."""
     try:
         return _dict[key][0]
     except KeyError:
@@ -74,6 +83,7 @@ def get_predicate_fn(key: str) -> ModelPredicate:
 
 
 def get_field_extractor_fn(key: str) -> ModelFieldExtractor:
+    """Get the field extractor function for a plugin by its key."""
     try:
         return _dict[key][1]
     except KeyError:
@@ -81,6 +91,15 @@ def get_field_extractor_fn(key: str) -> ModelFieldExtractor:
 
 
 def identify_field_extractor_fn(tp: type) -> Optional[ModelFieldExtractor]:
+    """Identify the field extractor function for a model type.
+
+    Args:
+        tp (type): A type annotation.
+
+    Returns:
+        ModelFieldExtractor | None: The field extractor function for a known model type, or None if
+            the model type is not recognized by any registered plugins.
+    """
     for key, (predicate_fn, get_fields_fn) in _dict.items():
         if predicate_fn(tp):
             logger.debug("Identified '%s' as a '%s' model.", typenames(tp), key)

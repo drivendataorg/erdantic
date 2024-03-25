@@ -1,4 +1,6 @@
-# CLI Help Documentation
+# CLI help documentation
+
+To view the CLI help documentation, run:
 
 ```bash
 erdantic --help
