@@ -15,7 +15,7 @@ else:
 
 import pydantic
 import pygraphviz as pgv  # type: ignore [import-not-found]
-from sortedcontainers_pydantic import SortedDict, SortedSet
+from sortedcontainers_pydantic import SortedDict
 from typenames import REMOVE_ALL_MODULES, typenames
 
 from erdantic._version import __version__

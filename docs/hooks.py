@@ -1,7 +1,6 @@
 import inspect
 import logging
 from pathlib import Path
-import re
 import textwrap
 
 from typer.testing import CliRunner
