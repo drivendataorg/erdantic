@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 DataclassType = Type["DataclassInstance"]
 
 
-def is_dataclass_type(obj: Any) -> TypeGuard[DataclassType]:
+def is_dataclass_class(obj: Any) -> TypeGuard[DataclassType]:
     """Predicate function to determine if an object is a dataclass (not an instance).
 
     Args:
@@ -70,7 +70,7 @@ def get_fields_from_dataclass(model: DataclassType) -> List[FieldInfo]:
 
 
 register_plugin(
-    key="dataclasses", predicate_fn=is_dataclass_type, get_fields_fn=get_fields_from_dataclass
+    key="dataclasses", predicate_fn=is_dataclass_class, get_fields_fn=get_fields_from_dataclass
 )
 
 

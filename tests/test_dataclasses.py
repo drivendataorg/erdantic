@@ -9,7 +9,7 @@ import erdantic.examples.dataclasses as dataclasses_examples
 from erdantic.exceptions import UnresolvableForwardRefError
 from erdantic.plugins.dataclasses import (
     get_fields_from_dataclass,
-    is_dataclass_type,
+    is_dataclass_class,
     resolve_types_on_dataclass,
 )
 
@@ -18,14 +18,14 @@ def test_is_dataclass():
     class NotADataclass:
         pass
 
-    assert is_dataclass_type(dataclasses_examples.Party)
-    assert is_dataclass_type(dataclasses_examples.QuestGiver)
-    assert not is_dataclass_type(
+    assert is_dataclass_class(dataclasses_examples.Party)
+    assert is_dataclass_class(dataclasses_examples.QuestGiver)
+    assert not is_dataclass_class(
         dataclasses_examples.QuestGiver(name="Gandalf", faction=None, location="Shire")
     )
-    assert not is_dataclass_type("Hello")
-    assert not is_dataclass_type(str)
-    assert not is_dataclass_type(NotADataclass)
+    assert not is_dataclass_class("Hello")
+    assert not is_dataclass_class(str)
+    assert not is_dataclass_class(NotADataclass)
 
 
 def test_get_fields_from_dataclass():

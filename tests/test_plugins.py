@@ -49,7 +49,7 @@ def test_register_plugin():
 def test_get_predicate_fn():
     for key, predicate_fn in [
         ("attrs", erdantic.plugins.attrs.is_attrs_class),
-        ("dataclasses", erdantic.plugins.dataclasses.is_dataclass_type),
+        ("dataclasses", erdantic.plugins.dataclasses.is_dataclass_class),
         ("pydantic", erdantic.plugins.pydantic.is_pydantic_model),
         ("pydantic_v1", erdantic.plugins.pydantic.is_pydantic_v1_model),
     ]:
