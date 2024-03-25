@@ -1,3 +1,6 @@
 -e .[attrs]
 
 -r lint.txt
+
+ipython
+ipykernel

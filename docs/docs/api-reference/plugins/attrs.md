@@ -1,3 +1,3 @@
-# erdantic.plugins.pydantic
+# erdantic.plugins.attrs
 
-::: erdantic.plugins.pydantic
+::: erdantic.plugins.attrs

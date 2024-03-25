@@ -45,7 +45,7 @@ def _inject_cli_help(markdown: str):
 
 
 def _inject_model_predicate_source(markdown: str):
-    logger.info("Injecting ModelPRedicate source code into page markdown")
+    logger.info("Injecting ModelPredicate source code into page markdown")
     source = inspect.getsource(erdantic.plugins.ModelPredicate)
     code_block = textwrap.dedent("""\
     ```python

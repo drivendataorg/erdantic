@@ -617,3 +617,11 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
             node_attr=node_attr,
             edge_attr=edge_attr,
         ).string()
+
+    def _repr_png_(self) -> bytes:
+        graph = self.to_graphviz()
+        return graph.draw(prog="dot", format="png")
+
+    def _repr_svg_(self) -> str:
+        graph = self.to_graphviz()
+        return graph.draw(prog="dot", format="svg").decode(graph.encoding)

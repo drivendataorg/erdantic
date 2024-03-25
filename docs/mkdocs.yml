@@ -52,7 +52,8 @@ markdown_extensions:
 
 plugins:
   - search
-  - mkdocs-jupyter
+  - mkdocs-jupyter:
+      execute: false
   - mkdocstrings:
       default_handler: python
       handlers:

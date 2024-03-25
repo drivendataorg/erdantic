@@ -1,3 +1,3 @@
-# erdantic.plugins.dataclasses
+# erdantic.plugins.pydantic
 
-::: erdantic.plugins.dataclasses
+::: erdantic.plugins.pydantic
