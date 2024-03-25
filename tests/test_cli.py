@@ -41,6 +41,7 @@ def test_draw(outputs_dir):
     # With CLI
     path1 = out_dir / "diagram1.png"
     result = runner.invoke(app, ["erdantic.examples.pydantic.Party", "-o", str(path1)])
+    print(result.output)
     assert result.exit_code == 0
     assert path1.exists()
     assert filecmp.cmp(path1, path_base)
@@ -52,6 +53,8 @@ def test_draw(outputs_dir):
         capture_output=True,
         universal_newlines=True,
     )
+    print(result.stderr)
+    print(result.stdout)
     assert result.returncode == 0
     assert path2.exists()
     assert filecmp.cmp(path2, path_base)
@@ -75,6 +78,7 @@ def test_with_terminal_model(tmp_path):
             str(path1),
         ],
     )
+    print(result.output)
     assert result.exit_code == 0
     assert path1.exists()
     assert filecmp.cmp(path1, path_base)
@@ -97,6 +101,7 @@ def test_with_modules(tmp_path):
             str(path1),
         ],
     )
+    print(result.output)
     assert result.exit_code == 0
     assert path1.exists()
     assert filecmp.cmp(path1, path_base)
@@ -118,6 +123,7 @@ def test_with_modules(tmp_path):
             str(path2),
         ],
     )
+    print(result.output)
     assert result.exit_code == 0
     assert path2.exists()
     assert filecmp.cmp(path2, path_base_all_pydantic)
@@ -136,6 +142,7 @@ def test_with_modules(tmp_path):
             "dataclasses",
         ],
     )
+    print(result.output)
     assert result.exit_code == 0
     assert path3.exists()
     assert filecmp.cmp(path3, path_base)
@@ -143,6 +150,7 @@ def test_with_modules(tmp_path):
 
 def test_missing_out():
     result = runner.invoke(app, ["erdantic.examples.pydantic.Party"])
+    print(result.output)
     assert result.exit_code == 2
     assert "Error" in result.stderr
     assert "Missing option '--out' / '-o'." in result.stderr
@@ -156,22 +164,26 @@ def test_no_overwrite(tmp_path):
     result = runner.invoke(
         app, ["erdantic.examples.pydantic.Quest", "-o", str(path), "--no-overwrite"]
     )
+    print(result.output)
     assert result.exit_code == 1
     assert path.stat().st_size == 0
 
     # Overwrite
     result = runner.invoke(app, ["erdantic.examples.pydantic.Quest", "-o", str(path)])
+    print(result.output)
     assert result.exit_code == 0
     assert path.stat().st_size > 0
 
 
 def test_dot(tmp_path):
     result = runner.invoke(app, ["erdantic.examples.pydantic.Party", "-d"])
+    print(result.output)
     assert result.exit_code == 0
     assert erd.to_dot(Party).strip() == result.stdout.strip()
 
     path = tmp_path / "diagram.png"
     result = runner.invoke(app, ["erdantic.examples.pydantic.Party", "-d", "-o", str(path)])
+    print(result.output)
     assert result.exit_code == 0
     assert not path.exists()  # -o is ignored and no file created
     assert erd.to_dot(Party).strip() == result.stdout.strip()
@@ -182,6 +194,8 @@ def test_dot(tmp_path):
         capture_output=True,
         universal_newlines=True,
     )
+    print(result.stderr)
+    print(result.stdout)
     assert result.returncode == 0
     assert not path.exists()  # -o is ignored and no file created
     assert erd.to_dot(Party).strip() == result.stdout.strip()
@@ -190,6 +204,7 @@ def test_dot(tmp_path):
 def test_help():
     """Test the CLI with --help flag."""
     result = runner.invoke(app, ["--help"])
+    print(result.output)
     assert result.exit_code == 0
     assert (
         "Draw entity relationship diagrams (ERDs) for Python data model classes." in result.output
@@ -199,5 +214,6 @@ def test_help():
 def test_version():
     """Test the CLI with --version flag."""
     result = runner.invoke(app, ["--version"])
+    print(result.output)
     assert result.exit_code == 0
     assert result.output.strip() == __version__
