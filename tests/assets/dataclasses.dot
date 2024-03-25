@@ -1,4 +1,4 @@
-digraph "Entity Relationship Diagram" {
+digraph "Entity Relationship Diagram created by erdantic" {
 	graph [fontcolor=gray66,
 		fontname="Times New Roman,Times,Liberation Serif,serif",
 		fontsize=9,
