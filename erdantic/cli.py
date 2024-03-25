@@ -67,7 +67,7 @@ def main(
         ),
     ),
     terminal_models: List[str] = typer.Option(
-        None,
+        tuple(),
         "--terminal-model",
         "-t",
         help=(
@@ -77,7 +77,7 @@ def main(
         ),
     ),
     termini: List[str] = typer.Option(
-        None,
+        tuple(),
         "--terminus",
         help=("Deprecated. Use --terminal-model instead."),
     ),
