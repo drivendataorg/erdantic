@@ -13,8 +13,9 @@ nav:
   - CLI Help: "cli.md"
   - Changelog: "changelog.md"
   - Usage Examples:
-      - Pydantic: "examples/pydantic.ipynb"
+      - attrs: "examples/attrs.ipynb"
       - dataclasses: "examples/dataclasses.ipynb"
+      - Pydantic: "examples/pydantic.ipynb"
   - Advanced Usage:
       - Customizing Diagrams: "customizing.md"
       - Handling Forward References: "forward-references.md"
@@ -35,6 +36,11 @@ nav:
           - erdantic.plugins.pydantic: "api-reference/plugins/pydantic.md"
       - erdantic.typing_utils: "api-reference/typing_utils.md"
 
+exclude_docs: |
+  examples/ipynb_checkpoints/
+  examples/diagram.png
+  examples/diagram.svg
+
 hooks:
   - hooks.py
 
@@ -54,6 +60,7 @@ plugins:
   - search
   - mkdocs-jupyter:
       execute: false
+      ignore: ["**/.ipynb_checkpoints/*.ipynb"]
   - mkdocstrings:
       default_handler: python
       handlers:
@@ -74,11 +81,14 @@ plugins:
             show_labels: true
             show_if_no_docstring: false
             # Docstrings
+            docstring_options:
+              returns_named_value: False
             # Signatures
             separate_signature: true
             show_signature_annotations: true
             signature_crossrefs: true
           import:
+            - https://docs.python.org/3/objects.inv
             - https://docs.pydantic.dev/latest/objects.inv
             - https://www.attrs.org/en/stable/objects.inv
             - https://pygraphviz.github.io/documentation/stable/objects.inv

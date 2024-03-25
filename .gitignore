@@ -1,6 +1,7 @@
 .vscode
 
 docs/docs/examples/diagram.png
+docs/docs/examples/diagram.svg
 docs/site
 
 tests/_outputs

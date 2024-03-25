@@ -6,11 +6,11 @@ This release features significant changes to erdantic, primarily to how data is 
 
 ### CLI changes
 
-- Deprecated `--termini` option. Use the new `--terminal-model` option instead. The shorthand option `-t` remains the same.
+- Deprecated `--termini` option. Use the new `--terminal-model` option instead. The shorthand option `-t` remains the same. The `--termini` option still works but will emit a deprecation warning.
 
 ### Convenience function changes
 
-- Deprecated `termini` argument for `create`, `draw`, and `to_dot` functions. Use the new `terminal_models` argument instead. 
+- Deprecated `termini` argument for `create`, `draw`, and `to_dot` functions. Use the new `terminal_models` argument instead. The `termini` argument still works but will emit a deprecation warning.
 - Added `graph_attr`, `node_attr`, and `edge_attr` arguments to the `draw` and `to_dot` functions that allow you to override attributes on the generated pygraphviz object for the diagram.
 
 ### Rendered content changes
@@ -28,7 +28,7 @@ A few changes have been made to the content of rendered diagrams.
 
 ### Backend changes
 
-Significant changes have been made to the library backend to facilitate customizing diagrams and to more clearly structure the steps in creating a diagram from input models. Please see the new documentation pages ["Customizing diagrams"](http://erdantic.drivendata.org/stable/customizing/) and ["Plugins for model frameworks"](http://erdantic.drivendata.org/stable/customizing/) for details on the new design.
+Significant changes have been made to the library backend to more strongly separate the model analysis process, the extracted data, and the diagram rendering process. We believe this more structured design facilitates customizing diagrams and simplifies the implementation for each data modeling framework. Please see the new documentation pages ["Customizing diagrams"](http://erdantic.drivendata.org/stable/customizing/) and ["Plugins for model frameworks"](http://erdantic.drivendata.org/stable/customizing/) for details on the new design.
 
 A summary of some key changes is below:
 
@@ -37,8 +37,7 @@ A summary of some key changes is below:
 - Removed the adapter system and associated objects such as `model_adapter_registry` and `register_model_adapter`. 
   - Added new plugin system to replace the adapter system as the way that modeling frameworks are supported. Plugins must implement two functions—a predicate function and a field extractor function—and be registered using `register_plugin`. All objects related to plugins can be found in the new `erdantic.plugins` module and its submodules. 
 
-
-## v0.8.0 (Unreleased)
+### Other
 
 - Removed support for Python 3.7. ([PR #102](https://github.com/drivendataorg/erdantic/pull/102))
 

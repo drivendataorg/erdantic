@@ -14,9 +14,12 @@
 - [attrs](https://www.attrs.org/en/stable/)
 - [dataclasses](https://docs.python.org/3/library/dataclasses.html) from the Python standard library
 
-Features include a convenient CLI, automatic native rendering in Jupyter notebooks, and easy extensibility to other data modeling frameworks. Docstrings are even accessible as tooltips for SVG outputs. Great for adding a simple and clean data model reference to your documentation.
+You can use erdantic either as a convenient CLI or as a Python library. Great for adding a simple and clean data model reference to your documentation.
 
-<object type="image/svg+xml" data="https://raw.githubusercontent.com/drivendataorg/erdantic/main/docs/docs/examples/pydantic.svg" width="100%" typemustmatch><img alt="Example diagram created by erdantic" src="https://raw.githubusercontent.com/drivendataorg/erdantic/main/docs/docs/examples/pydantic.svg"></object>
+<object type="image/svg+xml" data="./docs/docs/assets/example_diagram.svg" width="100%" typemustmatch><img alt="Example diagram created by erdantic" src="./docs/docs/assets/example_diagram.svg"></object>
+
+> [!NOTE]
+> erdantic v1.0 made big changes to the backend. If you're just using the CLI or the convenience functions like `create` or `draw`, then you probably won't notice any major changes. If you've been doing something more advanced, then you may need to update your code. See the [changelog](./HISTORY.md) for more information.
 
 ## Installation
 
@@ -61,8 +64,11 @@ erd.draw(Party, out="diagram.png")
 
 # Or create a diagram object that you can inspect and do stuff with
 diagram = erd.create(Party)
-diagram.models
-#> [PydanticModel(Adventurer), PydanticModel(Party), PydanticModel(Quest), PydanticModel(QuestGiver)]
+list(diagram.models.keys())
+#> [ 'erdantic.examples.pydantic.Adventurer',
+#>   'erdantic.examples.pydantic.Party',
+#>   'erdantic.examples.pydantic.Quest',
+#>   'erdantic.examples.pydantic.QuestGiver']
 diagram.draw("diagram.png")
 ```
 

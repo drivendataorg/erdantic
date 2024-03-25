@@ -1,6 +1,7 @@
 import inspect
 import logging
 from pathlib import Path
+import re
 import textwrap
 
 from typer.testing import CliRunner
@@ -14,10 +15,42 @@ runner = CliRunner(mix_stderr=False)
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
+def _github_alert_to_admonition(markdown: str):
+    """Converts GitHub alert blockquote syntax to admonition syntax."""
+    # Ungreedy regex https://stackoverflow.com/a/7124976
+    pattern = re.compile(r"> \[\!(?P<type>\w+)\]\n(?P<content>.+?)(?=\n[^>])", re.DOTALL)
+    match = pattern.search(markdown)
+    alert_type = match.group("type")
+    alert_content = "\n".join(
+        line.removeprefix("> ") for line in match.group("content").split("\n")
+    )
+    template = textwrap.dedent(
+        """\
+        !!! {admonition_type}
+
+        {content}
+        """
+    )
+    admonition = template.format(
+        admonition_type=alert_type.lower(),
+        content=textwrap.indent(alert_content, "    "),
+    )
+    return pattern.sub(admonition, markdown)
+
+
 def _read_readme():
     readme_path = REPO_ROOT / "README.md"
     logger.info("Reading README from %s", readme_path)
     readme_text = readme_path.read_text()
+    readme_text = readme_text.replace(
+        "./docs/docs/assets/example_diagram.svg",
+        "assets/example_diagram.svg",
+    )
+    readme_text = readme_text.replace(
+        "./HISTORY.md",
+        "changelog.md",
+    )
+    readme_text = _github_alert_to_admonition(readme_text)
     return readme_text
 
 
