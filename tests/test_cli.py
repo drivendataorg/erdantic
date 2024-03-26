@@ -60,14 +60,17 @@ def test_draw(outputs_dir):
     assert filecmp.cmp(path2, path_base)
 
 
-def test_with_terminal_model(tmp_path):
+def test_with_terminal_model(outputs_dir):
+    out_dir = outputs_dir / "test_cli-test_with_terminal_model"
+    out_dir.mkdir()
+
     # With library for comparison
-    path_base = tmp_path / "diagram_base.png"
+    path_base = out_dir / "diagram_base.png"
     erd.draw(Party, out=path_base, terminal_models=[Quest])
     assert path_base.exists()
 
     # With CLI
-    path1 = tmp_path / "diagram1.png"
+    path1 = out_dir / "diagram1.png"
     result = runner.invoke(
         app,
         [
@@ -84,14 +87,17 @@ def test_with_terminal_model(tmp_path):
     assert filecmp.cmp(path1, path_base)
 
 
-def test_with_modules(tmp_path):
+def test_with_modules(outputs_dir):
+    out_dir = outputs_dir / "test_cli-test_with_modules"
+    out_dir.mkdir()
+
     # With library for comparison
-    path_base = tmp_path / "diagram_base.png"
+    path_base = out_dir / "diagram_base.png"
     erd.draw(Quest, examples_dataclasses, out=path_base)
     assert path_base.exists()
 
     # With CLI
-    path1 = tmp_path / "diagram1.png"
+    path1 = out_dir / "diagram1.png"
     result = runner.invoke(
         app,
         [
@@ -107,12 +113,12 @@ def test_with_modules(tmp_path):
     assert filecmp.cmp(path1, path_base)
 
     # With library for comparison, all pydantic classes
-    path_base_all_pydantic = tmp_path / "diagram_base_all_pydantic.png"
+    path_base_all_pydantic = out_dir / "diagram_base_all_pydantic.png"
     erd.draw(Quest, examples_dataclasses, examples_pydantic, out=path_base_all_pydantic)
     assert path_base_all_pydantic.exists()
 
     # With CLI without limit_search_models_to
-    path2 = tmp_path / "diagram2.png"
+    path2 = out_dir / "diagram2.png"
     result = runner.invoke(
         app,
         [
@@ -129,7 +135,7 @@ def test_with_modules(tmp_path):
     assert filecmp.cmp(path2, path_base_all_pydantic)
 
     # With CLI with limit_search_models_to
-    path3 = tmp_path / "diagram3.png"
+    path3 = out_dir / "diagram3.png"
     result = runner.invoke(
         app,
         [
