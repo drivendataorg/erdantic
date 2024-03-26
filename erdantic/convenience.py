@@ -34,6 +34,11 @@ def create(
 
     Returns:
         EntityRelationshipDiagram: diagram object for given data model.
+
+    Raises:
+        UnknownModelTypeError: if a given model does not match any model types from loaded plugins.
+        UnresolvableForwardRefError: if a model contains a forward reference that cannot be
+            automatically resolved.
     """
     if termini:
         warnings.warn(
@@ -76,6 +81,11 @@ def find_models(
 
     Yields:
         Iterator[type]: Members of module that are data model classes.
+
+    Raises:
+        UnknownModelTypeError: if a given model does not match any model types from loaded plugins.
+        UnresolvableForwardRefError: if a model contains a forward reference that cannot be
+            automatically resolved.
     """
     all_plugins = list_plugins()
     if limit_search_models_to is not None:
@@ -124,6 +134,11 @@ def draw(
             edges on the `pygraphviz.AGraph` instance. Defaults to None.
         **kwargs: Additional keyword arguments to
             [`pygraphviz.AGraph.draw`][pygraphviz.AGraph.draw].
+
+    Raises:
+        UnknownModelTypeError: if a given model does not match any model types from loaded plugins.
+        UnresolvableForwardRefError: if a model contains a forward reference that cannot be
+            automatically resolved.
     """
     diagram = create(
         *models_or_modules,

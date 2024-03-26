@@ -499,6 +499,8 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
         Raises:
             UnknownModelTypeError: If the model is not recognized as a data model class type that
                 is supported by registered plugins.
+            UnresolvableForwardRefError: If the model contains a forward reference that cannot be
+                automatically resolved.
         """
         logger.info("Adding model '%s' to diagram...", typenames(model))
         is_model = self._add_if_model(model, recurse=recurse)
