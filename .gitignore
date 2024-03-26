@@ -1,7 +1,8 @@
 .vscode
 
-docs/docs/examples/diagram.png
-docs/docs/examples/diagram.svg
+docs/docs/examples/
+docs/notebooks/diagram.png
+docs/notebooks/diagram.svg
 docs/site
 
 tests/_outputs

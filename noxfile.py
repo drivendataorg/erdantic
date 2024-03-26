@@ -103,8 +103,7 @@ def test_sdist(session):
     session.run("python", "-m", "erdantic", "--version")
 
 
-@nox.session(venv_backend="mamba|conda", python="3.11", reuse_venv=True)
-def docs(session):
+def _docs_base(session):
     session.conda_install("graphviz", channel="conda-forge")
     if platform.system() == "Windows":
         session.conda_install("pygraphviz", channel="conda-forge")
@@ -112,18 +111,22 @@ def docs(session):
         session.run(UV, "pip", "install", "-r", "requirements/docs.txt", external=True)
     else:
         session.install("-r", "requirements/docs.txt")
+    examples_dir = Path("docs/docs/examples").resolve()
+    examples_dir.mkdir(exist_ok=True)
+    for notebook_path in sorted(Path("docs/notebooks").glob("*.ipynb")):
+        out_path = examples_dir / notebook_path.name
+        session.run("jupyter", "execute", f"--output={out_path}", notebook_path)
+
+
+@nox.session(venv_backend="mamba|conda", python="3.11", reuse_venv=True)
+def docs(session):
+    _docs_base(session)
     with session.chdir("docs"):
         session.run("mkdocs", "build")
 
 
 @nox.session(venv_backend="mamba|conda", python="3.11", reuse_venv=True)
 def docs_serve(session):
-    session.conda_install("graphviz", channel="conda-forge")
-    if platform.system() == "Windows":
-        session.conda_install("pygraphviz", channel="conda-forge")
-    if HAS_UV:
-        session.run(UV, "pip", "install", "-r", "requirements/docs.txt", external=True)
-    else:
-        session.install("-r", "requirements/docs.txt")
+    _docs_base(session)
     with session.chdir("docs"):
         session.run("mkdocs", "serve")

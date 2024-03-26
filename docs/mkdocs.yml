@@ -47,6 +47,7 @@ hooks:
 markdown_extensions:
   - admonition:
   - def_list:
+  - github-callouts:
   - pymdownx.highlight:
   - pymdownx.superfences:
   - pymdownx.tabbed:
