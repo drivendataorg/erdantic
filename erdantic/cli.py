@@ -62,8 +62,8 @@ def main(
         typer.Argument(
             help=(
                 "One or more full dotted paths for data model classes, or modules containing data "
-                "model classes, to include in diagram, e.g., 'erdantic.examples.pydantic.Party'. Only "
-                "the root models of composition trees are needed; erdantic will traverse the "
+                "model classes, to include in diagram, e.g., 'erdantic.examples.pydantic.Party'. "
+                "Only the root models of composition trees are needed; erdantic will traverse the "
                 "composition tree to find component classes."
             ),
         ),
@@ -78,9 +78,9 @@ def main(
             "--terminal-model",
             "-t",
             help=(
-                "Full dotted paths for data model classes to set as terminal nodes in the diagram. "
-                "erdantic will stop searching for component classes when it reaches these models. "
-                "Repeat this option if more than one."
+                "Full dotted paths for data model classes to set as terminal nodes in the "
+                "diagram. erdantic will stop searching for component classes when it reaches "
+                "these models. Repeat this option if more than one."
             ),
         ),
     ] = [],
@@ -98,9 +98,9 @@ def main(
             "-m",
             help=(
                 "Identifiers of model classes that erdantic supports. If any are specified, when "
-                "searching a module, limit data model classes to those ones. Repeat this option if "
-                "more than one.Defaults to None which will find all data model classes supported by "
-                "erdantic. "
+                "searching a module, limit data model classes to those ones. Repeat this option "
+                "if more than one. Defaults to None which will find all data model classes "
+                "supported by erdantic. "
             ),
         ),
     ] = [],
