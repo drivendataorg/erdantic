@@ -1,21 +1,20 @@
 import collections.abc
-from typing import (
-    Any,
-    ForwardRef,
-    List,
-    Literal,
-    Union,
-    get_args,
-    get_origin,
-)
-
-# Note Python 3.9's types.GenericAlias != typing._GenericAlias
-# We still want typing._GenericAlias for typing module's deprecated capital generic aliases
-from typing import _GenericAlias as GenericAlias  # type: ignore # Python 3.7+
+import sys
+from typing import Any, ForwardRef, Iterator, List, Literal, TypeVar, Union, get_args, get_origin
 
 from typenames import BaseNode, GenericNode, parse_type_tree
 
 from erdantic.exceptions import _UnevaluatedForwardRefError
+
+# TypeVar for type annotations
+# Most typing special forms have type 'object'
+# There is a stalled proposal for TypeForm: https://github.com/python/mypy/issues/9773
+if sys.version_info >= (3, 10):
+    from types import UnionType
+
+    _TypeForm = TypeVar("_TypeForm", bound=type | UnionType | str | object)
+else:
+    _TypeForm = TypeVar("_TypeForm", bound=Union[type, str, object])
 
 
 def _walk_type_tree(node: BaseNode, target: type) -> bool:
@@ -33,7 +32,7 @@ def _walk_type_tree(node: BaseNode, target: type) -> bool:
     return False
 
 
-def is_collection_type_of(tp: Union[type, GenericAlias], target: type) -> bool:
+def is_collection_type_of(tp: _TypeForm, target: type) -> bool:
     """Given a type annotation, returns True if it represents a collection of many elements of the
     target type.
 
@@ -48,7 +47,7 @@ def is_collection_type_of(tp: Union[type, GenericAlias], target: type) -> bool:
     return _walk_type_tree(root, target)
 
 
-def is_nullable_type(tp: Union[type, GenericAlias]) -> bool:
+def is_nullable_type(tp: _TypeForm) -> bool:
     """Given a type annotation, returns True if it is a union with None as a possible option,
     such as typing.Optional.
 
@@ -67,15 +66,15 @@ def get_depth1_bases(tp: type) -> List[type]:
     return [b for b in tp.__mro__[1:] if b not in bases_of_bases]
 
 
-def get_recursive_args(tp: Union[type, GenericAlias]) -> List[type]:
+def get_recursive_args(tp: _TypeForm) -> List[_TypeForm]:
     """Recursively finds leaf-node types of possibly-nested generic type."""
 
-    def recurse(t):
+    def recurse(t: _TypeForm) -> Iterator[_TypeForm]:
         if isinstance(t, str):
             raise _UnevaluatedForwardRefError(forward_ref=t)
         elif isinstance(t, ForwardRef):
             if t.__forward_evaluated__:
-                t = t.__forward_value__
+                t = t.__forward_value__  # type: ignore [assignment]
             else:
                 raise _UnevaluatedForwardRefError(forward_ref=t.__forward_arg__)
 

@@ -32,12 +32,10 @@ if TYPE_CHECKING:
     # mypy typechecking doesn't support enums created with functional API
     # https://github.com/python/mypy/issues/6037
 
-    class SupportedModelIdentifier(StrEnum): ...
+    class AvailablePluginKeys(StrEnum): ...
 
 else:
-    SupportedModelIdentifier = StrEnum(
-        "SupportedModelIdentifier", {key: key for key in list_plugins()}
-    )
+    AvailablePluginKeys = StrEnum("AvailablePluginKeys", {key: key for key in list_plugins()})
 
 
 def version_callback(version: bool):
@@ -93,7 +91,7 @@ def main(
         ),
     ] = [],
     limit_search_models_to: Annotated[
-        List[SupportedModelIdentifier],
+        List[AvailablePluginKeys],
         typer.Option(
             "--limit-search-models-to",
             "-m",
@@ -163,6 +161,8 @@ def main(
     log_formatter = logging.Formatter("%(asctime)s | %(name)s | %(levelname)s | %(message)s")
     log_handler.setFormatter(log_formatter)
 
+    logger.debug("Registered plugins: %s", ", ".join(list_plugins()))
+
     logger.debug("models_or_modules: %s", models_or_modules)
     logger.debug("out: %s", out)
     logger.debug("terminal_models: %s", terminal_models)
@@ -171,8 +171,6 @@ def main(
     logger.debug("dot: %s", dot)
     logger.debug("no_overwrite: %s", no_overwrite)
 
-    logger.debug("Registered plugins: %s", ", ".join(list_plugins()))
-
     model_or_module_objs = [import_object_from_name(mm) for mm in models_or_modules]
     terminal_model_classes = [import_object_from_name(mm) for mm in terminal_models]
     termini_classes = [import_object_from_name(mm) for mm in termini]
@@ -180,9 +178,9 @@ def main(
         m.value for m in limit_search_models_to
     ] or None  # Don't want empty list
     diagram = create(
-        *model_or_module_objs,
-        terminal_models=terminal_model_classes,
-        termini=termini_classes,
+        *model_or_module_objs,  # type: ignore [arg-type]
+        terminal_models=terminal_model_classes,  # type: ignore [arg-type]
+        termini=termini_classes,  # type: ignore [arg-type]
         limit_search_models_to=limit_search_models_to_str,
     )
     if dot:
@@ -197,21 +195,27 @@ def main(
 
 def import_object_from_name(full_obj_name: str) -> Union[ModuleType, object]:
     """Import an object from a fully qualified name."""
-    # Try to import as a module
     try:
+        # Try to import as a module
         return import_module(full_obj_name)
     except ModuleNotFoundError:
+        # Try to import as an object in a module
         try:
             module_name, obj_name = full_obj_name.rsplit(".", 1)
             module = import_module(module_name)
             return getattr(module, obj_name)
         except (ImportError, AttributeError) as e:
-            raise ModelOrModuleNotFoundError(f"Unable to import '{full_obj_name}'.") from e
+            raise ModelOrModuleNotFoundError(
+                f"Unable to import '{full_obj_name}'.", name=full_obj_name, path=__file__
+            ) from e
         except ValueError as e:
+            # This can happen if there are no dots in the name
             if "not enough values to unpack (expected 2, got 1)" in str(e):
                 raise ModelOrModuleNotFoundError(
                     f"Unable to import '{full_obj_name}'. "
-                    "It should be a fully qualified name for a model class or module."
+                    "It should be a fully qualified name for a model class or module.",
+                    name=full_obj_name,
+                    path=__file__,
                 )
             else:
                 raise e

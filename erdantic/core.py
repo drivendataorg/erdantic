@@ -25,7 +25,7 @@ from erdantic.exceptions import (
     UnknownModelTypeError,
     _UnevaluatedForwardRefError,
 )
-from erdantic.plugins import identify_field_extractor_fn
+from erdantic.plugins import identify_field_extractor_fn, list_plugins
 from erdantic.typing_utils import (
     get_recursive_args,
     is_collection_type_of,
@@ -156,7 +156,7 @@ class FieldInfo(pydantic.BaseModel):
                         name=self.name, obj=model, model_full_name=self.model_full_name
                     )
             else:
-                raise UnknownModelTypeError(model=model)
+                raise UnknownModelTypeError(model=model, available_plugins=list_plugins())
         return self._raw_type
 
     def __eq__(self, other: Any) -> bool:
@@ -218,7 +218,7 @@ class ModelInfo(pydantic.BaseModel, Generic[_ModelType]):
         """
         get_fields_fn = identify_field_extractor_fn(raw_model)
         if not get_fields_fn:
-            raise UnknownModelTypeError(model=raw_model)
+            raise UnknownModelTypeError(model=raw_model, available_plugins=list_plugins())
 
         full_name = FullyQualifiedName.from_object(raw_model)
         description = str(full_name)
@@ -271,8 +271,7 @@ class ModelInfo(pydantic.BaseModel, Generic[_ModelType]):
 
 class Cardinality(Enum):
     """Enumeration of possible cardinality values for a relationship between two data model
-    classes. Cardinality measures the maximum number of associations—valid values are 'one' or
-    'many'.
+    classes. Cardinality measures the maximum number of associations.
     """
 
     UNSPECIFIED = "unspecified"
@@ -294,9 +293,8 @@ _CARDINALITY_DOT_MAPPING = {
 
 
 class Modality(Enum):
-    """Enumeration of possible cardinality values for a relationship between two data model
-    classes. Cardinality measures the minimum number of associations—valid values are 'zero' or
-    'one'.
+    """Enumeration of possible modality values for a relationship between two data model
+    classes. Modality measures the minimum number of associations.
     """
 
     UNSPECIFIED = "unspecified"
@@ -317,7 +315,6 @@ _MODALITY_DOT_MAPPING = {
 }
 
 
-@total_ordering
 class Edge(pydantic.BaseModel):
     """Hold information about a relationship between two data model classes. These represent
     directed edges in the entity relationship diagram.
@@ -362,21 +359,14 @@ class Edge(pydantic.BaseModel):
         EntityRelationshipDiagram.edges mapping. This value is a hyphenated string of the fields
         `source_model_full_name`, `source_field_name`, and `target_model_full_name`.
         """
-        return "-".join(str(part) for part in self._sort_key)
-
-    @property
-    def _sort_key(self) -> Tuple[FullyQualifiedName, str, FullyQualifiedName]:
-        """Used to define an ordering for instances of Edges."""
-        return (
-            self.source_model_full_name,
-            self.source_field_name,
-            self.target_model_full_name,
+        return "-".join(
+            str(part)
+            for part in (
+                self.source_model_full_name,
+                self.source_field_name,
+                self.target_model_full_name,
+            )
         )
-
-    def __lt__(self, other) -> bool:
-        if not isinstance(other, Edge):
-            return NotImplemented
-        return self._sort_key < other._sort_key
 
     @classmethod
     def from_field_info(cls, target_model: type, source_field_info: FieldInfo) -> Self:
@@ -513,7 +503,7 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
         logger.info("Adding model '%s' to diagram...", typenames(model))
         is_model = self._add_if_model(model, recurse=recurse)
         if not is_model:
-            raise UnknownModelTypeError(model=model)
+            raise UnknownModelTypeError(model=model, available_plugins=list_plugins())
 
     def draw(
         self,

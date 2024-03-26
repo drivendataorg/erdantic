@@ -31,9 +31,6 @@ def create(
         limit_search_models_to (Collection[str] | None): Plugin identifiers to limit to when
             searching modules for data model classes. Defaults to None which will not impose any
             limits.
-    Raises:
-        UnknownModelTypeError: If model is not recognized as a supported model type.
-        PluginNotFoundError: If a plugin key does not match any registered plugins.
 
     Returns:
         EntityRelationshipDiagram: diagram object for given data model.
@@ -127,10 +124,6 @@ def draw(
             edges on the `pygraphviz.AGraph` instance. Defaults to None.
         **kwargs: Additional keyword arguments to
             [`pygraphviz.AGraph.draw`][pygraphviz.AGraph.draw].
-
-    Raises:
-        UnknownModelTypeError: If model is not recognized as a supported model type.
-        PluginNotFoundError: If a plugin key does not match any registered plugins.
     """
     diagram = create(
         *models_or_modules,
