@@ -3,7 +3,8 @@ from importlib import import_module
 import logging
 from pathlib import Path
 import sys
-from typing import TYPE_CHECKING, List, Optional
+from types import ModuleType
+from typing import TYPE_CHECKING, List, Optional, Union
 
 if sys.version_info >= (3, 9):
     from typing import Annotated
@@ -97,15 +98,15 @@ def main(
             "--limit-search-models-to",
             "-m",
             help=(
-                "Identifiers of model classes that erdantic supports. If any are specified, when "
+                "Plugin identifiers. If any are specified, when "
                 "searching a module, limit data model classes to those ones. Repeat this option "
-                "if more than one. Defaults to None which will find all data model classes "
-                "supported by erdantic. "
+                "if more than one. Defaults to None which will find data model classes "
+                "matching any active plugin. "
             ),
         ),
     ] = [],
     dot: Annotated[
-        Optional[bool],
+        bool,
         typer.Option(
             "--dot",
             "-d",
@@ -115,11 +116,11 @@ def main(
                 "instead of rendering an image. The --out option will be ignored."
             ),
         ),
-    ] = None,
+    ] = False,
     no_overwrite: Annotated[
-        Optional[bool],
+        bool,
         typer.Option("--no-overwrite", help="Prevent overwriting an existing file."),
-    ] = None,
+    ] = False,
     quiet: Annotated[
         int,
         typer.Option(
@@ -127,7 +128,7 @@ def main(
             "-q",
             count=True,
             show_default=False,
-            help="Use to decrease log verbosity.",
+            help="Use to decrease log verbosity. Can use multiple times.",
         ),
     ] = 0,
     verbose: Annotated[
@@ -137,7 +138,7 @@ def main(
             "-v",
             count=True,
             show_default=False,
-            help="Use to increase log verbosity.",
+            help="Use to increase log verbosity. Can use multiple times.",
         ),
     ] = 0,
     version: Annotated[
@@ -163,8 +164,12 @@ def main(
     log_handler.setFormatter(log_formatter)
 
     logger.debug("models_or_modules: %s", models_or_modules)
+    logger.debug("out: %s", out)
     logger.debug("terminal_models: %s", terminal_models)
     logger.debug("termini: %s", termini)
+    logger.debug("limit_search_models_to: %s", limit_search_models_to)
+    logger.debug("dot: %s", dot)
+    logger.debug("no_overwrite: %s", no_overwrite)
 
     logger.debug("Registered plugins: %s", ", ".join(list_plugins()))
 
@@ -190,7 +195,8 @@ def main(
         logger.info(f"Rendered diagram to {out}")
 
 
-def import_object_from_name(full_obj_name):
+def import_object_from_name(full_obj_name: str) -> Union[ModuleType, object]:
+    """Import an object from a fully qualified name."""
     # Try to import as a module
     try:
         return import_module(full_obj_name)
@@ -199,5 +205,13 @@ def import_object_from_name(full_obj_name):
             module_name, obj_name = full_obj_name.rsplit(".", 1)
             module = import_module(module_name)
             return getattr(module, obj_name)
-        except (ImportError, AttributeError):
-            raise ModelOrModuleNotFoundError(f"Unable to import {full_obj_name}.")
+        except (ImportError, AttributeError) as e:
+            raise ModelOrModuleNotFoundError(f"Unable to import '{full_obj_name}'.") from e
+        except ValueError as e:
+            if "not enough values to unpack (expected 2, got 1)" in str(e):
+                raise ModelOrModuleNotFoundError(
+                    f"Unable to import '{full_obj_name}'. "
+                    "It should be a fully qualified name for a model class or module."
+                )
+            else:
+                raise e
