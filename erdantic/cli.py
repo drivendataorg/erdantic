@@ -57,55 +57,69 @@ def dot_callback(ctx: typer.Context, dot: bool):
 
 @app.command()
 def main(
-    models_or_modules: List[str] = typer.Argument(
-        ...,
-        help=(
-            "One or more full dotted paths for data model classes, or modules containing data "
-            "model classes, to include in diagram, e.g., 'erdantic.examples.pydantic.Party'. Only "
-            "the root models of composition trees are needed; erdantic will traverse the "
-            "composition tree to find component classes."
+    models_or_modules: Annotated[
+        List[str],
+        typer.Argument(
+            help=(
+                "One or more full dotted paths for data model classes, or modules containing data "
+                "model classes, to include in diagram, e.g., 'erdantic.examples.pydantic.Party'. Only "
+                "the root models of composition trees are needed; erdantic will traverse the "
+                "composition tree to find component classes."
+            ),
         ),
-    ),
-    terminal_models: List[str] = typer.Option(
-        [],
-        "--terminal-model",
-        "-t",
-        help=(
-            "Full dotted paths for data model classes to set as terminal nodes in the diagram. "
-            "erdantic will stop searching for component classes when it reaches these models. "
-            "Repeat this option if more than one."
+    ],
+    out: Annotated[
+        Path,
+        typer.Option("--out", "-o", help="Output filename."),
+    ],
+    terminal_models: Annotated[
+        List[str],
+        typer.Option(
+            "--terminal-model",
+            "-t",
+            help=(
+                "Full dotted paths for data model classes to set as terminal nodes in the diagram. "
+                "erdantic will stop searching for component classes when it reaches these models. "
+                "Repeat this option if more than one."
+            ),
         ),
-    ),
-    termini: List[str] = typer.Option(
-        [],
-        "--terminus",
-        help=("Deprecated. Use --terminal-model instead."),
-    ),
-    limit_search_models_to: List[SupportedModelIdentifier] = typer.Option(
-        [],
-        "--limit-search-models-to",
-        "-m",
-        help=(
-            "Identifiers of model classes that erdantic supports. If any are specified, when "
-            "searching a module, limit data model classes to those ones. Repeat this option if "
-            "more than one.Defaults to None which will find all data model classes supported by "
-            "erdantic. "
+    ] = [],
+    termini: Annotated[
+        List[str],
+        typer.Option(
+            "--terminus",
+            help=("Deprecated. Use --terminal-model instead."),
         ),
-    ),
-    out: Path = typer.Option(..., "--out", "-o", help="Output filename."),
-    dot: Optional[bool] = typer.Option(
-        None,
-        "--dot",
-        "-d",
-        callback=dot_callback,
-        help=(
-            "Print out Graphviz DOT language representation for generated graph to console "
-            "instead of rendering an image. The --out option will be ignored."
+    ] = [],
+    limit_search_models_to: Annotated[
+        List[SupportedModelIdentifier],
+        typer.Option(
+            "--limit-search-models-to",
+            "-m",
+            help=(
+                "Identifiers of model classes that erdantic supports. If any are specified, when "
+                "searching a module, limit data model classes to those ones. Repeat this option if "
+                "more than one.Defaults to None which will find all data model classes supported by "
+                "erdantic. "
+            ),
         ),
-    ),
-    no_overwrite: Optional[bool] = typer.Option(
-        None, "--no-overwrite", help="Prevent overwriting an existing file."
-    ),
+    ] = [],
+    dot: Annotated[
+        Optional[bool],
+        typer.Option(
+            "--dot",
+            "-d",
+            callback=dot_callback,
+            help=(
+                "Print out Graphviz DOT language representation for generated graph to console "
+                "instead of rendering an image. The --out option will be ignored."
+            ),
+        ),
+    ] = None,
+    no_overwrite: Annotated[
+        Optional[bool],
+        typer.Option("--no-overwrite", help="Prevent overwriting an existing file."),
+    ] = None,
     quiet: Annotated[
         int,
         typer.Option(
@@ -126,13 +140,15 @@ def main(
             help="Use to increase log verbosity.",
         ),
     ] = 0,
-    version: Optional[bool] = typer.Option(
-        None,
-        "--version",
-        callback=version_callback,
-        is_eager=True,
-        help="Show erdantic version and exit.",
-    ),
+    version: Annotated[
+        Optional[bool],
+        typer.Option(
+            "--version",
+            callback=version_callback,
+            is_eager=True,
+            help="Show erdantic version and exit.",
+        ),
+    ] = None,
 ):
     """Draw entity relationship diagrams (ERDs) for Python data model classes. Diagrams are
     rendered using the Graphviz library. Currently supported data modeling frameworks are Pydantic
