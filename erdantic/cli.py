@@ -151,8 +151,8 @@ def main(
     ] = None,
 ):
     """Draw entity relationship diagrams (ERDs) for Python data model classes. Diagrams are
-    rendered using the Graphviz library. Currently supported data modeling frameworks are Pydantic
-    and standard library dataclasses.
+    rendered using the Graphviz library. Currently supported data modeling frameworks are Pydantic,
+    attrs, and standard library dataclasses.
     """
     # Set up logger
     log_level = logging.INFO + 10 * quiet - 10 * verbose
