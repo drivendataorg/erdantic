@@ -110,6 +110,7 @@ def test_unsupported_forward_ref_resolution(monkeypatch):
 
 @pytest.fixture
 def no_rich(monkeypatch):
+    """Remove rich from imported modules, and patch import to pretend it's not installed."""
     # Remove if already imported
     rich_module = sys.modules.pop("rich", None)
     # Patch import

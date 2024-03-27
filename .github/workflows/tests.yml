@@ -30,7 +30,7 @@ jobs:
       - name: Lint
         run: |
           nox -s lint --verbose
-      
+
       - name: Typecheck
         run: |
           nox -s typecheck --verbose
@@ -41,7 +41,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest] # , windows-latest]
+        os: [ubuntu-latest, macos-latest]
         python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
 
     steps:
@@ -68,7 +68,7 @@ jobs:
         with:
           name: test-outputs-${{ matrix.os }}-python-${{ matrix.python-version }}
           path: tests/_outputs
-        
+
 
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@v3
@@ -103,7 +103,7 @@ jobs:
       - name: Test wheel with extras matrix
         run: |
           nox -s test_wheel --verbose
-      
+
       - name: Test sdist
         run: |
           nox -s test_sdist --verbose
