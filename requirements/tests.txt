@@ -1,5 +1,6 @@
 -e .[attrs]
 
+filetype
 pytest<8
 pytest-cases
 pytest-cov

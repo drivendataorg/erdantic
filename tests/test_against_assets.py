@@ -1,8 +1,8 @@
 import filecmp
-import imghdr
 import os
 from pathlib import Path
 
+import filetype
 import pytest
 
 import erdantic as erd
@@ -49,7 +49,9 @@ def test_draw_png_against_static_assets(case, outputs_dir, version_patch):
     out_path = outputs_dir / f"{plugin}.png"
 
     erd.draw(model_or_module, out=out_path)
-    assert imghdr.what(out_path) == "png"
+    kind = filetype.guess(out_path)
+    assert kind is not None
+    assert kind.mime == "image/png"
     if not os.getenv("GITHUB_ACTIONS", False):
         # Skip for CI because it doesn't produce an identical file
         assert filecmp.cmp(out_path, expected_path), (out_path, expected_path)
