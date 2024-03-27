@@ -85,6 +85,19 @@ class FullyQualifiedName(pydantic.BaseModel):
             return NotImplemented
         return (self.module, self.qual_name) < (other.module, other.qual_name)
 
+    def _repr_pretty_(self, p, cycle):
+        """IPython special method to pretty-print an object."""
+        try:
+            # Try using rich if it's available, since rich supports Pydantic
+            import rich
+
+            rich.print(self)
+        except ModuleNotFoundError:
+            if cycle:
+                p.text(repr(self))
+            else:
+                p.pretty(self)
+
 
 class FieldInfo(pydantic.BaseModel):
     """Holds information about a field of an analyzed data model class.
@@ -173,6 +186,19 @@ class FieldInfo(pydantic.BaseModel):
             str: DOT language for table row
         """
         return self._ROW_TEMPLATE.format(name=self.name, type_name=self.type_name)
+
+    def _repr_pretty_(self, p, cycle):
+        """IPython special method to pretty-print an object."""
+        try:
+            # Try using rich if it's available, since rich supports Pydantic
+            import rich
+
+            rich.print(self)
+        except ModuleNotFoundError:
+            if cycle:
+                p.text(repr(self))
+            else:
+                p.pretty(self)
 
 
 class ModelInfo(pydantic.BaseModel, Generic[_ModelType]):
@@ -267,6 +293,19 @@ class ModelInfo(pydantic.BaseModel, Generic[_ModelType]):
         """
         rows = "\n".join(field_info.to_dot_row() for field_info in self.fields.values()) + "\n"
         return self._TABLE_TEMPLATE.format(name=self.name, rows=rows).replace("\n", "")
+
+    def _repr_pretty_(self, p, cycle):
+        """IPython special method to pretty-print an object."""
+        try:
+            # Try using rich if it's available, since rich supports Pydantic
+            import rich
+
+            rich.print(self)
+        except ModuleNotFoundError:
+            if cycle:
+                p.text(repr(self))
+            else:
+                p.pretty(self)
 
 
 class Cardinality(Enum):
@@ -410,6 +449,19 @@ class Edge(pydantic.BaseModel):
     def source_dot_arrow_shape(self) -> str:
         return self.source_cardinality.to_dot() + self.source_modality.to_dot()
 
+    def _repr_pretty_(self, p, cycle):
+        """IPython special method to pretty-print an object."""
+        try:
+            # Try using rich if it's available, since rich supports Pydantic
+            import rich
+
+            rich.print(self)
+        except ModuleNotFoundError:
+            if cycle:
+                p.text(repr(self))
+            else:
+                p.pretty(self)
+
 
 DEFAULT_GRAPH_ATTR = (
     ("nodesep", "0.5"),
@@ -431,6 +483,40 @@ DEFAULT_NODE_ATTR = (
 
 DEFAULT_EDGE_ATTR = (("dir", "both"),)
 """Default edge attributes passed to Graphviz."""
+
+
+class _PrettyPrintDummies:
+    """Namespace for dummy classes that implement pretty-print special methods for IPython and
+    Rich.
+    """
+
+    class ModelInfo:
+        """Dummy class with pretty-print special methods for ModelInfo."""
+
+        def _repr_pretty_(self, p, cycle):
+            """IPython special method to pretty-print an object."""
+            return p.text("ModelInfo(...)")
+
+        def __rich_repr__(self):
+            """Rich special method to format the representation of an object."""
+            yield _PrettyPrintDummies.Ellipsis()
+
+    class Edge:
+        """Dummy class with pretty-print special methods for Edge."""
+
+        def _repr_pretty_(self, p, cycle):
+            """IPython special method to pretty-print an object."""
+            return p.text("Edge(...)")
+
+        def __rich_repr__(self):
+            """Rich special method to format the representation of an object."""
+            yield _PrettyPrintDummies.Ellipsis()
+
+    class Ellipsis:
+        """Dummy class whose repr is '...'."""
+
+        def __repr__(self) -> str:
+            return "..."
 
 
 class EntityRelationshipDiagram(pydantic.BaseModel):
@@ -610,10 +696,39 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
             edge_attr=edge_attr,
         ).string()
 
+    def _repr_pretty_(self, p, cycle):
+        """IPython special method to pretty-print an object."""
+        try:
+            # Try using rich if it's available, since rich supports Pydantic
+            import rich
+
+            rich.print(self)
+        except ModuleNotFoundError:
+            if cycle:
+                p.text(repr(self))
+            else:
+                with p.group(1, f"{self.__class__.__name__}(", ")"):
+                    # Render models as a dictionary with ModelInfo objects abbreviated
+                    p.text("models=")
+                    p.pretty({k: _PrettyPrintDummies.ModelInfo() for k in self.models.keys()})
+                    p.text(",")
+                    p.breakable()
+                    # Render edges as a dictionary with Edge objects abbreviated
+                    p.text("edges=")
+                    p.pretty({k: _PrettyPrintDummies.Edge() for k in self.edges.keys()})
+                    p.breakable()
+
     def _repr_png_(self) -> bytes:
+        """IPython special method to display object as a PNG image."""
         graph = self.to_graphviz()
         return graph.draw(prog="dot", format="png")
 
     def _repr_svg_(self) -> str:
+        """IPython special method to display object as an SVG image."""
         graph = self.to_graphviz()
         return graph.draw(prog="dot", format="svg").decode(graph.encoding)
+
+    def __rich_repr__(self):
+        """Rich special method to format the representation of an object."""
+        yield "models", {k: _PrettyPrintDummies.ModelInfo() for k in self.models.keys()}
+        yield "edges", {k: _PrettyPrintDummies.Edge() for k in self.edges.keys()}
