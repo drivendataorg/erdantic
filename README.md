@@ -47,13 +47,13 @@ pip install git+https://github.com/drivendataorg/erdantic.git#egg=erdantic
 
 First, make sure that the data model classes that you want to include in your diagram are importable. This means the code with your models should either be available on your [`sys.path`](https://docs.python.org/3/library/sys_path_init.html) or installed into the same virtual environment as erdantic.
 
-The fastest way to produce a diagram like the above example is to use the erdantic CLI. Simply specify the full dotted path to your model and an output path. The rendered format is interpreted from the filename extension.
+The fastest way to produce a diagram like the above example is to use the erdantic CLI. Simply specify the full dotted import path to your model and an output file path. The rendered format is interpreted from the filename extension.
 
 ```bash
 erdantic erdantic.examples.pydantic.Party -o diagram.png
 ```
 
-You can also import the erdantic Python library and use its functions.
+You can also import the erdantic Python library. This lets you inspect the diagram data and potentially modify it. You will have greater ability to customize the diagram in Python.
 
 ```python
 import erdantic as erd
@@ -72,4 +72,4 @@ list(diagram.models.keys())
 diagram.draw("diagram.png")
 ```
 
-Check out the "Usage Examples" section of our [docs](https://erdantic.drivendata.org/) to see more.
+Check out the "Usage Examples" section of our [docs](https://erdantic.drivendata.org/) to see more. 

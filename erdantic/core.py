@@ -6,7 +6,7 @@ import logging
 import os
 import sys
 import textwrap
-from typing import Any, Dict, Generic, Mapping, Optional, Tuple, TypeVar, Union
+from typing import Any, Dict, Generic, Mapping, Optional, TypeVar, Union
 
 if sys.version_info >= (3, 11):
     from typing import Self
@@ -18,6 +18,12 @@ import pygraphviz as pgv  # type: ignore [import-not-found]
 from sortedcontainers_pydantic import SortedDict
 from typenames import REMOVE_ALL_MODULES, typenames
 
+from erdantic._repr_utils import (
+    add_repr_pretty_to_pydantic,
+    ellipsis_arg_repr_factory,
+    sorteddict_repr_pretty,
+    sorteddict_rich_repr,
+)
 from erdantic._version import __version__
 from erdantic.exceptions import (
     FieldNotFoundError,
@@ -35,6 +41,11 @@ from erdantic.typing_utils import (
 logger = logging.getLogger(__name__)
 
 _ModelType = TypeVar("_ModelType", bound=type)
+
+
+# Patch SortedDict to have an IPython _repr_pretty_ special method
+SortedDict._repr_pretty_ = sorteddict_repr_pretty
+SortedDict.__rich_repr__ = sorteddict_rich_repr
 
 
 @total_ordering
@@ -85,20 +96,8 @@ class FullyQualifiedName(pydantic.BaseModel):
             return NotImplemented
         return (self.module, self.qual_name) < (other.module, other.qual_name)
 
-    def _repr_pretty_(self, p, cycle):
-        """IPython special method to pretty-print an object."""
-        try:
-            # Try using rich if it's available, since rich supports Pydantic
-            import rich
 
-            rich.print(self)
-        except ModuleNotFoundError:
-            if cycle:
-                p.text(repr(self))
-            else:
-                p.pretty(self)
-
-
+@add_repr_pretty_to_pydantic
 class FieldInfo(pydantic.BaseModel):
     """Holds information about a field of an analyzed data model class.
 
@@ -187,20 +186,8 @@ class FieldInfo(pydantic.BaseModel):
         """
         return self._ROW_TEMPLATE.format(name=self.name, type_name=self.type_name)
 
-    def _repr_pretty_(self, p, cycle):
-        """IPython special method to pretty-print an object."""
-        try:
-            # Try using rich if it's available, since rich supports Pydantic
-            import rich
 
-            rich.print(self)
-        except ModuleNotFoundError:
-            if cycle:
-                p.text(repr(self))
-            else:
-                p.pretty(self)
-
-
+@add_repr_pretty_to_pydantic
 class ModelInfo(pydantic.BaseModel, Generic[_ModelType]):
     """Holds information about an analyzed data model class.
 
@@ -294,19 +281,6 @@ class ModelInfo(pydantic.BaseModel, Generic[_ModelType]):
         rows = "\n".join(field_info.to_dot_row() for field_info in self.fields.values()) + "\n"
         return self._TABLE_TEMPLATE.format(name=self.name, rows=rows).replace("\n", "")
 
-    def _repr_pretty_(self, p, cycle):
-        """IPython special method to pretty-print an object."""
-        try:
-            # Try using rich if it's available, since rich supports Pydantic
-            import rich
-
-            rich.print(self)
-        except ModuleNotFoundError:
-            if cycle:
-                p.text(repr(self))
-            else:
-                p.pretty(self)
-
 
 class Cardinality(Enum):
     """Enumeration of possible cardinality values for a relationship between two data model
@@ -354,6 +328,7 @@ _MODALITY_DOT_MAPPING = {
 }
 
 
+@add_repr_pretty_to_pydantic
 class Edge(pydantic.BaseModel):
     """Hold information about a relationship between two data model classes. These represent
     directed edges in the entity relationship diagram.
@@ -449,19 +424,6 @@ class Edge(pydantic.BaseModel):
     def source_dot_arrow_shape(self) -> str:
         return self.source_cardinality.to_dot() + self.source_modality.to_dot()
 
-    def _repr_pretty_(self, p, cycle):
-        """IPython special method to pretty-print an object."""
-        try:
-            # Try using rich if it's available, since rich supports Pydantic
-            import rich
-
-            rich.print(self)
-        except ModuleNotFoundError:
-            if cycle:
-                p.text(repr(self))
-            else:
-                p.pretty(self)
-
 
 DEFAULT_GRAPH_ATTR = (
     ("nodesep", "0.5"),
@@ -483,40 +445,6 @@ DEFAULT_NODE_ATTR = (
 
 DEFAULT_EDGE_ATTR = (("dir", "both"),)
 """Default edge attributes passed to Graphviz."""
-
-
-class _PrettyPrintDummies:
-    """Namespace for dummy classes that implement pretty-print special methods for IPython and
-    Rich.
-    """
-
-    class ModelInfo:
-        """Dummy class with pretty-print special methods for ModelInfo."""
-
-        def _repr_pretty_(self, p, cycle):
-            """IPython special method to pretty-print an object."""
-            return p.text("ModelInfo(...)")
-
-        def __rich_repr__(self):
-            """Rich special method to format the representation of an object."""
-            yield _PrettyPrintDummies.Ellipsis()
-
-    class Edge:
-        """Dummy class with pretty-print special methods for Edge."""
-
-        def _repr_pretty_(self, p, cycle):
-            """IPython special method to pretty-print an object."""
-            return p.text("Edge(...)")
-
-        def __rich_repr__(self):
-            """Rich special method to format the representation of an object."""
-            yield _PrettyPrintDummies.Ellipsis()
-
-    class Ellipsis:
-        """Dummy class whose repr is '...'."""
-
-        def __repr__(self) -> str:
-            return "..."
 
 
 class EntityRelationshipDiagram(pydantic.BaseModel):
@@ -699,8 +627,8 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
     def _repr_pretty_(self, p, cycle):
         """IPython special method to pretty-print an object."""
         try:
-            # Try using rich if it's available, since rich supports Pydantic
-            import rich
+            # Try using rich if it's available, since rich is nicer
+            import rich  # type: ignore [import-not-found]
 
             rich.print(self)
         except ModuleNotFoundError:
@@ -710,12 +638,16 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
                 with p.group(1, f"{self.__class__.__name__}(", ")"):
                     # Render models as a dictionary with ModelInfo objects abbreviated
                     p.text("models=")
-                    p.pretty({k: _PrettyPrintDummies.ModelInfo() for k in self.models.keys()})
+                    p.pretty(
+                        {k: ellipsis_arg_repr_factory(type(v)) for k, v in self.models.items()}
+                    )
                     p.text(",")
                     p.breakable()
                     # Render edges as a dictionary with Edge objects abbreviated
                     p.text("edges=")
-                    p.pretty({k: _PrettyPrintDummies.Edge() for k in self.edges.keys()})
+                    p.pretty(
+                        {k: ellipsis_arg_repr_factory(type(v)) for k, v in self.edges.items()}
+                    )
                     p.breakable()
 
     def _repr_png_(self) -> bytes:
@@ -730,5 +662,5 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
 
     def __rich_repr__(self):
         """Rich special method to format the representation of an object."""
-        yield "models", {k: _PrettyPrintDummies.ModelInfo() for k in self.models.keys()}
-        yield "edges", {k: _PrettyPrintDummies.Edge() for k in self.edges.keys()}
+        yield "models", {k: ellipsis_arg_repr_factory(type(v)) for k, v in self.models.items()}
+        yield "edges", {k: ellipsis_arg_repr_factory(type(v)) for k, v in self.edges.items()}
