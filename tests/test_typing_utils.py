@@ -1,5 +1,8 @@
 import typing
 
+import pytest
+
+from erdantic.exceptions import _UnevaluatedForwardRefError
 from erdantic.typing_utils import (
     get_depth1_bases,
     get_recursive_args,
@@ -44,6 +47,27 @@ def test_get_recursive_args():
         int,
         typing.Literal["batman"],
     ]
+
+    class SomeForwardRef: ...
+
+    with pytest.raises(_UnevaluatedForwardRefError):
+        get_recursive_args("SomeForwardRef")
+
+    with pytest.raises(_UnevaluatedForwardRefError):
+        get_recursive_args(typing.List["SomeForwardRef"])
+
+    # Test typing.ForwardRef case
+    class Model:
+        field: typing.List["SomeForwardRef"]
+
+    # Forward reference is not resolved yet
+    with pytest.raises(_UnevaluatedForwardRefError):
+        get_recursive_args(Model.__annotations__["field"])
+
+    # Resolve forward reference
+    typing.get_type_hints(Model, localns=locals())
+
+    assert get_recursive_args(Model.__annotations__["field"]) == [SomeForwardRef]
 
 
 def test_get_depth1_bases():

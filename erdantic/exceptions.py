@@ -1,13 +1,8 @@
 import sys
-from typing import TYPE_CHECKING, Any, List
+from typing import TYPE_CHECKING, List
 
 if TYPE_CHECKING:
     from erdantic.core import FullyQualifiedName
-
-
-def _to_full_name(obj: Any) -> str:
-    """Convenience function to return fully qualified name of object as string."""
-    return f"{obj.__module__}.{obj.__qualname__}"
 
 
 class ErdanticException(Exception):

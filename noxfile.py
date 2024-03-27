@@ -52,6 +52,24 @@ def typecheck(session):
     session.run("mypy", "--install-types", "--non-interactive")
 
 
+class CoverageCleaner:
+    """Global coverage cleaner to clean up coverage artifacts once per nox invocation."""
+
+    def __init__(self):
+        self.been_run = False
+
+    def clean(self, session):
+        if not self.been_run:
+            session.log("Cleaning up coverage artifacts.")
+            self.been_run = True
+            Path(".coverage").unlink(missing_ok=True)
+            Path("coverage.xml").unlink(missing_ok=True)
+            shutil.rmtree("htmlcov", ignore_errors=True)
+
+
+coverage_cleaner = CoverageCleaner()
+
+
 @nox.session(
     venv_backend="mamba|conda",
     python=["3.8", "3.9", "3.10", "3.11", "3.12"],
@@ -65,6 +83,7 @@ def tests(session):
         session.run(UV, "pip", "install", "-r", "requirements/tests.txt", external=True)
     else:
         session.install("-r", "requirements/tests.txt")
+    coverage_cleaner.clean(session)
     session.run("pytest", "-vv")
 
 

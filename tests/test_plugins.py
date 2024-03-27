@@ -1,7 +1,10 @@
 import subprocess
 import textwrap
 
+import pytest
+
 import erdantic.examples
+from erdantic.exceptions import PluginNotFoundError
 from erdantic.plugins import (
     get_field_extractor_fn,
     get_predicate_fn,
@@ -55,6 +58,9 @@ def test_get_predicate_fn():
     ]:
         assert get_predicate_fn(key) == predicate_fn
 
+    with pytest.raises(PluginNotFoundError):
+        get_predicate_fn("not_a_plugin")
+
 
 def test_get_field_extractor_fn():
     for key, get_fields_fn in [
@@ -64,6 +70,9 @@ def test_get_field_extractor_fn():
         ("pydantic_v1", erdantic.plugins.pydantic.get_fields_from_pydantic_v1_model),
     ]:
         assert get_field_extractor_fn(key) == get_fields_fn
+
+    with pytest.raises(PluginNotFoundError):
+        get_field_extractor_fn("not_a_plugin")
 
 
 def test_identify_field_extractor_fn():

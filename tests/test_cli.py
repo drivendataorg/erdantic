@@ -24,6 +24,8 @@ def test_import_object_from_name():
     assert import_object_from_name("erdantic") is erd
     assert import_object_from_name("erdantic.examples.pydantic") is examples_pydantic
     with pytest.raises(ModelOrModuleNotFoundError):
+        import_object_from_name("not_a_module")
+    with pytest.raises(ModelOrModuleNotFoundError):
         import_object_from_name("erdantic.not_a_module")
     with pytest.raises(ModelOrModuleNotFoundError):
         import_object_from_name("erdantic.examples.pydantic.not_a_model_class")

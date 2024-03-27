@@ -14,7 +14,9 @@ from erdantic.core import (
     ModelInfo,
     SortedDict,
 )
+import erdantic.examples.dataclasses as dataclasses_examples
 from erdantic.examples.dataclasses import Adventurer, Party
+import erdantic.examples.pydantic as pydantic_examples
 from erdantic.exceptions import FieldNotFoundError, UnknownModelTypeError
 import erdantic.plugins
 from erdantic.plugins.dataclasses import DataclassType
@@ -23,6 +25,32 @@ from erdantic.plugins.dataclasses import DataclassType
 def test_fully_qualified_name_import_object():
     full_name = FullyQualifiedName.from_object(Party)
     assert full_name.import_object() == Party
+
+
+def test_fully_qualified_name_sorting():
+    full_name1 = FullyQualifiedName.from_object(Adventurer)
+    full_name2 = FullyQualifiedName.from_object(Party)
+    assert full_name1 < full_name2
+    assert full_name1 <= full_name2
+    assert full_name1 <= full_name1
+    assert full_name2 > full_name1
+    assert full_name2 >= full_name1
+    assert full_name2 >= full_name2
+    assert full_name1 != full_name2
+    assert full_name1 == full_name1
+    assert full_name2 == full_name2
+    sorted([full_name1, full_name2]) == [full_name1, full_name2]
+    sorted([full_name2, full_name1]) == [full_name1, full_name2]
+
+
+def test_fully_qualified_name_hash():
+    full_name1 = FullyQualifiedName.from_object(Adventurer)
+    full_name2 = FullyQualifiedName.from_object(Adventurer)
+    full_name3 = FullyQualifiedName.from_object(Party)
+
+    assert hash(full_name1) == hash(full_name2)
+    assert hash(full_name1) != hash(full_name3)
+    assert hash(full_name2) != hash(full_name3)
 
 
 def test_field_info_raw_type():
@@ -56,6 +84,60 @@ def test_model_info_raw_model():
         full_name=FullyQualifiedName.from_object(Party), name="this_is_arbitrary", fields={}
     )
     assert model_info.raw_model == Party
+
+
+def test_equality():
+    """Test equality methods on EntityRelationshipDiagram, ModelInfo, FieldInfo, and Edge."""
+
+    diagram1 = EntityRelationshipDiagram()
+    diagram1.add_model(dataclasses_examples.Party)
+
+    diagram2 = EntityRelationshipDiagram()
+    diagram2.add_model(dataclasses_examples.Party)
+
+    diagram3 = EntityRelationshipDiagram()
+    diagram3.add_model(pydantic_examples.Party)
+    different_model = next(iter(diagram3.models.values()))
+    different_field = next(iter(different_model.fields.values()))
+    different_edge = next(iter(diagram3.edges.values()))
+
+    assert diagram1 == diagram2
+    assert diagram1 != diagram3
+    assert diagram2 != diagram3
+    assert list(diagram1.models.keys()) == list(diagram2.models.keys())
+    for model_key in diagram1.models.keys():
+        model1 = diagram1.models[model_key]
+        model2 = diagram2.models[model_key]
+        assert model1 == model2
+        assert model1 != different_model
+        assert model2 != different_model
+        assert list(model1.fields.keys()) == list(model2.fields.keys())
+        for field_key in model1.fields.keys():
+            field1 = model1.fields[field_key]
+            field2 = model2.fields[field_key]
+            assert field1 == field2
+            assert field1 != different_field
+            assert field2 != different_field
+    assert list(diagram1.edges.keys()) == list(diagram2.edges.keys())
+    for edge_key in diagram1.edges.keys():
+        edge1 = diagram1.edges[edge_key]
+        edge2 = diagram2.edges[edge_key]
+        assert edge1 == edge2
+        assert edge1 != different_edge
+        assert edge2 != different_edge
+
+
+def test_key():
+    """key method on ModelInfo, FieldInfo, and Edge should match key of dictionaries."""
+    diagram = EntityRelationshipDiagram()
+    diagram.add_model(Party)
+
+    for model_key, model_info in diagram.models.items():
+        assert model_info.key == model_key
+        for field_key, field_info in model_info.fields.items():
+            assert field_info.key == field_key
+    for edge_key, edge in diagram.edges.items():
+        assert edge.key == edge_key
 
 
 def test_add_unknown_model_type():
@@ -223,3 +305,17 @@ def test_rich_print():
 
     sorted_dict = SortedDict({"a": 1, "b": 2})
     rich.print(sorted_dict)
+
+
+def test_ipython_repr_png():
+    """IPython _repr_png_ method should run without error."""
+    diagram = EntityRelationshipDiagram()
+    diagram.add_model(Party)
+    assert diagram._repr_png_()
+
+
+def test_ipython_repr_svg():
+    """IPython _repr_svg_ method should run without error."""
+    diagram = EntityRelationshipDiagram()
+    diagram.add_model(Party)
+    assert diagram._repr_svg_()

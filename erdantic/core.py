@@ -143,6 +143,13 @@ class FieldInfo(pydantic.BaseModel):
         return field_info
 
     @property
+    def key(self) -> str:
+        """Returns the key used to identify this instance of FieldInfo in the ModelInfo.fields
+        mapping. This value is the value in the 'name' field.
+        """
+        return self.name
+
+    @property
     def raw_type(self) -> type:
         """Returns the raw type annotation of the field. This is a cached property. If the raw
         type is not already known, it will attempt to import the data model class and reextract
@@ -361,11 +368,6 @@ class Edge(pydantic.BaseModel):
     target_modality: Modality
     source_cardinality: Cardinality = Cardinality.UNSPECIFIED
     source_modality: Modality = Modality.UNSPECIFIED
-
-    def __hash__(self) -> int:
-        return hash(
-            (self.source_model_full_name, self.source_field_name, self.target_model_full_name)
-        )
 
     @property
     def key(self) -> str:
