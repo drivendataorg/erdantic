@@ -1,3 +1,0 @@
-# erdantic.base
-
-::: erdantic.base

@@ -1,9 +1,11 @@
 .vscode
-docs/docs/index.md
-docs/docs/changelog.md
-docs/docs/cli.md
-docs/docs/examples/diagram.png
+
+docs/docs/examples/
+docs/notebooks/diagram.png
+docs/notebooks/diagram.svg
 docs/site
+
+tests/_outputs
 
 ### Python
 

@@ -1,3 +1,0 @@
-# erdantic.erd
-
-::: erdantic.erd
