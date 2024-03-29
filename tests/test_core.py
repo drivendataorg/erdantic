@@ -8,6 +8,7 @@ import pytest
 import rich
 
 from erdantic.core import (
+    Edge,
     EntityRelationshipDiagram,
     FieldInfo,
     FullyQualifiedName,
@@ -319,3 +320,27 @@ def test_ipython_repr_svg():
     diagram = EntityRelationshipDiagram()
     diagram.add_model(Party)
     assert diagram._repr_svg_()
+
+
+def test_model_info_subclass():
+    class CustomModelInfo(ModelInfo):
+        pass
+
+    class CustomEntityRelationshipDiagram(EntityRelationshipDiagram):
+        models: SortedDict[str, CustomModelInfo] = SortedDict()
+
+    diagram = CustomEntityRelationshipDiagram()
+    diagram.add_model(Party)
+    assert all(isinstance(model_info, CustomModelInfo) for model_info in diagram.models.values())
+
+
+def test_edge_subclass():
+    class CustomEdge(Edge):
+        pass
+
+    class CustomEntityRelationshipDiagram(EntityRelationshipDiagram):
+        edges: SortedDict[str, CustomEdge] = SortedDict()
+
+    diagram = CustomEntityRelationshipDiagram()
+    diagram.add_model(Party)
+    assert all(isinstance(edge, CustomEdge) for edge in diagram.edges.values())

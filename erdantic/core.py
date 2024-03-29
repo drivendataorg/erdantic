@@ -6,7 +6,7 @@ import logging
 import os
 import sys
 import textwrap
-from typing import Any, Dict, Generic, Mapping, Optional, TypeVar, Union
+from typing import Any, Dict, Generic, Mapping, Optional, Type, TypeVar, Union, get_args
 
 if sys.version_info >= (3, 11):
     from typing import Self
@@ -117,7 +117,7 @@ class FieldInfo(pydantic.BaseModel):
         protected_namespaces=(),
     )
 
-    _ROW_TEMPLATE = """<tr><td>{name}</td><td port="{name}">{type_name}</td></tr>"""
+    _dot_row_template = """<tr><td>{name}</td><td port="{name}">{type_name}</td></tr>"""
 
     _raw_type: Optional[type] = pydantic.PrivateAttr(None)
 
@@ -191,7 +191,7 @@ class FieldInfo(pydantic.BaseModel):
         Returns:
             str: DOT language for table row
         """
-        return self._ROW_TEMPLATE.format(name=self.name, type_name=self.type_name)
+        return self._dot_row_template.format(name=self.name, type_name=self.type_name)
 
 
 @add_repr_pretty_to_pydantic
@@ -215,7 +215,7 @@ class ModelInfo(pydantic.BaseModel, Generic[_ModelType]):
         extra="forbid",
     )
 
-    _TABLE_TEMPLATE = textwrap.dedent(
+    _dot_table_template = textwrap.dedent(
         """\
         <<table border="0" cellborder="1" cellspacing="0">
         <tr><td port="_root" colspan="2"><b>{name}</b></td></tr>
@@ -286,7 +286,7 @@ class ModelInfo(pydantic.BaseModel, Generic[_ModelType]):
             str: DOT language for table
         """
         rows = "\n".join(field_info.to_dot_row() for field_info in self.fields.values()) + "\n"
-        return self._TABLE_TEMPLATE.format(name=self.name, rows=rows).replace("\n", "")
+        return self._dot_table_template.format(name=self.name, rows=rows).replace("\n", "")
 
 
 class Cardinality(Enum):
@@ -413,10 +413,11 @@ class Edge(pydantic.BaseModel):
         )
 
     def target_dot_arrow_shape(self) -> str:
-        """Arrow shape specification in Graphviz DOT language for this edge's head. See
-        [Graphviz docs](https://graphviz.org/doc/info/arrows.html) as a reference. Shape returned
-        is based on [crow's foot notation](https://www.calebcurry.com/cardinality-and-modality/)
-        for the relationship's cardinality and modality.
+        """Arrow shape specification in Graphviz DOT language for this edge's head (the end at the
+        target model). See [Graphviz docs](https://graphviz.org/doc/info/arrows.html) as a
+        reference. Shape returned is based on
+        [crow's foot notation](https://www.gleek.io/blog/crows-foot-notation) for the
+        relationship's cardinality and modality.
 
         Returns:
             str: DOT language specification for arrow shape of this edge's head
@@ -424,6 +425,15 @@ class Edge(pydantic.BaseModel):
         return self.target_cardinality.to_dot() + self.target_modality.to_dot()
 
     def source_dot_arrow_shape(self) -> str:
+        """Arrow shape specification in Graphviz DOT language for this edge's tail (the end at the
+        source model). See [Graphviz docs](https://graphviz.org/doc/info/arrows.html) as a
+        reference. Shape returned is based on
+        [crow's foot notation](https://www.gleek.io/blog/crows-foot-notation) for the
+        relationship's cardinality and modality.
+
+        Returns:
+            str: DOT language specification for arrow shape of this edge's tail
+        """
         return self.source_cardinality.to_dot() + self.source_modality.to_dot()
 
 
@@ -463,12 +473,32 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
     models: SortedDict[str, ModelInfo] = SortedDict()
     edges: SortedDict[str, Edge] = SortedDict()
 
+    model_config = pydantic.ConfigDict(
+        validate_default=True,
+    )
+
+    @property
+    def _model_info_cls(self) -> Type[ModelInfo]:
+        """Returns the model info class used by this diagram class. For the normal
+        EntityRelationshipDiagram class, this is erdantic.core.ModelInfo."""
+        annotation = self.model_fields["models"].annotation
+        args = get_args(annotation)
+        return args[1]
+
+    @property
+    def _edge_cls(self) -> Type[Edge]:
+        """Returns the edge class used by this diagram class. For the normal
+        EntityRelationshipDiagram class, this is erdantic.core.Edge."""
+        annotation = self.model_fields["edges"].annotation
+        args = get_args(annotation)
+        return args[1]
+
     def _add_if_model(self, model: type, recurse: bool) -> bool:
         """Private recursive method to add a model to the diagram."""
         key = str(FullyQualifiedName.from_object(model))
         if key not in self.models:
             try:
-                model_info = ModelInfo.from_raw_model(model)
+                model_info = self._model_info_cls.from_raw_model(model)
                 self.models[key] = model_info
                 logger.debug("Sucessfully added model '%s'.", key)
                 if recurse:
@@ -484,7 +514,7 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
                             for arg in get_recursive_args(field_info.raw_type):
                                 is_model = self._add_if_model(arg, recurse=recurse)
                                 if is_model:
-                                    edge = Edge.from_field_info(arg, field_info)
+                                    edge = self._edge_cls.from_field_info(arg, field_info)
                                     self.edges[edge.key] = edge
                                     logger.debug(
                                         "Added edge from model '%s' field '%s' to model '%s'.",
