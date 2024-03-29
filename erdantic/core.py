@@ -117,6 +117,8 @@ class FieldInfo(pydantic.BaseModel):
         protected_namespaces=(),
     )
 
+    _ROW_TEMPLATE = """<tr><td>{name}</td><td port="{name}">{type_name}</td></tr>"""
+
     _raw_type: Optional[type] = pydantic.PrivateAttr(None)
 
     @classmethod
@@ -181,6 +183,16 @@ class FieldInfo(pydantic.BaseModel):
             return NotImplemented
         return self.model_dump() == other.model_dump()
 
+    def to_dot_row(self) -> str:
+        """Returns the DOT language "HTML-like" syntax specification of a row detailing this field
+        that is part of a table describing the field's parent data model. It is used as part the
+        `label` attribute of data model's node in the graph's DOT representation.
+
+        Returns:
+            str: DOT language for table row
+        """
+        return self._ROW_TEMPLATE.format(name=self.name, type_name=self.type_name)
+
 
 @add_repr_pretty_to_pydantic
 class ModelInfo(pydantic.BaseModel, Generic[_ModelType]):
@@ -201,6 +213,15 @@ class ModelInfo(pydantic.BaseModel, Generic[_ModelType]):
 
     model_config = pydantic.ConfigDict(
         extra="forbid",
+    )
+
+    _TABLE_TEMPLATE = textwrap.dedent(
+        """\
+        <<table border="0" cellborder="1" cellspacing="0">
+        <tr><td port="_root" colspan="2"><b>{name}</b></td></tr>
+        {rows}
+        </table>>
+        """
     )
 
     _raw_model: Optional[_ModelType] = pydantic.PrivateAttr(None)
@@ -255,6 +276,17 @@ class ModelInfo(pydantic.BaseModel, Generic[_ModelType]):
         if not isinstance(other, ModelInfo):
             return NotImplemented
         return self.model_dump() == other.model_dump()
+
+    def to_dot_label(self) -> str:
+        """Returns the DOT language "HTML-like" syntax specification of a table for this data
+        model. It is used as the `label` attribute of data model's node in the graph's DOT
+        representation.
+
+        Returns:
+            str: DOT language for table
+        """
+        rows = "\n".join(field_info.to_dot_row() for field_info in self.fields.values()) + "\n"
+        return self._TABLE_TEMPLATE.format(name=self.name, rows=rows).replace("\n", "")
 
 
 class Cardinality(Enum):
@@ -380,6 +412,20 @@ class Edge(pydantic.BaseModel):
             target_modality=modality,
         )
 
+    def target_dot_arrow_shape(self) -> str:
+        """Arrow shape specification in Graphviz DOT language for this edge's head. See
+        [Graphviz docs](https://graphviz.org/doc/info/arrows.html) as a reference. Shape returned
+        is based on [crow's foot notation](https://www.calebcurry.com/cardinality-and-modality/)
+        for the relationship's cardinality and modality.
+
+        Returns:
+            str: DOT language specification for arrow shape of this edge's head
+        """
+        return self.target_cardinality.to_dot() + self.target_modality.to_dot()
+
+    def source_dot_arrow_shape(self) -> str:
+        return self.source_cardinality.to_dot() + self.source_modality.to_dot()
+
 
 DEFAULT_GRAPH_ATTR = (
     ("nodesep", "0.5"),
@@ -416,17 +462,6 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
 
     models: SortedDict[str, ModelInfo] = SortedDict()
     edges: SortedDict[str, Edge] = SortedDict()
-
-    # DOT language templates for models as nodes
-    _FIELD_ROW_TEMPLATE = """<tr><td>{name}</td><td port="{name}">{type_name}</td></tr>"""
-    _MODEL_TABLE_TEMPLATE = textwrap.dedent(
-        """\
-        <<table border="0" cellborder="1" cellspacing="0">
-        <tr><td port="_root" colspan="2"><b>{name}</b></td></tr>
-        {rows}
-        </table>>
-        """
-    )
 
     def _add_if_model(self, model: type, recurse: bool) -> bool:
         """Private recursive method to add a model to the diagram."""
@@ -487,27 +522,6 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
         is_model = self._add_if_model(model, recurse=recurse)
         if not is_model:
             raise UnknownModelTypeError(model=model, available_plugins=list_plugins())
-
-    def model_info_to_dot(self, model_info: ModelInfo) -> str:
-        """Returns the DOT language "HTML-like" syntax specification of a table for the provided
-        model info instance. It is used as the `label` attribute of data model's node in the
-        graph's DOT representation.
-
-        Returns:
-            str: DOT language for table row
-        """
-        rows_dot = (
-            "\n".join(
-                self._FIELD_ROW_TEMPLATE.format(
-                    name=field_info.name, type_name=field_info.type_name
-                )
-                for field_info in model_info.fields.values()
-            )
-            + "\n"
-        )
-        return self._MODEL_TABLE_TEMPLATE.format(name=model_info.name, rows=rows_dot).replace(
-            "\n", ""
-        )
 
     def draw(
         self,
@@ -572,21 +586,17 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
         for full_name, model_info in self.models.items():
             g.add_node(
                 full_name,
-                label=self.model_info_to_dot(model_info),
+                label=model_info.to_dot_label(),
                 tooltip=model_info.description.replace("\n", "&#xA;"),
             )
         for edge in self.edges.values():
-            # Arrowhead is the end at the target model
-            arrowhead = edge.target_cardinality.to_dot() + edge.target_modality.to_dot()
-            # Arrowtail is the end at the source model
-            arrowtail = edge.source_cardinality.to_dot() + edge.source_modality.to_dot()
             g.add_edge(
                 edge.source_model_full_name,
                 edge.target_model_full_name,
                 tailport=f"{edge.source_field_name}:e",
                 headport="_root:w",
-                arrowhead=arrowhead,
-                arrowtail=arrowtail,
+                arrowhead=edge.target_dot_arrow_shape(),
+                arrowtail=edge.source_dot_arrow_shape(),
             )
         return g
 
