@@ -101,5 +101,8 @@ extra:
   version:
     provider: mike
 
+extra_css:
+  - css/mkdocs-jupyter-extra.css
+
 watch:
   - ../erdantic
