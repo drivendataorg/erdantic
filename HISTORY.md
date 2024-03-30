@@ -5,7 +5,7 @@
 _This is a pre-release version for v1.0.0._
 
 > [!IMPORTANT]
-> This release features significant changes to erdantic, primarily to the backend process of analyzing models and representing data. If you have been primarily using the CLI or the convenience functions `create`, `draw`, and `to_dot`, then your code may continue to work without any changes.
+> This release features significant changes to erdantic, primarily to the backend process of analyzing models and representing data. If you have been primarily using the CLI or the convenience functions `create`, `draw`, and `to_dot`, then your code may continue to work without any changes. If you are doing something more advanced, you may need to update your code.
 
 ### CLI changes
 
