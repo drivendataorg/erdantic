@@ -1,5 +1,4 @@
 from pathlib import Path
-from types import ModuleType
 
 import tests.pydantic_with_default_column
 
