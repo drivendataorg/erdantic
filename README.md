@@ -7,9 +7,8 @@
 [![tests](https://github.com/drivendataorg/erdantic/workflows/tests/badge.svg?branch=main)](https://github.com/drivendataorg/erdantic/actions?query=workflow%3Atests+branch%3Amain)
 [![codecov](https://codecov.io/gh/drivendataorg/erdantic/branch/main/graph/badge.svg)](https://codecov.io/gh/drivendataorg/erdantic)
 
-> [!NOTE] v1.0 coming soon
->
-> erdantic v1.0 has big changes to the backend. If you're just using the CLI or the convenience functions like `create` or `draw`, then you probably won't notice any major changes. If you've been doing something more advanced, then you may need to update your code. See the [changelog](./HISTORY.md) for more information.
+> [!NOTE]
+> erdantic v1.0 is coming soon and involves big backend changes. If you're just using the CLI or the convenience functions like `create` or `draw`, then you probably won't notice any significant differences. If you've been doing something more advanced, then you may need to update your code. See the [changelog](./HISTORY.md) for more information.
 
 **erdantic** is a simple tool for drawing [entity relationship diagrams (ERDs)](https://en.wikipedia.org/wiki/Data_modeling#Entity%E2%80%93relationship_diagrams) for Python data model classes. Diagrams are rendered using the venerable [Graphviz](https://graphviz.org/) library. Supported data modeling frameworks are:
 
