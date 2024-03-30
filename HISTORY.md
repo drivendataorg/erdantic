@@ -20,9 +20,10 @@ _This is a pre-release version for v1.0.0._
 
 A few changes have been made to the visual content of rendered diagrams.
 
-- Changed the extraction of type names to use the [typenames](https://github.com/jayqi/typenames) library. This should generally produce with same rendered outputs, with the following exception:
+- Changed the extraction of type names to use the [typenames](https://github.com/jayqi/typenames) library. This should generally produce identical rendered outputs as before, with the following exception:
     - Removed the special case behavior for rendering enum classes. Enums now just show the class name without inheritance information.
 - Changed collection fields (e.g., `List[TargetModel]`) to display as a "many" relationship (crow) instead of a "zero-or-many" relationship (odot + crow), treating the modality of the field as unspecified. A field will only be displayed as "zero-or-many" (odot + crow) if it is explicitly optional, like `Optional[List[TargetModel]]`.
+- Fixed incorrect representation of manyness for type annotations where the outermost annotation wasn't a collection type. ([Issue #105](https://github.com/drivendataorg/erdantic/issues/105))
 
 ### Support for attrs
 
