@@ -15,8 +15,6 @@ from erdantic.exceptions import ModelOrModuleNotFoundError
 
 runner = CliRunner(mix_stderr=False)
 
-OUTPUTS_DIR = Path(__file__).resolve().parent / "_outputs"
-
 
 def test_import_object_from_name():
     assert import_object_from_name("erdantic.examples.pydantic.Party") is Party
