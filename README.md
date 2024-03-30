@@ -7,6 +7,9 @@
 [![tests](https://github.com/drivendataorg/erdantic/workflows/tests/badge.svg?branch=main)](https://github.com/drivendataorg/erdantic/actions?query=workflow%3Atests+branch%3Amain)
 [![codecov](https://codecov.io/gh/drivendataorg/erdantic/branch/main/graph/badge.svg)](https://codecov.io/gh/drivendataorg/erdantic)
 
+> [!NOTE] v1.0 coming soon
+> erdantic v1.0 has big changes to the backend. If you're just using the CLI or the convenience functions like `create` or `draw`, then you probably won't notice any major changes. If you've been doing something more advanced, then you may need to update your code. See the [changelog](./HISTORY.md) for more information.
+
 **erdantic** is a simple tool for drawing [entity relationship diagrams (ERDs)](https://en.wikipedia.org/wiki/Data_modeling#Entity%E2%80%93relationship_diagrams) for Python data model classes. Diagrams are rendered using the venerable [Graphviz](https://graphviz.org/) library. Supported data modeling frameworks are:
 
 - [Pydantic V2](https://docs.pydantic.dev/latest/)
@@ -17,9 +20,6 @@
 You can use erdantic either as a convenient CLI or as a Python library. Great for adding a simple and clean data model reference to your documentation.
 
 <object type="image/svg+xml" data="./docs/docs/assets/example_diagram.svg" width="100%" typemustmatch><img alt="Example diagram created by erdantic" src="./docs/docs/assets/example_diagram.svg"></object>
-
-> [!NOTE]
-> erdantic v1.0 made big changes to the backend. If you're just using the CLI or the convenience functions like `create` or `draw`, then you probably won't notice any major changes. If you've been doing something more advanced, then you may need to update your code. See the [changelog](./HISTORY.md) for more information.
 
 ## Installation
 
@@ -72,4 +72,4 @@ list(diagram.models.keys())
 diagram.draw("diagram.png")
 ```
 
-Check out the "Usage Examples" section of our [docs](https://erdantic.drivendata.org/) to see more. 
+Check out the "Usage Examples" section of our [docs](https://erdantic.drivendata.org/) to see more.
