@@ -6,6 +6,11 @@ from pathlib import Path
 import sys
 from typing import List, Optional
 
+if sys.version_info >= (3, 9):
+    from typing import Annotated
+else:
+    from typing_extensions import Annotated
+
 import IPython.lib.pretty as IPython_pretty
 import pytest
 import rich
@@ -67,6 +72,19 @@ def test_field_info_raw_type():
         type_name="this_is_arbitrary",
     )
     assert field_info.raw_type == List[Adventurer]
+
+
+def test_field_info_annotated():
+    """FieldInfo should handle Annotated types. The type_name should not included metadata."""
+
+    class DummyModel: ...
+
+    tp = Annotated[str, "metadata"]
+    field_info = FieldInfo.from_raw_type(
+        model_full_name=FullyQualifiedName.from_object(DummyModel), name="dummy", raw_type=tp
+    )
+    assert field_info.type_name == "str"
+    assert field_info.raw_type == tp
 
 
 def test_field_not_found_error():

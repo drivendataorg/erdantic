@@ -3,6 +3,12 @@ import re
 import sys
 from typing import TYPE_CHECKING, Any, List, Type, get_type_hints
 
+if sys.version_info >= (3, 9):
+    # include_extras was added in Python 3.9
+    from typing import get_type_hints
+else:
+    from typing_extensions import get_type_hints
+
 if sys.version_info >= (3, 10):
     from typing import TypeGuard
 else:
@@ -75,7 +81,7 @@ register_plugin(
 
 
 def resolve_types_on_dataclass(
-    cls: DataclassType, globalns=None, localns=None, include_extras=False
+    cls: DataclassType, globalns=None, localns=None, include_extras=True
 ) -> DataclassType:
     """Resolve forward references in type annotations on a dataclass. This will modify the fields
     metadata on the class to replace forward references with the actual types.
@@ -87,18 +93,14 @@ def resolve_types_on_dataclass(
         localns (Dict[str, Any] | None, optional): A local namespace to evaluate forward
             references against. Defaults to None.
         include_extras (bool, optional): Whether to keep extra metadata from `typing.Annotated`.
-            Defaults to False.
+            Defaults to True.
     """
     # Cache whether we have already run this on a cls
     # Inspired by attrs.resolve_types
     if getattr(cls, "__erdantic_dataclass_types_resolved__", None) != cls:
-        if sys.version_info >= (3, 9):
-            # include_extras was added in Python 3.9
-            hints = get_type_hints(
-                cls, globalns=globalns, localns=localns, include_extras=include_extras
-            )
-        else:
-            hints = get_type_hints(cls, globalns=globalns, localns=localns)
+        hints = get_type_hints(
+            cls, globalns=globalns, localns=localns, include_extras=include_extras
+        )
         for field in dataclasses.fields(cls):
             field.type = hints[field.name]
         # Use reference to cls as indicator in case of subclasses

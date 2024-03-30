@@ -1,5 +1,5 @@
 from html import escape
-from typing import Any, Dict, List, Self
+from typing import Any, Dict, List
 
 import pydantic
 import pydantic_core
@@ -33,7 +33,7 @@ class FieldInfoWithDefault(FieldInfo):
     @classmethod
     def from_raw_type(
         cls, model_full_name: FullyQualifiedName, name: str, raw_type: type, raw_default_value: Any
-    ) -> Self:
+    ):
         default_value = (
             "" if raw_default_value is pydantic_core.PydanticUndefined else repr(raw_default_value)
         )

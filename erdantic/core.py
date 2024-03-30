@@ -6,7 +6,15 @@ import logging
 import os
 import sys
 import textwrap
-from typing import Any, Dict, Generic, Mapping, Optional, Type, TypeVar, Union, get_args
+from typing import Any, Dict, Generic, Mapping, Optional, Type, TypeVar, Union
+
+if sys.version_info >= (3, 9):
+    from typing import Annotated, get_args, get_origin
+else:
+    # Annotated added in Python 3.9. typing's get_args and get_origin behave weirdly with
+    # so need to use typing_extensions version
+    from typing_extensions import Annotated, get_args, get_origin
+
 
 if sys.version_info >= (3, 11):
     from typing import Self
@@ -134,10 +142,15 @@ class FieldInfo(pydantic.BaseModel):
         Returns:
             Self: _description_
         """
+        if get_origin(raw_type) is Annotated:
+            # Drop the Annotated extra metadata for the string representation
+            type_name = typenames(get_args(raw_type)[0], remove_modules=REMOVE_ALL_MODULES)
+        else:
+            type_name = typenames(raw_type, remove_modules=REMOVE_ALL_MODULES)
         field_info = cls(
             model_full_name=model_full_name,
             name=name,
-            type_name=typenames(raw_type, remove_modules=REMOVE_ALL_MODULES),
+            type_name=type_name,
         )
         field_info._raw_type = raw_type
         return field_info

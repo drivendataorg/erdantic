@@ -1,6 +1,13 @@
+import dataclasses
 from dataclasses import dataclass
 from pprint import pprint
+import sys
 from typing import Optional
+
+if sys.version_info >= (3, 9):
+    from typing import Annotated, get_type_hints
+else:
+    from typing_extensions import Annotated, get_type_hints
 
 import pytest
 
@@ -192,3 +199,29 @@ def test_forward_refs_fn_scope_manual_resolvable():
     assert fields["sibling_ref_after"].raw_type == FnScopeOtherClassAfter
     assert fields["nested_sibling_ref_after"].type_name == "Optional[FnScopeOtherClassAfter]"
     assert fields["nested_sibling_ref_after"].raw_type == Optional[FnScopeOtherClassAfter]
+
+
+@dataclass
+class ModelWithAnnotated:
+    annotated_field: Annotated[str, "My annotation"]
+
+
+def test_annotated():
+    """resolve_types_on_dataclass in the field extractor should not clobber Annotated type hints
+    in fields, but the rendered type name should be the inner type without extra metadata.
+    """
+    field_infos = get_fields_from_dataclass(ModelWithAnnotated)
+    print(field_infos)
+    assert len(field_infos) == 1
+    assert field_infos[0].raw_type == Annotated[str, "My annotation"]
+    assert field_infos[0].type_name == "str"
+
+    fields = dataclasses.fields(ModelWithAnnotated)
+    print(fields)
+    assert len(fields) == 1
+    assert fields[0].type == Annotated[str, "My annotation"]
+
+    type_hints = get_type_hints(ModelWithAnnotated, include_extras=True)
+    print(type_hints)
+    assert len(type_hints) == 1
+    assert type_hints["annotated_field"] == Annotated[str, "My annotation"]
