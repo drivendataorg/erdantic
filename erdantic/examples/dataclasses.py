@@ -1,7 +1,7 @@
 """Example data model classes using standard library's
 [`dataclasses`](https://docs.python.org/3/library/dataclasses.html) module."""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from typing import List, Optional
@@ -26,14 +26,14 @@ class Adventurer:
     Attributes:
         name (str): Name of this adventurer
         profession (str): Profession of this adventurer
-        level (int): Level of this adventurer
         alignment (Alignment): Alignment of this adventurer
+        level (int): Level of this adventurer
     """
 
     name: str
     profession: str
-    level: int
     alignment: Alignment
+    level: int = 1
 
 
 @dataclass
@@ -47,8 +47,8 @@ class QuestGiver:
     """
 
     name: str
-    faction: Optional[str]
-    location: str
+    faction: Optional[str] = None
+    location: str = "Adventurer's Guild"
 
 
 @dataclass
@@ -63,7 +63,7 @@ class Quest:
 
     name: str
     giver: QuestGiver
-    reward_gold: int
+    reward_gold: int = 100
 
 
 @dataclass
@@ -79,5 +79,5 @@ class Party:
 
     name: str
     formed_datetime: datetime
-    members: List[Adventurer]
-    active_quest: Optional[Quest]
+    members: List[Adventurer] = field(default_factory=list)
+    active_quest: Optional[Quest] = None

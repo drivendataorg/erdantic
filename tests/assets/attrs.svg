@@ -25,13 +25,13 @@
 <polygon fill="none" stroke="black" points="374,-230.5 374,-252.5 438,-252.5 438,-230.5 374,-230.5"/>
 <text text-anchor="start" x="399.25" y="-236.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">str</text>
 <polygon fill="none" stroke="black" points="312,-208.5 312,-230.5 374,-230.5 374,-208.5 312,-208.5"/>
-<text text-anchor="start" x="329.88" y="-214.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">level</text>
+<text text-anchor="start" x="315.62" y="-214.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">alignment</text>
 <polygon fill="none" stroke="black" points="374,-208.5 374,-230.5 438,-230.5 438,-208.5 374,-208.5"/>
-<text text-anchor="start" x="398.88" y="-214.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">int</text>
+<text text-anchor="start" x="376.75" y="-214.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Alignment</text>
 <polygon fill="none" stroke="black" points="312,-186.5 312,-208.5 374,-208.5 374,-186.5 312,-186.5"/>
-<text text-anchor="start" x="315.62" y="-192.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">alignment</text>
+<text text-anchor="start" x="329.88" y="-192.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">level</text>
 <polygon fill="none" stroke="black" points="374,-186.5 374,-208.5 438,-208.5 438,-186.5 374,-186.5"/>
-<text text-anchor="start" x="376.75" y="-192.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Alignment</text>
+<text text-anchor="start" x="398.88" y="-192.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">int</text>
 </a>
 </g>
 </g>

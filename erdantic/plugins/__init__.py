@@ -65,7 +65,7 @@ def register_plugin(
     """
     logger.debug("Registering plugin '%s'", key)
     if key in _dict:
-        logger.warn("Overwriting existing implementation for key '%s'", key)
+        logger.warning("Overwriting existing implementation for key '%s'", key)
     _dict[key] = (predicate_fn, get_fields_fn)
 
 

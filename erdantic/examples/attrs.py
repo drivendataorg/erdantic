@@ -5,7 +5,7 @@ from datetime import datetime
 from enum import Enum
 from typing import List, Optional
 
-from attrs import define
+from attrs import define, field
 
 
 class Alignment(str, Enum):
@@ -33,8 +33,8 @@ class Adventurer:
 
     name: str
     profession: str
-    level: int
     alignment: Alignment
+    level: int = 1
 
 
 @define
@@ -48,8 +48,8 @@ class QuestGiver:
     """
 
     name: str
-    faction: Optional[str]
-    location: str
+    faction: Optional[str] = None
+    location: str = "Adventurer's Guild"
 
 
 @define
@@ -64,7 +64,7 @@ class Quest:
 
     name: str
     giver: QuestGiver
-    reward_gold: int
+    reward_gold: int = 100
 
 
 @define
@@ -80,5 +80,5 @@ class Party:
 
     name: str
     formed_datetime: datetime
-    members: List[Adventurer]
-    active_quest: Optional[Quest]
+    members: List[Adventurer] = field(factory=list)
+    active_quest: Optional[Quest] = None

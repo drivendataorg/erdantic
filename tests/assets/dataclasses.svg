@@ -13,7 +13,7 @@
 <!-- erdantic.examples.dataclasses.Adventurer -->
 <g id="node1" class="node">
 <title>erdantic.examples.dataclasses.Adventurer</title>
-<g id="a_node1"><a xlink:title="erdantic.examples.dataclasses.Adventurer&#10;&#10;A person often late for dinner but with a tale or two to tell.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;name (str): Name of this adventurer&#10; &#160;&#160;&#160;profession (str): Profession of this adventurer&#10; &#160;&#160;&#160;level (int): Level of this adventurer&#10; &#160;&#160;&#160;alignment (Alignment): Alignment of this adventurer&#10;">
+<g id="a_node1"><a xlink:title="erdantic.examples.dataclasses.Adventurer&#10;&#10;A person often late for dinner but with a tale or two to tell.&#10;&#10;Attributes:&#10; &#160;&#160;&#160;name (str): Name of this adventurer&#10; &#160;&#160;&#160;profession (str): Profession of this adventurer&#10; &#160;&#160;&#160;alignment (Alignment): Alignment of this adventurer&#10; &#160;&#160;&#160;level (int): Level of this adventurer&#10;">
 <polygon fill="none" stroke="black" points="312,-274.5 312,-296.5 438,-296.5 438,-274.5 312,-274.5"/>
 <text text-anchor="start" x="341.25" y="-281.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-weight="bold" font-size="14.00">Adventurer</text>
 <polygon fill="none" stroke="black" points="312,-252.5 312,-274.5 374,-274.5 374,-252.5 312,-252.5"/>
@@ -25,13 +25,13 @@
 <polygon fill="none" stroke="black" points="374,-230.5 374,-252.5 438,-252.5 438,-230.5 374,-230.5"/>
 <text text-anchor="start" x="399.25" y="-236.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">str</text>
 <polygon fill="none" stroke="black" points="312,-208.5 312,-230.5 374,-230.5 374,-208.5 312,-208.5"/>
-<text text-anchor="start" x="329.88" y="-214.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">level</text>
+<text text-anchor="start" x="315.62" y="-214.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">alignment</text>
 <polygon fill="none" stroke="black" points="374,-208.5 374,-230.5 438,-230.5 438,-208.5 374,-208.5"/>
-<text text-anchor="start" x="398.88" y="-214.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">int</text>
+<text text-anchor="start" x="376.75" y="-214.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Alignment</text>
 <polygon fill="none" stroke="black" points="312,-186.5 312,-208.5 374,-208.5 374,-186.5 312,-186.5"/>
-<text text-anchor="start" x="315.62" y="-192.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">alignment</text>
+<text text-anchor="start" x="329.88" y="-192.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">level</text>
 <polygon fill="none" stroke="black" points="374,-186.5 374,-208.5 438,-208.5 438,-186.5 374,-186.5"/>
-<text text-anchor="start" x="376.75" y="-192.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">Alignment</text>
+<text text-anchor="start" x="398.88" y="-192.2" font-family="Times New Roman,Times,Liberation Serif,serif" font-size="14.00">int</text>
 </a>
 </g>
 </g>

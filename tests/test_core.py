@@ -1,5 +1,8 @@
 import builtins
 import dataclasses
+import filecmp
+import os
+from pathlib import Path
 import sys
 from typing import List, Optional
 
@@ -21,6 +24,8 @@ import erdantic.examples.pydantic as pydantic_examples
 from erdantic.exceptions import FieldNotFoundError, UnknownModelTypeError
 import erdantic.plugins
 from erdantic.plugins.dataclasses import DataclassType
+
+ASSETS_DIR = Path(__file__).resolve().parent / "assets"
 
 
 def test_fully_qualified_name_import_object():
@@ -344,3 +349,53 @@ def test_edge_subclass():
     diagram = CustomEntityRelationshipDiagram()
     diagram.add_model(Party)
     assert all(isinstance(edge, CustomEdge) for edge in diagram.edges.values())
+
+
+@pytest.fixture
+def reset_plugins():
+    """Reset plugins to original state after we test overwriting pydantic plugin."""
+    plugins_data = tuple(erdantic.plugins._dict.items())
+    yield
+    erdantic.plugins._dict = dict(plugins_data)
+
+
+def test_subclass(caplog, outputs_dir, version_patch, reset_plugins):
+    """Subclass things to add a third column with the field default value."""
+    out_dir = outputs_dir / "test_score-test_subclass"
+    out_dir.mkdir()
+    filename = "pydantic_with_default_column"
+
+    # Import module that implements custom classes
+    import tests.pydantic_with_default_column
+
+    # Should log warning that we're overwriting pydantic plugin
+    warning_records = [record for record in caplog.records if record.levelname == "WARNING"]
+    assert len(warning_records) == 1
+    assert "pydantic" in warning_records[0].message
+
+    diagram = tests.pydantic_with_default_column.EntityRelationshipDiagramWithDefault()
+    diagram.add_model(pydantic_examples.Party)
+
+    expected_dir = ASSETS_DIR / "test_core-test_subclass"
+
+    diagram.draw(out_dir / f"{filename}.png")
+    if not os.getenv("GITHUB_ACTIONS", False):
+        # Skip for CI because it doesn't produce an identical file
+        assert filecmp.cmp(out_dir / f"{filename}.png", expected_dir / f"{filename}.png")
+
+    diagram.draw(out_dir / f"{filename}.svg")
+    if not os.getenv("GITHUB_ACTIONS", False):
+        # Skip for CI because it doesn't produce an identical file
+        assert (out_dir / f"{filename}.svg").read_text() == (
+            expected_dir / f"{filename}.svg"
+        ).read_text()
+
+    (out_dir / f"{filename}.dot").write_text(diagram.to_dot())
+    assert (out_dir / f"{filename}.dot").read_text() == (
+        expected_dir / f"{filename}.dot"
+    ).read_text()
+
+    (out_dir / f"{filename}.json").write_text(diagram.model_dump_json(indent=2))
+    assert (out_dir / f"{filename}.json").read_text() == (
+        expected_dir / f"{filename}.json"
+    ).read_text()

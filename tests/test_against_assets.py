@@ -14,20 +14,6 @@ from tests.utils import assert_dot_equals
 ASSETS_DIR = Path(__file__).resolve().parent / "assets"
 
 
-@pytest.fixture()
-def version_patch(monkeypatch):
-    """Monkeypatch version to stable value to compare with static test assets."""
-    default_graph_attr = dict(erdantic.core.DEFAULT_GRAPH_ATTR)
-    default_graph_attr["label"] = default_graph_attr["label"].replace(
-        f"v{erdantic.__version__}", "vTEST"
-    )
-    monkeypatch.setattr(erdantic.core, "DEFAULT_GRAPH_ATTR", tuple(default_graph_attr.items()))
-
-    monkeypatch.setattr(erd, "__version__", "TEST")
-    monkeypatch.setattr(erdantic._version, "__version__", "TEST")
-    monkeypatch.setattr(erdantic.core, "__version__", "TEST")
-
-
 CASES = (
     ("attrs", erdantic.examples.attrs),
     ("dataclasses", erdantic.examples.dataclasses),

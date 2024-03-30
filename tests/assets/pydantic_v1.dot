@@ -13,10 +13,10 @@ digraph "Entity Relationship Diagram created by erdantic" {
 		shape=plain
 	];
 	edge [dir=both];
-	"erdantic.examples.pydantic_v1.Adventurer"	[label=<<table border="0" cellborder="1" cellspacing="0"><tr><td port="_root" colspan="2"><b>Adventurer</b></td></tr><tr><td>name</td><td port="name">str</td></tr><tr><td>profession</td><td port="profession">str</td></tr><tr><td>level</td><td port="level">int</td></tr><tr><td>alignment</td><td port="alignment">Alignment</td></tr></table>>,
+	"erdantic.examples.pydantic_v1.Adventurer"	[label=<<table border="0" cellborder="1" cellspacing="0"><tr><td port="_root" colspan="2"><b>Adventurer</b></td></tr><tr><td>name</td><td port="name">str</td></tr><tr><td>profession</td><td port="profession">str</td></tr><tr><td>alignment</td><td port="alignment">Alignment</td></tr><tr><td>level</td><td port="level">int</td></tr></table>>,
 		tooltip="erdantic.examples.pydantic_v1.Adventurer&#xA;&#xA;A person often late for dinner but with a tale or two to tell.&#xA;&#xA;Attributes:&#\
-xA;    name (str): Name of this adventurer&#xA;    profession (str): Profession of this adventurer&#xA;    level (int): Level of \
-this adventurer&#xA;    alignment (Alignment): Alignment of this adventurer&#xA;"];
+xA;    name (str): Name of this adventurer&#xA;    profession (str): Profession of this adventurer&#xA;    alignment (Alignment): \
+Alignment of this adventurer&#xA;    level (int): Level of this adventurer&#xA;"];
 	"erdantic.examples.pydantic_v1.Party"	[label=<<table border="0" cellborder="1" cellspacing="0"><tr><td port="_root" colspan="2"><b>Party</b></td></tr><tr><td>name</td><td port="name">str</td></tr><tr><td>formed_datetime</td><td port="formed_datetime">datetime</td></tr><tr><td>members</td><td port="members">List[Adventurer]</td></tr><tr><td>active_quest</td><td port="active_quest">Optional[Quest]</td></tr></table>>,
 		tooltip="erdantic.examples.pydantic_v1.Party&#xA;&#xA;A group of adventurers finding themselves doing and saying things altogether unexpected.&#\
 xA;&#xA;Attributes:&#xA;    name (str): Name that party is known by&#xA;    formed_datetime (datetime): Timestamp of when the party \

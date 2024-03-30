@@ -23,14 +23,6 @@
           "name": "profession",
           "type_name": "str"
         },
-        "level": {
-          "model_full_name": {
-            "module": "erdantic.examples.attrs",
-            "qual_name": "Adventurer"
-          },
-          "name": "level",
-          "type_name": "int"
-        },
         "alignment": {
           "model_full_name": {
             "module": "erdantic.examples.attrs",
@@ -38,6 +30,14 @@
           },
           "name": "alignment",
           "type_name": "Alignment"
+        },
+        "level": {
+          "model_full_name": {
+            "module": "erdantic.examples.attrs",
+            "qual_name": "Adventurer"
+          },
+          "name": "level",
+          "type_name": "int"
         }
       },
       "description": "erdantic.examples.attrs.Adventurer\n\nA person often late for dinner but with a tale or two to tell.\n\nAttributes:\n    name (str): Name of this adventurer\n    profession (str): Profession of this adventurer\n    level (int): Level of this adventurer\n    alignment (Alignment): Alignment of this adventurer\n"

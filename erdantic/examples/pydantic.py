@@ -25,14 +25,14 @@ class Adventurer(BaseModel):
     Attributes:
         name (str): Name of this adventurer
         profession (str): Profession of this adventurer
-        level (int): Level of this adventurer
         alignment (Alignment): Alignment of this adventurer
+        level (int): Level of this adventurer
     """
 
     name: str
     profession: str
-    level: int
     alignment: Alignment
+    level: int = 1
 
 
 class QuestGiver(BaseModel):
@@ -45,8 +45,8 @@ class QuestGiver(BaseModel):
     """
 
     name: str
-    faction: Optional[str]
-    location: str
+    faction: Optional[str] = None
+    location: str = "Adventurer's Guild"
 
 
 class Quest(BaseModel):
@@ -60,7 +60,7 @@ class Quest(BaseModel):
 
     name: str
     giver: QuestGiver
-    reward_gold: int
+    reward_gold: int = 100
 
 
 class Party(BaseModel):
@@ -75,5 +75,5 @@ class Party(BaseModel):
 
     name: str
     formed_datetime: datetime
-    members: List[Adventurer]
-    active_quest: Optional[Quest]
+    members: List[Adventurer] = []
+    active_quest: Optional[Quest] = None

@@ -218,7 +218,7 @@ class ModelInfo(pydantic.BaseModel, Generic[_ModelType]):
     _dot_table_template = textwrap.dedent(
         """\
         <<table border="0" cellborder="1" cellspacing="0">
-        <tr><td port="_root" colspan="2"><b>{name}</b></td></tr>
+        <tr><td port="_root" colspan="{num_cols}"><b>{name}</b></td></tr>
         {rows}
         </table>>
         """
@@ -285,8 +285,13 @@ class ModelInfo(pydantic.BaseModel, Generic[_ModelType]):
         Returns:
             str: DOT language for table
         """
+        # Get number of columns dynamically from first row
+        num_cols = next(iter(self.fields.values())).to_dot_row().count("<td")
+        # Concatenate DOT of all rows together
         rows = "\n".join(field_info.to_dot_row() for field_info in self.fields.values()) + "\n"
-        return self._dot_table_template.format(name=self.name, rows=rows).replace("\n", "")
+        return self._dot_table_template.format(
+            name=self.name, num_cols=num_cols, rows=rows
+        ).replace("\n", "")
 
 
 class Cardinality(Enum):
