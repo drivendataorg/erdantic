@@ -1,0 +1,217 @@
+{
+  "models": {
+    "erdantic.examples.pydantic.Adventurer": {
+      "full_name": {
+        "module": "erdantic.examples.pydantic",
+        "qual_name": "Adventurer"
+      },
+      "name": "Adventurer",
+      "fields": {
+        "name": {
+          "model_full_name": {
+            "module": "erdantic.examples.pydantic",
+            "qual_name": "Adventurer"
+          },
+          "name": "name",
+          "type_name": "str",
+          "default_value": ""
+        },
+        "profession": {
+          "model_full_name": {
+            "module": "erdantic.examples.pydantic",
+            "qual_name": "Adventurer"
+          },
+          "name": "profession",
+          "type_name": "str",
+          "default_value": ""
+        },
+        "alignment": {
+          "model_full_name": {
+            "module": "erdantic.examples.pydantic",
+            "qual_name": "Adventurer"
+          },
+          "name": "alignment",
+          "type_name": "Alignment",
+          "default_value": ""
+        },
+        "level": {
+          "model_full_name": {
+            "module": "erdantic.examples.pydantic",
+            "qual_name": "Adventurer"
+          },
+          "name": "level",
+          "type_name": "int",
+          "default_value": "1"
+        }
+      },
+      "description": "erdantic.examples.pydantic.Adventurer\n\nA person often late for dinner but with a tale or two to tell.\n\nAttributes:\n    name (str): Name of this adventurer\n    profession (str): Profession of this adventurer\n    alignment (Alignment): Alignment of this adventurer\n    level (int): Level of this adventurer\n"
+    },
+    "erdantic.examples.pydantic.Party": {
+      "full_name": {
+        "module": "erdantic.examples.pydantic",
+        "qual_name": "Party"
+      },
+      "name": "Party",
+      "fields": {
+        "name": {
+          "model_full_name": {
+            "module": "erdantic.examples.pydantic",
+            "qual_name": "Party"
+          },
+          "name": "name",
+          "type_name": "str",
+          "default_value": ""
+        },
+        "formed_datetime": {
+          "model_full_name": {
+            "module": "erdantic.examples.pydantic",
+            "qual_name": "Party"
+          },
+          "name": "formed_datetime",
+          "type_name": "datetime",
+          "default_value": ""
+        },
+        "members": {
+          "model_full_name": {
+            "module": "erdantic.examples.pydantic",
+            "qual_name": "Party"
+          },
+          "name": "members",
+          "type_name": "List[Adventurer]",
+          "default_value": "[]"
+        },
+        "active_quest": {
+          "model_full_name": {
+            "module": "erdantic.examples.pydantic",
+            "qual_name": "Party"
+          },
+          "name": "active_quest",
+          "type_name": "Optional[Quest]",
+          "default_value": "None"
+        }
+      },
+      "description": "erdantic.examples.pydantic.Party\n\nA group of adventurers finding themselves doing and saying things altogether unexpected.\n\nAttributes:\n    name (str): Name that party is known by\n    formed_datetime (datetime): Timestamp of when the party was formed\n    members (List[Adventurer]): Adventurers that belong to this party\n    active_quest (Optional[Quest]): Current quest that party is actively tackling\n"
+    },
+    "erdantic.examples.pydantic.Quest": {
+      "full_name": {
+        "module": "erdantic.examples.pydantic",
+        "qual_name": "Quest"
+      },
+      "name": "Quest",
+      "fields": {
+        "name": {
+          "model_full_name": {
+            "module": "erdantic.examples.pydantic",
+            "qual_name": "Quest"
+          },
+          "name": "name",
+          "type_name": "str",
+          "default_value": ""
+        },
+        "giver": {
+          "model_full_name": {
+            "module": "erdantic.examples.pydantic",
+            "qual_name": "Quest"
+          },
+          "name": "giver",
+          "type_name": "QuestGiver",
+          "default_value": ""
+        },
+        "reward_gold": {
+          "model_full_name": {
+            "module": "erdantic.examples.pydantic",
+            "qual_name": "Quest"
+          },
+          "name": "reward_gold",
+          "type_name": "int",
+          "default_value": "100"
+        }
+      },
+      "description": "erdantic.examples.pydantic.Quest\n\nA task to complete, with some monetary reward.\n\nAttributes:\n    name (str): Name by which this quest is referred to\n    giver (QuestGiver): Person who offered the quest\n    reward_gold (int): Amount of gold to be rewarded for quest completion\n"
+    },
+    "erdantic.examples.pydantic.QuestGiver": {
+      "full_name": {
+        "module": "erdantic.examples.pydantic",
+        "qual_name": "QuestGiver"
+      },
+      "name": "QuestGiver",
+      "fields": {
+        "name": {
+          "model_full_name": {
+            "module": "erdantic.examples.pydantic",
+            "qual_name": "QuestGiver"
+          },
+          "name": "name",
+          "type_name": "str",
+          "default_value": ""
+        },
+        "faction": {
+          "model_full_name": {
+            "module": "erdantic.examples.pydantic",
+            "qual_name": "QuestGiver"
+          },
+          "name": "faction",
+          "type_name": "Optional[str]",
+          "default_value": "None"
+        },
+        "location": {
+          "model_full_name": {
+            "module": "erdantic.examples.pydantic",
+            "qual_name": "QuestGiver"
+          },
+          "name": "location",
+          "type_name": "str",
+          "default_value": "\"Adventurer's Guild\""
+        }
+      },
+      "description": "erdantic.examples.pydantic.QuestGiver\n\nA person who offers a task that needs completing.\n\nAttributes:\n    name (str): Name of this quest giver\n    faction (str): Faction that this quest giver belongs to\n    location (str): Location this quest giver can be found\n"
+    }
+  },
+  "edges": {
+    "erdantic.examples.pydantic.Party-active_quest-erdantic.examples.pydantic.Quest": {
+      "source_model_full_name": {
+        "module": "erdantic.examples.pydantic",
+        "qual_name": "Party"
+      },
+      "source_field_name": "active_quest",
+      "target_model_full_name": {
+        "module": "erdantic.examples.pydantic",
+        "qual_name": "Quest"
+      },
+      "target_cardinality": "one",
+      "target_modality": "zero",
+      "source_cardinality": "unspecified",
+      "source_modality": "unspecified"
+    },
+    "erdantic.examples.pydantic.Party-members-erdantic.examples.pydantic.Adventurer": {
+      "source_model_full_name": {
+        "module": "erdantic.examples.pydantic",
+        "qual_name": "Party"
+      },
+      "source_field_name": "members",
+      "target_model_full_name": {
+        "module": "erdantic.examples.pydantic",
+        "qual_name": "Adventurer"
+      },
+      "target_cardinality": "many",
+      "target_modality": "unspecified",
+      "source_cardinality": "unspecified",
+      "source_modality": "unspecified"
+    },
+    "erdantic.examples.pydantic.Quest-giver-erdantic.examples.pydantic.QuestGiver": {
+      "source_model_full_name": {
+        "module": "erdantic.examples.pydantic",
+        "qual_name": "Quest"
+      },
+      "source_field_name": "giver",
+      "target_model_full_name": {
+        "module": "erdantic.examples.pydantic",
+        "qual_name": "QuestGiver"
+      },
+      "target_cardinality": "one",
+      "target_modality": "one",
+      "source_cardinality": "unspecified",
+      "source_modality": "unspecified"
+    }
+  }
+}

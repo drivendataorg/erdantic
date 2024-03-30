@@ -1,5 +1,8 @@
--e .
+-e .[attrs]
 
+filetype
+ipython
 pytest<8
 pytest-cases
 pytest-cov
+rich

@@ -7,15 +7,19 @@
 [![tests](https://github.com/drivendataorg/erdantic/workflows/tests/badge.svg?branch=main)](https://github.com/drivendataorg/erdantic/actions?query=workflow%3Atests+branch%3Amain)
 [![codecov](https://codecov.io/gh/drivendataorg/erdantic/branch/main/graph/badge.svg)](https://codecov.io/gh/drivendataorg/erdantic)
 
+> [!NOTE]
+> erdantic v1.0 is coming soon and involves big backend changes. See the [changelog](./HISTORY.md) for more information.
+
 **erdantic** is a simple tool for drawing [entity relationship diagrams (ERDs)](https://en.wikipedia.org/wiki/Data_modeling#Entity%E2%80%93relationship_diagrams) for Python data model classes. Diagrams are rendered using the venerable [Graphviz](https://graphviz.org/) library. Supported data modeling frameworks are:
 
 - [Pydantic V2](https://docs.pydantic.dev/latest/)
 - [Pydantic V1 legacy](https://docs.pydantic.dev/latest/migration/#continue-using-pydantic-v1-features)
+- [attrs](https://www.attrs.org/en/stable/)
 - [dataclasses](https://docs.python.org/3/library/dataclasses.html) from the Python standard library
 
-Features include a convenient CLI, automatic native rendering in Jupyter notebooks, and easy extensibility to other data modeling frameworks. Docstrings are even accessible as tooltips for SVG outputs. Great for adding a simple and clean data model reference to your documentation.
+You can use erdantic either as a convenient CLI or as a Python library. Great for adding a simple and clean data model reference to your documentation.
 
-<object type="image/svg+xml" data="https://raw.githubusercontent.com/drivendataorg/erdantic/main/docs/docs/examples/pydantic.svg" width="100%" typemustmatch><img alt="Example diagram created by erdantic" src="https://raw.githubusercontent.com/drivendataorg/erdantic/main/docs/docs/examples/pydantic.svg"></object>
+<object type="image/svg+xml" data="./docs/docs/assets/example_diagram.svg" width="100%" typemustmatch><img alt="Example diagram created by erdantic" src="./docs/docs/assets/example_diagram.svg"></object>
 
 ## Installation
 
@@ -39,15 +43,17 @@ You can get the development version from GitHub with:
 pip install git+https://github.com/drivendataorg/erdantic.git#egg=erdantic
 ```
 
-## Quick Usage
+## Quick usage
 
-The fastest way to produce a diagram like the above example is to use the erdantic CLI. Simply specify the full dotted path to your data model class and an output path. The rendered format is interpreted from the filename extension.
+First, make sure that the data model classes that you want to include in your diagram are importable. This means the code with your models should either be available on your [`sys.path`](https://docs.python.org/3/library/sys_path_init.html) or installed into the same virtual environment as erdantic.
+
+The fastest way to produce a diagram like the above example is to use the erdantic CLI. Simply specify the full dotted import path to your model and an output file path. The rendered format is interpreted from the filename extension.
 
 ```bash
 erdantic erdantic.examples.pydantic.Party -o diagram.png
 ```
 
-You can also import the erdantic Python library and use its functions.
+You can also import the erdantic Python library. This lets you inspect the diagram data and potentially modify it. You will have greater ability to customize the diagram in Python.
 
 ```python
 import erdantic as erd
@@ -58,8 +64,11 @@ erd.draw(Party, out="diagram.png")
 
 # Or create a diagram object that you can inspect and do stuff with
 diagram = erd.create(Party)
-diagram.models
-#> [PydanticModel(Adventurer), PydanticModel(Party), PydanticModel(Quest), PydanticModel(QuestGiver)]
+list(diagram.models.keys())
+#> [ 'erdantic.examples.pydantic.Adventurer',
+#>   'erdantic.examples.pydantic.Party',
+#>   'erdantic.examples.pydantic.Quest',
+#>   'erdantic.examples.pydantic.QuestGiver']
 diagram.draw("diagram.png")
 ```
 

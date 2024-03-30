@@ -4,12 +4,12 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "erdantic"
-version = "0.8.0.dev"
+version = "1.0.0rc1"
 description = "Entity relationship diagrams for Python data model classes like Pydantic."
 readme = "README.md"
-authors = [{ name = "DrivenData", email = "info@drivendata.org" }]
-license = { file = "LICENSE" }
-keywords = ["erd", "entity relationship diagram", "dataclasses", "pydantic"]
+authors = [{ name = "DrivenData", email = "info@drivendata.org" }, { name = "Jay Qi" }]
+license = { text = "MIT License" }
+keywords = ["erd", "entity relationship diagram", "dataclasses", "pydantic", "attrs"]
 classifiers = [
   "Intended Audience :: Developers",
   "Topic :: Software Development :: Code Generators",
@@ -21,15 +21,21 @@ classifiers = [
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
+  "Framework :: Pydantic",
+  "Framework :: Pydantic :: 2",
 ]
 requires-python = ">=3.8"
 dependencies = [
   "pydantic >= 2",
   "pydantic-core",
   "pygraphviz",
+  "sortedcontainers-pydantic",
   "typenames",
   "typer",
 ]
+
+[project.optional-dependencies]
+attrs = ["attrs"]
 
 [project.scripts]
 erdantic = "erdantic.cli:app"
@@ -57,13 +63,18 @@ known-first-party = ["erdantic"]
 force-sort-within-sections = true
 
 [tool.mypy]
-files = ["erdantic"]
-ignore_missing_imports = true
+files = ["erdantic", "tests/typechecks.py"]
+plugins = ["pydantic.mypy"]
 
 [tool.pytest.ini_options]
 minversion = "6.0"
-addopts = "--cov=erdantic --cov-report=term --cov-report=html --cov-report=xml"
+addopts = "--cov=erdantic --cov-report=term --cov-report=html --cov-report=xml --cov-append"
 testpaths = ["tests"]
 
 [tool.coverage.run]
 source = ["erdantic"]
+
+[tool.coverage.report]
+exclude_also = [
+  "if TYPE_CHECKING:",
+]

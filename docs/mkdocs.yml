@@ -6,30 +6,48 @@ theme:
   name: material
   features:
     - navigation.top
+    - navigation.sections
 
 nav:
   - Home: "index.md"
   - CLI Help: "cli.md"
-  - Usage Examples:
-      - Pydantic: "examples/pydantic.ipynb"
-      - dataclasses: "examples/dataclasses.ipynb"
-  - Handling Forward References: "forward-references.md"
-  - Adding New Frameworks: "extending.md"
-  - API Reference:
-      - erdantic.base: "api-reference/base.md"
-      - erdantic.dataclasses: "api-reference/dataclasses.md"
-      - erdantic.erd: "api-reference/erd.md"
-      - erdantic.exceptions: "api-reference/exceptions.md"
-      - erdantic.pydantic: "api-reference/pydantic.md"
-      - erdantic.examples:
-          - erdantic.examples.pydantic: "api-reference/examples.pydantic.md"
-          - erdantic.examples.dataclasses: "api-reference/examples.dataclasses.md"
   - Changelog: "changelog.md"
+  - Usage Examples:
+      - "Usage Example: attrs": "examples/attrs.ipynb"
+      - "Usage Example: dataclasses": "examples/dataclasses.ipynb"
+      - "Usage Example: Pydantic": "examples/pydantic.ipynb"
+  - Advanced Usage:
+      - Customizing Diagrams: "customizing.md"
+      - Extending or Modifying: "extending.md"
+      - Handling Forward References: "forward-references.md"
+  - API Reference:
+      - erdantic.convenience: "api-reference/convenience.md"
+      - erdantic.core: "api-reference/core.md"
+      - erdantic.exceptions: "api-reference/exceptions.md"
+      - erdantic.examples:
+          - erdantic.examples.attrs: "api-reference/examples/attrs.md"
+          - erdantic.examples.dataclasses: "api-reference/examples/dataclasses.md"
+          - erdantic.examples.pydantic: "api-reference/examples/pydantic.md"
+          - erdantic.examples.pydantic_v1: "api-reference/examples/pydantic_v1.md"
+      - erdantic.plugins:
+          - "api-reference/plugins/index.md"
+          - erdantic.plugins.attrs: "api-reference/plugins/attrs.md"
+          - erdantic.plugins.dataclasses: "api-reference/plugins/dataclasses.md"
+          - erdantic.plugins.pydantic: "api-reference/plugins/pydantic.md"
+      - erdantic.typing_utils: "api-reference/typing_utils.md"
 
-extra_css:
-  - css/custom_mkdocstrings.css
+exclude_docs: |
+  examples/ipynb_checkpoints/
+  examples/diagram.png
+  examples/diagram.svg
+
+hooks:
+  - hooks.py
 
 markdown_extensions:
+  - admonition:
+  - def_list:
+  - github-callouts:
   - pymdownx.highlight:
   - pymdownx.superfences:
   - pymdownx.tabbed:
@@ -38,27 +56,45 @@ markdown_extensions:
       permalink: true
       toc_depth: 3
   - mdx_truly_sane_lists:
+      nested_indent: 4
 
 plugins:
   - search
-  - mkdocs-jupyter
+  - mkdocs-jupyter:
+      execute: false
+      ignore: ["**/.ipynb_checkpoints/*.ipynb"]
+      ignore_h1_titles: true
   - mkdocstrings:
       default_handler: python
       handlers:
         python:
-          selection:
-            filters: ["!^_(?!_init__)"]
-            inherited_members: true
-          rendering:
-            show_root_heading: false
-            show_root_toc_entry: true
-            show_root_full_path: false
-            show_if_no_docstring: true
-            show_signature_annotations: true
+          options:
+            # General
             show_source: true
+            # Headings
             heading_level: 2
+            show_root_heading: false
+            show_root_toc_entry: false
+            show_root_full_path: false
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            # Members
+            filters: ["!^_", "^__init__$"]
             group_by_category: true
-            show_category_heading: true
+            show_labels: true
+            show_if_no_docstring: false
+            # Docstrings
+            docstring_options:
+              returns_named_value: False
+            # Signatures
+            separate_signature: true
+            show_signature_annotations: true
+            signature_crossrefs: true
+          import:
+            - https://docs.python.org/3/objects.inv
+            - https://docs.pydantic.dev/latest/objects.inv
+            - https://www.attrs.org/en/stable/objects.inv
+            - https://pygraphviz.github.io/documentation/stable/objects.inv
   - mike:
       alias_type: copy
       canonical_version: stable
@@ -66,6 +102,9 @@ plugins:
 extra:
   version:
     provider: mike
+
+extra_css:
+  - css/mkdocs-jupyter-extra.css
 
 watch:
   - ../erdantic

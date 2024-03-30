@@ -1,121 +1,191 @@
-import textwrap
-from typing import Any, Dict, List, Optional, Tuple
+from pprint import pprint
+from typing import Optional
 
-from pydantic import BaseModel, Field
+import pydantic
+import pydantic.v1
+import pytest
 
-import erdantic as erd
-from erdantic.pydantic import PydanticModel
-
-
-def test_model_graph_search_nested_args():
-    class Inner0(BaseModel):
-        id: int
-
-    class Inner1(BaseModel):
-        id: int
-
-    class Outer(BaseModel):
-        inner: Dict[str, Tuple[Inner0, Inner1]]
-
-    diagram = erd.create(Outer)
-    assert {m.model for m in diagram.models} == {Outer, Inner0, Inner1}
-    assert {(e.source.model, e.target.model) for e in diagram.edges} == {
-        (Outer, Inner0),
-        (Outer, Inner1),
-    }
+from erdantic.core import EntityRelationshipDiagram, FullyQualifiedName
+import erdantic.examples.pydantic as pydantic_examples
+import erdantic.examples.pydantic_v1 as pydantic_v1_examples
+from erdantic.exceptions import UnresolvableForwardRefError
+from erdantic.plugins.pydantic import (
+    get_fields_from_pydantic_model,
+    is_pydantic_model,
+)
 
 
-def test_unevaluated_forward_ref():
-    """Pydantic V2 handles typical forward reference cases automatically."""
+def test_is_pydantic_model():
+    class NotAPydanticModel:
+        pass
 
-    class PydanticItem(BaseModel):
-        name: str
-
-    class PydanticContainer(BaseModel):
-        items: List["PydanticItem"]
-
-    # Test that model can be used
-    _ = PydanticContainer(items=[PydanticItem(name="thingie")])
-
-    diagram = erd.create(PydanticContainer)
-    assert {m.model for m in diagram.models} == {PydanticContainer, PydanticItem}
-    assert {(e.source.model, e.target.model) for e in diagram.edges} == {
-        (PydanticContainer, PydanticItem)
-    }
-
-
-def test_field_names():
-    class MyClass(BaseModel):
-        a: str
-        b: Optional[str]
-        c: List[str]
-        d: Tuple[str, ...]
-        e: Tuple[str, int]
-        f: Dict[str, List[int]]
-        g: Optional[List[str]]
-        h: Dict[str, Optional[int]]
-
-    model = PydanticModel(MyClass)
-    assert [f.type_name for f in model.fields] == [
-        "str",
-        "Optional[str]",
-        "List[str]",
-        "Tuple[str, ...]",
-        "Tuple[str, int]",
-        "Dict[str, List[int]]",
-        "Optional[List[str]]",
-        "Dict[str, Optional[int]]",
-    ]
-
-
-def test_docstring_field_descriptions():
-    # Does not use pydantic.Field with descriptions. Shouldn't add anything.
-    class MyClassWithoutDescriptions(BaseModel):
-        """This is the docstring for my class without descriptions."""
-
-        hint_only: str
-        no_descr_has_default: Any = Field(10)
-
-    model = PydanticModel(MyClassWithoutDescriptions)
-    print("===Actual w/o Descriptions===")
-    print(model.docstring)
-    print("============")
-
-    expected = textwrap.dedent(
-        """\
-        tests.test_pydantic.test_docstring_field_descriptions.<locals>.MyClassWithoutDescriptions
-
-        This is the docstring for my class without descriptions.
-        """
+    assert is_pydantic_model(pydantic_examples.Party)
+    assert is_pydantic_model(pydantic_examples.QuestGiver)
+    assert not is_pydantic_model(
+        pydantic_examples.QuestGiver(name="Gandalf", faction=None, location="Shire")
     )
-    assert model.docstring == expected
+    assert not is_pydantic_model("Hello")
+    assert not is_pydantic_model(str)
+    assert not is_pydantic_model(NotAPydanticModel)
+    assert not is_pydantic_model(pydantic_v1_examples.Party)
 
-    # Does use pydantic.Field with descriptions. Should add attributes section
 
-    class MyClassWithDescriptions(BaseModel):
-        """This is the docstring for my class with descriptions."""
+def test_get_fields_from_pydantic_model():
+    fields = get_fields_from_pydantic_model(pydantic_examples.Party)
+    assert len(fields) == 4
 
-        hint_only: str
-        has_descr_no_default: List[int] = Field(description="An array of numbers.")
-        has_descr_ellipsis_default: List[int] = Field(..., description="Another array of numbers.")
-        no_descr_has_default: Any = Field(10)
-        has_descr_has_default: Optional[str] = Field(None, description="An optional string.")
+    # name
+    assert fields[0].model_full_name == FullyQualifiedName.from_object(pydantic_examples.Party)
+    assert fields[0].name == "name"
+    assert fields[0].type_name == "str"
+    # formed_datetime
+    assert fields[1].model_full_name == FullyQualifiedName.from_object(pydantic_examples.Party)
+    assert fields[1].name == "formed_datetime"
+    assert fields[1].type_name == "datetime"
+    # members
+    assert fields[2].model_full_name == FullyQualifiedName.from_object(pydantic_examples.Party)
+    assert fields[2].name == "members"
+    assert fields[2].type_name == "List[Adventurer]"
+    # active_quest
+    assert fields[3].model_full_name == FullyQualifiedName.from_object(pydantic_examples.Party)
+    assert fields[3].name == "active_quest"
+    assert fields[3].type_name == "Optional[Quest]"
 
-    model = PydanticModel(MyClassWithDescriptions)
-    print("===Actual w/ Descriptions===")
-    print(model.docstring)
-    print("============")
 
-    expected = textwrap.dedent(
-        """\
-        tests.test_pydantic.test_docstring_field_descriptions.<locals>.MyClassWithDescriptions
+class GlobalOtherModelBefore(pydantic.BaseModel):
+    """Another model to be referenced as a forward reference. Defined before the model that
+    references it."""
 
-        This is the docstring for my class with descriptions.
+    my_field: str
 
-        Attributes:
-            has_descr_no_default (List[int]): An array of numbers.
-            has_descr_ellipsis_default (List[int]): Another array of numbers.
-            has_descr_has_default (Optional[str]): An optional string. Default is None.
-        """
-    )
-    assert model.docstring == expected
+
+class GlobalWithFwdRefs(pydantic.BaseModel):
+    """Globally defined model with forward references. This should have no problems being
+    automatically resolved."""
+
+    # Automatically resolved by Pydantic
+    imported_ref: "pydantic_examples.Party"
+    nested_imported_ref: Optional["pydantic_examples.Quest"]
+    self_ref: "GlobalWithFwdRefs"
+    nested_self_ref: Optional["GlobalWithFwdRefs"]
+    global_ref_before: "GlobalOtherModelBefore"
+    nested_global_ref_before: Optional["GlobalOtherModelBefore"]
+    # Resolved by model_rebuild()
+    global_ref_after: "GlobalOtherModelAfter"
+    nested_global_ref_after: Optional["GlobalOtherModelAfter"]
+
+
+class GlobalOtherModelAfter(pydantic.BaseModel):
+    """Another model to be referenced as a forward reference. Defined after the model that
+    references it."""
+
+    my_field: str
+
+
+def test_forward_refs_global_scope():
+    """Global scope model with forward references that we can handle automatically."""
+    # Model is defined in the global scope
+    fields = {fi.name: fi for fi in get_fields_from_pydantic_model(GlobalWithFwdRefs)}
+    pprint({name: (fi.type_name, fi.raw_type) for name, fi in fields.items()})
+    # Automatically resolved by Pydantic
+    assert fields["imported_ref"].type_name == "Party"
+    assert fields["imported_ref"].raw_type == pydantic_examples.Party
+    assert fields["nested_imported_ref"].type_name == "Optional[Quest]"
+    assert fields["nested_imported_ref"].raw_type == Optional[pydantic_examples.Quest]
+    assert fields["self_ref"].type_name == "GlobalWithFwdRefs"
+    assert fields["self_ref"].raw_type == GlobalWithFwdRefs
+    assert fields["nested_self_ref"].type_name == "Optional[GlobalWithFwdRefs]"
+    assert fields["nested_self_ref"].raw_type == Optional[GlobalWithFwdRefs]
+    assert fields["global_ref_before"].type_name == "GlobalOtherModelBefore"
+    assert fields["global_ref_before"].raw_type == GlobalOtherModelBefore
+    assert fields["nested_global_ref_before"].type_name == "Optional[GlobalOtherModelBefore]"
+    assert fields["nested_global_ref_before"].raw_type == Optional[GlobalOtherModelBefore]
+    # Resolved by model_rebuild()
+    assert fields["global_ref_after"].type_name == "GlobalOtherModelAfter"
+    assert fields["global_ref_after"].raw_type == GlobalOtherModelAfter
+    assert fields["nested_global_ref_after"].type_name == "Optional[GlobalOtherModelAfter]"
+    assert fields["nested_global_ref_after"].raw_type == Optional[GlobalOtherModelAfter]
+
+    # Can add to diagram without error
+    diagram = EntityRelationshipDiagram()
+    diagram.add_model(GlobalWithFwdRefs)
+
+
+def test_forward_refs_fn_scope_auto_resolvable():
+    """Function scope model with forward references that we can automatically resolve."""
+
+    class FnScopeOtherModelBefore(pydantic.BaseModel):
+        """Another model to be referenced as a forward reference. Defined before the model that
+        references it."""
+
+        my_field: str
+
+    # All automatically resolved by Pydantic
+    class FnScopeAutomaticallyResolvable(pydantic.BaseModel):
+        imported_ref: "pydantic_examples.Party"
+        nested_imported_ref: Optional["pydantic_examples.Quest"]
+        global_ref: "GlobalWithFwdRefs"
+        nested_global_ref: Optional["GlobalWithFwdRefs"]
+        self_ref: "FnScopeAutomaticallyResolvable"
+        nested_self_ref: Optional["FnScopeAutomaticallyResolvable"]
+        sibling_ref_before: "FnScopeOtherModelBefore"
+        nested_sibling_ref_before: "Optional[FnScopeOtherModelBefore]"
+
+    fields = {fi.name: fi for fi in get_fields_from_pydantic_model(FnScopeAutomaticallyResolvable)}
+    pprint({name: (fi.type_name, fi.raw_type) for name, fi in fields.items()})
+    assert fields["imported_ref"].type_name == "Party"
+    assert fields["imported_ref"].raw_type == pydantic_examples.Party
+    assert fields["nested_imported_ref"].type_name == "Optional[Quest]"
+    assert fields["nested_imported_ref"].raw_type == Optional[pydantic_examples.Quest]
+    assert fields["global_ref"].type_name == "GlobalWithFwdRefs"
+    assert fields["global_ref"].raw_type == GlobalWithFwdRefs
+    assert fields["nested_global_ref"].type_name == "Optional[GlobalWithFwdRefs]"
+    assert fields["nested_global_ref"].raw_type == Optional[GlobalWithFwdRefs]
+    assert fields["self_ref"].type_name == "FnScopeAutomaticallyResolvable"
+    assert fields["self_ref"].raw_type == FnScopeAutomaticallyResolvable
+    assert fields["nested_self_ref"].type_name == "Optional[FnScopeAutomaticallyResolvable]"
+    assert fields["nested_self_ref"].raw_type == Optional[FnScopeAutomaticallyResolvable]
+    assert fields["sibling_ref_before"].type_name == "FnScopeOtherModelBefore"
+    assert fields["sibling_ref_before"].raw_type == FnScopeOtherModelBefore
+    assert fields["nested_sibling_ref_before"].type_name == "Optional[FnScopeOtherModelBefore]"
+    assert fields["nested_sibling_ref_before"].raw_type == Optional[FnScopeOtherModelBefore]
+
+    # Can add to diagram without error
+    diagram = EntityRelationshipDiagram()
+    diagram.add_model(FnScopeAutomaticallyResolvable)
+
+
+def test_forward_refs_fn_scope_manual_resolvable():
+    """Function scope model with forward references that we need to manually resolve."""
+
+    class FnScopeManuallyResolvable(pydantic.BaseModel):
+        sibling_ref_after: "FnScopeOtherModelAfter"
+        nested_sibling_ref_after: Optional["FnScopeOtherModelAfter"]
+
+    class FnScopeOtherModelAfter(pydantic.BaseModel):
+        """Another model to be referenced as a forward reference. Defined after the model that
+        references it."""
+
+        my_field: str
+
+    with pytest.raises(UnresolvableForwardRefError, match="'FnScopeOtherModelAfter'"):
+        diagram = EntityRelationshipDiagram()
+        diagram.add_model(FnScopeManuallyResolvable)
+
+    with pytest.raises(UnresolvableForwardRefError, match="'FnScopeOtherModelAfter'"):
+        get_fields_from_pydantic_model(FnScopeManuallyResolvable)
+
+    # Call model_rebuild to manually resolve
+    FnScopeManuallyResolvable.model_rebuild()
+
+    # Adding to diagram should now work without error
+    diagram = EntityRelationshipDiagram()
+    diagram.add_model(FnScopeManuallyResolvable)
+
+    # Fields should match expected
+    fields = {fi.name: fi for fi in get_fields_from_pydantic_model(FnScopeManuallyResolvable)}
+    pprint({name: (fi.type_name, fi.raw_type) for name, fi in fields.items()})
+    assert fields["sibling_ref_after"].type_name == "FnScopeOtherModelAfter"
+    assert fields["sibling_ref_after"].raw_type == FnScopeOtherModelAfter
+    assert fields["nested_sibling_ref_after"].type_name == "Optional[FnScopeOtherModelAfter]"
+    assert fields["nested_sibling_ref_after"].raw_type == Optional[FnScopeOtherModelAfter]

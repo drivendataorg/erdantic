@@ -1,0 +1,39 @@
+digraph "Entity Relationship Diagram created by erdantic" {
+	graph [fontcolor=gray66,
+		fontname="Times New Roman,Times,Liberation Serif,serif",
+		fontsize=9,
+		label="Created by erdantic vTEST <https://github.com/drivendataorg/erdantic>",
+		nodesep=0.5,
+		rankdir=LR,
+		ranksep=1.5
+	];
+	node [fontname="Times New Roman,Times,Liberation Serif,serif",
+		fontsize=14,
+		label="\N",
+		shape=plain
+	];
+	edge [dir=both];
+	"erdantic.examples.dataclasses.Adventurer"	[label=<<table border="0" cellborder="1" cellspacing="0"><tr><td port="_root" colspan="2"><b>Adventurer</b></td></tr><tr><td>name</td><td port="name">str</td></tr><tr><td>profession</td><td port="profession">str</td></tr><tr><td>alignment</td><td port="alignment">Alignment</td></tr><tr><td>level</td><td port="level">int</td></tr></table>>,
+		tooltip="erdantic.examples.dataclasses.Adventurer&#xA;&#xA;A person often late for dinner but with a tale or two to tell.&#xA;&#xA;Attributes:&#\
+xA;    name (str): Name of this adventurer&#xA;    profession (str): Profession of this adventurer&#xA;    alignment (Alignment): \
+Alignment of this adventurer&#xA;    level (int): Level of this adventurer&#xA;"];
+	"erdantic.examples.dataclasses.Party"	[label=<<table border="0" cellborder="1" cellspacing="0"><tr><td port="_root" colspan="2"><b>Party</b></td></tr><tr><td>name</td><td port="name">str</td></tr><tr><td>formed_datetime</td><td port="formed_datetime">datetime</td></tr><tr><td>members</td><td port="members">List[Adventurer]</td></tr><tr><td>active_quest</td><td port="active_quest">Optional[Quest]</td></tr></table>>,
+		tooltip="erdantic.examples.dataclasses.Party&#xA;&#xA;A group of adventurers finding themselves doing and saying things altogether unexpected.&#\
+xA;&#xA;Attributes:&#xA;    name (str): Name that party is known by&#xA;    formed_datetime (datetime): Timestamp of when the party \
+was formed&#xA;    members (List[Adventurer]): Adventurers that belong to this party&#xA;    active_quest (Optional[Quest]): Current \
+quest that party is actively tackling&#xA;"];
+	"erdantic.examples.dataclasses.Party":members:e -> "erdantic.examples.dataclasses.Adventurer":_root:w	[arrowhead=crownone,
+		arrowtail=nonenone];
+	"erdantic.examples.dataclasses.Quest"	[label=<<table border="0" cellborder="1" cellspacing="0"><tr><td port="_root" colspan="2"><b>Quest</b></td></tr><tr><td>name</td><td port="name">str</td></tr><tr><td>giver</td><td port="giver">QuestGiver</td></tr><tr><td>reward_gold</td><td port="reward_gold">int</td></tr></table>>,
+		tooltip="erdantic.examples.dataclasses.Quest&#xA;&#xA;A task to complete, with some monetary reward.&#xA;&#xA;Attributes:&#xA;    name (str): \
+Name by which this quest is referred to&#xA;    giver (QuestGiver): Person who offered the quest&#xA;    reward_gold (int): Amount \
+of gold to be rewarded for quest completion&#xA;"];
+	"erdantic.examples.dataclasses.Party":active_quest:e -> "erdantic.examples.dataclasses.Quest":_root:w	[arrowhead=noneteeodot,
+		arrowtail=nonenone];
+	"erdantic.examples.dataclasses.QuestGiver"	[label=<<table border="0" cellborder="1" cellspacing="0"><tr><td port="_root" colspan="2"><b>QuestGiver</b></td></tr><tr><td>name</td><td port="name">str</td></tr><tr><td>faction</td><td port="faction">Optional[str]</td></tr><tr><td>location</td><td port="location">str</td></tr></table>>,
+		tooltip="erdantic.examples.dataclasses.QuestGiver&#xA;&#xA;A person who offers a task that needs completing.&#xA;&#xA;Attributes:&#xA;    \
+name (str): Name of this quest giver&#xA;    faction (str): Faction that this quest giver belongs to&#xA;    location (str): Location \
+this quest giver can be found&#xA;"];
+	"erdantic.examples.dataclasses.Quest":giver:e -> "erdantic.examples.dataclasses.QuestGiver":_root:w	[arrowhead=noneteetee,
+		arrowtail=nonenone];
+}

@@ -1,0 +1,3 @@
+# erdantic.plugins
+
+::: erdantic.plugins

@@ -1,10 +1,52 @@
 # erdantic Changelog
 
-## v0.8.0 (Unreleased)
+## v1.0.0rc1 Release Candidate (2024-03-30)
 
-- Removed support for Python 3.7. ([PR #102](https://github.com/drivendataorg/erdantic/pull/102))
-- Changed rendering of type names to use the [typenames](https://github.com/jayqi/typenames) library. This should generally produce with same rendered outputs, with the following exception:
+_This is a pre-release version for v1.0.0._
+
+> [!IMPORTANT]
+> This release features significant changes to erdantic, primarily to the backend process of analyzing models and representing data. If you have been primarily using the CLI or the convenience functions `create`, `draw`, and `to_dot`, then your code may continue to work without any changes. If you are doing something more advanced, you may need to update your code.
+
+### CLI changes
+
+- Deprecated `--termini` option. Use the new `--terminal-model` option instead. The shorthand option `-t` remains the same. The `--termini` option still works but will emit a deprecation warning.
+
+### Convenience function changes
+
+- Deprecated `termini` argument for `create`, `draw`, and `to_dot` functions. Use the new `terminal_models` argument instead. The `termini` argument still works but will emit a deprecation warning.
+- Added `graph_attr`, `node_attr`, and `edge_attr` arguments to the `draw` and `to_dot` functions that allow you to override attributes on the generated pygraphviz object for the diagram.
+
+### Visual changes
+
+A few changes have been made to the visual content of rendered diagrams.
+
+- Changed the extraction of type names to use the [typenames](https://github.com/jayqi/typenames) library. This should generally produce identical rendered outputs as before, with the following exception:
     - Removed the special case behavior for rendering enum classes. Enums now just show the class name without inheritance information.
+- Changed collection fields (e.g., `List[TargetModel]`) to display as a "many" relationship (crow) instead of a "zero-or-many" relationship (odot + crow), treating the modality of the field as unspecified. A field will only be displayed as "zero-or-many" (odot + crow) if it is explicitly optional, like `Optional[List[TargetModel]]`.
+- Fixed incorrect representation of manyness for type annotations where the outermost annotation wasn't a collection type. ([Issue #105](https://github.com/drivendataorg/erdantic/issues/105))
+
+### Support for attrs
+
+- Added support for [attrs](https://www.attrs.org/en/stable/index.html) classes, i.e., classes decorated by `attrs.define`. The source code for attrs support can be found in the new module `erdantic.plugins.attrs`.
+- Added new example module `erdantic.examples.attrs`.
+
+### Backend changes
+
+Significant changes have been made to the library backend to more strongly separate the model analysis process, the extracted data, and the diagram rendering process. We believe this more structured design facilitates customizing diagrams and simplifies the implementation for each data modeling framework. Please see the new documentation pages ["Customizing diagrams"](http://erdantic.drivendata.org/stable/customizing/) and ["Extending or modifying erdantic"](http://erdantic.drivendata.org/stable/extending/) for details on the new design.
+
+A summary of some key changes is below:
+
+- Removed the adapter base classes `Model` and `Field` and the conrete adapters `DataClassModel`, `DataClassField`, `PydanticModel`, and `PydanticField`.
+  - Added new Pydantic models `ModelInfo` and `FieldInfo` to replace the adapter system. These new models hold static data that have been extracted from models that erdantic analyzed.
+- Removed the adapter system and associated objects such as `model_adapter_registry` and `register_model_adapter`.
+  - Added new plugin system to replace the adapter system as the way that modeling frameworks are supported. Plugins must implement two functions—a predicate function and a field extractor function—and be registered using `register_plugin`. All objects related to plugins can be found in the new `erdantic.plugins` module and its submodules.
+- Renamed `erdantic.typing` module to `erdantic.typing_utils`.
+
+### Other
+
+- Added [PEP 561 `py.typed` marker file](https://peps.python.org/pep-0561/#packaging-type-information) to indicate that the package supports type checking.
+- Added IPython special method for pretty-print string representations of `EntityRelationshipDiagram` instances.
+- Removed support for Python 3.7. ([PR #102](https://github.com/drivendataorg/erdantic/pull/102))
 
 ## v0.7.0 (2024-02-11)
 

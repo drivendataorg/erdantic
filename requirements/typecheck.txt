@@ -1,1 +1,6 @@
+attrs
 mypy
+pydantic>=2
+sortedcontainers-pydantic
+typenames
+typer

@@ -1,0 +1,3 @@
+# erdantic.convenience
+
+::: erdantic.convenience

@@ -1,0 +1,3 @@
+# erdantic.core
+
+::: erdantic.core
