@@ -1,6 +1,8 @@
 # erdantic Changelog
 
-## v1.0.0 (Unreleased)
+## v1.0.0rc1 Release Candidate (2024-03-30)
+
+_This is a pre-release version for v1.0.0._
 
 > [!IMPORTANT]
 > This release features significant changes to erdantic, primarily to the backend process of analyzing models and representing data. If you have been primarily using the CLI or the convenience functions `create`, `draw`, and `to_dot`, then your code may continue to work without any changes.

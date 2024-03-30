@@ -32,7 +32,8 @@ jobs:
           PACKAGE_VERSION=$(.nox/dev/bin/python -c "import erdantic; print(erdantic.__version__)")
           echo "Package version: [$PACKAGE_VERSION]"
           [ ${{ github.event.release.tag_name }} == "v$PACKAGE_VERSION" ] || { exit 1; }
-          echo "::set-output name=major_minor_version::v${PACKAGE_VERSION%.*}"
+          echo "full_version=v$PACKAGE_VERSION" >> $GITHUB_ENV
+          echo "major_minor_version=v${PACKAGE_VERSION%.*}" >> $GITHUB_ENV
 
       - name: Build package
         run: |
@@ -57,7 +58,19 @@ jobs:
           password: ${{ secrets.PYPI_PROD_PASSWORD }}
           skip_existing: false
 
-      - name: Stage docs on gh-pages
+      - name: Stage docs on gh-pages (release candidate)
+        if: contains(steps.version.outputs.full_version, 'rc')
+        working-directory: docs
+        run: |
+          git fetch origin gh-pages --depth=1
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          mike deploy --push \
+            ${{ steps.version.outputs.major_minor_version }}rc \
+            --title="${{ steps.version.outputs.major_minor_version }}rc"
+
+      - name: Stage docs on gh-pages (stable)
+        if: ! contains(steps.version.outputs.full_version, 'rc')
         working-directory: docs
         run: |
           git fetch origin gh-pages --depth=1
