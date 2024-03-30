@@ -18,6 +18,8 @@ from erdantic.plugins.pydantic import is_pydantic_model
 
 
 class FieldInfoWithDefault(FieldInfo):
+    """Custom FieldInfo subclass that adds a 'default_value' field and diagram column."""
+
     default_value: str
 
     _dot_row_template = (
@@ -53,14 +55,23 @@ class FieldInfoWithDefault(FieldInfo):
 
 
 class ModelInfoWithDefault(ModelInfo):
+    """Custom ModelInfo subclass that uses FieldInfoWithDefault instead of FieldInfo."""
+
     fields: Dict[str, FieldInfoWithDefault] = {}
 
 
 class EntityRelationshipDiagramWithDefault(EntityRelationshipDiagram):
+    """Custom EntityRelationshipDiagram subclass that uses ModelInfoWithDefault instead of
+    ModelInfo.
+    """
+
     models: SortedDict[str, ModelInfoWithDefault] = SortedDict()
 
 
 def get_fields_from_pydantic_model_with_default(model) -> List[FieldInfoWithDefault]:
+    """Copied from erdantic.plugins.pydantic.get_fields_from_pydantic_model and modified to
+    extract default values of fields.
+    """
     try:
         # Rebuild model schema to resolve forward references
         model.model_rebuild()
@@ -88,4 +99,5 @@ def get_fields_from_pydantic_model_with_default(model) -> List[FieldInfoWithDefa
     ]
 
 
+# Register this plugin. Will override erdantic's built-in 'pydantic' plugin.
 register_plugin("pydantic", is_pydantic_model, get_fields_from_pydantic_model_with_default)

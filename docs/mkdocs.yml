@@ -13,13 +13,13 @@ nav:
   - CLI Help: "cli.md"
   - Changelog: "changelog.md"
   - Usage Examples:
-      - attrs: "examples/attrs.ipynb"
-      - dataclasses: "examples/dataclasses.ipynb"
-      - Pydantic: "examples/pydantic.ipynb"
+      - "Usage Example: attrs": "examples/attrs.ipynb"
+      - "Usage Example: dataclasses": "examples/dataclasses.ipynb"
+      - "Usage Example: Pydantic": "examples/pydantic.ipynb"
   - Advanced Usage:
       - Customizing Diagrams: "customizing.md"
+      - Extending or Modifying: "extending.md"
       - Handling Forward References: "forward-references.md"
-      - Plugins for Model Frameworks: "extending.md"
   - API Reference:
       - erdantic.convenience: "api-reference/convenience.md"
       - erdantic.core: "api-reference/core.md"
@@ -56,12 +56,14 @@ markdown_extensions:
       permalink: true
       toc_depth: 3
   - mdx_truly_sane_lists:
+      nested_indent: 4
 
 plugins:
   - search
   - mkdocs-jupyter:
       execute: false
       ignore: ["**/.ipynb_checkpoints/*.ipynb"]
+      ignore_h1_titles: true
   - mkdocstrings:
       default_handler: python
       handlers:

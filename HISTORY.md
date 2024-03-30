@@ -29,7 +29,7 @@ A few changes have been made to the visual content of rendered diagrams.
 
 ### Backend changes
 
-Significant changes have been made to the library backend to more strongly separate the model analysis process, the extracted data, and the diagram rendering process. We believe this more structured design facilitates customizing diagrams and simplifies the implementation for each data modeling framework. Please see the new documentation pages ["Customizing diagrams"](http://erdantic.drivendata.org/stable/customizing/) and ["Plugins for model frameworks"](http://erdantic.drivendata.org/stable/customizing/) for details on the new design.
+Significant changes have been made to the library backend to more strongly separate the model analysis process, the extracted data, and the diagram rendering process. We believe this more structured design facilitates customizing diagrams and simplifies the implementation for each data modeling framework. Please see the new documentation pages ["Customizing diagrams"](http://erdantic.drivendata.org/stable/customizing/) and ["Extending or modifying erdantic"](http://erdantic.drivendata.org/stable/extending/) for details on the new design.
 
 A summary of some key changes is below:
 

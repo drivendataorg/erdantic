@@ -77,11 +77,18 @@ def _inject_model_field_extractor_source(markdown: str):
     return markdown.replace("{{INJECT MODELFIELDEXTRACTOR SOURCE}}", code_block)
 
 
+def _inject_pydantic_with_default_column_example(markdown: str):
+    logger.info("Injecting pydantic_with_default_column.py source code into page markdown")
+    code_block = (REPO_ROOT / "tests" / "pydantic_with_default_column.py").read_text()
+    return markdown.replace("{{INJECT PYDANTIC_WITH_DEFAULT_COLUMN SOURCE}}", code_block)
+
+
 def on_page_markdown(markdown, page, **kwargs):
     if page.title == "CLI Help":
         return _inject_cli_help(markdown)
     if page.title == "Plugins for Model Frameworks":
         markdown = _inject_model_predicate_source(markdown)
         markdown = _inject_model_field_extractor_source(markdown)
+        markdown = _inject_pydantic_with_default_column_example(markdown)
         return markdown
     return None

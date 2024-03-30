@@ -1,4 +1,5 @@
 from pathlib import Path
+import subprocess
 
 import pygraphviz as pgv
 
@@ -7,6 +8,7 @@ from erdantic.core import Cardinality, EntityRelationshipDiagram, Modality
 import erdantic.examples.pydantic as pydantic_examples
 
 ASSETS_DIR = Path(__file__).resolve().parent / "docs" / "assets"
+REPO_ROOT = ASSETS_DIR.parents[2]
 
 
 def generate_example_diagram():
@@ -40,7 +42,14 @@ def generate_edges():
         graph.draw(ASSETS_DIR / f"edge-{cardinality.value}-{modality.value}.png", prog="dot")
 
 
+def copy_pydantic_with_default_diagram():
+    subprocess.run(
+        ["python", f"{Path(__file__).parent}/generate_pydantic_with_default_column_diagram.py"]
+    )
+
+
 if __name__ == "__main__":
     generate_example_diagram()
     generate_erdantic_diagram()
     generate_edges()
+    copy_pydantic_with_default_diagram()
