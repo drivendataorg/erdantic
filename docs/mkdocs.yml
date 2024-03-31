@@ -108,3 +108,4 @@ extra_css:
 
 watch:
   - ../erdantic
+  - ./hooks.py
