@@ -86,7 +86,7 @@ def _inject_pydantic_with_default_column_example(markdown: str):
 def on_page_markdown(markdown, page, **kwargs):
     if page.title == "CLI Help":
         return _inject_cli_help(markdown)
-    if page.title == "Plugins for Model Frameworks":
+    if page.title == "Extending or Modifying":
         markdown = _inject_model_predicate_source(markdown)
         markdown = _inject_model_field_extractor_source(markdown)
         markdown = _inject_pydantic_with_default_column_example(markdown)
