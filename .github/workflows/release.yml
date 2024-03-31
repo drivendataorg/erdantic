@@ -71,7 +71,7 @@ jobs:
             --title="${{ steps.version.outputs.major_minor_version }}rc"
 
       - name: Stage docs on gh-pages (stable)
-        if: ! contains(steps.version.outputs.full_version, 'rc')
+        if: ${{ ! contains(steps.version.outputs.full_version, 'rc') }}
         working-directory: docs
         run: |
           git fetch origin gh-pages --depth=1
