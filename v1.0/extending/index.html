@@ -1164,15 +1164,23 @@
 <p>A <strong>predicate function</strong> takes a single object as an input and return a boolean value <code>True</code> if the object is a data model class that this plugin is for and <code>False</code> otherwise. The return type of this function is a <a href="https://typing.readthedocs.io/en/latest/spec/narrowing.html"><code>TypeGuard</code></a> for the model class. A <a href="https://typing.readthedocs.io/en/latest/spec/protocol.html">protocol</a> class <a class="autorefs autorefs-internal" href="../api-reference/plugins/#erdantic.plugins.ModelPredicate"><code>ModelPredicate</code></a> defines the specification for a valid predicate function.</p>
 <div class="admonition info">
 <p class="admonition-title">Source from <code>erdantic/plugins/__init__.py</code></p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">ModelPredicate</span><span class="p">(</span><span class="n">Protocol</span><span class="p">[</span><span class="n">_ModelType_co</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Protocol class for a predicate function for a plugin.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeGuard</span><span class="p">[</span><span class="n">_ModelType_co</span><span class="p">]:</span> <span class="o">...</span>
+</code></pre></div>
 </div>
-<p>{{INJECT MODELPREDICATE SOURCE}}</p>
 <p>Example implementations of predicate functions include <a class="autorefs autorefs-internal" href="../api-reference/plugins/pydantic/#erdantic.plugins.pydantic.is_pydantic_model"><code>is_pydantic_model</code></a> and <a class="autorefs autorefs-internal" href="../api-reference/plugins/dataclasses/#erdantic.plugins.dataclasses.is_dataclass_class"><code>is_dataclass_class</code></a>.</p>
 <h4 id="field-extractor-function">Field extractor function<a class="headerlink" href="#field-extractor-function" title="Permanent link">&para;</a></h4>
 <p>A <strong>field extractor function</strong> takes a single model class of the appropriate type and returns a sequence of <a class="autorefs autorefs-internal" href="../api-reference/core/#erdantic.core.FieldInfo"><code>FieldInfo</code></a> instances. A <a href="https://typing.readthedocs.io/en/latest/spec/protocol.html">protocol</a> class <a class="autorefs autorefs-internal" href="../api-reference/plugins/#erdantic.plugins.ModelFieldExtractor"><code>ModelFieldExtractor</code></a> defines the specification for a valid field extractor function.</p>
 <div class="admonition info">
 <p class="admonition-title">Source from <code>erdantic/plugins/__init__.py</code></p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">ModelFieldExtractor</span><span class="p">(</span><span class="n">Protocol</span><span class="p">[</span><span class="n">_ModelType_contra</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Protocol class for a field extractor function for a plugin.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">_ModelType_contra</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="s2">&quot;FieldInfo&quot;</span><span class="p">]:</span> <span class="o">...</span>
+</code></pre></div>
 </div>
-<p>{{INJECT MODELFIELDEXTRACTOR SOURCE}}</p>
 <p>Example implementations of field extractor functions include <a class="autorefs autorefs-internal" href="../api-reference/plugins/pydantic/#erdantic.plugins.pydantic.get_fields_from_pydantic_model"><code>get_fields_from_pydantic_model</code></a> and <a class="autorefs autorefs-internal" href="../api-reference/plugins/dataclasses/#erdantic.plugins.dataclasses.get_fields_from_dataclass"><code>get_fields_from_dataclass</code></a>.</p>
 <p>The field extractor function is the place where you should try to resolve forward references. Some frameworks provide utility functions to resolve forward references, like Pydantic's <a class="autorefs autorefs-external" href="https://docs.pydantic.dev/latest/api/base_model/#pydantic.BaseModel.model_rebuild"><code>model_rebuild</code></a> and attr's <a class="autorefs autorefs-external" href="https://www.attrs.org/en/stable/api.html#attrs.resolve_types"><code>resolve_types</code></a>. If there isn't one, you should write your own using erdantic's <a class="autorefs autorefs-internal" href="../api-reference/plugins/dataclasses/#erdantic.plugins.dataclasses.resolve_types_on_dataclass"><code>resolve_types_on_dataclass</code></a> as a reference implementation.</p>
 <h3 id="registering-a-plugin">Registering a plugin<a class="headerlink" href="#registering-a-plugin" title="Permanent link">&para;</a></h3>
@@ -1330,7 +1338,211 @@ is supported by this plugin.</p>
 <p>Here is how the rendered diagram looks:</p>
 <p><img alt="Diagram with erdantic modified to add a third column" src="../assets/pydantic_with_default_column_diagram.png" /></p>
 <p>And here is the source code:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{{</span><span class="n">INJECT</span> <span class="n">PYDANTIC_WITH_DEFAULT_COLUMN</span> <span class="n">SOURCE</span><span class="p">}}</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">  1</span>
+<span class="normal">  2</span>
+<span class="normal">  3</span>
+<span class="normal">  4</span>
+<span class="normal">  5</span>
+<span class="normal">  6</span>
+<span class="normal">  7</span>
+<span class="normal">  8</span>
+<span class="normal">  9</span>
+<span class="normal"> 10</span>
+<span class="normal"> 11</span>
+<span class="normal"> 12</span>
+<span class="normal"> 13</span>
+<span class="normal"> 14</span>
+<span class="normal"> 15</span>
+<span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span> <span class="nn">html</span> <span class="kn">import</span> <span class="n">escape</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="kn">import</span> <span class="nn">pydantic</span>
+<span class="kn">import</span> <span class="nn">pydantic_core</span>
+<span class="kn">from</span> <span class="nn">typenames</span> <span class="kn">import</span> <span class="n">REMOVE_ALL_MODULES</span><span class="p">,</span> <span class="n">typenames</span>
+
+<span class="kn">from</span> <span class="nn">erdantic.core</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">EntityRelationshipDiagram</span><span class="p">,</span>
+    <span class="n">FieldInfo</span><span class="p">,</span>
+    <span class="n">FullyQualifiedName</span><span class="p">,</span>
+    <span class="n">ModelInfo</span><span class="p">,</span>
+    <span class="n">SortedDict</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">erdantic.exceptions</span> <span class="kn">import</span> <span class="n">UnresolvableForwardRefError</span>
+<span class="kn">from</span> <span class="nn">erdantic.plugins</span> <span class="kn">import</span> <span class="n">register_plugin</span>
+<span class="kn">from</span> <span class="nn">erdantic.plugins.pydantic</span> <span class="kn">import</span> <span class="n">is_pydantic_model</span>
+
+
+<span class="k">class</span> <span class="nc">FieldInfoWithDefault</span><span class="p">(</span><span class="n">FieldInfo</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Custom FieldInfo subclass that adds a &#39;default_value&#39; field and diagram column.&quot;&quot;&quot;</span>
+
+    <span class="n">default_value</span><span class="p">:</span> <span class="nb">str</span>
+
+    <span class="n">_dot_row_template</span> <span class="o">=</span> <span class="p">(</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;&lt;tr&gt;&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;&lt;td&gt;{name}&lt;/td&gt;&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;&lt;td&gt;{type_name}&lt;/td&gt;&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;&lt;td port=&quot;{name}&quot; width=&quot;36&quot;&gt;{default_value}&lt;/td&gt;&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;&lt;/tr&gt;&quot;&quot;&quot;</span>
+    <span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_raw_type</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">model_full_name</span><span class="p">:</span> <span class="n">FullyQualifiedName</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">raw_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span> <span class="n">raw_default_value</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="p">):</span>
+        <span class="n">default_value</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="n">raw_default_value</span> <span class="ow">is</span> <span class="n">pydantic_core</span><span class="o">.</span><span class="n">PydanticUndefined</span> <span class="k">else</span> <span class="nb">repr</span><span class="p">(</span><span class="n">raw_default_value</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">field_info</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">model_full_name</span><span class="o">=</span><span class="n">model_full_name</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">type_name</span><span class="o">=</span><span class="n">typenames</span><span class="p">(</span><span class="n">raw_type</span><span class="p">,</span> <span class="n">remove_modules</span><span class="o">=</span><span class="n">REMOVE_ALL_MODULES</span><span class="p">),</span>
+            <span class="n">default_value</span><span class="o">=</span><span class="n">default_value</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">field_info</span><span class="o">.</span><span class="n">_raw_type</span> <span class="o">=</span> <span class="n">raw_type</span>
+        <span class="k">return</span> <span class="n">field_info</span>
+
+    <span class="k">def</span> <span class="nf">to_dot_row</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dot_row_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">type_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">type_name</span><span class="p">,</span>
+            <span class="n">default_value</span><span class="o">=</span><span class="n">escape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default_value</span><span class="p">),</span>  <span class="c1"># Escape HTML-unsafe characters</span>
+        <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">ModelInfoWithDefault</span><span class="p">(</span><span class="n">ModelInfo</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Custom ModelInfo subclass that uses FieldInfoWithDefault instead of FieldInfo.&quot;&quot;&quot;</span>
+
+    <span class="n">fields</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">FieldInfoWithDefault</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+
+<span class="k">class</span> <span class="nc">EntityRelationshipDiagramWithDefault</span><span class="p">(</span><span class="n">EntityRelationshipDiagram</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Custom EntityRelationshipDiagram subclass that uses ModelInfoWithDefault instead of</span>
+<span class="sd">    ModelInfo.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">models</span><span class="p">:</span> <span class="n">SortedDict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ModelInfoWithDefault</span><span class="p">]</span> <span class="o">=</span> <span class="n">SortedDict</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">get_fields_from_pydantic_model_with_default</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">FieldInfoWithDefault</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Copied from erdantic.plugins.pydantic.get_fields_from_pydantic_model and modified to</span>
+<span class="sd">    extract default values of fields.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Rebuild model schema to resolve forward references</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">model_rebuild</span><span class="p">()</span>
+    <span class="k">except</span> <span class="n">pydantic</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">PydanticUndefinedAnnotation</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">model_full_name</span> <span class="o">=</span> <span class="n">FullyQualifiedName</span><span class="o">.</span><span class="n">from_object</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+        <span class="n">forward_ref</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Failed to resolve forward reference &#39;</span><span class="si">{</span><span class="n">forward_ref</span><span class="si">}</span><span class="s2">&#39; in the type annotations for &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Pydantic model </span><span class="si">{</span><span class="n">model_full_name</span><span class="si">}</span><span class="s2">. &quot;</span>
+            <span class="s2">&quot;You should use the model&#39;s model_rebuild() method to manually resolve it.&quot;</span>
+        <span class="p">)</span>
+        <span class="k">raise</span> <span class="n">UnresolvableForwardRefError</span><span class="p">(</span>
+            <span class="n">msg</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">forward_ref</span><span class="p">,</span> <span class="n">model_full_name</span><span class="o">=</span><span class="n">model_full_name</span>
+        <span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="n">FieldInfoWithDefault</span><span class="o">.</span><span class="n">from_raw_type</span><span class="p">(</span>
+            <span class="n">model_full_name</span><span class="o">=</span><span class="n">FullyQualifiedName</span><span class="o">.</span><span class="n">from_object</span><span class="p">(</span><span class="n">model</span><span class="p">),</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+            <span class="c1"># typing special forms currently get typed as object</span>
+            <span class="c1"># https://github.com/python/mypy/issues/9773</span>
+            <span class="n">raw_type</span><span class="o">=</span><span class="n">pydantic_field_info</span><span class="o">.</span><span class="n">annotation</span> <span class="ow">or</span> <span class="n">Any</span><span class="p">,</span>  <span class="c1"># type: ignore</span>
+            <span class="n">raw_default_value</span><span class="o">=</span><span class="n">pydantic_field_info</span><span class="o">.</span><span class="n">default</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">pydantic_field_info</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">model_fields</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+    <span class="p">]</span>
+
+
+<span class="c1"># Register this plugin. Will override erdantic&#39;s built-in &#39;pydantic&#39; plugin.</span>
+<span class="n">register_plugin</span><span class="p">(</span><span class="s2">&quot;pydantic&quot;</span><span class="p">,</span> <span class="n">is_pydantic_model</span><span class="p">,</span> <span class="n">get_fields_from_pydantic_model_with_default</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
 
 
