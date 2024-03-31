@@ -46,7 +46,7 @@ def on_page_read_source(page, **kwargs):
 
 def _inject_cli_help(markdown: str):
     logger.info("Injecting CLI --help output into page markdown")
-    result = runner.invoke(app, ["--help"], prog_name="erdantic")
+    result = runner.invoke(app, ["--help"], prog_name="erdantic", env={"TERM": "dumb"})
     help_text = result.stdout
     return markdown.replace("{{INJECT CLI HELP}}", help_text)
 
