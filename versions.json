@@ -6,8 +6,10 @@
   },
   {
     "version": "v1.0",
-    "title": "v1.0.0rc1",
-    "aliases": []
+    "title": "v1.0.0 (stable)",
+    "aliases": [
+      "stable"
+    ]
   },
   {
     "version": "v0.7",
