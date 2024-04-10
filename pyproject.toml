@@ -32,6 +32,7 @@ dependencies = [
   "sortedcontainers-pydantic",
   "typenames",
   "typer",
+  "typing_extensions>4 ; python_version < '3.12'",
 ]
 
 [project.optional-dependencies]
