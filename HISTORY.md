@@ -1,5 +1,9 @@
 # erdantic Changelog
 
+## v1.0.0.post1 (2024-04-09)
+
+- Fixed outdated note in README.
+
 ## v1.0.0 (2024-04-09)
 
 > [!IMPORTANT]

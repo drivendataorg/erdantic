@@ -33,7 +33,8 @@ jobs:
           echo "Package version: [$PACKAGE_VERSION]"
           [ ${{ github.event.release.tag_name }} == "v$PACKAGE_VERSION" ] || { exit 1; }
           echo "full_version=v$PACKAGE_VERSION" >> $GITHUB_ENV
-          echo "major_minor_version=v${PACKAGE_VERSION%.*}" >> $GITHUB_ENV
+          MAJOR_MINOR_VERSION=$([[ $PACKAGE_VERSION =~ ^[0-9]+\.[0-9]+ ]] && echo "${BASH_REMATCH[0]}")
+          echo "major_minor_version=$([[ $PACKAGE_VERSION =~ ^[0-9]+\.[0-9]+ ]] && echo "v${BASH_REMATCH[0]}")" >> $GITHUB_ENV
 
       - name: Build package
         run: |
