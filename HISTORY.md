@@ -1,8 +1,6 @@
 # erdantic Changelog
 
-## v1.0.0rc1 Release Candidate (2024-03-30)
-
-_This is a pre-release version for v1.0.0._
+## v1.0.0 (2024-04-09)
 
 > [!IMPORTANT]
 > This release features significant changes to erdantic, primarily to the backend process of analyzing models and representing data. If you have been primarily using the CLI or the convenience functions `create`, `draw`, and `to_dot`, then your code may continue to work without any changes. If you are doing something more advanced, you may need to update your code.
@@ -48,9 +46,14 @@ A summary of some key changes is below:
 - Added IPython special method for pretty-print string representations of `EntityRelationshipDiagram` instances.
 - Removed support for Python 3.7. ([PR #102](https://github.com/drivendataorg/erdantic/pull/102))
 
-## v0.7.0 (2024-02-11)
+## v0.7.1 (2024-04-09)
 
 This will be the last version that supports Python 3.7.
+
+- Added version typer version ceiling of `< 0.10.0` due to incompatibility with a fix introduced in that version.
+
+
+## v0.7.0 (2024-02-11)
 
 - Added support for Pydantic V1 legacy models. These are models created from the `pydantic.v1` namespace when Pydantic V2 is installed. ([PR #94](https://github.com/drivendataorg/erdantic/pull/94) from [@ursereg](https://github.com/ursereg))
 
