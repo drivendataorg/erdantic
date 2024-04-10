@@ -1,5 +1,9 @@
 # erdantic Changelog
 
+## v1.0.0.post2 (2024-04-10)
+
+- Fixed missing LICENSE file in sdist.
+
 ## v1.0.0.post1 (2024-04-09)
 
 - Fixed outdated note in README.
