@@ -1,8 +1,12 @@
 # erdantic Changelog
 
-## v0.7.0 (2024-02-11)
+## v0.7.1 (2024-04-09)
 
 This will be the last version that supports Python 3.7.
+
+- Added version typer version ceiling of `< 0.10.0` due to incompatibility with a fix introduced in that version.
+
+## v0.7.0 (2024-02-11)
 
 - Added support for Pydantic V1 legacy models. These are models created from the `pydantic.v1` namespace when Pydantic V2 is installed. ([PR #94](https://github.com/drivendataorg/erdantic/pull/94) from [@ursereg](https://github.com/ursereg))
 
