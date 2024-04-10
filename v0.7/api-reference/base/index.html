@@ -12,8 +12,15 @@
       
         <link rel="canonical" href="https://erdantic.drivendata.org/stable/api-reference/base/">
       
+      
+        <link rel="prev" href="../../extending/">
+      
+      
+        <link rel="next" href="../dataclasses/">
+      
+      
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-8.5.10">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.15">
     
     
       
@@ -21,15 +28,14 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.975780f9.min.css">
-      
-        
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.2505c338.min.css">
-        
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e359304.min.css">
       
       
 
+
     
+    
+      
     
     
       
@@ -55,14 +61,8 @@
   </head>
   
   
-    
-    
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="None" data-md-color-accent="None">
+    <body dir="ltr">
   
-    
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -79,14 +79,16 @@
       
     </div>
     
-      <div data-md-component="outdated" hidden>
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
         
       </div>
     
     
       
 
-<header class="md-header" data-md-component="header">
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="erdantic" class="md-header__button md-logo" aria-label="erdantic" data-md-component="logo">
       
@@ -95,6 +97,7 @@
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
+      
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
@@ -115,8 +118,12 @@
     </div>
     
     
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
     
       <label class="md-header__button md-icon" for="__search">
+        
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
       </label>
       <div class="md-search" data-md-component="search" role="dialog">
@@ -125,12 +132,15 @@
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
+        
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
       </label>
       <nav class="md-search__options" aria-label="Search">
         
         <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
@@ -142,7 +152,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -154,7 +164,7 @@
         <a href="https://github.com/drivendataorg/erdantic" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub
@@ -184,6 +194,7 @@
                     
 
 
+
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="erdantic" class="md-nav__button md-logo" aria-label="erdantic" data-md-component="logo">
@@ -199,7 +210,7 @@
       <a href="https://github.com/drivendataorg/erdantic" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub
@@ -211,14 +222,19 @@
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
-        Home
+      <a href="../../index.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
       </a>
     </li>
   
@@ -226,14 +242,19 @@
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
-      <a href="../../cli/" class="md-nav__link">
-        CLI Help
+      <a href="../../cli.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CLI Help
+  </span>
+  
+
       </a>
     </li>
   
@@ -241,76 +262,103 @@
     
       
       
-      
-
   
   
   
+  
+    
+    
+    
     
     <li class="md-nav__item md-nav__item--nested">
       
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_3">
-          Usage Examples
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Usage Examples" data-md-level="1">
-        <label class="md-nav__title" for="__nav_3">
-          <span class="md-nav__icon md-icon"></span>
-          Usage Examples
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
           
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Usage Examples
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Usage Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../examples/pydantic/" class="md-nav__link">
-        Usage Example: Pydantic
+        
+  
+  <span class="md-ellipsis">
+    Usage Example: Pydantic
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../examples/dataclasses/" class="md-nav__link">
-        Usage Example: dataclasses
+        
+  
+  <span class="md-ellipsis">
+    Usage Example: dataclasses
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../forward-references/" class="md-nav__link">
-        Handling Forward References
+        
+  
+  <span class="md-ellipsis">
+    Handling Forward References
+  </span>
+  
+
       </a>
     </li>
   
@@ -318,14 +366,19 @@
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../extending/" class="md-nav__link">
-        Adding New Frameworks
+        
+  
+  <span class="md-ellipsis">
+    Adding New Frameworks
+  </span>
+  
+
       </a>
     </li>
   
@@ -333,56 +386,76 @@
     
       
       
-      
-
   
   
     
   
   
+  
+    
+    
+    
     
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_6">
-          API Reference
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="API Reference" data-md-level="1">
-        <label class="md-nav__title" for="__nav_6">
-          <span class="md-nav__icon md-icon"></span>
-          API Reference
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
           
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
   
   
     
+  
   
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
         
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          erdantic.base
+          
+  
+  <span class="md-ellipsis">
+    erdantic.base
+  </span>
+  
+
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        erdantic.base
+        
+  
+  <span class="md-ellipsis">
+    erdantic.base
+  </span>
+  
+
       </a>
       
         
@@ -402,35 +475,45 @@
       
         <li class="md-nav__item">
   <a href="#erdantic.base" class="md-nav__link">
-    erdantic.base
+    <span class="md-ellipsis">
+      base
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#erdantic.base.FT" class="md-nav__link">
-    FT
+    <span class="md-ellipsis">
+      FT
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#erdantic.base.MT" class="md-nav__link">
-    MT
+    <span class="md-ellipsis">
+      MT
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#erdantic.base.model_adapter_registry" class="md-nav__link">
-    model_adapter_registry
+    <span class="md-ellipsis">
+      model_adapter_registry
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#erdantic.base.Field" class="md-nav__link">
-    Field
+    <span class="md-ellipsis">
+      Field
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Field">
@@ -438,49 +521,63 @@
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Field.name" class="md-nav__link">
-    name
+    <span class="md-ellipsis">
+      name
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Field.type_name" class="md-nav__link">
-    type_name
+    <span class="md-ellipsis">
+      type_name
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Field.type_obj" class="md-nav__link">
-    type_obj
+    <span class="md-ellipsis">
+      type_obj
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Field.__init__" class="md-nav__link">
-    __init__()
+    <span class="md-ellipsis">
+      __init__
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Field.dot_row" class="md-nav__link">
-    dot_row()
+    <span class="md-ellipsis">
+      dot_row
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Field.is_many" class="md-nav__link">
-    is_many()
+    <span class="md-ellipsis">
+      is_many
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Field.is_nullable" class="md-nav__link">
-    is_nullable()
+    <span class="md-ellipsis">
+      is_nullable
+    </span>
   </a>
   
 </li>
@@ -492,7 +589,9 @@
       
         <li class="md-nav__item">
   <a href="#erdantic.base.Model" class="md-nav__link">
-    Model
+    <span class="md-ellipsis">
+      Model
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Model">
@@ -500,49 +599,63 @@
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Model.docstring" class="md-nav__link">
-    docstring
+    <span class="md-ellipsis">
+      docstring
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Model.fields" class="md-nav__link">
-    fields
+    <span class="md-ellipsis">
+      fields
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Model.key" class="md-nav__link">
-    key
+    <span class="md-ellipsis">
+      key
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Model.name" class="md-nav__link">
-    name
+    <span class="md-ellipsis">
+      name
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Model.__init__" class="md-nav__link">
-    __init__()
+    <span class="md-ellipsis">
+      __init__
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Model.dot_label" class="md-nav__link">
-    dot_label()
+    <span class="md-ellipsis">
+      dot_label
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Model.is_model_type" class="md-nav__link">
-    is_model_type()
+    <span class="md-ellipsis">
+      is_model_type
+    </span>
   </a>
   
 </li>
@@ -554,7 +667,9 @@
       
         <li class="md-nav__item">
   <a href="#erdantic.base.register_model_adapter" class="md-nav__link">
-    register_model_adapter()
+    <span class="md-ellipsis">
+      register_model_adapter
+    </span>
   </a>
   
 </li>
@@ -566,141 +681,199 @@
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../dataclasses/" class="md-nav__link">
-        erdantic.dataclasses
+        
+  
+  <span class="md-ellipsis">
+    erdantic.dataclasses
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../erd/" class="md-nav__link">
-        erdantic.erd
+        
+  
+  <span class="md-ellipsis">
+    erdantic.erd
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../exceptions/" class="md-nav__link">
-        erdantic.exceptions
+        
+  
+  <span class="md-ellipsis">
+    erdantic.exceptions
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../pydantic/" class="md-nav__link">
-        erdantic.pydantic
+        
+  
+  <span class="md-ellipsis">
+    erdantic.pydantic
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     
+    
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_6" type="checkbox" id="__nav_6_6" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_6_6">
-          erdantic.examples
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="erdantic.examples" data-md-level="2">
-        <label class="md-nav__title" for="__nav_6_6">
-          <span class="md-nav__icon md-icon"></span>
-          erdantic.examples
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_6" >
+        
           
+          <label class="md-nav__link" for="__nav_6_6" id="__nav_6_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    erdantic.examples
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_6">
+            <span class="md-nav__icon md-icon"></span>
+            erdantic.examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../examples.pydantic/" class="md-nav__link">
-        erdantic.examples.pydantic
+        
+  
+  <span class="md-ellipsis">
+    erdantic.examples.pydantic
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../examples.dataclasses/" class="md-nav__link">
-        erdantic.examples.dataclasses
+        
+  
+  <span class="md-ellipsis">
+    erdantic.examples.dataclasses
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
-      <a href="../../changelog/" class="md-nav__link">
-        Changelog
+      <a href="../../changelog.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog
+  </span>
+  
+
       </a>
     </li>
   
@@ -734,35 +907,45 @@
       
         <li class="md-nav__item">
   <a href="#erdantic.base" class="md-nav__link">
-    erdantic.base
+    <span class="md-ellipsis">
+      base
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#erdantic.base.FT" class="md-nav__link">
-    FT
+    <span class="md-ellipsis">
+      FT
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#erdantic.base.MT" class="md-nav__link">
-    MT
+    <span class="md-ellipsis">
+      MT
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#erdantic.base.model_adapter_registry" class="md-nav__link">
-    model_adapter_registry
+    <span class="md-ellipsis">
+      model_adapter_registry
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#erdantic.base.Field" class="md-nav__link">
-    Field
+    <span class="md-ellipsis">
+      Field
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Field">
@@ -770,49 +953,63 @@
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Field.name" class="md-nav__link">
-    name
+    <span class="md-ellipsis">
+      name
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Field.type_name" class="md-nav__link">
-    type_name
+    <span class="md-ellipsis">
+      type_name
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Field.type_obj" class="md-nav__link">
-    type_obj
+    <span class="md-ellipsis">
+      type_obj
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Field.__init__" class="md-nav__link">
-    __init__()
+    <span class="md-ellipsis">
+      __init__
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Field.dot_row" class="md-nav__link">
-    dot_row()
+    <span class="md-ellipsis">
+      dot_row
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Field.is_many" class="md-nav__link">
-    is_many()
+    <span class="md-ellipsis">
+      is_many
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Field.is_nullable" class="md-nav__link">
-    is_nullable()
+    <span class="md-ellipsis">
+      is_nullable
+    </span>
   </a>
   
 </li>
@@ -824,7 +1021,9 @@
       
         <li class="md-nav__item">
   <a href="#erdantic.base.Model" class="md-nav__link">
-    Model
+    <span class="md-ellipsis">
+      Model
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Model">
@@ -832,49 +1031,63 @@
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Model.docstring" class="md-nav__link">
-    docstring
+    <span class="md-ellipsis">
+      docstring
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Model.fields" class="md-nav__link">
-    fields
+    <span class="md-ellipsis">
+      fields
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Model.key" class="md-nav__link">
-    key
+    <span class="md-ellipsis">
+      key
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Model.name" class="md-nav__link">
-    name
+    <span class="md-ellipsis">
+      name
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Model.__init__" class="md-nav__link">
-    __init__()
+    <span class="md-ellipsis">
+      __init__
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Model.dot_label" class="md-nav__link">
-    dot_label()
+    <span class="md-ellipsis">
+      dot_label
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#erdantic.base.Model.is_model_type" class="md-nav__link">
-    is_model_type()
+    <span class="md-ellipsis">
+      is_model_type
+    </span>
   </a>
   
 </li>
@@ -886,7 +1099,9 @@
       
         <li class="md-nav__item">
   <a href="#erdantic.base.register_model_adapter" class="md-nav__link">
-    register_model_adapter()
+    <span class="md-ellipsis">
+      register_model_adapter
+    </span>
   </a>
   
 </li>
@@ -905,22 +1120,21 @@
                 
                   
 
-  <a href="https://github.com/drivendataorg/erdantic/edit/master/docs/api-reference/base.md" title="Edit this page" class="md-content__button md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
-  </a>
+  
+  
 
 
 <h1 id="erdanticbase">erdantic.base<a class="headerlink" href="#erdanticbase" title="Permanent link">&para;</a></h1>
 
 
-  <div class="doc doc-object doc-module">
+<div class="doc doc-object doc-module">
+
+
 
 <a id="erdantic.base"></a>
-    <div class="doc doc-contents first">
+  <div class="doc doc-contents first">
 
-
-
+  
 
   <div class="doc doc-children">
 
@@ -929,105 +1143,190 @@
 
 
 
-  <div class="doc doc-object doc-attribute">
+
+<div class="doc doc-object doc-attribute">
 
 
 
 <h2 id="erdantic.base.FT" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">FT</span></code>
-
+          <code class="highlight language-python"><span class="n">FT</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;FT&#39;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="n">Any</span><span class="p">,</span> <span class="n">covariant</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
 
 <a href="#erdantic.base.FT" class="headerlink" title="Permanent link">&para;</a></h2>
 
-    <div class="doc doc-contents ">
 
+  <div class="doc doc-contents ">
+  
       <p>Type variable for a field object adapted by adapter class
 <a class="autorefs autorefs-internal" href="#erdantic.base.Field"><code>Field</code></a>.</p>
-    </div>
-
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h2 id="erdantic.base.MT" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">MT</span></code>
-
+          <code class="highlight language-python"><span class="n">MT</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;MT&#39;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="nb">type</span><span class="p">,</span> <span class="n">covariant</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
 
 <a href="#erdantic.base.MT" class="headerlink" title="Permanent link">&para;</a></h2>
 
-    <div class="doc doc-contents ">
 
+  <div class="doc doc-contents ">
+  
       <p>Type variable for a data model class adapted by adapter class
 <a class="autorefs autorefs-internal" href="#erdantic.base.Model"><code>Model</code></a>. Bounded by <code>type</code>.</p>
-    </div>
-
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h2 id="erdantic.base.model_adapter_registry" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">model_adapter_registry</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Type</span><span class="p">[</span><span class="n">erdantic</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">Model</span><span class="p">]]</span></code>
-
+          <code class="highlight language-python"><span class="n">model_adapter_registry</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Type</span><span class="p">[</span><span class="n">Model</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
 
 <a href="#erdantic.base.model_adapter_registry" class="headerlink" title="Permanent link">&para;</a></h2>
 
-    <div class="doc doc-contents ">
 
+  <div class="doc doc-contents ">
+  
       <p>Registry of concrete <a class="autorefs autorefs-internal" href="#erdantic.base.Model"><code>Model</code></a> adapter subclasses. A concrete <code>Model</code>
 subclass must be registered for it to be available to the diagram creation workflow.</p>
-    </div>
-
   </div>
 
+</div>
 
 
-
-  <div class="doc doc-object doc-class">
+<div class="doc doc-object doc-class">
 
 
 
 <h2 id="erdantic.base.Field" class="doc doc-heading">
-        <code>
-Field            (<span title="abc.ABC">ABC</span>, <span title="typing.Generic">Generic</span>)
-        </code>
-
+          <code>Field</code>
 
 
 <a href="#erdantic.base.Field" class="headerlink" title="Permanent link">&para;</a></h2>
 
-    <div class="doc doc-contents ">
 
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="abc.ABC">ABC</span></code>, <code><span title="typing.Generic">Generic</span>[<a class="autorefs autorefs-internal" title="erdantic.base.FT" href="#erdantic.base.FT">FT</a>]</code></p>
+
+  
       <p>Abstract base class that adapts a field object of a data model class to work with erdantic.
 Concrete implementations should subclass and implement abstract methods.</p>
 
-<p><strong>Attributes:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
+
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>field</code></td>
-        <td><code>FT</code></td>
-        <td><p>Field object on a data model class associated with this adapter</p></td>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
       </tr>
-  </tbody>
-</table>
-        <details class="quote">
-          <summary>Source code in <code>erdantic/base.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Field</span><span class="p">(</span><span class="n">ABC</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">FT</span><span class="p">]):</span>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code><span title="erdantic.base.Field.field">field</span></code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="erdantic.base.FT" href="#erdantic.base.FT">FT</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Field object on a data model class associated with this adapter</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+            <details class="quote">
+              <summary>Source code in <code>erdantic/base.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Field</span><span class="p">(</span><span class="n">ABC</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">FT</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Abstract base class that adapts a field object of a data model class to work with erdantic.</span>
 <span class="sd">    Concrete implementations should subclass and implement abstract methods.</span>
 
@@ -1096,10 +1395,10 @@ Concrete implementations should subclass and implement abstract methods.</p>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">: &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">type_name</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
-</code></pre></div>
-        </details>
+</code></pre></div></td></tr></table></div>
+            </details>
 
-
+  
 
   <div class="doc doc-children">
 
@@ -1108,119 +1407,133 @@ Concrete implementations should subclass and implement abstract methods.</p>
 
 
 
-  <div class="doc doc-object doc-attribute">
+
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 id="erdantic.base.Field.name" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">name</span><span class="p">:</span> <span class="nb">str</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-property"><code>property</code></small>
-      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+          <code class="highlight language-python"><span class="n">name</span><span class="p">:</span> <span class="nb">str</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 <a href="#erdantic.base.Field.name" class="headerlink" title="Permanent link">&para;</a></h3>
 
-    <div class="doc doc-contents ">
 
+  <div class="doc doc-contents ">
+  
       <p>Name of this field on the parent data model.</p>
-    </div>
-
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 id="erdantic.base.Field.type_name" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">type_name</span><span class="p">:</span> <span class="nb">str</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-property"><code>property</code></small>
-      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+          <code class="highlight language-python"><span class="n">type_name</span><span class="p">:</span> <span class="nb">str</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 <a href="#erdantic.base.Field.type_name" class="headerlink" title="Permanent link">&para;</a></h3>
 
-    <div class="doc doc-contents ">
 
+  <div class="doc doc-contents ">
+  
       <p>String representation of the Python type annotation for this field.</p>
-    </div>
-
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 id="erdantic.base.Field.type_obj" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">type_obj</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">type</span><span class="p">,</span> <span class="n">_GenericAlias</span><span class="p">]</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-property"><code>property</code></small>
-      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+          <code class="highlight language-python"><span class="n">type_obj</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">type</span><span class="p">,</span> <span class="n">GenericAlias</span><span class="p">]</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 <a href="#erdantic.base.Field.type_obj" class="headerlink" title="Permanent link">&para;</a></h3>
 
-    <div class="doc doc-contents ">
 
+  <div class="doc doc-contents ">
+  
       <p>Python type object for this field.</p>
-    </div>
-
   </div>
 
+</div>
 
 
 
 
-
-
-
-  <div class="doc doc-object doc-method">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 id="erdantic.base.Field.__init__" class="doc doc-heading">
-<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-special"><code>special</code></small>
+          <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">field</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
   </span>
 
 <a href="#erdantic.base.Field.__init__" class="headerlink" title="Permanent link">&para;</a></h3>
 
-    <div class="doc doc-contents ">
 
+  <div class="doc doc-contents ">
+  
       <p>Initialize Field adapter instance.</p>
 
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>field</code></td>
-        <td><code>+FT</code></td>
-        <td><p>Field object to associate with this adapter instance</p></td>
-        <td><em>required</em></td>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
       </tr>
-  </tbody>
-</table>
-        <details class="quote">
-          <summary>Source code in <code>erdantic/base.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="nd">@abstractmethod</span>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>field</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="erdantic.base.FT" href="#erdantic.base.FT">FT</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Field object to associate with this adapter instance</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>erdantic/base.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="n">FT</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize Field adapter instance.</span>
 
@@ -1228,49 +1541,64 @@ Concrete implementations should subclass and implement abstract methods.</p>
 <span class="sd">        field: Field object to associate with this adapter instance</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">FT</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span>
-</code></pre></div>
-        </details>
-    </div>
-
+</code></pre></div></td></tr></table></div>
+          </details>
   </div>
 
+</div>
 
 
-
-  <div class="doc doc-object doc-method">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 id="erdantic.base.Field.dot_row" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">dot_row</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
-
+          <code class="highlight language-python"><span class="n">dot_row</span><span class="p">()</span></code>
 
 <a href="#erdantic.base.Field.dot_row" class="headerlink" title="Permanent link">&para;</a></h3>
 
-    <div class="doc doc-contents ">
 
+  <div class="doc doc-contents ">
+  
       <p>Returns the DOT language "HTML-like" syntax specification of a row detailing this field
 that is part of a table describing the field's parent data model. It is used as part the
 <code>label</code> attribute of data model's node in the graph's DOT representation.</p>
 
-<p><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>str</code></td>
-      <td><p>DOT language for table row</p></td>
-    </tr>
-  </tbody>
-</table>
-        <details class="quote">
-          <summary>Source code in <code>erdantic/base.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">dot_row</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>str</code></td>          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>DOT language for table row</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>erdantic/base.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">dot_row</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the DOT language &quot;HTML-like&quot; syntax specification of a row detailing this field</span>
 <span class="sd">    that is part of a table describing the field&#39;s parent data model. It is used as part the</span>
 <span class="sd">    `label` attribute of data model&#39;s node in the graph&#39;s DOT representation.</span>
@@ -1279,46 +1607,65 @@ that is part of a table describing the field's parent data model. It is used as 
 <span class="sd">        str: DOT language for table row</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">_row_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">type_name</span><span class="p">)</span>
-</code></pre></div>
-        </details>
-    </div>
-
+</code></pre></div></td></tr></table></div>
+          </details>
   </div>
 
+</div>
 
 
-  <div class="doc doc-object doc-method">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 id="erdantic.base.Field.is_many" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">is_many</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
-
+          <code class="highlight language-python"><span class="n">is_many</span><span class="p">()</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
 
 <a href="#erdantic.base.Field.is_many" class="headerlink" title="Permanent link">&para;</a></h3>
 
-    <div class="doc doc-contents ">
 
+  <div class="doc doc-contents ">
+  
       <p>Check whether this field represents a one-to-one or one-to-many relationship.</p>
 
-<p><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>bool</code></td>
-      <td><p>True if one-to-many relationship, else False.</p></td>
-    </tr>
-  </tbody>
-</table>
-        <details class="quote">
-          <summary>Source code in <code>erdantic/base.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="nd">@abstractmethod</span>
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>bool</code></td>          <td>
+                <code>bool</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>True if one-to-many relationship, else False.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>erdantic/base.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">is_many</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Check whether this field represents a one-to-one or one-to-many relationship.</span>
 
@@ -1326,46 +1673,65 @@ that is part of a table describing the field's parent data model. It is used as 
 <span class="sd">        bool: True if one-to-many relationship, else False.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">pass</span>
-</code></pre></div>
-        </details>
-    </div>
-
+</code></pre></div></td></tr></table></div>
+          </details>
   </div>
 
+</div>
 
 
-  <div class="doc doc-object doc-method">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 id="erdantic.base.Field.is_nullable" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">is_nullable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
-
+          <code class="highlight language-python"><span class="n">is_nullable</span><span class="p">()</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+  </span>
 
 <a href="#erdantic.base.Field.is_nullable" class="headerlink" title="Permanent link">&para;</a></h3>
 
-    <div class="doc doc-contents ">
 
+  <div class="doc doc-contents ">
+  
       <p>Check whether this field is nullable, i.e., can be <code>None</code>.</p>
 
-<p><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>bool</code></td>
-      <td><p>True if nullable, else False.</p></td>
-    </tr>
-  </tbody>
-</table>
-        <details class="quote">
-          <summary>Source code in <code>erdantic/base.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="nd">@abstractmethod</span>
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>bool</code></td>          <td>
+                <code>bool</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>True if nullable, else False.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>erdantic/base.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">is_nullable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Check whether this field is nullable, i.e., can be `None`.</span>
 
@@ -1373,69 +1739,159 @@ that is part of a table describing the field's parent data model. It is used as 
 <span class="sd">        bool: True if nullable, else False.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">pass</span>
-</code></pre></div>
-        </details>
-    </div>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+
+  </div>
 
   </div>
 
 
+</div>
 
-
-
-  </div>
-
-    </div>
-
-  </div>
-
-
-
-  <div class="doc doc-object doc-class">
+<div class="doc doc-object doc-class">
 
 
 
 <h2 id="erdantic.base.Model" class="doc doc-heading">
-        <code>
-Model            (<span title="abc.ABC">ABC</span>, <span title="typing.Generic">Generic</span>)
-        </code>
-
+          <code>Model</code>
 
 
 <a href="#erdantic.base.Model" class="headerlink" title="Permanent link">&para;</a></h2>
 
-    <div class="doc doc-contents ">
 
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="abc.ABC">ABC</span></code>, <code><span title="typing.Generic">Generic</span>[<a class="autorefs autorefs-internal" title="erdantic.base.MT" href="#erdantic.base.MT">MT</a>]</code></p>
+
+  
       <p>Abstract base class that adapts a data model class to work with erdantic. Instances
 represent a node in our entity relationship diagram graph. Concrete implementations should
 subclass and implement abstract methods.</p>
 
-<p><strong>Attributes:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
+
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>model</code></td>
-        <td><code>MT</code></td>
-        <td><p>Data model class associated with this adapter</p></td>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
       </tr>
-      <tr>
-        <td><code>forward_ref_help</code></td>
-        <td><code>Optional[str]</code></td>
-        <td><p>Instructions for how to resolve an unevaluated forward
-reference in a field's type declaration.</p></td>
-      </tr>
-  </tbody>
-</table>
-        <details class="quote">
-          <summary>Source code in <code>erdantic/base.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Model</span><span class="p">(</span><span class="n">ABC</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">MT</span><span class="p">]):</span>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code><span title="erdantic.base.Model.model">model</span></code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="erdantic.base.MT" href="#erdantic.base.MT">MT</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Data model class associated with this adapter</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code><span title="erdantic.base.Model.forward_ref_help">forward_ref_help</span></code></td>
+          <td>
+                <code><span title="typing.Optional">Optional</span>[str]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Instructions for how to resolve an unevaluated forward
+reference in a field's type declaration.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+            <details class="quote">
+              <summary>Source code in <code>erdantic/base.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Model</span><span class="p">(</span><span class="n">ABC</span><span class="p">,</span> <span class="n">Generic</span><span class="p">[</span><span class="n">MT</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Abstract base class that adapts a data model class to work with erdantic. Instances</span>
 <span class="sd">    represent a node in our entity relationship diagram graph. Concrete implementations should</span>
 <span class="sd">    subclass and implement abstract methods.</span>
@@ -1513,10 +1969,10 @@ reference in a field's type declaration.</p></td>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">)&quot;</span>
-</code></pre></div>
-        </details>
+</code></pre></div></td></tr></table></div>
+            </details>
 
-
+  
 
   <div class="doc doc-children">
 
@@ -1525,144 +1981,154 @@ reference in a field's type declaration.</p></td>
 
 
 
-  <div class="doc doc-object doc-attribute">
+
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 id="erdantic.base.Model.docstring" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">docstring</span><span class="p">:</span> <span class="nb">str</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-property"><code>property</code></small>
-      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+          <code class="highlight language-python"><span class="n">docstring</span><span class="p">:</span> <span class="nb">str</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 <a href="#erdantic.base.Model.docstring" class="headerlink" title="Permanent link">&para;</a></h3>
 
-    <div class="doc doc-contents ">
 
+  <div class="doc doc-contents ">
+  
       <p>Docstring for this data model.</p>
-    </div>
-
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 id="erdantic.base.Model.fields" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">fields</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">erdantic</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">Field</span><span class="p">]</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-property"><code>property</code></small>
-      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+          <code class="highlight language-python"><span class="n">fields</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Field</span><span class="p">]</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 <a href="#erdantic.base.Model.fields" class="headerlink" title="Permanent link">&para;</a></h3>
 
-    <div class="doc doc-contents ">
 
+  <div class="doc doc-contents ">
+  
       <p>List of fields defined on this data model.</p>
-    </div>
-
   </div>
 
+</div>
 
-
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 id="erdantic.base.Model.key" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">key</span><span class="p">:</span> <span class="nb">str</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-property"><code>property</code></small>
-      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+          <code class="highlight language-python"><span class="n">key</span><span class="p">:</span> <span class="nb">str</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 <a href="#erdantic.base.Model.key" class="headerlink" title="Permanent link">&para;</a></h3>
 
-    <div class="doc doc-contents ">
 
+  <div class="doc doc-contents ">
+  
       <p>Human-readable unique identifier for this data model. Should be stable across
 sessions.</p>
-    </div>
-
   </div>
 
+</div>
 
-
-  <div class="doc doc-object doc-attribute">
+<div class="doc doc-object doc-attribute">
 
 
 
 <h3 id="erdantic.base.Model.name" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">name</span><span class="p">:</span> <span class="nb">str</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-property"><code>property</code></small>
-      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
+          <code class="highlight language-python"><span class="n">name</span><span class="p">:</span> <span class="nb">str</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
   </span>
 
 <a href="#erdantic.base.Model.name" class="headerlink" title="Permanent link">&para;</a></h3>
 
-    <div class="doc doc-contents ">
 
+  <div class="doc doc-contents ">
+  
       <p>Name of this data model.</p>
-    </div>
-
   </div>
 
+</div>
 
 
 
 
-
-
-
-  <div class="doc doc-object doc-method">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 id="erdantic.base.Model.__init__" class="doc doc-heading">
-<code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-special"><code>special</code></small>
+          <code class="highlight language-python"><span class="fm">__init__</span><span class="p">(</span><span class="n">model</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
   </span>
 
 <a href="#erdantic.base.Model.__init__" class="headerlink" title="Permanent link">&para;</a></h3>
 
-    <div class="doc doc-contents ">
 
+  <div class="doc doc-contents ">
+  
       <p>Initialize model adapter instance.</p>
 
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>model</code></td>
-        <td><code>+MT</code></td>
-        <td><p>Data model class to associate with this adapter instance</p></td>
-        <td><em>required</em></td>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
       </tr>
-  </tbody>
-</table>
-        <details class="quote">
-          <summary>Source code in <code>erdantic/base.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="nd">@abstractmethod</span>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>model</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="erdantic.base.MT" href="#erdantic.base.MT">MT</a></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Data model class to associate with this adapter instance</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>erdantic/base.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">MT</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize model adapter instance.</span>
 
@@ -1670,50 +2136,65 @@ sessions.</p>
 <span class="sd">        model: Data model class to associate with this adapter instance</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="n">MT</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span>
-</code></pre></div>
-        </details>
-    </div>
-
+</code></pre></div></td></tr></table></div>
+          </details>
   </div>
 
+</div>
 
 
-
-
-  <div class="doc doc-object doc-method">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 id="erdantic.base.Model.dot_label" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">dot_label</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
-
+          <code class="highlight language-python"><span class="n">dot_label</span><span class="p">()</span></code>
 
 <a href="#erdantic.base.Model.dot_label" class="headerlink" title="Permanent link">&para;</a></h3>
 
-    <div class="doc doc-contents ">
 
+  <div class="doc doc-contents ">
+  
       <p>Returns the DOT language "HTML-like" syntax specification of a table for this data
 model. It is used as the <code>label</code> attribute of data model's node in the graph's DOT
 representation.</p>
 
-<p><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>str</code></td>
-      <td><p>DOT language for table</p></td>
-    </tr>
-  </tbody>
-</table>
-        <details class="quote">
-          <summary>Source code in <code>erdantic/base.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">dot_label</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>str</code></td>          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>DOT language for table</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>erdantic/base.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">dot_label</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the DOT language &quot;HTML-like&quot; syntax specification of a table for this data</span>
 <span class="sd">    model. It is used as the `label` attribute of data model&#39;s node in the graph&#39;s DOT</span>
 <span class="sd">    representation.</span>
@@ -1723,112 +2204,157 @@ representation.</p>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">rows</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">dot_row</span><span class="p">()</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">_table_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">rows</span><span class="o">=</span><span class="n">rows</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-</code></pre></div>
-        </details>
-    </div>
-
+</code></pre></div></td></tr></table></div>
+          </details>
   </div>
 
+</div>
 
 
-  <div class="doc doc-object doc-method">
+<div class="doc doc-object doc-function">
 
 
 
 <h3 id="erdantic.base.Model.is_model_type" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">is_model_type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-staticmethod"><code>staticmethod</code></small>
+          <code class="highlight language-python"><span class="n">is_model_type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-abstractmethod"><code>abstractmethod</code></small>
+      <small class="doc doc-label doc-label-staticmethod"><code>staticmethod</code></small>
   </span>
 
 <a href="#erdantic.base.Model.is_model_type" class="headerlink" title="Permanent link">&para;</a></h3>
 
-    <div class="doc doc-contents ">
 
+  <div class="doc doc-contents ">
+  
       <p>Check if object is the type of data model class that this model adapter works with.</p>
 
-        <details class="quote">
-          <summary>Source code in <code>erdantic/base.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="nd">@staticmethod</span>
+          <details class="quote">
+            <summary>Source code in <code>erdantic/base.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
 <span class="nd">@abstractmethod</span>
 <span class="k">def</span> <span class="nf">is_model_type</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if object is the type of data model class that this model adapter works with.&quot;&quot;&quot;</span>
     <span class="k">pass</span>
-</code></pre></div>
-        </details>
-    </div>
+</code></pre></div></td></tr></table></div>
+          </details>
+  </div>
+
+</div>
+
+
+
+  </div>
 
   </div>
 
 
+</div>
 
 
 
-  </div>
-
-    </div>
-
-  </div>
-
-
-
-
-
-  <div class="doc doc-object doc-function">
+<div class="doc doc-object doc-function">
 
 
 
 <h2 id="erdantic.base.register_model_adapter" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">register_model_adapter</span><span class="p">(</span><span class="n">type_name</span><span class="p">)</span></code>
-
+          <code class="highlight language-python"><span class="n">register_model_adapter</span><span class="p">(</span><span class="n">type_name</span><span class="p">)</span></code>
 
 <a href="#erdantic.base.register_model_adapter" class="headerlink" title="Permanent link">&para;</a></h2>
 
-    <div class="doc doc-contents ">
 
+  <div class="doc doc-contents ">
+  
       <p>Create decorator to register a concrete <a class="autorefs autorefs-internal" href="#erdantic.base.Model"><code>Model</code></a> adapter subclass
 that will be identified under the key <code>type_name</code>. A concrete <code>Model</code> subclass must be
 registered for it to be available to the diagram creation workflow.</p>
 
-<p><strong>Parameters:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-      <th>Default</th>
-    </tr>
-  </thead>
-  <tbody>
+
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>type_name</code></td>
-        <td><code>str</code></td>
-        <td><p>Key used to identify concrete <code>Model</code> adapter subclass</p></td>
-        <td><em>required</em></td>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
       </tr>
-  </tbody>
-</table>
-<p><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>Callable[[Type[Model]], Type[Model]]</code></td>
-      <td><p>A registration decorator for a concrete <code>Model</code>
-    adapter subclass</p></td>
-    </tr>
-  </tbody>
-</table>
-        <details class="quote">
-          <summary>Source code in <code>erdantic/base.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">register_model_adapter</span><span class="p">(</span><span class="n">type_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Type</span><span class="p">[</span><span class="n">Model</span><span class="p">]],</span> <span class="n">Type</span><span class="p">[</span><span class="n">Model</span><span class="p">]]:</span>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>type_name</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Key used to identify concrete <code>Model</code> adapter subclass</p>
+            </div>
+          </td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code><span title="typing.Callable">Callable</span>[[<span title="typing.Type">Type</span>[<a class="autorefs autorefs-internal" title="erdantic.base.Model" href="#erdantic.base.Model">Model</a>]], <span title="typing.Type">Type</span>[<a class="autorefs autorefs-internal" title="erdantic.base.Model" href="#erdantic.base.Model">Model</a>]]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Callable[[Type[Model]], Type[Model]]: A registration decorator for a concrete <code>Model</code>
+adapter subclass</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+          <details class="quote">
+            <summary>Source code in <code>erdantic/base.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">register_model_adapter</span><span class="p">(</span><span class="n">type_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Type</span><span class="p">[</span><span class="n">Model</span><span class="p">]],</span> <span class="n">Type</span><span class="p">[</span><span class="n">Model</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create decorator to register a concrete [`Model`][erdantic.base.Model] adapter subclass</span>
 <span class="sd">    that will be identified under the key `type_name`. A concrete `Model` subclass must be</span>
 <span class="sd">    registered for it to be available to the diagram creation workflow.</span>
@@ -1852,22 +2378,26 @@ registered for it to be available to the diagram creation workflow.</p>
         <span class="k">return</span> <span class="bp">cls</span>
 
     <span class="k">return</span> <span class="n">decorator</span>
-</code></pre></div>
-        </details>
-    </div>
-
+</code></pre></div></td></tr></table></div>
+          </details>
   </div>
 
-
-
+</div>
 
 
 
   </div>
 
-    </div>
-
   </div>
+
+</div>
+
+
+
+
+
+
+
 
 
 
@@ -1878,52 +2408,18 @@ registered for it to be available to the diagram creation workflow.</p>
             </div>
           
           
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
-          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
-            Back to top
-          </a>
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
         
       </main>
       
         <footer class="md-footer">
-  
-    
-    <nav class="md-footer__inner md-grid" aria-label="Footer" >
-      
-        
-        <a href="../../extending/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Adding New Frameworks" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              Adding New Frameworks
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="../dataclasses/" class="md-footer__link md-footer__link--next" aria-label="Next: erdantic.dataclasses" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              erdantic.dataclasses
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -1946,12 +2442,12 @@ registered for it to be available to the diagram creation workflow.</p>
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top"], "search": "../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      <script src="../../assets/javascripts/bundle.bd41221c.min.js"></script>
       
-    
     
   </body>
 </html>

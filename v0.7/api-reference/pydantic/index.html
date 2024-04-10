@@ -12,8 +12,15 @@
       
         <link rel="canonical" href="https://erdantic.drivendata.org/stable/api-reference/pydantic/">
       
+      
+        <link rel="prev" href="../exceptions/">
+      
+      
+        <link rel="next" href="../examples.pydantic/">
+      
+      
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-8.5.10">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.15">
     
     
       
@@ -21,15 +28,14 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.975780f9.min.css">
-      
-        
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.2505c338.min.css">
-        
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e359304.min.css">
       
       
 
+
     
+    
+      
     
     
       
@@ -55,14 +61,8 @@
   </head>
   
   
-    
-    
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="None" data-md-color-accent="None">
+    <body dir="ltr">
   
-    
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -79,14 +79,16 @@
       
     </div>
     
-      <div data-md-component="outdated" hidden>
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
         
       </div>
     
     
       
 
-<header class="md-header" data-md-component="header">
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="erdantic" class="md-header__button md-logo" aria-label="erdantic" data-md-component="logo">
       
@@ -95,6 +97,7 @@
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
+      
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
@@ -115,8 +118,12 @@
     </div>
     
     
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
     
       <label class="md-header__button md-icon" for="__search">
+        
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
       </label>
       <div class="md-search" data-md-component="search" role="dialog">
@@ -125,12 +132,15 @@
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
+        
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
       </label>
       <nav class="md-search__options" aria-label="Search">
         
         <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
@@ -142,7 +152,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list"></ol>
+          <ol class="md-search-result__list" role="presentation"></ol>
         </div>
       </div>
     </div>
@@ -154,7 +164,7 @@
         <a href="https://github.com/drivendataorg/erdantic" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub
@@ -184,6 +194,7 @@
                     
 
 
+
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="erdantic" class="md-nav__button md-logo" aria-label="erdantic" data-md-component="logo">
@@ -199,7 +210,7 @@
       <a href="https://github.com/drivendataorg/erdantic" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     GitHub
@@ -211,14 +222,19 @@
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
-        Home
+      <a href="../../index.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
       </a>
     </li>
   
@@ -226,14 +242,19 @@
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
-      <a href="../../cli/" class="md-nav__link">
-        CLI Help
+      <a href="../../cli.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CLI Help
+  </span>
+  
+
       </a>
     </li>
   
@@ -241,76 +262,103 @@
     
       
       
-      
-
   
   
   
+  
+    
+    
+    
     
     <li class="md-nav__item md-nav__item--nested">
       
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_3">
-          Usage Examples
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Usage Examples" data-md-level="1">
-        <label class="md-nav__title" for="__nav_3">
-          <span class="md-nav__icon md-icon"></span>
-          Usage Examples
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
           
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Usage Examples
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Usage Examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../examples/pydantic/" class="md-nav__link">
-        Usage Example: Pydantic
+        
+  
+  <span class="md-ellipsis">
+    Usage Example: Pydantic
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../examples/dataclasses/" class="md-nav__link">
-        Usage Example: dataclasses
+        
+  
+  <span class="md-ellipsis">
+    Usage Example: dataclasses
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../forward-references/" class="md-nav__link">
-        Handling Forward References
+        
+  
+  <span class="md-ellipsis">
+    Handling Forward References
+  </span>
+  
+
       </a>
     </li>
   
@@ -318,14 +366,19 @@
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../extending/" class="md-nav__link">
-        Adding New Frameworks
+        
+  
+  <span class="md-ellipsis">
+    Adding New Frameworks
+  </span>
+  
+
       </a>
     </li>
   
@@ -333,112 +386,160 @@
     
       
       
-      
-
   
   
     
   
   
+  
+    
+    
+    
     
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_6">
-          API Reference
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="API Reference" data-md-level="1">
-        <label class="md-nav__title" for="__nav_6">
-          <span class="md-nav__icon md-icon"></span>
-          API Reference
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
           
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../base/" class="md-nav__link">
-        erdantic.base
+        
+  
+  <span class="md-ellipsis">
+    erdantic.base
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../dataclasses/" class="md-nav__link">
-        erdantic.dataclasses
+        
+  
+  <span class="md-ellipsis">
+    erdantic.dataclasses
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../erd/" class="md-nav__link">
-        erdantic.erd
+        
+  
+  <span class="md-ellipsis">
+    erdantic.erd
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../exceptions/" class="md-nav__link">
-        erdantic.exceptions
+        
+  
+  <span class="md-ellipsis">
+    erdantic.exceptions
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
   
   
     
   
   
+  
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
         
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          erdantic.pydantic
+          
+  
+  <span class="md-ellipsis">
+    erdantic.pydantic
+  </span>
+  
+
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        erdantic.pydantic
+        
+  
+  <span class="md-ellipsis">
+    erdantic.pydantic
+  </span>
+  
+
       </a>
       
         
@@ -458,83 +559,28 @@
       
         <li class="md-nav__item">
   <a href="#erdantic.pydantic" class="md-nav__link">
-    erdantic.pydantic
+    <span class="md-ellipsis">
+      pydantic
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#erdantic.pydantic.PydanticField" class="md-nav__link">
-    PydanticField
+    <span class="md-ellipsis">
+      PydanticField
+    </span>
   </a>
-  
-    <nav class="md-nav" aria-label="PydanticField">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#erdantic.pydantic.PydanticField.name" class="md-nav__link">
-    name
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#erdantic.pydantic.PydanticField.type_obj" class="md-nav__link">
-    type_obj
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#erdantic.pydantic.PydanticField.is_many" class="md-nav__link">
-    is_many()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#erdantic.pydantic.PydanticField.is_nullable" class="md-nav__link">
-    is_nullable()
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#erdantic.pydantic.PydanticModel" class="md-nav__link">
-    PydanticModel
+    <span class="md-ellipsis">
+      PydanticModel
+    </span>
   </a>
-  
-    <nav class="md-nav" aria-label="PydanticModel">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#erdantic.pydantic.PydanticModel.docstring" class="md-nav__link">
-    docstring
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#erdantic.pydantic.PydanticModel.fields" class="md-nav__link">
-    fields
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#erdantic.pydantic.PydanticModel.is_model_type" class="md-nav__link">
-    is_model_type()
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -545,85 +591,115 @@
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     
+    
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_6" type="checkbox" id="__nav_6_6" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_6_6">
-          erdantic.examples
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="erdantic.examples" data-md-level="2">
-        <label class="md-nav__title" for="__nav_6_6">
-          <span class="md-nav__icon md-icon"></span>
-          erdantic.examples
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_6" >
+        
           
+          <label class="md-nav__link" for="__nav_6_6" id="__nav_6_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    erdantic.examples
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_6">
+            <span class="md-nav__icon md-icon"></span>
+            erdantic.examples
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../examples.pydantic/" class="md-nav__link">
-        erdantic.examples.pydantic
+        
+  
+  <span class="md-ellipsis">
+    erdantic.examples.pydantic
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../examples.dataclasses/" class="md-nav__link">
-        erdantic.examples.dataclasses
+        
+  
+  <span class="md-ellipsis">
+    erdantic.examples.dataclasses
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
-      <a href="../../changelog/" class="md-nav__link">
-        Changelog
+      <a href="../../changelog.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Changelog
+  </span>
+  
+
       </a>
     </li>
   
@@ -657,83 +733,28 @@
       
         <li class="md-nav__item">
   <a href="#erdantic.pydantic" class="md-nav__link">
-    erdantic.pydantic
+    <span class="md-ellipsis">
+      pydantic
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#erdantic.pydantic.PydanticField" class="md-nav__link">
-    PydanticField
+    <span class="md-ellipsis">
+      PydanticField
+    </span>
   </a>
-  
-    <nav class="md-nav" aria-label="PydanticField">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#erdantic.pydantic.PydanticField.name" class="md-nav__link">
-    name
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#erdantic.pydantic.PydanticField.type_obj" class="md-nav__link">
-    type_obj
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#erdantic.pydantic.PydanticField.is_many" class="md-nav__link">
-    is_many()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#erdantic.pydantic.PydanticField.is_nullable" class="md-nav__link">
-    is_nullable()
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#erdantic.pydantic.PydanticModel" class="md-nav__link">
-    PydanticModel
+    <span class="md-ellipsis">
+      PydanticModel
+    </span>
   </a>
-  
-    <nav class="md-nav" aria-label="PydanticModel">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#erdantic.pydantic.PydanticModel.docstring" class="md-nav__link">
-    docstring
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#erdantic.pydantic.PydanticModel.fields" class="md-nav__link">
-    fields
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#erdantic.pydantic.PydanticModel.is_model_type" class="md-nav__link">
-    is_model_type()
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -751,22 +772,21 @@
                 
                   
 
-  <a href="https://github.com/drivendataorg/erdantic/edit/master/docs/api-reference/pydantic.md" title="Edit this page" class="md-content__button md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
-  </a>
+  
+  
 
 
 <h1 id="erdanticpydantic">erdantic.pydantic<a class="headerlink" href="#erdanticpydantic" title="Permanent link">&para;</a></h1>
 
 
-  <div class="doc doc-object doc-module">
+<div class="doc doc-object doc-module">
+
+
 
 <a id="erdantic.pydantic"></a>
-    <div class="doc doc-contents first">
+  <div class="doc doc-contents first">
 
-
-
+  
 
   <div class="doc doc-children">
 
@@ -776,44 +796,83 @@
 
 
 
-  <div class="doc doc-object doc-class">
+
+<div class="doc doc-object doc-class">
 
 
 
 <h2 id="erdantic.pydantic.PydanticField" class="doc doc-heading">
-        <code>
-PydanticField            (<a class="autorefs autorefs-internal" title="erdantic.base.Field" href="../base/#erdantic.base.Field">Field</a>)
-        </code>
-
+          <code>PydanticField</code>
 
 
 <a href="#erdantic.pydantic.PydanticField" class="headerlink" title="Permanent link">&para;</a></h2>
 
-    <div class="doc doc-contents ">
 
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="erdantic.base.Field" href="../base/#erdantic.base.Field">Field</a>[<span title="pydantic.fields.FieldInfo">FieldInfo</span>]</code></p>
+
+  
       <p>Concrete field adapter class for Pydantic fields.</p>
 
-<p><strong>Attributes:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
+
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>field</code></td>
-        <td><code>pydantic.fields.ModelField</code></td>
-        <td><p>The Pydantic field object that is associated with this
-adapter instance.</p></td>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
       </tr>
-  </tbody>
-</table>
-        <details class="quote">
-          <summary>Source code in <code>erdantic/pydantic.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">PydanticField</span><span class="p">(</span><span class="n">Field</span><span class="p">[</span><span class="n">pydantic</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">FieldInfo</span><span class="p">]):</span>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code><span title="erdantic.pydantic.PydanticField.field">field</span></code></td>
+          <td>
+                <code><span title="pydantic.fields.ModelField">ModelField</span></code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The Pydantic field object that is associated with this
+adapter instance.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+            <details class="quote">
+              <summary>Source code in <code>erdantic/pydantic.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">PydanticField</span><span class="p">(</span><span class="n">Field</span><span class="p">[</span><span class="n">pydantic</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">FieldInfo</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Concrete field adapter class for Pydantic fields.</span>
 
 <span class="sd">    Attributes:</span>
@@ -842,10 +901,10 @@ adapter instance.</p></td>
 
     <span class="k">def</span> <span class="nf">is_nullable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">is_nullable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type_obj</span><span class="p">)</span>
-</code></pre></div>
-        </details>
+</code></pre></div></td></tr></table></div>
+            </details>
 
-
+  
 
   <div class="doc doc-children">
 
@@ -854,135 +913,6 @@ adapter instance.</p></td>
 
 
 
-  <div class="doc doc-object doc-attribute">
-
-
-
-<h3 id="erdantic.pydantic.PydanticField.name" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">name</span><span class="p">:</span> <span class="nb">str</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-property"><code>property</code></small>
-      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
-  </span>
-
-<a href="#erdantic.pydantic.PydanticField.name" class="headerlink" title="Permanent link">&para;</a></h3>
-
-    <div class="doc doc-contents ">
-
-      <p>Name of this field on the parent data model.</p>
-    </div>
-
-  </div>
-
-
-
-  <div class="doc doc-object doc-attribute">
-
-
-
-<h3 id="erdantic.pydantic.PydanticField.type_obj" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">type_obj</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">type</span><span class="p">,</span> <span class="n">_GenericAlias</span><span class="p">]</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-property"><code>property</code></small>
-      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
-  </span>
-
-<a href="#erdantic.pydantic.PydanticField.type_obj" class="headerlink" title="Permanent link">&para;</a></h3>
-
-    <div class="doc doc-contents ">
-
-      <p>Python type object for this field.</p>
-    </div>
-
-  </div>
-
-
-
-
-
-
-
-  <div class="doc doc-object doc-method">
-
-
-
-<h3 id="erdantic.pydantic.PydanticField.is_many" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">is_many</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
-
-
-<a href="#erdantic.pydantic.PydanticField.is_many" class="headerlink" title="Permanent link">&para;</a></h3>
-
-    <div class="doc doc-contents ">
-
-      <p>Check whether this field represents a one-to-one or one-to-many relationship.</p>
-
-<p><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>bool</code></td>
-      <td><p>True if one-to-many relationship, else False.</p></td>
-    </tr>
-  </tbody>
-</table>
-        <details class="quote">
-          <summary>Source code in <code>erdantic/pydantic.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">is_many</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">is_many</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type_obj</span><span class="p">)</span>
-</code></pre></div>
-        </details>
-    </div>
-
-  </div>
-
-
-
-  <div class="doc doc-object doc-method">
-
-
-
-<h3 id="erdantic.pydantic.PydanticField.is_nullable" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">is_nullable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></code>
-
-
-<a href="#erdantic.pydantic.PydanticField.is_nullable" class="headerlink" title="Permanent link">&para;</a></h3>
-
-    <div class="doc doc-contents ">
-
-      <p>Check whether this field is nullable, i.e., can be <code>None</code>.</p>
-
-<p><strong>Returns:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><code>bool</code></td>
-      <td><p>True if nullable, else False.</p></td>
-    </tr>
-  </tbody>
-</table>
-        <details class="quote">
-          <summary>Source code in <code>erdantic/pydantic.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">is_nullable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">is_nullable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type_obj</span><span class="p">)</span>
-</code></pre></div>
-        </details>
-    </div>
-
-  </div>
 
 
 
@@ -990,57 +920,134 @@ adapter instance.</p></td>
 
   </div>
 
-    </div>
-
   </div>
 
 
+</div>
 
-  <div class="doc doc-object doc-class">
+<div class="doc doc-object doc-class">
 
 
 
 <h2 id="erdantic.pydantic.PydanticModel" class="doc doc-heading">
-        <code>
-PydanticModel            (<a class="autorefs autorefs-internal" title="erdantic.base.Model" href="../base/#erdantic.base.Model">Model</a>)
-        </code>
-
+          <code>PydanticModel</code>
 
 
 <a href="#erdantic.pydantic.PydanticModel" class="headerlink" title="Permanent link">&para;</a></h2>
 
-    <div class="doc doc-contents ">
 
+  <div class="doc doc-contents ">
+          <p class="doc doc-class-bases">
+            Bases: <code><a class="autorefs autorefs-internal" title="erdantic.base.Model" href="../base/#erdantic.base.Model">Model</a>[<span title="typing.Type">Type</span>[<span title="pydantic.BaseModel">BaseModel</span>]]</code></p>
+
+  
       <p>Concrete model adapter class for a Pydantic
 <a href="https://pydantic-docs.helpmanual.io/usage/models/"><code>BaseModel</code></a>.</p>
 
-<p><strong>Attributes:</strong></p>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
+
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
       <tr>
-        <td><code>model</code></td>
-        <td><code>Type[pydantic.BaseModel]</code></td>
-        <td><p>The Pydantic model class that is associated with this
-adapter instance.</p></td>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
       </tr>
-      <tr>
-        <td><code>forward_ref_help</code></td>
-        <td><code>Optional[str]</code></td>
-        <td><p>Instructions for how to resolve an unevaluated forward
-reference in a field's type declaration.</p></td>
-      </tr>
-  </tbody>
-</table>
-        <details class="quote">
-          <summary>Source code in <code>erdantic/pydantic.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="nd">@register_model_adapter</span><span class="p">(</span><span class="s2">&quot;pydantic&quot;</span><span class="p">)</span>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code><span title="erdantic.pydantic.PydanticModel.model">model</span></code></td>
+          <td>
+                <code><span title="typing.Type">Type</span>[<span title="pydantic.BaseModel">BaseModel</span>]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>The Pydantic model class that is associated with this
+adapter instance.</p>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><code><span title="erdantic.pydantic.PydanticModel.forward_ref_help">forward_ref_help</span></code></td>
+          <td>
+                <code>Optional[str]</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>Instructions for how to resolve an unevaluated forward
+reference in a field's type declaration.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+            <details class="quote">
+              <summary>Source code in <code>erdantic/pydantic.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@register_model_adapter</span><span class="p">(</span><span class="s2">&quot;pydantic&quot;</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">PydanticModel</span><span class="p">(</span><span class="n">Model</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">pydantic</span><span class="o">.</span><span class="n">BaseModel</span><span class="p">]]):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Concrete model adapter class for a Pydantic</span>
 <span class="sd">    [`BaseModel`](https://pydantic-docs.helpmanual.io/usage/models/).</span>
@@ -1103,10 +1110,10 @@ reference in a field's type declaration.</p></td>
                     <span class="n">out</span> <span class="o">+=</span> <span class="s2">&quot;    &quot;</span> <span class="o">+</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
 
         <span class="k">return</span> <span class="n">out</span>
-</code></pre></div>
-        </details>
+</code></pre></div></td></tr></table></div>
+            </details>
 
-
+  
 
   <div class="doc doc-children">
 
@@ -1115,84 +1122,6 @@ reference in a field's type declaration.</p></td>
 
 
 
-  <div class="doc doc-object doc-attribute">
-
-
-
-<h3 id="erdantic.pydantic.PydanticModel.docstring" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">docstring</span><span class="p">:</span> <span class="nb">str</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-property"><code>property</code></small>
-      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
-  </span>
-
-<a href="#erdantic.pydantic.PydanticModel.docstring" class="headerlink" title="Permanent link">&para;</a></h3>
-
-    <div class="doc doc-contents ">
-
-      <p>Docstring for this data model.</p>
-    </div>
-
-  </div>
-
-
-
-  <div class="doc doc-object doc-attribute">
-
-
-
-<h3 id="erdantic.pydantic.PydanticModel.fields" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">fields</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">erdantic</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">Field</span><span class="p">]</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-property"><code>property</code></small>
-      <small class="doc doc-property doc-property-readonly"><code>readonly</code></small>
-  </span>
-
-<a href="#erdantic.pydantic.PydanticModel.fields" class="headerlink" title="Permanent link">&para;</a></h3>
-
-    <div class="doc doc-contents ">
-
-      <p>List of fields defined on this data model.</p>
-    </div>
-
-  </div>
-
-
-
-
-
-
-
-
-  <div class="doc doc-object doc-method">
-
-
-
-<h3 id="erdantic.pydantic.PydanticModel.is_model_type" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">is_model_type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span></code>
-
-  <span class="doc doc-properties">
-      <small class="doc doc-property doc-property-staticmethod"><code>staticmethod</code></small>
-  </span>
-
-<a href="#erdantic.pydantic.PydanticModel.is_model_type" class="headerlink" title="Permanent link">&para;</a></h3>
-
-    <div class="doc doc-contents ">
-
-      <p>Check if object is the type of data model class that this model adapter works with.</p>
-
-        <details class="quote">
-          <summary>Source code in <code>erdantic/pydantic.py</code></summary>
-          <div class="highlight"><pre><span></span><code><span class="nd">@staticmethod</span>
-<span class="k">def</span> <span class="nf">is_model_type</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">pydantic</span><span class="o">.</span><span class="n">BaseModel</span><span class="p">)</span>
-</code></pre></div>
-        </details>
-    </div>
-
-  </div>
 
 
 
@@ -1200,21 +1129,26 @@ reference in a field's type declaration.</p></td>
 
   </div>
 
-    </div>
-
   </div>
 
 
-
+</div>
 
 
 
 
   </div>
 
-    </div>
-
   </div>
+
+</div>
+
+
+
+
+
+
+
 
 
 
@@ -1225,52 +1159,18 @@ reference in a field's type declaration.</p></td>
             </div>
           
           
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
-          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
-            Back to top
-          </a>
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
         
       </main>
       
         <footer class="md-footer">
-  
-    
-    <nav class="md-footer__inner md-grid" aria-label="Footer" >
-      
-        
-        <a href="../exceptions/" class="md-footer__link md-footer__link--prev" aria-label="Previous: erdantic.exceptions" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              erdantic.exceptions
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="../examples.pydantic/" class="md-footer__link md-footer__link--next" aria-label="Next: erdantic.examples.pydantic" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              erdantic.examples.pydantic
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -1293,12 +1193,12 @@ reference in a field's type declaration.</p></td>
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top"], "search": "../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      <script src="../../assets/javascripts/bundle.bd41221c.min.js"></script>
       
-    
     
   </body>
 </html>
