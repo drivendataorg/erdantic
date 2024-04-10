@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://erdantic.drivendata.org/stable/cli/">
+        <link rel="canonical" href="https://erdantic.drivendata.org/stable/customizing/">
       
       
-        <link rel="prev" href="..">
+        <link rel="prev" href="../examples/pydantic/">
       
       
-        <link rel="next" href="../changelog/">
+        <link rel="next" href="../extending/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>CLI Help - erdantic</title>
+        <title>Customizing Diagrams - erdantic</title>
       
     
     
@@ -70,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#cli-help-documentation" class="md-skip">
+        <a href="#customizing-diagrams" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              CLI Help
+              Customizing Diagrams
             
           </span>
         </div>
@@ -244,19 +244,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -265,7 +256,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -404,8 +394,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -415,11 +407,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
@@ -433,7 +425,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             Advanced Usage
@@ -444,10 +436,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../customizing/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Customizing Diagrams
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -456,6 +468,68 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#customizing-graph-appearance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Customizing graph appearance
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#customizing-diagram-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      Customizing diagram content
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Customizing diagram content">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#customizing-edges" class="md-nav__link">
+    <span class="md-ellipsis">
+      Customizing edges
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -919,6 +993,56 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#customizing-graph-appearance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Customizing graph appearance
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#customizing-diagram-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      Customizing diagram content
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Customizing diagram content">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#data-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#customizing-edges" class="md-nav__link">
+    <span class="md-ellipsis">
+      Customizing edges
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -935,94 +1059,92 @@
   
 
 
-<h1 id="cli-help-documentation">CLI help documentation<a class="headerlink" href="#cli-help-documentation" title="Permanent link">&para;</a></h1>
-<p>To view the CLI help documentation, run:</p>
-<div class="highlight"><pre><span></span><code>erdantic<span class="w"> </span>--help
-<span class="c1"># or</span>
-python<span class="w"> </span>-m<span class="w"> </span>erdantic<span class="w"> </span>--help
-</code></pre></div>
-<div class="highlight"><pre><span></span><code> Usage: erdantic [OPTIONS] MODELS_OR_MODULES...                                 
+<h1 id="customizing-diagrams">Customizing diagrams<a class="headerlink" href="#customizing-diagrams" title="Permanent link">&para;</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Major changes were made to the backend in v1.0 to support the customization capabilities described on this page.</p>
+</div>
+<h2 id="customizing-graph-appearance">Customizing graph appearance<a class="headerlink" href="#customizing-graph-appearance" title="Permanent link">&para;</a></h2>
+<p>erdantic uses the <a href="https://graphviz.org/">Graphviz</a> program for laying out and rendering the diagram via the <a href="https://pygraphviz.github.io/documentation/stable/index.html">PyGraphviz</a> package. When calling the <a class="autorefs autorefs-internal" href="../api-reference/convenience/#erdantic.convenience.draw"><code>draw</code></a> function, you have the ability to pass in overrides for Graphviz graph, node, and edge attributes with the following keyword arguments:</p>
+<ul>
+<li><code>graph_attr: dict[str, Any]</code> — key-value pairs of graph attributes. See <a href="https://graphviz.org/docs/graph/">"Graph Attributes"</a> in the Graphviz docs for valid options.</li>
+<li><code>node_attr: dict[str, Any]</code> — key-value pairs of node attributes to set on all nodes. See <a href="https://graphviz.org/docs/nodes/">"Node Attributes"</a> in the Graphviz docs for valid options.</li>
+<li><code>edge_attr: dict[str, Any]</code> — key-value pairs of edge attributes to set on all edges. See <a href="https://graphviz.org/docs/edges/">"Edge Attributes"</a> in the Graphviz docs for valid options.</li>
+</ul>
+<p>These will be merged with erdantic's default values (see <a class="autorefs autorefs-internal" href="../api-reference/core/#erdantic.core.DEFAULT_GRAPH_ATTR"><code>DEFAULT_GRAPH_ATTR</code></a>, <a class="autorefs autorefs-internal" href="../api-reference/core/#erdantic.core.DEFAULT_NODE_ATTR"><code>DEFAULT_GRAPH_ATTR</code></a>, and <a class="autorefs autorefs-internal" href="../api-reference/core/#erdantic.core.DEFAULT_EDGE_ATTR"><code>DEFAULT_GRAPH_ATTR</code></a>).</p>
+<p>Some common attributes you might want to change:</p>
+<ul>
+<li><code>graph_attr["nodesep"]: float</code> — controls vertical spacing between models in diagram.</li>
+<li><code>graph_attr["ranksep"]: float</code> — controls horizontal spacing between models in diagram.</li>
+<li><code>node_attr["fontsize"]: float</code> — controls font size of text in model tables.</li>
+</ul>
+<h2 id="customizing-diagram-content">Customizing diagram content<a class="headerlink" href="#customizing-diagram-content" title="Permanent link">&para;</a></h2>
+<p>Behind the scenes, all of the information that erdantic extracts from data model classes is stored as data on Pydantic models. Because everything is represented as just data, you can do any of the following:</p>
+<ul>
+<li>Edit any of the fields directly to change information. </li>
+<li>Serialize the model to JSON and save to disk.</li>
+<li>Deserialize JSON data back into instances of erdantic's models. </li>
+</ul>
+<h3 id="data-model">Data model<a class="headerlink" href="#data-model" title="Permanent link">&para;</a></h3>
+<p>The data model for erdantic has the following classes:</p>
+<ul>
+<li><a class="autorefs autorefs-internal" href="../api-reference/core/#erdantic.core.EntityRelationshipDiagram"><code>EntityRelationshipDiagram</code></a> — overall container for everything in the diagram.</li>
+<li><a class="autorefs autorefs-internal" href="../api-reference/core/#erdantic.core.ModelInfo"><code>ModelInfo</code></a> — stores the information of one model. Each instance gets rendered as one node in the diagram.</li>
+<li><a class="autorefs autorefs-internal" href="../api-reference/core/#erdantic.core.FieldInfo"><code>FieldInfo</code></a> — stores the information of one field on a model. Each instance gets rendered as one row in the table of a node in the diagram.</li>
+<li><a class="autorefs autorefs-internal" href="../api-reference/core/#erdantic.core.Edge"><code>Edge</code></a> — stores the information about the relationship between a model field and another model. </li>
+</ul>
+<p>Additionally, there is a utility model <a class="autorefs autorefs-internal" href="../api-reference/core/#erdantic.core.FullyQualifiedName"><code>FullyQualifiedName</code></a> that stores the <a href="https://stackoverflow.com/a/17403972">"fully qualified name"</a>, a precise reference to a model class as a Python object. This allows us to reimport that object if needed. </p>
+<p>An entity relationship diagram for the these models is shown below.</p>
+<object type="image/svg+xml" data="../assets/erdantic_diagram.svg" width="100%" typemustmatch><img alt="Example diagram created by erdantic" src="../assets/erdantic_diagram.svg"></object>
 
- Draw entity relationship diagrams (ERDs) for Python data model classes.        
- Diagrams are rendered using the Graphviz library. Currently supported data     
- modeling frameworks are Pydantic, attrs, and standard library dataclasses.     
-
-╭─ Arguments ──────────────────────────────────────────────────────────────────╮
-│ *    models_or_modules      MODELS_OR_MODULES...  One or more full dotted    │
-│                                                   paths for data model       │
-│                                                   classes, or modules        │
-│                                                   containing data model      │
-│                                                   classes, to include in     │
-│                                                   diagram, e.g.,             │
-│                                                   &#39;erdantic.examples.pydant… │
-│                                                   Only the root models of    │
-│                                                   composition trees are      │
-│                                                   needed; erdantic will      │
-│                                                   traverse the composition   │
-│                                                   tree to find component     │
-│                                                   classes.                   │
-│                                                   [default: None]            │
-│                                                   [required]                 │
-╰──────────────────────────────────────────────────────────────────────────────╯
-╭─ Options ────────────────────────────────────────────────────────────────────╮
-│ *  --out                 -o      PATH                  Output filename.      │
-│                                                        [default: None]       │
-│                                                        [required]            │
-│    --terminal-model      -t      TEXT                  Full dotted paths for │
-│                                                        data model classes to │
-│                                                        set as terminal nodes │
-│                                                        in the diagram.       │
-│                                                        erdantic will stop    │
-│                                                        searching for         │
-│                                                        component classes     │
-│                                                        when it reaches these │
-│                                                        models. Repeat this   │
-│                                                        option if more than   │
-│                                                        one.                  │
-│    --terminus                    TEXT                  Deprecated. Use       │
-│                                                        --terminal-model      │
-│                                                        instead.              │
-│    --limit-search-mode…  -m      [pydantic|pydantic_v  Plugin identifiers.   │
-│                                  1|attrs|dataclasses]  If any are specified, │
-│                                                        when searching a      │
-│                                                        module, limit data    │
-│                                                        model classes to      │
-│                                                        those ones. Repeat    │
-│                                                        this option if more   │
-│                                                        than one. Defaults to │
-│                                                        None which will find  │
-│                                                        data model classes    │
-│                                                        matching any active   │
-│                                                        plugin.               │
-│    --dot                 -d                            Print out Graphviz    │
-│                                                        DOT language          │
-│                                                        representation for    │
-│                                                        generated graph to    │
-│                                                        console instead of    │
-│                                                        rendering an image.   │
-│                                                        The --out option will │
-│                                                        be ignored.           │
-│    --no-overwrite                                      Prevent overwriting   │
-│                                                        an existing file.     │
-│    --quiet               -q      INTEGER               Use to decrease log   │
-│                                                        verbosity. Can use    │
-│                                                        multiple times.       │
-│    --verbose             -v      INTEGER               Use to increase log   │
-│                                                        verbosity. Can use    │
-│                                                        multiple times.       │
-│    --version                                           Show erdantic version │
-│                                                        and exit.             │
-│    --install-completion                                Install completion    │
-│                                                        for the current       │
-│                                                        shell.                │
-│    --show-completion                                   Show completion for   │
-│                                                        the current shell, to │
-│                                                        copy it or customize  │
-│                                                        the installation.     │
-│    --help                                              Show this message and │
-│                                                        exit.                 │
-╰──────────────────────────────────────────────────────────────────────────────╯
-</code></pre></div>
+<p>erdantic fills in these fields at the time that a model is added to a diagram and the respective instance is created. After that, the values in these fields are all just static data. You can directly edit any of these fields to override the values that erdantic extracted. </p>
+<p>The <code>SortedDict</code> class on <code>EntityRelationshipDiagram</code> is from <a href="https://github.com/drivendataorg/sortedcontainers-pydantic">sortedcontainers-pydantic</a> and allows erdantic to store models and edges in a stable ordering no matter the order that they were added to the diagram. </p>
+<h3 id="customizing-edges">Customizing edges<a class="headerlink" href="#customizing-edges" title="Permanent link">&para;</a></h3>
+<p>erdantic uses <a href="https://www.gleek.io/blog/crows-foot-notation">crow's foot notation</a> to represent the cardinality and modality of the relationships between models. Cardinality refers to the maximum number of instances of the target that can be related, with possible values of "one" or "many". Modality refers to the minimum number of instances of the target, i.e., whether it is optional, with values of "zero" or "one". </p>
+<p>Here are the four possible cases that erdantic will extract by default:</p>
+<table>
+<thead>
+<tr>
+<th>Example Type Annotation</th>
+<th>Cardinality</th>
+<th>Modality</th>
+<th>Notation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Target</code></td>
+<td>one</td>
+<td>one</td>
+<td><img alt="Crow's foot notation showing tee-tee" src="../assets/edge-one-one.png" /></td>
+</tr>
+<tr>
+<td><code>Optional[Target]</code></td>
+<td>one</td>
+<td>zero</td>
+<td><img alt="Crow's foot notation showing odot-tee" src="../assets/edge-one-zero.png" /></td>
+</tr>
+<tr>
+<td><code>List[Target]</code></td>
+<td>many</td>
+<td>unspecified</td>
+<td><img alt="Crow's foot notation showing crow" src="../assets/edge-many-unspecified.png" /></td>
+</tr>
+<tr>
+<td><code>Optional[List[Target]]</code></td>
+<td>many</td>
+<td>zero</td>
+<td><img alt="Crow's foot notation showing odot-crow" src="../assets/edge-many-zero.png" /></td>
+</tr>
+</tbody>
+</table>
+<p>You will notice that, for example, that we only have a (many, unspecified) case and no (many, one) case. While erdantic treats <code>List[Target]</code> as having ambiguous modality, if you have knowledge about your data model, you can manually override the modality value. The cardinality and modality are set on the <code>target_cardinality</code> and <code>target_modality</code> fields on an <a class="autorefs autorefs-internal" href="../api-reference/core/#erdantic.core.Edge"><code>Edge</code></a> using the <a class="autorefs autorefs-internal" href="../api-reference/core/#erdantic.core.Cardinality"><code>Cardinality</code></a> and <a class="autorefs autorefs-internal" href="../api-reference/core/#erdantic.core.Modality"><code>Modality</code></a> enums. These enums each have three levels:</p>
+<ul>
+<li><code>Cardinality.UNSPECIFIED</code>, <code>Cardinality.ONE</code>, <code>Cardinality.MANY</code></li>
+<li><code>Modality.UNSPECIFIED</code>, <code>Modality.ZERO</code>, <code>Modality.ONE</code></li>
+</ul>
+<p>When setting manually, you can use any possible combination to indicate a relationship of your choice. </p>
+<p><code>Edge</code> instances also have fields <code>source_cardinality</code> and <code>source_modality</code> that you can use to indicate the cardinality and modality of the <em>source</em> model. Edges created by erdantic will always set these to <code>Cardinality.UNSPECIFIED</code> and <code>Modality.UNSPECIFIED</code>, but you can use your own knowledge to set them to other values.  </p>
 
 
 
