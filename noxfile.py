@@ -106,7 +106,9 @@ def test_wheel(session, extras):
     else:
         session.install(str(wheel_path) + extras)
     session.run("python", "-m", "erdantic", "--version")
-    session.run("python", "-c", "import erdantic; print(erdantic.list_plugins())")
+    session.run(
+        "python", "-c", "import erdantic; import erdantic.examples; print(erdantic.list_plugins())"
+    )
 
 
 @nox.session(venv_backend="mamba|conda", python="3.12", reuse_venv=False)
@@ -120,6 +122,9 @@ def test_sdist(session):
     else:
         session.install(sdist_path)
     session.run("python", "-m", "erdantic", "--version")
+    session.run(
+        "python", "-c", "import erdantic; import erdantic.examples; print(erdantic.list_plugins())"
+    )
 
 
 def _docs_base(session):

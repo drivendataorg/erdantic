@@ -1,5 +1,9 @@
 # erdantic Changelog
 
+## v1.0.1 (2024-04-10)
+
+- Fixed `ModuleNotFoundError` when importing from `erdantic.examples` without attrs installed.
+
 ## v1.0.0.post2 (2024-04-10)
 
 - Fixed missing LICENSE file in sdist.
