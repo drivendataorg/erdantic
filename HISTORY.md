@@ -1,5 +1,9 @@
 # erdantic Changelog
 
+## v1.0.2 (2024-04-11)
+
+- Fixed `AttributeError` when adding a model that has a field annotated with certain typing special forms like `Any`, `Literal`, or `TypeVar` instances. ([Issue #114](https://github.com/drivendataorg/erdantic/issues/114), [PR #115](https://github.com/drivendataorg/erdantic/pull/115))
+
 ## v1.0.1 (2024-04-10)
 
 - Fixed `ModuleNotFoundError` when importing from `erdantic.examples` without attrs installed.
