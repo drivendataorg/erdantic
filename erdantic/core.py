@@ -513,7 +513,14 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
 
     def _add_if_model(self, model: type, recurse: bool) -> bool:
         """Private recursive method to add a model to the diagram."""
-        key = str(FullyQualifiedName.from_object(model))
+        try:
+            key = str(FullyQualifiedName.from_object(model))
+        except AttributeError as e:
+            # May get typing special forms that don't have __qualname__ attribute
+            # These are not going to be models
+            if "__qualname__" in str(e):
+                return False
+            raise
         if key not in self.models:
             try:
                 model_info = self._model_info_cls.from_raw_model(model)

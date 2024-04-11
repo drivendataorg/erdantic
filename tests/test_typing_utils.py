@@ -48,6 +48,9 @@ def test_get_recursive_args():
         typing.Literal["batman"],
     ]
 
+    T = typing.TypeVar("T")
+    assert get_recursive_args(typing.Union[int, typing.List[T]]) == [int, T]
+
     class SomeForwardRef: ...
 
     with pytest.raises(_UnevaluatedForwardRefError):
