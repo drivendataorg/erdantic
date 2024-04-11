@@ -4,7 +4,7 @@ import filecmp
 import os
 from pathlib import Path
 import sys
-from typing import List, Optional
+from typing import Any, AnyStr, List, Literal, Optional, TypeVar
 
 if sys.version_info >= (3, 9):
     from typing import Annotated
@@ -12,6 +12,7 @@ else:
     from typing_extensions import Annotated
 
 import IPython.lib.pretty as IPython_pretty
+import pydantic
 import pytest
 import rich
 
@@ -170,6 +171,21 @@ def test_add_unknown_model_type():
     diagram = EntityRelationshipDiagram()
     with pytest.raises(UnknownModelTypeError):
         diagram.add_model(NotAModel)
+
+
+def test_model_with_typing_special_forms():
+    """Models may have special forms in the leaf nodes and we should handle it."""
+
+    T = TypeVar("T")
+
+    class MyModel(pydantic.BaseModel):
+        any_field: Any
+        literal_field: Literal["a", "b", "c"]
+        type_var_field: T
+        anystr_field: AnyStr
+
+    diagram = EntityRelationshipDiagram()
+    diagram.add_model(MyModel)
 
 
 def test_unsupported_forward_ref_resolution(monkeypatch):
