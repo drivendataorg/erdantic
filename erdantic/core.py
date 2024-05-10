@@ -299,7 +299,11 @@ class ModelInfo(pydantic.BaseModel, Generic[_ModelType]):
             str: DOT language for table
         """
         # Get number of columns dynamically from first row
-        num_cols = next(iter(self.fields.values())).to_dot_row().count("<td")
+        try:
+            num_cols = next(iter(self.fields.values())).to_dot_row().count("<td")
+        except StopIteration:
+            # No fields, so just use 1 column
+            num_cols = 1
         # Concatenate DOT of all rows together
         rows = "\n".join(field_info.to_dot_row() for field_info in self.fields.values()) + "\n"
         return self._dot_table_template.format(

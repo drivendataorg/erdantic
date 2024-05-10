@@ -1,5 +1,9 @@
 # erdantic Changelog
 
+## v1.0.3 (2024-05-10)
+
+- Fixed `StopIteration` error when rendering a model that has no fields. ([Issue #120](https://github.com/drivendataorg/erdantic/issues/120), [PR #121](https://github.com/drivendataorg/erdantic/pull/121))
+
 ## v1.0.2 (2024-04-11)
 
 - Fixed `AttributeError` when adding a model that has a field annotated with certain typing special forms like `Any`, `Literal`, or `TypeVar` instances. ([Issue #114](https://github.com/drivendataorg/erdantic/issues/114), [PR #115](https://github.com/drivendataorg/erdantic/pull/115))
