@@ -188,6 +188,17 @@ def test_model_with_typing_special_forms():
     diagram.add_model(MyModel)
 
 
+def test_model_with_no_fields():
+    """Model with no fields should not error."""
+
+    class EmptyModel(pydantic.BaseModel):
+        pass
+
+    diagram = EntityRelationshipDiagram()
+    diagram.add_model(EmptyModel)
+    diagram.to_dot()
+
+
 def test_unsupported_forward_ref_resolution(monkeypatch):
     """Plugin implementation does not do anything to resolve forward references."""
 
