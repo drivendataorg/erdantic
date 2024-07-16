@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.21">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.29">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.66ac8b77.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.76a95c52.min.css">
       
       
 
@@ -147,7 +147,7 @@
       
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             Initializing search
@@ -1189,13 +1189,11 @@
 <p class="admonition-title">Info</p>
 
 
-
 <div class="doc doc-object doc-function">
 
 
-
 <h3 id="erdantic.plugins.register_plugin" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>          <span class="doc doc-object-name doc-function-name">register_plugin</span>
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">register_plugin</span>
 
 
 <a href="#erdantic.plugins.register_plugin" class="headerlink" title="Permanent link">&para;</a></h3>
@@ -1206,71 +1204,70 @@
 <span class="p">)</span>
 </code></pre></div>
 
-  <div class="doc doc-contents first">
-  
+    <div class="doc doc-contents first">
+
       <p>Register a plugin for a specific model class type.</p>
 
 
-
-  <p><span class="doc-section-title">Parameters:</span></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr class="doc-section-item">
-          <td><code>key</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>An identifier for this plugin.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
         </tr>
-        <tr class="doc-section-item">
-          <td><code>predicate_fn</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="erdantic.plugins.ModelPredicate" href="../api-reference/plugins/#erdantic.plugins.ModelPredicate">ModelPredicate</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>A predicate function to determine if an object is a class
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>key</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>An identifier for this plugin.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>predicate_fn</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="erdantic.plugins.ModelPredicate" href="../api-reference/plugins/#erdantic.plugins.ModelPredicate">ModelPredicate</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A predicate function to determine if an object is a class
 of the model that is supported by this plugin.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>get_fields_fn</code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="erdantic.plugins.ModelFieldExtractor" href="../api-reference/plugins/#erdantic.plugins.ModelFieldExtractor">ModelFieldExtractor</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>A function to extract fields from a model class that
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>get_fields_fn</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="erdantic.plugins.ModelFieldExtractor" href="../api-reference/plugins/#erdantic.plugins.ModelFieldExtractor">ModelFieldExtractor</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A function to extract fields from a model class that
 is supported by this plugin.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-    </tbody>
-  </table>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
-  </div>
+    </div>
 
 </div></div>
 <p>Currently, manual registration is required. This means that custom plugins can only be loaded when using erdantic as a library, and not as a CLI. In the future, we may support automatic loading of plugins that are distributed with packages through the <a href="https://packaging.python.org/en/latest/specifications/entry-points/">entry points specification</a>.</p>
@@ -1599,7 +1596,7 @@ is supported by this plugin.</p>
     <script id="__config" type="application/json">{"base": "..", "features": ["navigation.top", "navigation.sections"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.a7c05c9e.min.js"></script>
+      <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
     
   </body>

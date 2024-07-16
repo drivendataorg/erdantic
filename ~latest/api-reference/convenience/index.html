@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.21">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.29">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.76a95c52.min.css">
       
       
 
@@ -147,7 +147,7 @@
       
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             Initializing search
@@ -1055,12 +1055,11 @@
 
 
 
-  <div class="doc doc-contents first">
+    <div class="doc doc-contents first">
 
-  
+
 
   <div class="doc doc-children">
-
 
 
 
@@ -1073,9 +1072,8 @@
 <div class="doc doc-object doc-function">
 
 
-
 <h2 id="erdantic.convenience.create" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>          <span class="doc doc-object-name doc-function-name">create</span>
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">create</span>
 
 
 <a href="#erdantic.convenience.create" class="headerlink" title="Permanent link">&para;</a></h2>
@@ -1087,149 +1085,146 @@
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="erdantic.core.EntityRelationshipDiagram" href="../core/#erdantic.core.EntityRelationshipDiagram">EntityRelationshipDiagram</a></span>
 </code></pre></div>
 
-  <div class="doc doc-contents ">
-  
+    <div class="doc doc-contents ">
+
       <p>Construct <a class="autorefs autorefs-internal" href="../core/#erdantic.core.EntityRelationshipDiagram"><code>EntityRelationshipDiagram</code></a> from given
 data model classes or modules.</p>
 
 
-
-  <p><span class="doc-section-title">Parameters:</span></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr class="doc-section-item">
-          <td><code>*models_or_modules</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#type">type</a> | <a class="autorefs autorefs-external" title="types.ModuleType" href="https://docs.python.org/3/library/types.html#types.ModuleType">ModuleType</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Data model classes to add to diagram, or modules
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>*models_or_modules</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#type">type</a> | <a class="autorefs autorefs-external" title="types.ModuleType" href="https://docs.python.org/3/library/types.html#types.ModuleType">ModuleType</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Data model classes to add to diagram, or modules
 to search for data model classes.</p>
-            </div>
-          </td>
-          <td>
-                <code>()</code>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>terminal_models</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" title="typing.Collection" href="https://docs.python.org/3/library/typing.html#typing.Collection">Collection</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#type">type</a>]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Data model classes to set as terminal nodes. erdantic
+              </div>
+            </td>
+            <td>
+                  <code>()</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>terminal_models</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Collection" href="https://docs.python.org/3/library/typing.html#typing.Collection">Collection</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#type">type</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Data model classes to set as terminal nodes. erdantic
 will stop searching for component classes when it reaches these models</p>
-            </div>
-          </td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a>()</code>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>termini</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" title="typing.Collection" href="https://docs.python.org/3/library/typing.html#typing.Collection">Collection</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#type">type</a>]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Deprecated. Use <code>terminal_models</code> instead.</p>
-            </div>
-          </td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a>()</code>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>limit_search_models_to</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" title="typing.Collection" href="https://docs.python.org/3/library/typing.html#typing.Collection">Collection</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>] | None</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Plugin identifiers to limit to when
+              </div>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a>()</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>termini</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Collection" href="https://docs.python.org/3/library/typing.html#typing.Collection">Collection</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#type">type</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Deprecated. Use <code>terminal_models</code> instead.</p>
+              </div>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a>()</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>limit_search_models_to</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Collection" href="https://docs.python.org/3/library/typing.html#typing.Collection">Collection</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Plugin identifiers to limit to when
 searching modules for data model classes. Defaults to None which will not impose any
 limits.</p>
-            </div>
-          </td>
-          <td>
-                <code>None</code>
-          </td>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
         </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="erdantic.core.EntityRelationshipDiagram" href="../core/#erdantic.core.EntityRelationshipDiagram">EntityRelationshipDiagram</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>diagram object for given data model.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
-
-  <p><span class="doc-section-title">Returns:</span></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr class="doc-section-item">
-          <td>
-                <code><a class="autorefs autorefs-internal" title="erdantic.core.EntityRelationshipDiagram" href="../core/#erdantic.core.EntityRelationshipDiagram">EntityRelationshipDiagram</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>diagram object for given data model.</p>
-            </div>
-          </td>
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
         </tr>
-    </tbody>
-  </table>
-
-
-
-  <p><span class="doc-section-title">Raises:</span></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr class="doc-section-item">
-          <td>
-                <code>UnknownModelTypeError</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>if a given model does not match any model types from loaded plugins.</p>
-            </div>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td>
-                <code>UnresolvableForwardRefError</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>if a model contains a forward reference that cannot be
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>UnknownModelTypeError</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>if a given model does not match any model types from loaded plugins.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code>UnresolvableForwardRefError</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>if a model contains a forward reference that cannot be
 automatically resolved.</p>
-            </div>
-          </td>
-        </tr>
-    </tbody>
-  </table>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
-          <details class="quote">
-            <summary>Source code in <code>erdantic/convenience.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">16</span>
+            <details class="quote">
+              <summary>Source code in <code>erdantic/convenience.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">16</span>
 <span class="normal">17</span>
 <span class="normal">18</span>
 <span class="normal">19</span>
@@ -1335,18 +1330,16 @@ automatically resolved.</p>
             <span class="n">diagram</span><span class="o">.</span><span class="n">add_model</span><span class="p">(</span><span class="n">mm</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">diagram</span>
 </code></pre></div></td></tr></table></div>
-          </details>
-  </div>
+            </details>
+    </div>
 
 </div>
-
 
 <div class="doc doc-object doc-function">
 
 
-
 <h2 id="erdantic.convenience.draw" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>          <span class="doc doc-object-name doc-function-name">draw</span>
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">draw</span>
 
 
 <a href="#erdantic.convenience.draw" class="headerlink" title="Permanent link">&para;</a></h2>
@@ -1365,183 +1358,181 @@ automatically resolved.</p>
 <span class="p">)</span>
 </code></pre></div>
 
-  <div class="doc doc-contents ">
-  
+    <div class="doc doc-contents ">
+
       <p>Render entity relationship diagram for given data model classes to file.</p>
 
 
-
-  <p><span class="doc-section-title">Parameters:</span></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr class="doc-section-item">
-          <td><code>*models_or_modules</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#type">type</a> | <a class="autorefs autorefs-external" title="types.ModuleType" href="https://docs.python.org/3/library/types.html#types.ModuleType">ModuleType</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Data model classes to add to diagram, or modules
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>*models_or_modules</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#type">type</a> | <a class="autorefs autorefs-external" title="types.ModuleType" href="https://docs.python.org/3/library/types.html#types.ModuleType">ModuleType</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Data model classes to add to diagram, or modules
 to search for data model classes.</p>
-            </div>
-          </td>
-          <td>
-                <code>()</code>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>terminal_models</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" title="typing.Collection" href="https://docs.python.org/3/library/typing.html#typing.Collection">Collection</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#type">type</a>]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Data model classes to set as terminal nodes. erdantic
+              </div>
+            </td>
+            <td>
+                  <code>()</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>terminal_models</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Collection" href="https://docs.python.org/3/library/typing.html#typing.Collection">Collection</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#type">type</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Data model classes to set as terminal nodes. erdantic
 will stop searching for component classes when it reaches these models</p>
-            </div>
-          </td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a>()</code>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>termini</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" title="typing.Collection" href="https://docs.python.org/3/library/typing.html#typing.Collection">Collection</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#type">type</a>]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Deprecated. Use <code>terminal_models</code> instead.</p>
-            </div>
-          </td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a>()</code>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>limit_search_models_to</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="typing.Collection" href="https://docs.python.org/3/library/typing.html#typing.Collection">Collection</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Plugin identifiers to limit to when
+              </div>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a>()</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>termini</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Collection" href="https://docs.python.org/3/library/typing.html#typing.Collection">Collection</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#type">type</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Deprecated. Use <code>terminal_models</code> instead.</p>
+              </div>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a>()</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>limit_search_models_to</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="typing.Collection" href="https://docs.python.org/3/library/typing.html#typing.Collection">Collection</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Plugin identifiers to limit to when
 searching modules for data model classes. Defaults to None which will not impose any
 limits.</p>
-            </div>
-          </td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>graph_attr</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" title="typing.Mapping" href="https://docs.python.org/3/library/typing.html#typing.Mapping">Mapping</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>] | None</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Override any graph attributes on
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>graph_attr</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Mapping" href="https://docs.python.org/3/library/typing.html#typing.Mapping">Mapping</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Override any graph attributes on
 the <code>pygraphviz.AGraph</code> instance. Defaults to None.</p>
-            </div>
-          </td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>node_attr</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" title="typing.Mapping" href="https://docs.python.org/3/library/typing.html#typing.Mapping">Mapping</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>] | None</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Override any node attributes for all
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>node_attr</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Mapping" href="https://docs.python.org/3/library/typing.html#typing.Mapping">Mapping</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Override any node attributes for all
 nodes on the <code>pygraphviz.AGraph</code> instance. Defaults to None.</p>
-            </div>
-          </td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>edge_attr</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" title="typing.Mapping" href="https://docs.python.org/3/library/typing.html#typing.Mapping">Mapping</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>] | None</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Override any edge attributes for all
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>edge_attr</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Mapping" href="https://docs.python.org/3/library/typing.html#typing.Mapping">Mapping</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Override any edge attributes for all
 edges on the <code>pygraphviz.AGraph</code> instance. Defaults to None.</p>
-            </div>
-          </td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>**kwargs</code></td>
-          <td>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Additional keyword arguments to
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>**kwargs</code></td>
+            <td>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Additional keyword arguments to
 <a class="autorefs autorefs-external" href="https://pygraphviz.github.io/documentation/stable/reference/agraph.html#pygraphviz.AGraph.draw"><code>pygraphviz.AGraph.draw</code></a>.</p>
-            </div>
-          </td>
-          <td>
-                <code>{}</code>
-          </td>
+              </div>
+            </td>
+            <td>
+                  <code>{}</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
         </tr>
-    </tbody>
-  </table>
-
-
-
-  <p><span class="doc-section-title">Raises:</span></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr class="doc-section-item">
-          <td>
-                <code>UnknownModelTypeError</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>if a given model does not match any model types from loaded plugins.</p>
-            </div>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td>
-                <code>UnresolvableForwardRefError</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>if a model contains a forward reference that cannot be
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>UnknownModelTypeError</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>if a given model does not match any model types from loaded plugins.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code>UnresolvableForwardRefError</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>if a model contains a forward reference that cannot be
 automatically resolved.</p>
-            </div>
-          </td>
-        </tr>
-    </tbody>
-  </table>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
-          <details class="quote">
-            <summary>Source code in <code>erdantic/convenience.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">107</span>
+            <details class="quote">
+              <summary>Source code in <code>erdantic/convenience.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">107</span>
 <span class="normal">108</span>
 <span class="normal">109</span>
 <span class="normal">110</span>
@@ -1629,18 +1620,16 @@ automatically resolved.</p>
         <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span> <span class="n">graph_attr</span><span class="o">=</span><span class="n">graph_attr</span><span class="p">,</span> <span class="n">node_attr</span><span class="o">=</span><span class="n">node_attr</span><span class="p">,</span> <span class="n">edge_attr</span><span class="o">=</span><span class="n">edge_attr</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-          </details>
-  </div>
+            </details>
+    </div>
 
 </div>
-
 
 <div class="doc doc-object doc-function">
 
 
-
 <h2 id="erdantic.convenience.find_models" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>          <span class="doc doc-object-name doc-function-name">find_models</span>
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">find_models</span>
 
 
 <a href="#erdantic.convenience.find_models" class="headerlink" title="Permanent link">&para;</a></h2>
@@ -1652,118 +1641,115 @@ automatically resolved.</p>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" title="typing.Iterator" href="https://docs.python.org/3/library/typing.html#typing.Iterator">Iterator</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#type">type</a></span><span class="p">]</span>
 </code></pre></div>
 
-  <div class="doc doc-contents ">
-  
+    <div class="doc doc-contents ">
+
       <p>Searches a module and yields all data model classes found.</p>
 
 
-
-  <p><span class="doc-section-title">Parameters:</span></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr class="doc-section-item">
-          <td><code>module</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" title="types.ModuleType" href="https://docs.python.org/3/library/types.html#types.ModuleType">ModuleType</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Module to search for data model classes.</p>
-            </div>
-          </td>
-          <td>
-              <em>required</em>
-          </td>
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
         </tr>
-        <tr class="doc-section-item">
-          <td><code>limit_search_models_to</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" title="typing.Collection" href="https://docs.python.org/3/library/typing.html#typing.Collection">Collection</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>] | None</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Plugin identifiers to limit to when
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>module</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="types.ModuleType" href="https://docs.python.org/3/library/types.html#types.ModuleType">ModuleType</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Module to search for data model classes.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>limit_search_models_to</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Collection" href="https://docs.python.org/3/library/typing.html#typing.Collection">Collection</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Plugin identifiers to limit to when
 searching modules for data model classes. Defaults to None which will not impose any
 limits.</p>
-            </div>
-          </td>
-          <td>
-                <code>None</code>
-          </td>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Yields:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
         </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#type">type</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Iterator[type]: Members of module that are data model classes.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
-
-  <p><span class="doc-section-title">Yields:</span></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr class="doc-section-item">
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#type">type</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Iterator[type]: Members of module that are data model classes.</p>
-            </div>
-          </td>
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
         </tr>
-    </tbody>
-  </table>
-
-
-
-  <p><span class="doc-section-title">Raises:</span></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr class="doc-section-item">
-          <td>
-                <code>UnknownModelTypeError</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>if a given model does not match any model types from loaded plugins.</p>
-            </div>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td>
-                <code>UnresolvableForwardRefError</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>if a model contains a forward reference that cannot be
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>UnknownModelTypeError</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>if a given model does not match any model types from loaded plugins.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                  <code>UnresolvableForwardRefError</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>if a model contains a forward reference that cannot be
 automatically resolved.</p>
-            </div>
-          </td>
-        </tr>
-    </tbody>
-  </table>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
-          <details class="quote">
-            <summary>Source code in <code>erdantic/convenience.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 71</span>
+            <details class="quote">
+              <summary>Source code in <code>erdantic/convenience.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 71</span>
 <span class="normal"> 72</span>
 <span class="normal"> 73</span>
 <span class="normal"> 74</span>
@@ -1831,18 +1817,16 @@ automatically resolved.</p>
                     <span class="p">)</span>
                     <span class="k">yield</span> <span class="n">member</span>
 </code></pre></div></td></tr></table></div>
-          </details>
-  </div>
+            </details>
+    </div>
 
 </div>
-
 
 <div class="doc doc-object doc-function">
 
 
-
 <h2 id="erdantic.convenience.to_dot" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>          <span class="doc doc-object-name doc-function-name">to_dot</span>
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">to_dot</span>
 
 
 <a href="#erdantic.convenience.to_dot" class="headerlink" title="Permanent link">&para;</a></h2>
@@ -1859,159 +1843,157 @@ automatically resolved.</p>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span>
 </code></pre></div>
 
-  <div class="doc doc-contents ">
-  
+    <div class="doc doc-contents ">
+
       <p>Generate Graphviz <a href="https://graphviz.org/doc/info/lang.html">DOT language</a> representation of
 entity relationship diagram for given data model classes.</p>
 
 
-
-  <p><span class="doc-section-title">Parameters:</span></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr class="doc-section-item">
-          <td><code>*models_or_modules</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#type">type</a> | <a class="autorefs autorefs-external" title="types.ModuleType" href="https://docs.python.org/3/library/types.html#types.ModuleType">ModuleType</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Data model classes to add to diagram, or modules
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>*models_or_modules</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#type">type</a> | <a class="autorefs autorefs-external" title="types.ModuleType" href="https://docs.python.org/3/library/types.html#types.ModuleType">ModuleType</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Data model classes to add to diagram, or modules
 to search for data model classes.</p>
-            </div>
-          </td>
-          <td>
-                <code>()</code>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>terminal_models</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" title="typing.Collection" href="https://docs.python.org/3/library/typing.html#typing.Collection">Collection</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#type">type</a>]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Data model classes to set as terminal nodes. erdantic
+              </div>
+            </td>
+            <td>
+                  <code>()</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>terminal_models</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Collection" href="https://docs.python.org/3/library/typing.html#typing.Collection">Collection</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#type">type</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Data model classes to set as terminal nodes. erdantic
 will stop searching for component classes when it reaches these models</p>
-            </div>
-          </td>
-          <td>
-                <code>[]</code>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>termini</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" title="typing.Collection" href="https://docs.python.org/3/library/typing.html#typing.Collection">Collection</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#type">type</a>]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Deprecated. Use <code>terminal_models</code> instead.</p>
-            </div>
-          </td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a>()</code>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>limit_search_models_to</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="typing.Collection" href="https://docs.python.org/3/library/typing.html#typing.Collection">Collection</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Plugin identifiers to limit to when
+              </div>
+            </td>
+            <td>
+                  <code>[]</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>termini</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Collection" href="https://docs.python.org/3/library/typing.html#typing.Collection">Collection</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#type">type</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Deprecated. Use <code>terminal_models</code> instead.</p>
+              </div>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a>()</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>limit_search_models_to</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" title="typing.Collection" href="https://docs.python.org/3/library/typing.html#typing.Collection">Collection</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Plugin identifiers to limit to when
 searching modules for data model classes. Defaults to None which will not impose any
 limits.</p>
-            </div>
-          </td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>graph_attr</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" title="typing.Mapping" href="https://docs.python.org/3/library/typing.html#typing.Mapping">Mapping</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>] | None</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Override any graph attributes on
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>graph_attr</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Mapping" href="https://docs.python.org/3/library/typing.html#typing.Mapping">Mapping</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Override any graph attributes on
 the <code>pygraphviz.AGraph</code> instance. Defaults to None.</p>
-            </div>
-          </td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>node_attr</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" title="typing.Mapping" href="https://docs.python.org/3/library/typing.html#typing.Mapping">Mapping</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>] | None</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Override any node attributes for all
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>node_attr</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Mapping" href="https://docs.python.org/3/library/typing.html#typing.Mapping">Mapping</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Override any node attributes for all
 nodes on the <code>pygraphviz.AGraph</code> instance. Defaults to None.</p>
-            </div>
-          </td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code>edge_attr</code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" title="typing.Mapping" href="https://docs.python.org/3/library/typing.html#typing.Mapping">Mapping</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>] | None</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>Override any edge attributes for all
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>edge_attr</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.Mapping" href="https://docs.python.org/3/library/typing.html#typing.Mapping">Mapping</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Override any edge attributes for all
 edges on the <code>pygraphviz.AGraph</code> instance. Defaults to None.</p>
-            </div>
-          </td>
-          <td>
-                <code>None</code>
-          </td>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
         </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>DOT language representation of diagram</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
-
-
-  <p><span class="doc-section-title">Returns:</span></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr class="doc-section-item">
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>DOT language representation of diagram</p>
-            </div>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-          <details class="quote">
-            <summary>Source code in <code>erdantic/convenience.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">153</span>
+            <details class="quote">
+              <summary>Source code in <code>erdantic/convenience.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">153</span>
 <span class="normal">154</span>
 <span class="normal">155</span>
 <span class="normal">156</span>
@@ -2087,8 +2069,8 @@ edges on the <code>pygraphviz.AGraph</code> instance. Defaults to None.</p>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">diagram</span><span class="o">.</span><span class="n">to_dot</span><span class="p">(</span><span class="n">graph_attr</span><span class="o">=</span><span class="n">graph_attr</span><span class="p">,</span> <span class="n">node_attr</span><span class="o">=</span><span class="n">node_attr</span><span class="p">,</span> <span class="n">edge_attr</span><span class="o">=</span><span class="n">edge_attr</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-          </details>
-  </div>
+            </details>
+    </div>
 
 </div>
 
@@ -2096,7 +2078,7 @@ edges on the <code>pygraphviz.AGraph</code> instance. Defaults to None.</p>
 
   </div>
 
-  </div>
+    </div>
 
 </div>
 
@@ -2154,7 +2136,7 @@ edges on the <code>pygraphviz.AGraph</code> instance. Defaults to None.</p>
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "navigation.sections"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.a7c05c9e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
     
   </body>

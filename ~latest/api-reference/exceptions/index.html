@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.21">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.29">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.76a95c52.min.css">
       
       
 
@@ -147,7 +147,7 @@
       
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             Initializing search
@@ -1109,9 +1109,9 @@
 
 
 
-  <div class="doc doc-contents first">
+    <div class="doc doc-contents first">
 
-  
+
 
   <div class="doc doc-children">
 
@@ -1127,29 +1127,28 @@
 
 
 <h2 id="erdantic.exceptions.ErdanticException" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>          <span class="doc doc-object-name doc-class-name">ErdanticException</span>
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">ErdanticException</span>
 
 
 <a href="#erdantic.exceptions.ErdanticException" class="headerlink" title="Permanent link">&para;</a></h2>
 
 
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#Exception">Exception</a></code></p>
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#Exception">Exception</a></code></p>
 
-  
+
       <p>Base class for all exceptions from erdantic library.</p>
 
-            <details class="quote">
-              <summary>Source code in <code>erdantic/exceptions.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">8</span>
+              <details class="quote">
+                <summary>Source code in <code>erdantic/exceptions.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">8</span>
 <span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ErdanticException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for all exceptions from erdantic library.&quot;&quot;&quot;</span>
 </code></pre></div></td></tr></table></div>
-            </details>
+              </details>
 
-  </div>
-
+    </div>
 
 </div>
 
@@ -1158,71 +1157,70 @@
 
 
 <h2 id="erdantic.exceptions.FieldNotFoundError" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>          <span class="doc doc-object-name doc-class-name">FieldNotFoundError</span>
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">FieldNotFoundError</span>
 
 
 <a href="#erdantic.exceptions.FieldNotFoundError" class="headerlink" title="Permanent link">&para;</a></h2>
 
 
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#AttributeError">AttributeError</a></code>, <code><a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a></code></p>
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#AttributeError">AttributeError</a></code>, <code><a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a></code></p>
 
-  
+
       <p>Raised trying to access a field name that does not match any fields returned by the
 field extractor function for a model.</p>
 
 
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="erdantic.exceptions.FieldNotFoundError.name">name</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The name of the field that was not found.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="erdantic.exceptions.FieldNotFoundError.obj">obj</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#object">object</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The model object that the field was being accessed on.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="erdantic.exceptions.FieldNotFoundError.model_full_name">model_full_name</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="erdantic.core.FullyQualifiedName" href="../core/#erdantic.core.FullyQualifiedName">FullyQualifiedName</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The fully qualified name of the model.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
-  <p><span class="doc-section-title">Attributes:</span></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr class="doc-section-item">
-          <td><code><span title="erdantic.exceptions.FieldNotFoundError.name">name</span></code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The name of the field that was not found.</p>
-            </div>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code><span title="erdantic.exceptions.FieldNotFoundError.obj">obj</span></code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#object">object</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The model object that the field was being accessed on.</p>
-            </div>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code><span title="erdantic.exceptions.FieldNotFoundError.model_full_name">model_full_name</span></code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="erdantic.core.FullyQualifiedName" href="../core/#erdantic.core.FullyQualifiedName">FullyQualifiedName</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The fully qualified name of the model.</p>
-            </div>
-          </td>
-        </tr>
-    </tbody>
-  </table>
-
-            <details class="quote">
-              <summary>Source code in <code>erdantic/exceptions.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 95</span>
+              <details class="quote">
+                <summary>Source code in <code>erdantic/exceptions.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 95</span>
 <span class="normal"> 96</span>
 <span class="normal"> 97</span>
 <span class="normal"> 98</span>
@@ -1260,9 +1258,9 @@ field extractor function for a model.</p>
             <span class="bp">self</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-            </details>
+              </details>
 
-  
+
 
   <div class="doc doc-children">
 
@@ -1278,8 +1276,7 @@ field extractor function for a model.</p>
 
   </div>
 
-  </div>
-
+    </div>
 
 </div>
 
@@ -1288,29 +1285,28 @@ field extractor function for a model.</p>
 
 
 <h2 id="erdantic.exceptions.ModelOrModuleNotFoundError" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>          <span class="doc doc-object-name doc-class-name">ModelOrModuleNotFoundError</span>
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">ModelOrModuleNotFoundError</span>
 
 
 <a href="#erdantic.exceptions.ModelOrModuleNotFoundError" class="headerlink" title="Permanent link">&para;</a></h2>
 
 
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#ImportError">ImportError</a></code>, <code><a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a></code></p>
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#ImportError">ImportError</a></code>, <code><a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a></code></p>
 
-  
+
       <p>Raised when specified fully qualified name of model class or module cannot be imported.</p>
 
-            <details class="quote">
-              <summary>Source code in <code>erdantic/exceptions.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">25</span>
+              <details class="quote">
+                <summary>Source code in <code>erdantic/exceptions.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">25</span>
 <span class="normal">26</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ModelOrModuleNotFoundError</span><span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="n">ErdanticException</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Raised when specified fully qualified name of model class or module cannot be imported.&quot;&quot;&quot;</span>
 </code></pre></div></td></tr></table></div>
-            </details>
+              </details>
 
-  </div>
-
+    </div>
 
 </div>
 
@@ -1319,48 +1315,47 @@ field extractor function for a model.</p>
 
 
 <h2 id="erdantic.exceptions.PluginNotFoundError" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>          <span class="doc doc-object-name doc-class-name">PluginNotFoundError</span>
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">PluginNotFoundError</span>
 
 
 <a href="#erdantic.exceptions.PluginNotFoundError" class="headerlink" title="Permanent link">&para;</a></h2>
 
 
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#KeyError">KeyError</a></code>, <code><a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a></code></p>
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#KeyError">KeyError</a></code>, <code><a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a></code></p>
 
-  
+
       <p>Raised when specified plugin key does not match a registered plugin.</p>
 
 
-
-  <p><span class="doc-section-title">Attributes:</span></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr class="doc-section-item">
-          <td><code><span title="erdantic.exceptions.PluginNotFoundError.key">key</span></code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The plugin key that was not found.</p>
-            </div>
-          </td>
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
         </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="erdantic.exceptions.PluginNotFoundError.key">key</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The plugin key that was not found.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
-            <details class="quote">
-              <summary>Source code in <code>erdantic/exceptions.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
+              <details class="quote">
+                <summary>Source code in <code>erdantic/exceptions.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span>
 <span class="normal">15</span>
@@ -1382,9 +1377,9 @@ field extractor function for a model.</p>
         <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Specified plugin not found: &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-            </details>
+              </details>
 
-  
+
 
   <div class="doc doc-children">
 
@@ -1400,8 +1395,7 @@ field extractor function for a model.</p>
 
   </div>
 
-  </div>
-
+    </div>
 
 </div>
 
@@ -1410,71 +1404,70 @@ field extractor function for a model.</p>
 
 
 <h2 id="erdantic.exceptions.UnevaluatedForwardRefError" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>          <span class="doc doc-object-name doc-class-name">UnevaluatedForwardRefError</span>
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">UnevaluatedForwardRefError</span>
 
 
 <a href="#erdantic.exceptions.UnevaluatedForwardRefError" class="headerlink" title="Permanent link">&para;</a></h2>
 
 
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a></code></p>
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a></code></p>
 
-  
+
       <p>Raised when a field's type declaration has an unevaluated forward reference.</p>
 
 
-
-  <p><span class="doc-section-title">Attributes:</span></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr class="doc-section-item">
-          <td><code><span title="erdantic.exceptions.UnevaluatedForwardRefError.model_full_name">model_full_name</span></code></td>
-          <td>
-                <code><a class="autorefs autorefs-internal" title="erdantic.core.FullyQualifiedName" href="../core/#erdantic.core.FullyQualifiedName">FullyQualifiedName</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The fully qualified name of the model with the field
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="erdantic.exceptions.UnevaluatedForwardRefError.model_full_name">model_full_name</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="erdantic.core.FullyQualifiedName" href="../core/#erdantic.core.FullyQualifiedName">FullyQualifiedName</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The fully qualified name of the model with the field
 with the unevaluated forward reference.</p>
-            </div>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code><span title="erdantic.exceptions.UnevaluatedForwardRefError.field_name">field_name</span></code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The name of the field with the unevaluated forward reference.</p>
-            </div>
-          </td>
-        </tr>
-        <tr class="doc-section-item">
-          <td><code><span title="erdantic.exceptions.UnevaluatedForwardRefError.forward_ref">forward_ref</span></code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The string representation of the unevaluated forward reference.</p>
-            </div>
-          </td>
-        </tr>
-    </tbody>
-  </table>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="erdantic.exceptions.UnevaluatedForwardRefError.field_name">field_name</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The name of the field with the unevaluated forward reference.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="erdantic.exceptions.UnevaluatedForwardRefError.forward_ref">forward_ref</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The string representation of the unevaluated forward reference.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
-            <details class="quote">
-              <summary>Source code in <code>erdantic/exceptions.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">51</span>
+              <details class="quote">
+                <summary>Source code in <code>erdantic/exceptions.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">51</span>
 <span class="normal">52</span>
 <span class="normal">53</span>
 <span class="normal">54</span>
@@ -1532,9 +1525,9 @@ with the unevaluated forward reference.</p>
         <span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-            </details>
+              </details>
 
-  
+
 
   <div class="doc doc-children">
 
@@ -1550,8 +1543,7 @@ with the unevaluated forward reference.</p>
 
   </div>
 
-  </div>
-
+    </div>
 
 </div>
 
@@ -1560,59 +1552,58 @@ with the unevaluated forward reference.</p>
 
 
 <h2 id="erdantic.exceptions.UnknownModelTypeError" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>          <span class="doc doc-object-name doc-class-name">UnknownModelTypeError</span>
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">UnknownModelTypeError</span>
 
 
 <a href="#erdantic.exceptions.UnknownModelTypeError" class="headerlink" title="Permanent link">&para;</a></h2>
 
 
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#ValueError">ValueError</a></code>, <code><a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a></code></p>
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#ValueError">ValueError</a></code>, <code><a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a></code></p>
 
-  
+
       <p>Raised when a given model does not match known model types from loaded plugins.</p>
 
 
-
-  <p><span class="doc-section-title">Attributes:</span></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr class="doc-section-item">
-          <td><code><span title="erdantic.exceptions.UnknownModelTypeError.model">model</span></code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#type">type</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The model class that was not recognized.</p>
-            </div>
-          </td>
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
         </tr>
-        <tr class="doc-section-item">
-          <td><code><span title="erdantic.exceptions.UnknownModelTypeError.available_plugins">available_plugins</span></code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>List of plugin keys that were available.</p>
-            </div>
-          </td>
-        </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="erdantic.exceptions.UnknownModelTypeError.model">model</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#type">type</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The model class that was not recognized.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="erdantic.exceptions.UnknownModelTypeError.available_plugins">available_plugins</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of plugin keys that were available.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
-            <details class="quote">
-              <summary>Source code in <code>erdantic/exceptions.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">116</span>
+              <details class="quote">
+                <summary>Source code in <code>erdantic/exceptions.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">116</span>
 <span class="normal">117</span>
 <span class="normal">118</span>
 <span class="normal">119</span>
@@ -1648,9 +1639,9 @@ with the unevaluated forward reference.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">available_plugins</span> <span class="o">=</span> <span class="n">available_plugins</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-            </details>
+              </details>
 
-  
+
 
   <div class="doc doc-children">
 
@@ -1666,8 +1657,7 @@ with the unevaluated forward reference.</p>
 
   </div>
 
-  </div>
-
+    </div>
 
 </div>
 
@@ -1676,48 +1666,47 @@ with the unevaluated forward reference.</p>
 
 
 <h2 id="erdantic.exceptions.UnresolvableForwardRefError" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>          <span class="doc doc-object-name doc-class-name">UnresolvableForwardRefError</span>
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">UnresolvableForwardRefError</span>
 
 
 <a href="#erdantic.exceptions.UnresolvableForwardRefError" class="headerlink" title="Permanent link">&para;</a></h2>
 
 
-  <div class="doc doc-contents ">
-          <p class="doc doc-class-bases">
-            Bases: <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#NameError">NameError</a></code>, <code><a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a></code></p>
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#NameError">NameError</a></code>, <code><a class="autorefs autorefs-internal" title="erdantic.exceptions.ErdanticException" href="#erdantic.exceptions.ErdanticException">ErdanticException</a></code></p>
 
-  
+
       <p>Raised when a forward reference in a type annotation cannot be resolved automatically.</p>
 
 
-
-  <p><span class="doc-section-title">Attributes:</span></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr class="doc-section-item">
-          <td><code><span title="erdantic.exceptions.UnresolvableForwardRefError.name">name</span></code></td>
-          <td>
-                <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
-          </td>
-          <td>
-            <div class="doc-md-description">
-              <p>The string representation of the unresolvable forward reference.</p>
-            </div>
-          </td>
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
         </tr>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="erdantic.exceptions.UnresolvableForwardRefError.name">name</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The string representation of the unresolvable forward reference.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
-            <details class="quote">
-              <summary>Source code in <code>erdantic/exceptions.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">29</span>
+              <details class="quote">
+                <summary>Source code in <code>erdantic/exceptions.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">29</span>
 <span class="normal">30</span>
 <span class="normal">31</span>
 <span class="normal">32</span>
@@ -1757,9 +1746,9 @@ with the unevaluated forward reference.</p>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
 </code></pre></div></td></tr></table></div>
-            </details>
+              </details>
 
-  
+
 
   <div class="doc doc-children">
 
@@ -1775,8 +1764,7 @@ with the unevaluated forward reference.</p>
 
   </div>
 
-  </div>
-
+    </div>
 
 </div>
 
@@ -1785,7 +1773,7 @@ with the unevaluated forward reference.</p>
 
   </div>
 
-  </div>
+    </div>
 
 </div>
 
@@ -1843,7 +1831,7 @@ with the unevaluated forward reference.</p>
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "navigation.sections"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.a7c05c9e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
     
   </body>
