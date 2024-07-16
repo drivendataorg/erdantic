@@ -1,5 +1,9 @@
 # erdantic Changelog
 
+## v1.0.4 (2024-07-16)
+
+- Fixed handling of `typing.Annotated` in cases where it's not the outermost generic type. ([Issue #122](https://github.com/drivendataorg/erdantic/issues/122), [PR #123](https://github.com/drivendataorg/erdantic/pull/123))
+
 ## v1.0.3 (2024-05-10)
 
 - Fixed `StopIteration` error when rendering a model that has no fields. ([Issue #120](https://github.com/drivendataorg/erdantic/issues/120), [PR #121](https://github.com/drivendataorg/erdantic/pull/121))

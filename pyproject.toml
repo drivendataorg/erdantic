@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "erdantic"
-version = "1.0.3"
+version = "1.0.4"
 description = "Entity relationship diagrams for Python data model classes like Pydantic."
 readme = "README.md"
 authors = [{ name = "DrivenData", email = "info@drivendata.org" }, { name = "Jay Qi" }]
@@ -30,7 +30,7 @@ dependencies = [
   "pydantic-core",
   "pygraphviz",
   "sortedcontainers-pydantic",
-  "typenames",
+  "typenames >= 1.3",
   "typer",
   "typing_extensions>4 ; python_version < '3.12'",
 ]

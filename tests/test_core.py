@@ -87,6 +87,20 @@ def test_field_info_annotated():
     assert field_info.type_name == "str"
     assert field_info.raw_type == tp
 
+    tp = Annotated[str, object()]
+    field_info = FieldInfo.from_raw_type(
+        model_full_name=FullyQualifiedName.from_object(DummyModel), name="dummy", raw_type=tp
+    )
+    assert field_info.type_name == "str"
+    assert field_info.raw_type == tp
+
+    tp = Optional[Annotated[str, object()]]
+    field_info = FieldInfo.from_raw_type(
+        model_full_name=FullyQualifiedName.from_object(DummyModel), name="dummy", raw_type=tp
+    )
+    assert field_info.type_name == "Optional[str]"
+    assert field_info.raw_type == tp
+
 
 def test_field_not_found_error():
     """A FieldInfo for a model field that does not exist should error if trying to get the raw
