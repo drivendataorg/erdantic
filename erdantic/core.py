@@ -142,11 +142,7 @@ class FieldInfo(pydantic.BaseModel):
         Returns:
             Self: _description_
         """
-        if get_origin(raw_type) is Annotated:
-            # Drop the Annotated extra metadata for the string representation
-            type_name = typenames(get_args(raw_type)[0], remove_modules=REMOVE_ALL_MODULES)
-        else:
-            type_name = typenames(raw_type, remove_modules=REMOVE_ALL_MODULES)
+        type_name = typenames(raw_type, remove_modules=REMOVE_ALL_MODULES)
         field_info = cls(
             model_full_name=model_full_name,
             name=name,
