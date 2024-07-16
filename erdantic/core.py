@@ -6,15 +6,7 @@ import logging
 import os
 import sys
 import textwrap
-from typing import Any, Dict, Generic, Mapping, Optional, Type, TypeVar, Union
-
-if sys.version_info >= (3, 9):
-    from typing import Annotated, get_args, get_origin
-else:
-    # Annotated added in Python 3.9. typing's get_args and get_origin behave weirdly with
-    # so need to use typing_extensions version
-    from typing_extensions import Annotated, get_args, get_origin
-
+from typing import Any, Dict, Generic, Mapping, Optional, Type, TypeVar, Union, get_args
 
 if sys.version_info >= (3, 11):
     from typing import Self
