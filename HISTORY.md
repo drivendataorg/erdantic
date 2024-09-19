@@ -1,5 +1,9 @@
 # erdantic Changelog
 
+## v1.0.5 (Unreleased)
+
+- Fixed runtime `AttributeError` that occurred when creating a diagram that includes a model with a field that uses a type annotation with ellipsis literal (e.g., `tuple[int, ...]`). ([Issue #124](https://github.com/drivendataorg/erdantic/issues/124), [PR #127](https://github.com/drivendataorg/erdantic/pull/127))
+
 ## v1.0.4 (2024-07-16)
 
 - Fixed handling of `typing.Annotated` in cases where it's not the outermost generic type. ([Issue #122](https://github.com/drivendataorg/erdantic/issues/122), [PR #123](https://github.com/drivendataorg/erdantic/pull/123))

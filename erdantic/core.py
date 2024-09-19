@@ -512,6 +512,10 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
             # These are not going to be models
             if "__qualname__" in str(e):
                 return False
+            # ellipsis object (used for example in tuple[int, ...]) don't have __module__ attribute
+            # This is also not going to be a model
+            elif "__module__" in str(e):
+                return False
             raise
         if key not in self.models:
             try:

@@ -4,7 +4,7 @@ import filecmp
 import os
 from pathlib import Path
 import sys
-from typing import Any, AnyStr, List, Literal, Optional, TypeVar
+from typing import Any, AnyStr, List, Literal, Optional, Tuple, TypeVar
 
 if sys.version_info >= (3, 9):
     from typing import Annotated
@@ -200,6 +200,18 @@ def test_model_with_typing_special_forms():
 
     diagram = EntityRelationshipDiagram()
     diagram.add_model(MyModel)
+    diagram.to_dot()
+
+
+def test_model_with_ellipsis():
+    """Model with Ellipsis should not error."""
+
+    class EllipsisModel(pydantic.BaseModel):
+        ellipsis_field: Tuple[int, ...]
+
+    diagram = EntityRelationshipDiagram()
+    diagram.add_model(EllipsisModel)
+    diagram.to_dot()
 
 
 def test_model_with_no_fields():
