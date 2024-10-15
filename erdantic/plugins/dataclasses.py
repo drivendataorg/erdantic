@@ -1,7 +1,7 @@
 import dataclasses
 import re
 import sys
-from typing import TYPE_CHECKING, Any, List, Type, get_type_hints
+from typing import TYPE_CHECKING, Any, List, Type, cast, get_type_hints
 
 if sys.version_info >= (3, 9):
     # include_extras was added in Python 3.9
@@ -69,7 +69,7 @@ def get_fields_from_dataclass(model: DataclassType) -> List[FieldInfo]:
         FieldInfo.from_raw_type(
             model_full_name=FullyQualifiedName.from_object(model),
             name=f.name,
-            raw_type=f.type,
+            raw_type=cast(type, f.type),  # cast narrows type for typechecking
         )
         for f in dataclasses.fields(model)
     ]
@@ -102,7 +102,7 @@ def resolve_types_on_dataclass(
             cls, globalns=globalns, localns=localns, include_extras=include_extras
         )
         for field in dataclasses.fields(cls):
-            field.type = hints[field.name]
+            field.type = type, hints[field.name]
         # Use reference to cls as indicator in case of subclasses
         setattr(cls, "__erdantic_dataclass_types_resolved__", cls)
     return cls
