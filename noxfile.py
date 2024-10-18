@@ -72,7 +72,7 @@ coverage_cleaner = CoverageCleaner()
 
 @nox.session(
     venv_backend="mamba|conda",
-    python=["3.8", "3.9", "3.10", "3.11", "3.12"],
+    python=["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"],
     reuse_venv=True,
 )
 def tests(session):

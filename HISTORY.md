@@ -1,5 +1,9 @@
 # erdantic Changelog
 
+## Unreleased
+
+- Added Python 3.13 to supported Python version metadata.
+
 ## v1.0.5 (2024-09-19)
 
 - Fixed runtime `AttributeError` that occurred when creating a diagram that includes a model with a field that uses a type annotation with the ellipsis literal (e.g., `tuple[int, ...]`). ([Issue #124](https://github.com/drivendataorg/erdantic/issues/124), [PR #127](https://github.com/drivendataorg/erdantic/pull/127))
