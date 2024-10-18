@@ -14,7 +14,7 @@ else:
     from typing_extensions import Self
 
 import pydantic
-import pygraphviz as pgv  # type: ignore [import-not-found]
+import pygraphviz as pgv  # type: ignore [import-untyped, import-not-found]
 from sortedcontainers_pydantic import SortedDict
 from typenames import REMOVE_ALL_MODULES, typenames
 
