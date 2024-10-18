@@ -2,86 +2,86 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://erdantic.drivendata.org/stable/</loc>
-         <lastmod>2024-09-19</lastmod>
+         <lastmod>2024-10-18</lastmod>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/stable/changelog/</loc>
-         <lastmod>2024-09-19</lastmod>
+         <lastmod>2024-10-18</lastmod>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/stable/cli/</loc>
-         <lastmod>2024-09-19</lastmod>
+         <lastmod>2024-10-18</lastmod>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/stable/customizing/</loc>
-         <lastmod>2024-09-19</lastmod>
+         <lastmod>2024-10-18</lastmod>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/stable/extending/</loc>
-         <lastmod>2024-09-19</lastmod>
+         <lastmod>2024-10-18</lastmod>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/stable/forward-references/</loc>
-         <lastmod>2024-09-19</lastmod>
+         <lastmod>2024-10-18</lastmod>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/stable/api-reference/convenience/</loc>
-         <lastmod>2024-09-19</lastmod>
+         <lastmod>2024-10-18</lastmod>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/stable/api-reference/core/</loc>
-         <lastmod>2024-09-19</lastmod>
+         <lastmod>2024-10-18</lastmod>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/stable/api-reference/exceptions/</loc>
-         <lastmod>2024-09-19</lastmod>
+         <lastmod>2024-10-18</lastmod>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/stable/api-reference/typing_utils/</loc>
-         <lastmod>2024-09-19</lastmod>
+         <lastmod>2024-10-18</lastmod>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/stable/api-reference/examples/attrs/</loc>
-         <lastmod>2024-09-19</lastmod>
+         <lastmod>2024-10-18</lastmod>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/stable/api-reference/examples/dataclasses/</loc>
-         <lastmod>2024-09-19</lastmod>
+         <lastmod>2024-10-18</lastmod>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/stable/api-reference/examples/pydantic/</loc>
-         <lastmod>2024-09-19</lastmod>
+         <lastmod>2024-10-18</lastmod>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/stable/api-reference/examples/pydantic_v1/</loc>
-         <lastmod>2024-09-19</lastmod>
+         <lastmod>2024-10-18</lastmod>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/stable/api-reference/plugins/</loc>
-         <lastmod>2024-09-19</lastmod>
+         <lastmod>2024-10-18</lastmod>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/stable/api-reference/plugins/attrs/</loc>
-         <lastmod>2024-09-19</lastmod>
+         <lastmod>2024-10-18</lastmod>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/stable/api-reference/plugins/dataclasses/</loc>
-         <lastmod>2024-09-19</lastmod>
+         <lastmod>2024-10-18</lastmod>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/stable/api-reference/plugins/pydantic/</loc>
-         <lastmod>2024-09-19</lastmod>
+         <lastmod>2024-10-18</lastmod>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/stable/examples/attrs/</loc>
-         <lastmod>2024-09-19</lastmod>
+         <lastmod>2024-10-18</lastmod>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/stable/examples/dataclasses/</loc>
-         <lastmod>2024-09-19</lastmod>
+         <lastmod>2024-10-18</lastmod>
     </url>
     <url>
          <loc>https://erdantic.drivendata.org/stable/examples/pydantic/</loc>
-         <lastmod>2024-09-19</lastmod>
+         <lastmod>2024-10-18</lastmod>
     </url>
 </urlset>
