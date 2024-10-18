@@ -102,7 +102,7 @@ def resolve_types_on_dataclass(
             cls, globalns=globalns, localns=localns, include_extras=include_extras
         )
         for field in dataclasses.fields(cls):
-            field.type = type, hints[field.name]
+            field.type = hints[field.name]
         # Use reference to cls as indicator in case of subclasses
         setattr(cls, "__erdantic_dataclass_types_resolved__", cls)
     return cls
