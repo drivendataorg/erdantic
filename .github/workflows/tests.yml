@@ -17,23 +17,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Install nox and uv
-        run: |
-          pipx install nox
-          pipx install uv
+      - uses: astral-sh/setup-uv@v5
 
       - name: Lint
         run: |
-          nox -s lint --verbose
+          uvx nox -s lint --verbose
 
       - name: Typecheck
         run: |
-          nox -s typecheck --verbose
+          uvx nox -s typecheck --verbose
 
   tests:
     name: Tests (${{ matrix.os }}, Python ${{ matrix.python-version }})
@@ -47,20 +39,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: conda-incubator/setup-miniconda@v3
-        with:
-          miniforge-version: latest
-          activate-environment: ""
-          use-mamba: true
+      - uses: mamba-org/setup-micromamba@v2
 
-      - name: Install nox and uv
-        run: |
-          pipx install nox
-          pipx install uv
+      - uses: astral-sh/setup-uv@v5
 
       - name: Run tests
         run: |
-          nox -s tests-${{ matrix.python-version }} --verbose
+          uvx nox -s tests-${{ matrix.python-version }} --verbose
 
       - name: Upload test outputs
         uses: actions/upload-artifact@v4
@@ -85,28 +70,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: conda-incubator/setup-miniconda@v3
-        with:
-          miniforge-version: latest
-          activate-environment: ""
-          use-mamba: true
+      - uses: mamba-org/setup-micromamba@v2
 
-      - name: Install nox and uv
-        run: |
-          pipx install nox
-          pipx install uv
+      - uses: astral-sh/setup-uv@v5
 
       - name: Build distribution
         run: |
-          nox -s build
+          uvx nox -s build
 
       - name: Test wheel with extras matrix
         run: |
-          nox -s test_wheel --verbose
+          uvx nox -s test_wheel --verbose
 
       - name: Test sdist
         run: |
-          nox -s test_sdist --verbose
+          uvx nox -s test_sdist --verbose
 
   docs:
     name: Docs preview
@@ -116,20 +94,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: conda-incubator/setup-miniconda@v3
-        with:
-          miniforge-version: latest
-          activate-environment: ""
-          use-mamba: true
+      - uses: mamba-org/setup-micromamba@v2
 
-      - name: Install nox and uv
-        run: |
-          pipx install nox
-          pipx install uv
+      - uses: astral-sh/setup-uv@v5
 
       - name: Test building documentation
         run: |
-          nox -s docs --verbose
+          uvx nox -s docs --verbose
 
       - name: Deploy site preview to Netlify
         uses: nwtgck/actions-netlify@v1.1
