@@ -17,7 +17,7 @@ def find_uv() -> tuple[bool, str]:
 HAS_UV, UV = find_uv()
 
 
-@nox.session(venv_backend="mamba|conda", python="3.11", reuse_venv=True)
+@nox.session(venv_backend="micromamba|mamba|conda", python="3.11", reuse_venv=True)
 def dev(session):
     """Set up a development environment."""
     session.conda_install("graphviz", channel="conda-forge")
@@ -40,7 +40,7 @@ def lint(session):
     session.run("ruff", "check")
 
 
-@nox.session(venv_backend="mamba|conda", python="3.11", reuse_venv=True)
+@nox.session(venv_backend="micromamba|mamba|conda", python="3.11", reuse_venv=True)
 def typecheck(session):
     session.conda_install("graphviz", channel="conda-forge")
     if platform.system() == "Windows":
@@ -71,7 +71,7 @@ coverage_cleaner = CoverageCleaner()
 
 
 @nox.session(
-    venv_backend="mamba|conda",
+    venv_backend="micromamba|mamba|conda",
     python=["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"],
     reuse_venv=True,
 )
@@ -84,7 +84,7 @@ def tests(session):
     else:
         session.install("-r", "requirements/tests.txt")
     coverage_cleaner.clean(session)
-    session.run("pytest", "-vv")
+    session.run("python", "-I", "-m", "pytest", "-vv")
 
 
 @nox.session(venv_backend="uv|virtualenv", reuse_venv=True)
@@ -94,7 +94,7 @@ def build(session):
     session.run("python", "-m", "build")
 
 
-@nox.session(venv_backend="mamba|conda", python="3.12", reuse_venv=False)
+@nox.session(venv_backend="micromamba|mamba|conda", python="3.12", reuse_venv=False)
 @nox.parametrize("extras", ["", "[attrs]"])
 def test_wheel(session, extras):
     session.conda_install("graphviz", channel="conda-forge")
@@ -111,7 +111,7 @@ def test_wheel(session, extras):
     )
 
 
-@nox.session(venv_backend="mamba|conda", python="3.12", reuse_venv=False)
+@nox.session(venv_backend="micromamba|mamba|conda", python="3.12", reuse_venv=False)
 def test_sdist(session):
     session.conda_install("graphviz", channel="conda-forge")
     if platform.system() == "Windows":
@@ -142,14 +142,14 @@ def _docs_base(session):
         session.run("jupyter", "execute", f"--output={out_path}", notebook_path)
 
 
-@nox.session(venv_backend="mamba|conda", python="3.11", reuse_venv=True)
+@nox.session(venv_backend="micromamba|mamba|conda", python="3.11", reuse_venv=True)
 def docs(session):
     _docs_base(session)
     with session.chdir("docs"):
         session.run("mkdocs", "build")
 
 
-@nox.session(venv_backend="mamba|conda", python="3.11", reuse_venv=True)
+@nox.session(venv_backend="micromamba|mamba|conda", python="3.11", reuse_venv=True)
 def docs_serve(session):
     _docs_base(session)
     with session.chdir("docs"):

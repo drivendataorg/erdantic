@@ -1,4 +1,4 @@
--e .[attrs]
+.[attrs]
 
 filetype
 ipython
