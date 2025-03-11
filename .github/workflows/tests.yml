@@ -75,7 +75,7 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./coverage.xml
-          fail_ci_if_error: true
+          fail_ci_if_error: ${{ (github.event_name == 'push' && true) || (github.event_name == 'pull_request' && true) || false }}
         if: ${{ matrix.os == 'ubuntu-latest' }}
 
   test-build-and-install:
