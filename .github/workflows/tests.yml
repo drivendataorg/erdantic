@@ -61,6 +61,11 @@ jobs:
           cache-key: ${{ steps.env_name.outputs.env_name }}
           environments: ${{ steps.env_name.outputs.env_name }}
 
+      - name: Fix graphviz for macos-latest
+        if: ${{ matrix.os == 'macos-latest' }}
+        run: |
+          just python=${{ matrix.python-version }} fix-graphviz-test
+
       - name: Run tests
         run: |
           just python=${{ matrix.python-version }} test
