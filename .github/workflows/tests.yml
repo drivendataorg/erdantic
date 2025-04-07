@@ -50,7 +50,7 @@ jobs:
       - name: Get environment name
         id: env_name
         run: |
-            env_name="test-py${${{ matrix.python-version }}//./}"
+            env_name="test-py$(echo ${{ matrix.python-version }} | tr -d .)"
             echo "env_name=${env_name}" | tee -a "$GITHUB_OUTPUT"
 
       - uses: extractions/setup-just@v2
