@@ -59,7 +59,9 @@ markdown_extensions:
       nested_indent: 4
 
 plugins:
-  - search
+  - search:
+  - autorefs:
+      resolve_closest: true
   - mkdocs-jupyter:
       execute: false
       ignore: ["**/.ipynb_checkpoints/*.ipynb"]
