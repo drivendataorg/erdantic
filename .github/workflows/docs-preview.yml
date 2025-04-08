@@ -1,0 +1,51 @@
+name: docs-preview
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build docs and deploy preview
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: extractions/setup-just@v2
+
+      - uses: prefix-dev/setup-pixi@v0.8.5
+        with:
+          cache: true
+          cache-key: default
+          environments: default
+
+      - name: Build docs
+        run: |
+          just docs
+
+      - name: Get preview identifier
+        id: get_id
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            PREVIEW_IDENTIFIER="PR${{ github.event.number }}"
+          else
+            PREVIEW_IDENTIFIER="$(git rev-parse --short HEAD)"
+          fi
+          echo "PREVIEW_IDENTIFIER=$PREVIEW_IDENTIFIER" | tee -a $GITHUB_OUTPUT
+
+      - name: Deploy preview to Netlify
+        uses: nwtgck/actions-netlify@v2.0.0
+        with:
+          publish-dir: "./docs/site"
+          production-deploy: false
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy from GitHub Actions"
+          enable-pull-request-comment: true
+          enable-commit-comment: false
+          overwrites-pull-request-comment: true
+          alias: ${{ steps.get_id.outputs.PREVIEW_IDENTIFIER }}
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 1

@@ -1,0 +1,106 @@
+name: docs-publish
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      deploy-as:
+        type: choice
+        description: Deploy as
+        options:
+          - latest
+          - version
+        default: latest
+      is-stable:
+        type: boolean
+        description: Deploy as stable
+        default: false
+      version-format:
+        type: string
+        description: Version format
+        default: "v{major_minor_version}"
+
+jobs:
+  build:
+    name: Stage docs on gh-pages
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Fail if deploying as latest but marked as stable
+        if: github.event.inputs.deploy-as == 'latest' && github.event.inputs.is-stable == 'true'
+        run: |
+          echo "Error: Cannot deploy as 'latest' when 'is-stable' is true."
+          exit 1
+
+      - uses: actions/checkout@v4
+
+      - uses: extractions/setup-just@v2
+
+      - uses: prefix-dev/setup-pixi@v0.8.5
+        with:
+          cache: true
+          cache-key: default
+          environments: default
+
+      - name: Set git user to github-actions[bot]
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+
+      - name: Fetch gh-pages branch
+        run: |
+          git fetch origin gh-pages --depth=1
+
+      - name: Deploy as latest
+        if: github.event.inputs.deploy-as == 'latest' || github.event_name == 'push'
+        working-directory: docs/
+        run: |
+          pixi run mike deploy --push latest --title=latest
+
+      - name: Get version tag
+        id: get-version-tag
+        if: github.event.inputs.deploy-as == 'version'
+        run: |
+          VERSION_TAG=$(pixi run vspect read . "${{ github.event.inputs.version-format }}")
+          echo "VERSION_TAG=${VERSION_TAG}" | tee -a $GITHUB_OUTPUT
+
+      - name: Deploy as version
+        if: github.event.inputs.deploy-as == 'version'
+        working-directory: docs/
+        run: |
+          TITLE=$(uv run vspect read .. "v{version}")
+          TAG=${{ steps.get-version-tag.outputs.VERSION_TAG }}
+          pixi run mike deploy --push $TAG --title="${TITLE}"
+
+      - name: Assign stable alias
+        if: github.event.inputs.is-stable == 'true'
+        working-directory: docs/
+        run: |
+          TAG=${{ steps.get-version-tag.outputs.VERSION_TAG }}
+          pixi run mike alias --push --update-aliases $TAG stable
+
+  deploy:
+    name: Deploy docs to Netlify
+    needs: build
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+
+      - name: Deploy docs to Netlify
+        uses: nwtgck/actions-netlify@v1.1
+        with:
+          publish-dir: "./"
+          production-deploy: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy from GitHub Actions"
+          enable-pull-request-comment: false
+          enable-commit-comment: false
+          overwrites-pull-request-comment: false
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 1

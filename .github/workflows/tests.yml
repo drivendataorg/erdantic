@@ -8,6 +8,12 @@ on:
     # Run every Sunday
     - cron: "0 0 * * 0"
   workflow_dispatch:
+    inputs:
+      update-deps:
+        description: "Update test dependencies"
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   code-quality:
@@ -17,15 +23,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: astral-sh/setup-uv@v5
+      - uses: extractions/setup-just@v2
+
+      - uses: prefix-dev/setup-pixi@v0.8.5
+        with:
+          cache: true
+          cache-key: default
+          environments: >-
+            default
+            typecheck
 
       - name: Lint
         run: |
-          uvx nox -s lint --verbose
+          just lint
 
       - name: Typecheck
         run: |
-          uvx nox -s typecheck --verbose
+          just typecheck
 
   tests:
     name: Tests (${{ matrix.os }}, Python ${{ matrix.python-version }})
@@ -34,18 +48,43 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
 
     steps:
       - uses: actions/checkout@v4
 
-      - uses: mamba-org/setup-micromamba@v2
+      - name: Get environment name
+        id: env_name
+        run: |
+            env_name="test-py$(echo ${{ matrix.python-version }} | tr -d .)"
+            echo "env_name=${env_name}" | tee -a "$GITHUB_OUTPUT"
 
-      - uses: astral-sh/setup-uv@v5
+      - uses: extractions/setup-just@v2
+
+      - uses: prefix-dev/setup-pixi@v0.8.5
+        with:
+          cache: true
+          cache-key: ${{ steps.env_name.outputs.env_name }}
+          environments: ${{ steps.env_name.outputs.env_name }}
+
+      - name: Update dependencies
+        if: >-
+          ${{
+            github.event_name == 'push'
+            || github.event_name == 'scheduled'
+            || (github.event_name == 'workflow_dispatch' && github.event.inputs.update-deps == 'true')
+          }}
+        run: |
+          pixi update -e ${{ steps.env_name.outputs.env_name }}
+
+      - name: Fix graphviz for macos-latest
+        if: ${{ matrix.os == 'macos-latest' }}
+        run: |
+          just python=${{ matrix.python-version }} fix-graphviz-test
 
       - name: Run tests
         run: |
-          uvx nox -s tests-${{ matrix.python-version }} --verbose
+          just python=${{ matrix.python-version }} test
 
       - name: Upload test outputs
         uses: actions/upload-artifact@v4
@@ -53,7 +92,6 @@ jobs:
         with:
           name: test-outputs-${{ matrix.os }}-python-${{ matrix.python-version }}
           path: tests/_outputs
-
 
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@v3
@@ -63,64 +101,40 @@ jobs:
           fail_ci_if_error: ${{ (github.event_name == 'push' && true) || (github.event_name == 'pull_request' && true) || false }}
         if: ${{ matrix.os == 'ubuntu-latest' }}
 
-  test-build-and-install:
-    name: Build distribution and test installation
+  test-distribution:
+    name: Test distribution
     needs: code-quality
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -leo pipefail {0}  # needed for micromamba environment
     steps:
       - uses: actions/checkout@v4
 
       - uses: mamba-org/setup-micromamba@v2
-
-      - uses: astral-sh/setup-uv@v5
-
-      - name: Build distribution
-        run: |
-          uvx nox -s build
-
-      - name: Test wheel with extras matrix
-        run: |
-          uvx nox -s test_wheel --verbose
-
-      - name: Test sdist
-        run: |
-          uvx nox -s test_sdist --verbose
-
-  docs:
-    name: Docs preview
-    needs: code-quality
-    if: github.event.pull_request != null
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: mamba-org/setup-micromamba@v2
-
-      - uses: astral-sh/setup-uv@v5
-
-      - name: Test building documentation
-        run: |
-          uvx nox -s docs --verbose
-
-      - name: Deploy site preview to Netlify
-        uses: nwtgck/actions-netlify@v1.1
         with:
-          publish-dir: "./docs/site"
-          production-deploy: false
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          deploy-message: "Deploy from GitHub Actions"
-          enable-pull-request-comment: true
-          enable-commit-comment: false
-          overwrites-pull-request-comment: true
-          alias: deploy-preview-${{ github.event.number }}
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        timeout-minutes: 1
+          environment-name: test-env
+          create-args: >-
+            python=3.13
+            graphviz
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-suffix: "test-distr"
+
+      - name: Install
+        run: |
+          uv pip install .
+
+      - name: Test
+        run: |
+          python -m erdantic --version
+          python -c "import erdantic; import erdantic.examples; print(erdantic.list_plugins())"
 
   notify:
     name: Notify failed build
-    needs: [code-quality, tests, test-build-and-install, docs]
+    needs: [code-quality, tests, test-distribution]
     if: failure() && github.event.pull_request == null
     runs-on: ubuntu-latest
     steps:

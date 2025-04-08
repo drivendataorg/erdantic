@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Removed support for Python 3.8.
 - Added Python 3.13 to supported Python version metadata.
 
 ## v1.0.5 (2024-09-19)

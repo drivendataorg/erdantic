@@ -1,116 +1,67 @@
 name: release
+run-name: Release of ${{ inputs.version }}
 
 on:
-  release:
-    types:
-      - published
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag'
+        required: true
 
 jobs:
   build:
-    name: Build and publish new release
+    name: Publish new release
     runs-on: "ubuntu-latest"
+    environment: release
+    permissions:
+      id-token: write  # Required for PyPI trusted publishing
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: conda-incubator/setup-miniconda@v3
+      - uses: prefix-dev/setup-pixi@v0.8.5
         with:
-          miniforge-version: latest
-          activate-environment: ""
-          use-mamba: true
-
-      - name: Install nox and uv
-        run: |
-          pipx install nox
-          pipx install uv
+          cache: true
+          cache-key: default
+          environments: default
 
       - name: Check that versions match
-        id: version
         run: |
-          nox -s dev
-          echo "Release tag: [${{ github.event.release.tag_name }}]"
-          PACKAGE_VERSION=$(.nox/dev/bin/python -c "import erdantic; print(erdantic.__version__)")
+          echo "Input version tag: [${{ github.event.inputs.version }}] "
+          PACKAGE_VERSION=$(uv run python -m vspect read .)
           echo "Package version: [$PACKAGE_VERSION]"
-          [ ${{ github.event.release.tag_name }} == "v$PACKAGE_VERSION" ] || { exit 1; }
-          echo "full_version=v$PACKAGE_VERSION" >> $GITHUB_ENV
-          MAJOR_MINOR_VERSION=$([[ $PACKAGE_VERSION =~ ^[0-9]+\.[0-9]+ ]] && echo "${BASH_REMATCH[0]}")
-          echo "major_minor_version=$([[ $PACKAGE_VERSION =~ ^[0-9]+\.[0-9]+ ]] && echo "v${BASH_REMATCH[0]}")" >> $GITHUB_ENV
+          [[ ${{ github.event.inputs.version }} == "v$PACKAGE_VERSION" ]] || { exit 1; }
 
       - name: Build package
         run: |
-          nox -s build --verbose
-
-      - name: Build docs
-        run: |
-          nox -s docs --verbose
+          pixi run python -m build
 
       - name: Publish to Test PyPI
-        uses: pypa/gh-action-pypi-publish@v1.3.0
+        uses: pypa/gh-action-pypi-publish@v1.12.4
         with:
-          user: ${{ secrets.PYPI_TEST_USERNAME }}
-          password: ${{ secrets.PYPI_TEST_PASSWORD }}
-          repository_url: https://test.pypi.org/legacy/
-          skip_existing: true
+          repository-url: https://test.pypi.org/legacy/
+          skip-existing: true
 
       - name: Publish to Production PyPI
-        uses: pypa/gh-action-pypi-publish@v1.3.0
+        uses: pypa/gh-action-pypi-publish@v1.12.4
         with:
-          user: ${{ secrets.PYPI_PROD_USERNAME }}
-          password: ${{ secrets.PYPI_PROD_PASSWORD }}
-          skip_existing: false
+          skip-existing: false
 
-      - name: Stage docs on gh-pages (release candidate)
-        if: contains(steps.version.outputs.full_version, 'rc')
-        working-directory: docs
+      - id: extract-changelog
+        uses: sean0x42/markdown-extract@v2.1.0
+        with:
+          file: CHANGELOG.md
+          pattern: ${{ github.event.inputs.version }}
+
+      - name: Write output to file
         run: |
-          git fetch origin gh-pages --depth=1
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          RUN_MIKE="conda run -p ../.nox/docs mike"
-          $RUN_MIKE deploy --push \
-            ${{ steps.version.outputs.major_minor_version }}rc \
-            --title="${{ steps.version.outputs.major_minor_version }}rc"
+          cat <<'__EOF__' > __CHANGELOG-extracted.md
+          ${{ steps.extract-changelog.outputs.markdown }}
+          __EOF__
 
-      - name: Stage docs on gh-pages (stable)
-        if: ${{ ! contains(steps.version.outputs.full_version, 'rc') }}
-        working-directory: docs
-        run: |
-          git fetch origin gh-pages --depth=1
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          RUN_MIKE="conda run -p ../.nox/docs mike"
-          # Rename old stable version
-          $RUN_MIKE list -j | jq
-          OLD_STABLE=$($RUN_MIKE list -j | jq -r '.[] | select(.aliases | index("stable")) | .title' | awk '{print $1;}')
-          echo $OLD_STABLE
-          $RUN_MIKE retitle stable $OLD_STABLE
-          # Deploy new version as stable
-          $RUN_MIKE deploy --push --update-aliases \
-            ${{ steps.version.outputs.major_minor_version }} \
-            stable \
-            --title="${{ github.event.release.tag_name }} (stable)"
-
-  deploy-docs:
-    name: Deploy docs to Netlify
-    needs: build
-    runs-on: "ubuntu-latest"
-
-    steps:
-      - uses: actions/checkout@v2
+      - uses: ncipollo/release-action@v1
         with:
-          ref: gh-pages
-
-      - name: Deploy docs to Netlify
-        uses: nwtgck/actions-netlify@v1.1
-        with:
-          publish-dir: "./"
-          production-deploy: true
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          deploy-message: "Deploy from GitHub Actions"
-          enable-pull-request-comment: false
-          enable-commit-comment: false
-          overwrites-pull-request-comment: false
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        timeout-minutes: 1
+          tag: ${{ github.event.inputs.version }}
+          commit: main
+          artifacts: "dist/*.whl,dist/*.tar.gz"
+          bodyFile: "__CHANGELOG-extracted.md"
