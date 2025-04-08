@@ -16,7 +16,7 @@ jobs:
 
       - uses: prefix-dev/setup-pixi@v0.8.4
         with:
-          pixi-version: 0.4.5
+          pixi-version: latest
           cache: true
           cache-key: default
           environments: default
