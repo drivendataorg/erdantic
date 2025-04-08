@@ -51,6 +51,8 @@ build-backend = "hatchling.build"
 
 [dependency-groups]
 dev = [
+  { include-group = "lint" },
+  { include-group = "docs" },
   "build",
   "ipython",
   "vspect",
@@ -87,11 +89,11 @@ typecheck = [
 channels = ["conda-forge"]
 platforms = ["linux-64", "osx-64", "osx-arm64", "win-64"]
 
+[tool.pixi.dependencies]
+graphviz = "==12.2.1"
+
 [tool.pixi.pypi-dependencies]
 erdantic = { path = ".", editable = true, extras = ["attrs"] }
-
-[tool.pixi.feature.graphviz.dependencies]
-graphviz = "==12.2.1"
 
 [tool.pixi.feature.py39.dependencies]
 python = "3.9.*"
@@ -105,13 +107,13 @@ python = "3.12.*"
 python = "3.13.*"
 
 [tool.pixi.environments]
-default = ["py313", "graphviz", "dev", "docs", "lint"]
-test-py39 = ["py39", "graphviz", "test"]
-test-py310 = ["py310", "graphviz", "test"]
-test-py311 = ["py311", "graphviz", "test"]
-test-py312 = ["py312", "graphviz", "test"]
-test-py313 = ["py313", "graphviz", "test"]
-typecheck = ["py313", "graphviz", "typecheck"]
+default = ["py313", "dev"]
+test-py39 = ["py39", "test"]
+test-py310 = ["py310", "test"]
+test-py311 = ["py311", "test"]
+test-py312 = ["py312", "test"]
+test-py313 = ["py313", "test"]
+typecheck = ["py313", "typecheck"]
 
 ## TOOLS
 
