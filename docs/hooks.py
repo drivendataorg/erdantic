@@ -23,14 +23,14 @@ def _read_readme():
         "assets/example_diagram.svg",
     )
     readme_text = readme_text.replace(
-        "./HISTORY.md",
+        "./CHANGELOG.md",
         "changelog.md",
     )
     return readme_text
 
 
 def _read_changelog():
-    changelog_path = REPO_ROOT / "HISTORY.md"
+    changelog_path = REPO_ROOT / "CHANGELOG.md"
     logger.info("Reading CHANGELOG from %s", changelog_path)
     changelog_text = changelog_path.read_text()
     return changelog_text
