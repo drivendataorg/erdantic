@@ -8,6 +8,12 @@ on:
     # Run every Sunday
     - cron: "0 0 * * 0"
   workflow_dispatch:
+    inputs:
+      update-deps:
+        description: "Update test dependencies"
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   code-quality:
@@ -61,6 +67,16 @@ jobs:
           cache-key: ${{ steps.env_name.outputs.env_name }}
           environments: ${{ steps.env_name.outputs.env_name }}
 
+      - name: Update dependencies
+        if: >-
+          ${{
+            github.event_name == 'push'
+            || github.event_name == 'scheduled'
+            || (github.event_name == 'workflow_dispatch' && github.event.inputs.update-deps == 'true')
+          }}
+        run: |
+          pixi update -e ${{ steps.env_name.outputs.env_name }}
+
       - name: Fix graphviz for macos-latest
         if: ${{ matrix.os == 'macos-latest' }}
         run: |
@@ -77,7 +93,6 @@ jobs:
           name: test-outputs-${{ matrix.os }}-python-${{ matrix.python-version }}
           path: tests/_outputs
 
-
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@v3
         with:
@@ -86,33 +101,40 @@ jobs:
           fail_ci_if_error: ${{ (github.event_name == 'push' && true) || (github.event_name == 'pull_request' && true) || false }}
         if: ${{ matrix.os == 'ubuntu-latest' }}
 
-  test-build-and-install:
-    name: Build distribution and test installation
+  test-distribution:
+    name: Test distribution
     needs: code-quality
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -leo pipefail {0}  # needed for micromamba environment
     steps:
       - uses: actions/checkout@v4
 
-      # - uses: mamba-org/setup-micromamba@v2
+      - uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-name: test-env
+          create-args: >-
+            python=3.13
+            graphviz
 
-      # - uses: astral-sh/setup-uv@v5
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-suffix: "test-distr"
 
-      # - name: Build distribution
-      #   run: |
-      #     uvx nox -s build
+      - name: Install
+        run: |
+          uv pip install .
 
-      # - name: Test wheel with extras matrix
-      #   run: |
-      #     uvx nox -s test_wheel --verbose
-
-      # - name: Test sdist
-      #   run: |
-      #     uvx nox -s test_sdist --verbose
-
+      - name: Test
+        run: |
+          python -m erdantic --version
+          python -c "import erdantic; import erdantic.examples; print(erdantic.list_plugins())"
 
   notify:
     name: Notify failed build
-    needs: [code-quality, tests, test-build-and-install]
+    needs: [code-quality, tests, test-distribution]
     if: failure() && github.event.pull_request == null
     runs-on: ubuntu-latest
     steps:
