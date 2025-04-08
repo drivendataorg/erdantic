@@ -68,7 +68,7 @@ docs = [
   "rich",
 ]
 lint = [
-  "ruff",
+  "ruff>=0.1.14",
 ]
 test = [
   "filetype",
