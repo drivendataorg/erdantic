@@ -1,54 +1,67 @@
 # Contributing to erdantic
 
-...
+## Report a bug or request a feature
+
+Please file an issue in the [issue tracker](https://github.com/drivendataorg/erdantic/issues).
+
+## External contributions
+
+Pull requests from external contributors are welcome. However, we ask that any nontrivial changes be discussed with maintainers in an [issue](https://github.com/drivendataorg/erdantic/issues) first before submitting a pull request.
 
 ## Local development
 
-[![Nox](https://img.shields.io/badge/%F0%9F%A6%8A-Nox-D85E00.svg)](https://github.com/wntrblm/nox)
+[![Pixi Badge][https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/prefix-dev/pixi/main/assets/badge/v0.json&style=flat-square
+]][[pixi-url](https://pixi.sh)]
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://docs.astral.sh/ruff/)
 [![Checked with mypy](https://www.mypy-lang.org/static/mypy_badge.svg)](https://mypy-lang.org/)
 
-This project is set up using [nox](https://nox.thea.codes/en/stable/) for automation. We recommend you install nox as a global tool with [pipx](https://pipx.pypa.io/):
+This project is set up using [Pixi](https://pixi.sh) for managing environments and [Just](https://github.com/casey/just) as a task runner.
+
+Many useful recipes are defined in the [`justfile`](./justfile). You can run:
 
 ```bash
-pipx install nox
+just
 ```
 
-Many of the nox sessions are configured to use conda environments. erdantic depends on [graphviz](https://graphviz.org/), a C library, so conda is handy for installing it together alongside the Python dependencies. We recommend you install conda through the [miniforge](https://github.com/conda-forge/miniforge) distribution, which automatically comes with the faster mamba installer. 
+to see available recipes with brief documentation.
 
 ### Development environment
 
-To create a development environment, run: 
-
-```bash 
-nox -s dev
-``` 
-
-This will create a conda environment in `.nox/dev`. You can activate it with:
+Pixi handles the creation and synchronization of the default development environment. You can run commands in the environment like so:
 
 ```bash
-conda activate .nox/dev
+pixi run {some shell command}
+```
+
+You can activate the default environment with
+
+```bash
+pixi shell
 ```
 
 ### Tests
 
-To run the full test matrix on all Python versions, run:
-
 ```bash
-nox -s tests
+just test
 ```
 
-To run tests for a specific version, use `tests-{python-version}`, e.g.,
+You can run the tests for a specific Python version with, for example:
 
 ```bash
-nox -s tests-3.11
+just python=3.12 test
+```
+
+To run tests on all supported Python versions, run:
+
+```bash
+just test-all
 ```
 
 ### Code quality
 
-We use [ruff](https://docs.astral.sh/ruff/) for linting and formatting, and we use [mypy](https://github.com/python/mypy) for type-checking. You can run them with the following nox sessions:
+We use [ruff](https://docs.astral.sh/ruff/) for linting and formatting, and we use [mypy](https://github.com/python/mypy) for static type checking. You can run them with the following commands:
 
 ```bash
-nox -s lint
-nox -s typecheck
+just lint
+just typecheck
 ```
