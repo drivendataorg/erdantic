@@ -57,6 +57,7 @@ fix-graphviz-test:
 # Generate static test assets
 static-test-assets:
     pixi run python tests/scripts/generate_static_assets.py
+    pixi run python tests/scripts/generate_pydantic_with_defaults_assets.py
 
 # Run example documents
 run-notebooks:
