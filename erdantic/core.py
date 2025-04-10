@@ -491,7 +491,7 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
     def _model_info_cls(self) -> Type[ModelInfo]:
         """Returns the model info class used by this diagram class. For the normal
         EntityRelationshipDiagram class, this is erdantic.core.ModelInfo."""
-        annotation = self.model_fields["models"].annotation
+        annotation = type(self).model_fields["models"].annotation
         args = get_args(annotation)
         return args[1]
 
@@ -499,7 +499,7 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
     def _edge_cls(self) -> Type[Edge]:
         """Returns the edge class used by this diagram class. For the normal
         EntityRelationshipDiagram class, this is erdantic.core.Edge."""
-        annotation = self.model_fields["edges"].annotation
+        annotation = type(self).model_fields["edges"].annotation
         args = get_args(annotation)
         return args[1]
 
