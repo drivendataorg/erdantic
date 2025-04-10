@@ -432,7 +432,7 @@ def reset_plugins():
 
 def test_subclass(caplog, outputs_dir, version_patch, reset_plugins):
     """Subclass things to add a third column with the field default value."""
-    out_dir = outputs_dir / "test_score-test_subclass"
+    out_dir = outputs_dir / "test_core-test_subclass"
     out_dir.mkdir()
     filename = "pydantic_with_default_column"
 
