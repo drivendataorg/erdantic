@@ -15,6 +15,7 @@ nav:
   - Usage Examples:
       - "Usage Example: attrs": "examples/attrs.ipynb"
       - "Usage Example: dataclasses": "examples/dataclasses.ipynb"
+      - "Usage Example: msgspec": "examples/msgspec.ipynb"
       - "Usage Example: Pydantic": "examples/pydantic.ipynb"
   - Advanced Usage:
       - Customizing Diagrams: "customizing.md"
@@ -27,12 +28,14 @@ nav:
       - erdantic.examples:
           - erdantic.examples.attrs: "api-reference/examples/attrs.md"
           - erdantic.examples.dataclasses: "api-reference/examples/dataclasses.md"
+          - erdantic.examples.msgspec: "api-reference/examples/msgspec.md"
           - erdantic.examples.pydantic: "api-reference/examples/pydantic.md"
           - erdantic.examples.pydantic_v1: "api-reference/examples/pydantic_v1.md"
       - erdantic.plugins:
           - "api-reference/plugins/index.md"
           - erdantic.plugins.attrs: "api-reference/plugins/attrs.md"
           - erdantic.plugins.dataclasses: "api-reference/plugins/dataclasses.md"
+          - erdantic.plugins.msgspec: "api-reference/plugins/msgspec.md"
           - erdantic.plugins.pydantic: "api-reference/plugins/pydantic.md"
       - erdantic.typing_utils: "api-reference/typing_utils.md"
 
