@@ -1,12 +1,6 @@
 import re
 import sys
-from typing import Any, List, Optional, Type
-
-if sys.version_info >= (3, 9):
-    # include_extras was added in Python 3.9
-    from typing import get_type_hints
-else:
-    from typing_extensions import get_type_hints
+from typing import Any, List, Type
 
 if sys.version_info >= (3, 10):
     from typing import TypeGuard
@@ -14,10 +8,10 @@ else:
     from typing_extensions import TypeGuard
 
 import msgspec
+
 from erdantic.core import FieldInfo, FullyQualifiedName
 from erdantic.exceptions import UnresolvableForwardRefError
 from erdantic.plugins import register_plugin
-
 
 MsgspecStruct = Type[msgspec.Struct]
 
@@ -32,6 +26,7 @@ def is_msgspec_struct(obj: Any) -> TypeGuard[MsgspecStruct]:
         bool: True if the object is a Struct class, False otherwise.
     """
     return isinstance(obj, type) and issubclass(obj, msgspec.Struct)
+
 
 def get_fields_from_msgspec_struct(model: MsgspecStruct) -> List[FieldInfo]:
     """Given a msgspec struct, return a list of FieldInfo instances for each field in the

@@ -1,11 +1,5 @@
 from pprint import pprint
-import sys
 from typing import Optional
-
-if sys.version_info >= (3, 9):
-    from typing import Annotated, get_type_hints
-else:
-    from typing_extensions import Annotated, get_type_hints
 
 import msgspec
 import pytest
@@ -160,7 +154,6 @@ def test_forward_refs_fn_scope_manual_resolvable():
         references it."""
 
         my_field: str
-
 
     with pytest.raises(UnresolvableForwardRefError, match="'FnScopeManuallyResolvable'"):
         diagram = EntityRelationshipDiagram()
