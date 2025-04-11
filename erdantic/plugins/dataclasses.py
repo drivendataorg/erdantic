@@ -3,12 +3,6 @@ import re
 import sys
 from typing import TYPE_CHECKING, Any, List, Type, cast, get_type_hints
 
-if sys.version_info >= (3, 9):
-    # include_extras was added in Python 3.9
-    from typing import get_type_hints
-else:
-    from typing_extensions import get_type_hints
-
 if sys.version_info >= (3, 10):
     from typing import TypeGuard
 else:
