@@ -17,7 +17,7 @@ from erdantic._logging import package_logger
 from erdantic._version import __version__
 from erdantic.convenience import create
 from erdantic.exceptions import ModelOrModuleNotFoundError
-from erdantic.plugins import list_plugins
+import erdantic.plugins
 
 app = typer.Typer()
 
@@ -35,7 +35,9 @@ if TYPE_CHECKING:
     class AvailablePluginKeys(StrEnum): ...
 
 else:
-    AvailablePluginKeys = StrEnum("AvailablePluginKeys", {key: key for key in list_plugins()})
+    AvailablePluginKeys = StrEnum(
+        "AvailablePluginKeys", {key: key for key in erdantic.plugins.list_plugins()}
+    )
 
 
 def version_callback(version: bool):
@@ -52,6 +54,27 @@ def dot_callback(ctx: typer.Context, dot: bool):
             if param.name == "out":
                 param.required = False
     return dot
+
+
+def list_plugins_callback(list_plugins: bool):
+    if list_plugins:
+        active_plugins = erdantic.plugins.list_plugins()
+        core_plugins = [plugin for plugin, _ in erdantic.plugins.CORE_PLUGINS]
+        print(" " * 15 + "ACTIVE    PLUGIN NAME")
+        print("Core plugins:")
+        for plugin in core_plugins:
+            if plugin in active_plugins:
+                print(" " * 15 + f" [X]      {plugin}")
+            else:
+                print(" " * 15 + f" [ ]      {plugin}")
+        other_plugins = sorted(set(active_plugins) - set(core_plugins))
+        print("Other plugins:")
+        if other_plugins:
+            for plugin in other_plugins:
+                print(" " * 15 + f" [X]      {plugin}")
+        else:
+            print(" " * 15 + " None found")
+    raise typer.Exit()
 
 
 @app.command()
@@ -139,6 +162,15 @@ def main(
             help="Use to increase log verbosity. Can use multiple times.",
         ),
     ] = 0,
+    list_plugins: Annotated[
+        Optional[bool],
+        typer.Option(
+            "--list-plugins",
+            callback=list_plugins_callback,
+            is_eager=True,
+            help="List active plugins and exist.",
+        ),
+    ] = False,
     version: Annotated[
         Optional[bool],
         typer.Option(
@@ -161,7 +193,7 @@ def main(
     log_formatter = logging.Formatter("%(asctime)s | %(name)s | %(levelname)s | %(message)s")
     log_handler.setFormatter(log_formatter)
 
-    logger.debug("Registered plugins: %s", ", ".join(list_plugins()))
+    logger.debug("Registered plugins: %s", ", ".join(erdantic.plugins.list_plugins()))
 
     logger.debug("models_or_modules: %s", models_or_modules)
     logger.debug("out: %s", out)
