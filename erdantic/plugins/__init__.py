@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
-CORE_PLUGINS = ("pydantic", "attrs", "dataclasses")
+CORE_PLUGINS = ("pydantic", "attrs", "dataclasses", "msgspec")
 
 _ModelType = TypeVar("_ModelType", bound=type)
 _ModelType_co = TypeVar("_ModelType_co", bound=type, covariant=True)
