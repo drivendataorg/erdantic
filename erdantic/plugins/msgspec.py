@@ -39,7 +39,7 @@ def get_fields_from_msgspec_struct(model: MsgspecStruct) -> List[FieldInfo]:
         List[FieldInfo]: List of FieldInfo instances for each field in the struct
     """
     try:
-        msgspec._utils.get_class_annotations(model)
+        msgspec._utils.get_class_annotations(model) # type: ignore [attr-defined]
         return [
             FieldInfo.from_raw_type(
                 model_full_name=FullyQualifiedName.from_object(model),
