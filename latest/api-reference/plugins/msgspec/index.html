@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://erdantic.drivendata.org/stable/api-reference/plugins/dataclasses/">
+        <link rel="canonical" href="https://erdantic.drivendata.org/stable/api-reference/plugins/msgspec/">
       
       
-        <link rel="prev" href="../attrs/">
+        <link rel="prev" href="../dataclasses/">
       
       
-        <link rel="next" href="../msgspec/">
+        <link rel="next" href="../pydantic/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>erdantic.plugins.dataclasses - erdantic</title>
+        <title>erdantic.plugins.msgspec - erdantic</title>
       
     
     
@@ -70,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#erdanticpluginsdataclasses" class="md-skip">
+        <a href="#erdanticpluginsmsgspec" class="md-skip">
           Skip to content
         </a>
       
@@ -110,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              erdantic.plugins.dataclasses
+              erdantic.plugins.msgspec
             
           </span>
         </div>
@@ -919,6 +919,29 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../dataclasses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    erdantic.plugins.dataclasses
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -936,7 +959,7 @@
   
   
   <span class="md-ellipsis">
-    erdantic.plugins.dataclasses
+    erdantic.plugins.msgspec
     
   </span>
   
@@ -949,7 +972,7 @@
   
   
   <span class="md-ellipsis">
-    erdantic.plugins.dataclasses
+    erdantic.plugins.msgspec
     
   </span>
   
@@ -972,27 +995,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#erdantic.plugins.dataclasses.get_fields_from_dataclass" class="md-nav__link">
+  <a href="#erdantic.plugins.msgspec.get_fields_from_msgspec_struct" class="md-nav__link">
     <span class="md-ellipsis">
-      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;get_fields_from_dataclass
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;get_fields_from_msgspec_struct
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#erdantic.plugins.dataclasses.is_dataclass_class" class="md-nav__link">
+  <a href="#erdantic.plugins.msgspec.is_msgspec_struct" class="md-nav__link">
     <span class="md-ellipsis">
-      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;is_dataclass_class
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#erdantic.plugins.dataclasses.resolve_types_on_dataclass" class="md-nav__link">
-    <span class="md-ellipsis">
-      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;resolve_types_on_dataclass
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;is_msgspec_struct
     </span>
   </a>
   
@@ -1002,29 +1016,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../msgspec/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    erdantic.plugins.msgspec
-    
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -1118,27 +1109,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#erdantic.plugins.dataclasses.get_fields_from_dataclass" class="md-nav__link">
+  <a href="#erdantic.plugins.msgspec.get_fields_from_msgspec_struct" class="md-nav__link">
     <span class="md-ellipsis">
-      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;get_fields_from_dataclass
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;get_fields_from_msgspec_struct
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#erdantic.plugins.dataclasses.is_dataclass_class" class="md-nav__link">
+  <a href="#erdantic.plugins.msgspec.is_msgspec_struct" class="md-nav__link">
     <span class="md-ellipsis">
-      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;is_dataclass_class
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#erdantic.plugins.dataclasses.resolve_types_on_dataclass" class="md-nav__link">
-    <span class="md-ellipsis">
-      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;resolve_types_on_dataclass
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;is_msgspec_struct
     </span>
   </a>
   
@@ -1163,7 +1145,7 @@
   
 
 
-<h1 id="erdanticpluginsdataclasses">erdantic.plugins.dataclasses<a class="headerlink" href="#erdanticpluginsdataclasses" title="Permanent link">&para;</a></h1>
+<h1 id="erdanticpluginsmsgspec">erdantic.plugins.msgspec<a class="headerlink" href="#erdanticpluginsmsgspec" title="Permanent link">&para;</a></h1>
 
 
 <div class="doc doc-object doc-module">
@@ -1194,19 +1176,20 @@
 <div class="doc doc-object doc-function">
 
 
-<h2 id="erdantic.plugins.dataclasses.get_fields_from_dataclass" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">get_fields_from_dataclass</span>
+<h2 id="erdantic.plugins.msgspec.get_fields_from_msgspec_struct" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">get_fields_from_msgspec_struct</span>
 
 
-<a href="#erdantic.plugins.dataclasses.get_fields_from_dataclass" class="headerlink" title="Permanent link">&para;</a></h2>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">get_fields_from_dataclass</span><span class="p">(</span>
-    <span class="n">model</span><span class="p">:</span> <span class="n"><span title="erdantic.plugins.dataclasses.DataclassType">DataclassType</span></span><span class="p">,</span>
+<a href="#erdantic.plugins.msgspec.get_fields_from_msgspec_struct" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">get_fields_from_msgspec_struct</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n"><span title="erdantic.plugins.msgspec.MsgspecStruct">MsgspecStruct</span></span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            FieldInfo (erdantic.core.FieldInfo)" href="../../core/#erdantic.core.FieldInfo">FieldInfo</a></span><span class="p">]</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
 
-        <p>Given a dataclass, return a list of FieldInfo instances for each field in the class.</p>
+        <p>Given a msgspec struct, return a list of FieldInfo instances for each field in the
+struct.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1225,11 +1208,11 @@
                 <code>model</code>
             </td>
             <td>
-                  <code><span title="erdantic.plugins.dataclasses.DataclassType">DataclassType</span></code>
+                  <code><span title="PydanticModel">PydanticModel</span></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>The dataclass to get fields from.</p>
+                <p>The struct to get fields from.</p>
               </div>
             </td>
             <td>
@@ -1255,7 +1238,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>List of FieldInfo instances for each field in the class</p>
+                <p>List of FieldInfo instances for each field in the struct</p>
               </div>
             </td>
           </tr>
@@ -1264,8 +1247,17 @@
 
 
             <details class="quote">
-              <summary>Source code in <code>erdantic/plugins/dataclasses.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">40</span>
+              <summary>Source code in <code>erdantic/plugins/msgspec.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
 <span class="normal">41</span>
 <span class="normal">42</span>
 <span class="normal">43</span>
@@ -1291,27 +1283,26 @@
 <span class="normal">63</span>
 <span class="normal">64</span>
 <span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span>
-<span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span>
-<span class="normal">75</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_fields_from_dataclass</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">DataclassType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">FieldInfo</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Given a dataclass, return a list of FieldInfo instances for each field in the class.</span>
+<span class="normal">66</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_fields_from_msgspec_struct</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">MsgspecStruct</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">FieldInfo</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Given a msgspec struct, return a list of FieldInfo instances for each field in the</span>
+<span class="sd">    struct.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        model (DataclassType): The dataclass to get fields from.</span>
+<span class="sd">        model (PydanticModel): The struct to get fields from.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        List[FieldInfo]: List of FieldInfo instances for each field in the class</span>
+<span class="sd">        List[FieldInfo]: List of FieldInfo instances for each field in the struct</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="c1"># Try to automatically resolve forward references</span>
-        <span class="n">resolve_types_on_dataclass</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+        <span class="n">msgspec</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">get_class_annotations</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>  <span class="c1"># type: ignore [attr-defined]</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">FieldInfo</span><span class="o">.</span><span class="n">from_raw_type</span><span class="p">(</span>
+                <span class="n">model_full_name</span><span class="o">=</span><span class="n">FullyQualifiedName</span><span class="o">.</span><span class="n">from_object</span><span class="p">(</span><span class="n">model</span><span class="p">),</span>
+                <span class="n">name</span><span class="o">=</span><span class="n">msgspec_field_info</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="n">raw_type</span><span class="o">=</span><span class="n">msgspec_field_info</span><span class="o">.</span><span class="n">type</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">msgspec_field_info</span> <span class="ow">in</span> <span class="n">msgspec</span><span class="o">.</span><span class="n">structs</span><span class="o">.</span><span class="n">fields</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+        <span class="p">]</span>
     <span class="k">except</span> <span class="ne">NameError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="n">model_full_name</span> <span class="o">=</span> <span class="n">FullyQualifiedName</span><span class="o">.</span><span class="n">from_object</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
         <span class="n">forward_ref</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
@@ -1321,21 +1312,13 @@
         <span class="p">)</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;Failed to resolve forward reference &#39;</span><span class="si">{</span><span class="n">forward_ref</span><span class="si">}</span><span class="s2">&#39; in the type annotations for &quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;dataclass </span><span class="si">{</span><span class="n">model_full_name</span><span class="si">}</span><span class="s2">. &quot;</span>
-            <span class="s2">&quot;You should use erdantic.plugins.dataclasses.resolve_types_on_dataclass with locals() &quot;</span>
-            <span class="s2">&quot;where you define the class.&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;struct </span><span class="si">{</span><span class="n">model_full_name</span><span class="si">}</span><span class="s2">. &quot;</span>
+            <span class="s2">&quot;erdantic does not currently support manually resolving forward references for &quot;</span>
+            <span class="s2">&quot;structs.&quot;</span>
         <span class="p">)</span>
         <span class="k">raise</span> <span class="n">UnresolvableForwardRefError</span><span class="p">(</span>
             <span class="n">msg</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">forward_ref</span><span class="p">,</span> <span class="n">model_full_name</span><span class="o">=</span><span class="n">model_full_name</span>
         <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
-    <span class="k">return</span> <span class="p">[</span>
-        <span class="n">FieldInfo</span><span class="o">.</span><span class="n">from_raw_type</span><span class="p">(</span>
-            <span class="n">model_full_name</span><span class="o">=</span><span class="n">FullyQualifiedName</span><span class="o">.</span><span class="n">from_object</span><span class="p">(</span><span class="n">model</span><span class="p">),</span>
-            <span class="n">name</span><span class="o">=</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-            <span class="n">raw_type</span><span class="o">=</span><span class="n">cast</span><span class="p">(</span><span class="nb">type</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">type</span><span class="p">),</span>  <span class="c1"># cast narrows type for typechecking</span>
-        <span class="p">)</span>
-        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">fields</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
-    <span class="p">]</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -1345,17 +1328,17 @@
 <div class="doc doc-object doc-function">
 
 
-<h2 id="erdantic.plugins.dataclasses.is_dataclass_class" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">is_dataclass_class</span>
+<h2 id="erdantic.plugins.msgspec.is_msgspec_struct" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">is_msgspec_struct</span>
 
 
-<a href="#erdantic.plugins.dataclasses.is_dataclass_class" class="headerlink" title="Permanent link">&para;</a></h2>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">is_dataclass_class</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="typing_extensions.TypeGuard">TypeGuard</span></span><span class="p">[</span><span class="n"><span title="erdantic.plugins.dataclasses.DataclassType">DataclassType</span></span><span class="p">]</span>
+<a href="#erdantic.plugins.msgspec.is_msgspec_struct" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">is_msgspec_struct</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="typing_extensions.TypeGuard">TypeGuard</span></span><span class="p">[</span><span class="n"><span title="erdantic.plugins.msgspec.MsgspecStruct">MsgspecStruct</span></span><span class="p">]</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
 
-        <p>Predicate function to determine if an object is a dataclass (not an instance).</p>
+        <p>Predicate function to determine if an object is a msgspect struct (class, not instance).</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1404,7 +1387,7 @@
             </td>
             <td>
               <div class="doc-md-description">
-                <p>True if the object is a dataclass, False otherwise.</p>
+                <p>True if the object is a Struct class, False otherwise.</p>
               </div>
             </td>
           </tr>
@@ -1413,189 +1396,26 @@
 
 
             <details class="quote">
-              <summary>Source code in <code>erdantic/plugins/dataclasses.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">is_dataclass_class</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeGuard</span><span class="p">[</span><span class="n">DataclassType</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Predicate function to determine if an object is a dataclass (not an instance).</span>
+              <summary>Source code in <code>erdantic/plugins/msgspec.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">is_msgspec_struct</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeGuard</span><span class="p">[</span><span class="n">MsgspecStruct</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Predicate function to determine if an object is a msgspect struct (class, not instance).</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        obj (Any): The object to check.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        bool: True if the object is a dataclass, False otherwise.</span>
+<span class="sd">        bool: True if the object is a Struct class, False otherwise.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span> <span class="ow">and</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">is_dataclass</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h2 id="erdantic.plugins.dataclasses.resolve_types_on_dataclass" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">resolve_types_on_dataclass</span>
-
-
-<a href="#erdantic.plugins.dataclasses.resolve_types_on_dataclass" class="headerlink" title="Permanent link">&para;</a></h2>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">resolve_types_on_dataclass</span><span class="p">(</span>
-    <span class="bp">cls</span><span class="p">:</span> <span class="n"><span title="erdantic.plugins.dataclasses.DataclassType">DataclassType</span></span><span class="p">,</span>
-    <span class="n">globalns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">localns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">include_extras</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><span title="erdantic.plugins.dataclasses.DataclassType">DataclassType</span></span>
-</code></pre></div>
-
-    <div class="doc doc-contents ">
-
-        <p>Resolve forward references in type annotations on a dataclass. This will modify the fields
-metadata on the class to replace forward references with the actual types.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>cls</code>
-            </td>
-            <td>
-                  <code><span title="erdantic.plugins.dataclasses.DataclassType">DataclassType</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The dataclass to resolve forward references on.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>globalns</code>
-            </td>
-            <td>
-                  <code><span title="Dict">Dict</span>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>] | None</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>A global namespace to evaluate forward
-references against. Defaults to None.</p>
-              </div>
-            </td>
-            <td>
-                  <code>None</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>localns</code>
-            </td>
-            <td>
-                  <code><span title="Dict">Dict</span>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>] | None</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>A local namespace to evaluate forward
-references against. Defaults to None.</p>
-              </div>
-            </td>
-            <td>
-                  <code>None</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>include_extras</code>
-            </td>
-            <td>
-                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Whether to keep extra metadata from <code>typing.Annotated</code>.
-Defaults to True.</p>
-              </div>
-            </td>
-            <td>
-                  <code>True</code>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-            <details class="quote">
-              <summary>Source code in <code>erdantic/plugins/dataclasses.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 83</span>
-<span class="normal"> 84</span>
-<span class="normal"> 85</span>
-<span class="normal"> 86</span>
-<span class="normal"> 87</span>
-<span class="normal"> 88</span>
-<span class="normal"> 89</span>
-<span class="normal"> 90</span>
-<span class="normal"> 91</span>
-<span class="normal"> 92</span>
-<span class="normal"> 93</span>
-<span class="normal"> 94</span>
-<span class="normal"> 95</span>
-<span class="normal"> 96</span>
-<span class="normal"> 97</span>
-<span class="normal"> 98</span>
-<span class="normal"> 99</span>
-<span class="normal">100</span>
-<span class="normal">101</span>
-<span class="normal">102</span>
-<span class="normal">103</span>
-<span class="normal">104</span>
-<span class="normal">105</span>
-<span class="normal">106</span>
-<span class="normal">107</span>
-<span class="normal">108</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">resolve_types_on_dataclass</span><span class="p">(</span>
-    <span class="bp">cls</span><span class="p">:</span> <span class="n">DataclassType</span><span class="p">,</span> <span class="n">globalns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">localns</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">include_extras</span><span class="o">=</span><span class="kc">True</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DataclassType</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Resolve forward references in type annotations on a dataclass. This will modify the fields</span>
-<span class="sd">    metadata on the class to replace forward references with the actual types.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        cls (DataclassType): The dataclass to resolve forward references on.</span>
-<span class="sd">        globalns (Dict[str, Any] | None, optional): A global namespace to evaluate forward</span>
-<span class="sd">            references against. Defaults to None.</span>
-<span class="sd">        localns (Dict[str, Any] | None, optional): A local namespace to evaluate forward</span>
-<span class="sd">            references against. Defaults to None.</span>
-<span class="sd">        include_extras (bool, optional): Whether to keep extra metadata from `typing.Annotated`.</span>
-<span class="sd">            Defaults to True.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Cache whether we have already run this on a cls</span>
-    <span class="c1"># Inspired by attrs.resolve_types</span>
-    <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="s2">&quot;__erdantic_dataclass_types_resolved__&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">cls</span><span class="p">:</span>
-        <span class="n">hints</span> <span class="o">=</span> <span class="n">get_type_hints</span><span class="p">(</span>
-            <span class="bp">cls</span><span class="p">,</span> <span class="n">globalns</span><span class="o">=</span><span class="n">globalns</span><span class="p">,</span> <span class="n">localns</span><span class="o">=</span><span class="n">localns</span><span class="p">,</span> <span class="n">include_extras</span><span class="o">=</span><span class="n">include_extras</span>
-        <span class="p">)</span>
-        <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">dataclasses</span><span class="o">.</span><span class="n">fields</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-            <span class="n">field</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">hints</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
-        <span class="c1"># Use reference to cls as indicator in case of subclasses</span>
-        <span class="nb">setattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="s2">&quot;__erdantic_dataclass_types_resolved__&quot;</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span>
-    <span class="k">return</span> <span class="bp">cls</span>
+    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">msgspec</span><span class="o">.</span><span class="n">Struct</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
