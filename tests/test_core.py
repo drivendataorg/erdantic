@@ -4,12 +4,7 @@ import filecmp
 import os
 from pathlib import Path
 import sys
-from typing import Any, AnyStr, List, Literal, Optional, Tuple, TypeVar
-
-if sys.version_info >= (3, 9):
-    from typing import Annotated
-else:
-    from typing_extensions import Annotated
+from typing import Annotated, Any, AnyStr, List, Literal, Optional, Tuple, TypeVar
 
 import IPython.lib.pretty as IPython_pretty
 import pydantic

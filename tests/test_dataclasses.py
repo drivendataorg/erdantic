@@ -1,13 +1,7 @@
 import dataclasses
 from dataclasses import dataclass
 from pprint import pprint
-import sys
-from typing import Optional
-
-if sys.version_info >= (3, 9):
-    from typing import Annotated, get_type_hints
-else:
-    from typing_extensions import Annotated, get_type_hints
+from typing import Annotated, Optional, get_type_hints
 
 import pytest
 
