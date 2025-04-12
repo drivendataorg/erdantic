@@ -5,6 +5,7 @@ import pytest
 
 import erdantic as erd
 import erdantic.core
+import erdantic.plugins
 
 OUTPUTS_DIR = Path(__file__).resolve().parent / "_outputs"
 
@@ -34,3 +35,33 @@ def version_patch(monkeypatch):
     monkeypatch.setattr(erd, "__version__", "TEST")
     monkeypatch.setattr(erdantic._version, "__version__", "TEST")
     monkeypatch.setattr(erdantic.core, "__version__", "TEST")
+
+
+@pytest.fixture()
+def custom_plugin():
+    """A custom plugin to test the plugin system."""
+
+    class CustomBaseModel: ...
+
+    def is_custom_model(obj):
+        return (
+            isinstance(obj, type)
+            and issubclass(obj, CustomBaseModel)
+            and obj is not CustomBaseModel
+        )
+
+    def get_fields_from_custom_model(model):
+        return []
+
+    key = "test_plugin"
+    erdantic.plugins.register_plugin(
+        key,
+        predicate_fn=is_custom_model,
+        get_fields_fn=get_fields_from_custom_model,
+    )
+
+    yield key, CustomBaseModel, is_custom_model, get_fields_from_custom_model
+
+    # Cleanup
+    if key in erdantic.plugins._dict:
+        del erdantic.plugins._dict[key]

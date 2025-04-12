@@ -10,37 +10,24 @@ from erdantic.plugins import (
     get_predicate_fn,
     identify_field_extractor_fn,
     list_plugins,
-    register_plugin,
 )
 import erdantic.plugins.attrs
 import erdantic.plugins.dataclasses
 import erdantic.plugins.pydantic
 
 
-def test_register_plugin():
+def test_register_plugin(custom_plugin):
     """Custom plugin can be sucessfully registered and used."""
 
-    class CustomBaseModel: ...
+    key, base_model, predicate_fn, get_fields_fn = custom_plugin
 
-    def is_custom_model(obj):
-        return (
-            isinstance(obj, type)
-            and issubclass(obj, CustomBaseModel)
-            and obj is not CustomBaseModel
-        )
+    assert key in list_plugins()
 
-    def get_fields_from_custom_model(model):
-        return []
+    class MyModel(base_model): ...
 
-    register_plugin("test_plugin", is_custom_model, get_fields_from_custom_model)
-
-    assert "test_plugin" in list_plugins()
-
-    class MyModel(CustomBaseModel): ...
-
-    assert identify_field_extractor_fn(MyModel) == get_fields_from_custom_model
+    assert identify_field_extractor_fn(MyModel) == get_fields_fn
     assert identify_field_extractor_fn(erdantic.examples.pydantic.Party) not in (
-        get_fields_from_custom_model,
+        get_fields_fn,
         None,
     )
 
