@@ -1,11 +1,11 @@
 [project]
 name = "erdantic"
-version = "1.1.0.dev"
+version = "1.1.0"
 description = "Entity relationship diagrams for Python data model classes like Pydantic."
 readme = "README.md"
 authors = [{ name = "DrivenData", email = "info@drivendata.org" }, { name = "Jay Qi" }]
 license = { text = "MIT License" }
-keywords = ["erd", "entity relationship diagram", "dataclasses", "pydantic", "attrs"]
+keywords = ["erd", "entity relationship diagram", "dataclasses", "pydantic", "attrs", "msgspec"]
 classifiers = [
   "Intended Audience :: Developers",
   "Topic :: Software Development :: Code Generators",

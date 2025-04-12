@@ -1,11 +1,11 @@
 # erdantic Changelog
 
-## Unreleased
+## v1.1.0 (2025-04-12)
 
 - Removed support for Python 3.8.
 - Added Python 3.13 to supported Python versions.
-- Added support for [msgspec structs](https://jcristharif.com/msgspec/structs.html).
-- Added `--list-plugins` CLI flag to print information on active plugins.
+- Added support for [msgspec structs](https://jcristharif.com/msgspec/structs.html). ([Issue #139](https://github.com/drivendataorg/erdantic/issues/139), [PR #142](https://github.com/drivendataorg/erdantic/pull/142))
+- Added `--list-plugins` CLI flag to print information on active plugins. ([PR #144](https://github.com/drivendataorg/erdantic/pull/144))
 
 ## v1.0.5 (2024-09-19)
 
