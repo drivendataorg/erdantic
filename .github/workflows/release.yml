@@ -51,7 +51,7 @@ jobs:
           attest-build-provenance-github: 'true'
 
   upload-to-test-pypi:
-    name: Upload package to PyPI
+    name: Upload package to Test PyPI
     needs: build-and-inspect-package
     if: github.event.inputs.dry-run == 'false'
     runs-on: ubuntu-latest
@@ -72,7 +72,7 @@ jobs:
           skip-existing: true
 
   upload-to-prod-pypi:
-    name: Upload package to PyPI
+    name: Upload package to Prod PyPI
     needs: upload-to-test-pypi
     if: github.event.inputs.dry-run == 'false'
     runs-on: ubuntu-latest
@@ -97,6 +97,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Download built artifact to dist/
+        uses: actions/download-artifact@v4
+        with:
+          name: Packages
+          path: dist
 
       - id: extract-changelog
         uses: sean0x42/markdown-extract@v2.1.0
