@@ -74,7 +74,7 @@ def list_plugins_callback(list_plugins: bool):
                 print(" " * 15 + f" [X]      {plugin}")
         else:
             print(" " * 15 + " None found")
-    raise typer.Exit()
+        raise typer.Exit()
 
 
 @app.command()
@@ -168,7 +168,7 @@ def main(
             "--list-plugins",
             callback=list_plugins_callback,
             is_eager=True,
-            help="List active plugins and exist.",
+            help="List active plugins and exit.",
         ),
     ] = False,
     version: Annotated[

@@ -130,6 +130,7 @@ jobs:
       - name: Test
         run: |
           python -m erdantic --version
+          python -m erdantic --list-plugins
           python -c "import erdantic; import erdantic.examples; print(erdantic.list_plugins())"
 
   notify:

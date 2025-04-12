@@ -1,4 +1,5 @@
 import filecmp
+import re
 import subprocess
 
 import pytest
@@ -204,6 +205,13 @@ def test_dot(tmp_path):
     assert result.returncode == 0
     assert not path.exists()  # -o is ignored and no file created
     assert erd.to_dot(Party).strip() == result.stdout.strip()
+
+
+def test_list_plugins():
+    result = runner.invoke(app, ["--list-plugins"])
+    print(result.output)
+    assert result.exit_code == 0
+    assert re.findall(r"\[X\]\s*pydantic", result.output)
 
 
 def test_help():
