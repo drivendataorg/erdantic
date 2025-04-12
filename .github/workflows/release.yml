@@ -1,5 +1,5 @@
 name: release
-run-name: Release of ${{ inputs.version }}${{ inputs.dry-run == 'true' && '(dry run)' || '' }}
+run-name: Release of ${{ inputs.version }}${{ inputs.dry-run && ' (dry run)' }}
 
 on:
   workflow_dispatch:
