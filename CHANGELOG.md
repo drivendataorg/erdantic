@@ -3,8 +3,9 @@
 ## Unreleased
 
 - Removed support for Python 3.8.
-- Added Python 3.13 to supported Python version metadata.
+- Added Python 3.13 to supported Python versions.
 - Added support for [msgspec structs](https://jcristharif.com/msgspec/structs.html).
+- Added `--list-plugins` CLI flag to print information on active plugins.
 
 ## v1.0.5 (2024-09-19)
 

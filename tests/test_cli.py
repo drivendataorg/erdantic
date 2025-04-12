@@ -1,4 +1,5 @@
 import filecmp
+import re
 import subprocess
 
 import pytest
@@ -26,6 +27,9 @@ def test_import_object_from_name():
         import_object_from_name("erdantic.not_a_module")
     with pytest.raises(ModelOrModuleNotFoundError):
         import_object_from_name("erdantic.examples.pydantic.not_a_model_class")
+    with pytest.raises(RuntimeError) as excinfo:
+        import_object_from_name("tests.module_with_error.SomeModel")
+        assert str(excinfo.value) == "This is a test exception"
 
 
 def test_draw(outputs_dir):
@@ -204,6 +208,21 @@ def test_dot(tmp_path):
     assert result.returncode == 0
     assert not path.exists()  # -o is ignored and no file created
     assert erd.to_dot(Party).strip() == result.stdout.strip()
+
+
+def test_list_plugins():
+    result = runner.invoke(app, ["--list-plugins"])
+    print(result.output)
+    assert result.exit_code == 0
+    assert re.findall(r"\[X\]\s*pydantic", result.output)
+
+
+def test_list_plugins_custom_plugin(custom_plugin):
+    key, _, _, _ = custom_plugin
+    result = runner.invoke(app, ["--list-plugins"])
+    print(result.output)
+    assert result.exit_code == 0
+    assert re.findall(rf"\[X\]\s*{key}", result.output)
 
 
 def test_help():

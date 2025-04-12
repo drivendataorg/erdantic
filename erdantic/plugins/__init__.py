@@ -17,7 +17,13 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
-CORE_PLUGINS = ("pydantic", "attrs", "dataclasses", "msgspec")
+CORE_PLUGINS = (
+    ("pydantic", "erdantic.plugins.pydantic"),
+    ("pydantic_v1", "erdantic.plugins.pydantic"),
+    ("attrs", "erdantic.plugins.attrs"),
+    ("dataclasses", "erdantic.plugins.dataclasses"),
+    ("msgspec", "erdantic.plugins.msgspec"),
+)
 
 _ModelType = TypeVar("_ModelType", bound=type)
 _ModelType_co = TypeVar("_ModelType_co", bound=type, covariant=True)
@@ -25,10 +31,10 @@ _ModelType_contra = TypeVar("_ModelType_contra", bound=type, contravariant=True)
 
 
 def load_plugins():
-    for plugin in CORE_PLUGINS:
+    for plugin, module in CORE_PLUGINS:
         logger.debug("Loading plugin: %s", plugin)
         try:
-            importlib.import_module(f"erdantic.plugins.{plugin}")
+            importlib.import_module(module)
             logger.debug("Plugin successfully loaded: %s", plugin)
         except ModuleNotFoundError:
             logger.debug("Plugin dependencies not found. Skipping: %s", plugin)
