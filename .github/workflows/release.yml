@@ -7,14 +7,16 @@ on:
       version:
         description: 'Version tag'
         required: true
+      dry-run:
+        description: 'Dry run'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
-  build:
-    name: Publish new release
+  check-version:
+    name: Check metadata version is correct
     runs-on: "ubuntu-latest"
-    environment: release
-    permissions:
-      id-token: write  # Required for PyPI trusted publishing
 
     steps:
       - uses: actions/checkout@v4
@@ -32,20 +34,69 @@ jobs:
           echo "Package version: [$PACKAGE_VERSION]"
           [[ ${{ github.event.inputs.version }} == "v$PACKAGE_VERSION" ]] || { exit 1; }
 
-      - name: Build package
-        run: |
-          pixi run python -m build
+  build-and-inspect-package:
+    name: Build and inspect package
+    needs: check-version
+    runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      # Need both of these for attest-build-provenance-github
+      id-token: write
+      attestations: write
 
-      - name: Publish to Test PyPI
-        uses: pypa/gh-action-pypi-publish@v1.12.4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hynek/build-and-inspect-python-package@v2
+        with:
+          attest-build-provenance-github: 'true'
+
+  upload-to-test-pypi:
+    name: Upload package to PyPI
+    needs: build-and-inspect-package
+    if: github.event.inputs.dry-run == 'false'
+    runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      id-token: write  # Required for PyPI trusted publishing
+
+    steps:
+      - name: Download built artifact to dist/
+        uses: actions/download-artifact@v4
+        with:
+          name: Packages
+          path: dist
+
+      - uses: pypa/gh-action-pypi-publish@v1.12.4
         with:
           repository-url: https://test.pypi.org/legacy/
           skip-existing: true
 
-      - name: Publish to Production PyPI
-        uses: pypa/gh-action-pypi-publish@v1.12.4
+  upload-to-prod-pypi:
+    name: Upload package to PyPI
+    needs: upload-to-test-pypi
+    if: github.event.inputs.dry-run == 'false'
+    runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      id-token: write  # Required for PyPI trusted publishing
+
+    steps:
+      - name: Download built artifact to dist/
+        uses: actions/download-artifact@v4
         with:
-          skip-existing: false
+          name: Packages
+          path: dist
+
+      - uses: pypa/gh-action-pypi-publish@v1.12.4
+
+  create-github-release:
+    name: Create GitHub release
+    needs: upload-to-prod-pypi
+    if: github.event.inputs.dry-run == 'false'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
 
       - id: extract-changelog
         uses: sean0x42/markdown-extract@v2.1.0
