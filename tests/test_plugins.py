@@ -17,7 +17,7 @@ import erdantic.plugins.pydantic
 
 
 def test_register_plugin(custom_plugin):
-    """Custom plugin can be sucessfully registered and used."""
+    """Custom plugin can be successfully registered and used."""
 
     key, base_model, predicate_fn, get_fields_fn = custom_plugin
 

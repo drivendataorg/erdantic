@@ -521,7 +521,7 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
             try:
                 model_info = self._model_info_cls.from_raw_model(model)
                 self.models[key] = model_info
-                logger.debug("Sucessfully added model '%s'.", key)
+                logger.debug("Successfully added model '%s'.", key)
                 if recurse:
                     logger.debug("Searching fields of '%s' for other models...", key)
                     for field_info in model_info.fields.values():
