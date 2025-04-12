@@ -94,7 +94,7 @@ def test_identify_field_extractor_fn():
 
 def test_core_plugins():
     """Core plugins are loaded when erdantic is imported."""
-    for key in ("attrs", "dataclasses", "pydantic", "pydantic_v1"):
+    for key in ("attrs", "dataclasses", "msgspec", "pydantic", "pydantic_v1"):
         script = textwrap.dedent(
             f"""\
             from erdantic.plugins import list_plugins

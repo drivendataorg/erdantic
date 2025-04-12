@@ -12,6 +12,7 @@ import erdantic.examples.dataclasses as examples_dataclasses
 import erdantic.examples.pydantic as examples_pydantic
 from erdantic.examples.pydantic import Party, Quest
 from erdantic.exceptions import ModelOrModuleNotFoundError
+from erdantic.plugins import register_plugin
 
 runner = CliRunner(mix_stderr=False)
 
@@ -27,6 +28,9 @@ def test_import_object_from_name():
         import_object_from_name("erdantic.not_a_module")
     with pytest.raises(ModelOrModuleNotFoundError):
         import_object_from_name("erdantic.examples.pydantic.not_a_model_class")
+    with pytest.raises(RuntimeError) as excinfo:
+        import_object_from_name("tests.module_with_error.SomeModel")
+        assert str(excinfo.value) == "This is a test exception"
 
 
 def test_draw(outputs_dir):
@@ -212,6 +216,27 @@ def test_list_plugins():
     print(result.output)
     assert result.exit_code == 0
     assert re.findall(r"\[X\]\s*pydantic", result.output)
+
+
+def test_list_plugins_custom_plugin():
+    class CustomBaseModel: ...
+
+    def is_custom_model(obj):
+        return (
+            isinstance(obj, type)
+            and issubclass(obj, CustomBaseModel)
+            and obj is not CustomBaseModel
+        )
+
+    def get_fields_from_custom_model(model):
+        return []
+
+    register_plugin("test_plugin", is_custom_model, get_fields_from_custom_model)
+
+    result = runner.invoke(app, ["--list-plugins"])
+    print(result.output)
+    assert result.exit_code == 0
+    assert re.findall(r"\[X\]\s*test_plugin", result.output)
 
 
 def test_help():
