@@ -7,6 +7,11 @@
 - Added support for [msgspec structs](https://jcristharif.com/msgspec/structs.html). ([Issue #139](https://github.com/drivendataorg/erdantic/issues/139), [PR #142](https://github.com/drivendataorg/erdantic/pull/142))
 - Added `--list-plugins` CLI flag to print information on active plugins. ([PR #144](https://github.com/drivendataorg/erdantic/pull/144))
 
+### v1.1.0.post1  (2025-04-12)
+
+- Fixed broken tests badge in README.
+- Fixed broken image in README.
+
 ## v1.0.5 (2024-09-19)
 
 - Fixed runtime `AttributeError` that occurred when creating a diagram that includes a model with a field that uses a type annotation with the ellipsis literal (e.g., `tuple[int, ...]`). ([Issue #124](https://github.com/drivendataorg/erdantic/issues/124), [PR #127](https://github.com/drivendataorg/erdantic/pull/127))
