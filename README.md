@@ -17,7 +17,7 @@
 
 You can use erdantic either as a convenient CLI or as a Python library. Great for adding a simple and clean data model reference to your documentation.
 
-<object type="image/svg+xml" data="./docs/docs/assets/example_diagram.svg" width="100%" typemustmatch><img alt="Example diagram created by erdantic" src="./docs/docs/assets/example_diagram.svg"></object>
+<object type="image/svg+xml" data="https://raw.githubusercontent.com/drivendataorg/erdantic/refs/heads/main/docs/docs/assets/example_diagram.svg" width="100%" typemustmatch><img alt="Example diagram created by erdantic" src="https://raw.githubusercontent.com/drivendataorg/erdantic/refs/heads/main/docs/docs/assets/example_diagram.svg"></object>
 
 ## Installation
 

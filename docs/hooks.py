@@ -19,7 +19,10 @@ def _read_readme():
     logger.info("Reading README from %s", readme_path)
     readme_text = readme_path.read_text()
     readme_text = readme_text.replace(
-        "./docs/docs/assets/example_diagram.svg",
+        (
+            "https://raw.githubusercontent.com/drivendataorg/erdantic/refs/heads/main"
+            "/docs/docs/assets/example_diagram.svg"
+        ),
         "assets/example_diagram.svg",
     )
     readme_text = readme_text.replace(
