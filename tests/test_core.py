@@ -67,7 +67,7 @@ def test_field_info_raw_type():
         name="members",
         type_name="this_is_arbitrary",
     )
-    assert field_info.raw_type == List[Adventurer]
+    assert field_info.raw_type == list[Adventurer]
 
 
 def test_field_info_annotated():

@@ -3,7 +3,7 @@
 
 from datetime import datetime
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 from pydantic.v1 import BaseModel
 
@@ -70,11 +70,11 @@ class Party(BaseModel):
     Attributes:
         name (str): Name that party is known by
         formed_datetime (datetime): Timestamp of when the party was formed
-        members (List[Adventurer]): Adventurers that belong to this party
+        members (list[Adventurer]): Adventurers that belong to this party
         active_quest (Optional[Quest]): Current quest that party is actively tackling
     """
 
     name: str
     formed_datetime: datetime
-    members: List[Adventurer] = []
+    members: list[Adventurer] = []
     active_quest: Optional[Quest] = None

@@ -1,5 +1,9 @@
 # erdantic Changelog
 
+## v1.1.1 (Unreleated)
+
+- [Examples] Changed `Party` class in all example modules to use `list` instead of `typing.List` for the type annotation for the `members` field.
+
 ## v1.1.0 (2025-04-12)
 
 - Removed support for Python 3.8.

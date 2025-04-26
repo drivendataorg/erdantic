@@ -45,7 +45,7 @@ def test_get_fields_from_pydantic_v1_model():
     # members
     assert fields[2].model_full_name == FullyQualifiedName.from_object(pydantic_v1_examples.Party)
     assert fields[2].name == "members"
-    assert fields[2].type_name == "List[Adventurer]"
+    assert fields[2].type_name == "list[Adventurer]"
     # active_quest
     assert fields[3].model_full_name == FullyQualifiedName.from_object(pydantic_v1_examples.Party)
     assert fields[3].name == "active_quest"
