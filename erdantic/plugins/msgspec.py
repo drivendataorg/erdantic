@@ -1,6 +1,6 @@
 import re
 import sys
-from typing import Any, List, Type
+from typing import Any, Type
 
 if sys.version_info >= (3, 10):
     from typing import TypeGuard
@@ -28,7 +28,7 @@ def is_msgspec_struct(obj: Any) -> TypeGuard[MsgspecStruct]:
     return isinstance(obj, type) and issubclass(obj, msgspec.Struct)
 
 
-def get_fields_from_msgspec_struct(model: MsgspecStruct) -> List[FieldInfo]:
+def get_fields_from_msgspec_struct(model: MsgspecStruct) -> list[FieldInfo]:
     """Given a msgspec struct, return a list of FieldInfo instances for each field in the
     struct.
 
@@ -36,7 +36,7 @@ def get_fields_from_msgspec_struct(model: MsgspecStruct) -> List[FieldInfo]:
         model (PydanticModel): The struct to get fields from.
 
     Returns:
-        List[FieldInfo]: List of FieldInfo instances for each field in the struct
+        list[FieldInfo]: List of FieldInfo instances for each field in the struct
     """
     try:
         msgspec._utils.get_class_annotations(model)  # type: ignore [attr-defined]

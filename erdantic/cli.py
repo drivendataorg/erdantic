@@ -3,7 +3,7 @@ from importlib import import_module
 import logging
 from pathlib import Path
 from types import ModuleType
-from typing import TYPE_CHECKING, Annotated, List, Optional, Union
+from typing import TYPE_CHECKING, Annotated, Optional, Union
 
 import typer
 
@@ -74,7 +74,7 @@ def list_plugins_callback(list_plugins: bool):
 @app.command()
 def main(
     models_or_modules: Annotated[
-        List[str],
+        list[str],
         typer.Argument(
             help=(
                 "One or more full dotted paths for data model classes, or modules containing data "
@@ -89,7 +89,7 @@ def main(
         typer.Option("--out", "-o", help="Output filename."),
     ],
     terminal_models: Annotated[
-        List[str],
+        list[str],
         typer.Option(
             "--terminal-model",
             "-t",
@@ -101,14 +101,14 @@ def main(
         ),
     ] = [],
     termini: Annotated[
-        List[str],
+        list[str],
         typer.Option(
             "--terminus",
             help=("Deprecated. Use --terminal-model instead."),
         ),
     ] = [],
     limit_search_models_to: Annotated[
-        List[AvailablePluginKeys],
+        list[AvailablePluginKeys],
         typer.Option(
             "--limit-search-models-to",
             "-m",
