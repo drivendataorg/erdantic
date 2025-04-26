@@ -1587,7 +1587,7 @@ is supported by this plugin.</p>
 <span class="normal">101</span>
 <span class="normal">102</span>
 <span class="normal">103</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">html</span><span class="w"> </span><span class="kn">import</span> <span class="n">escape</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pydantic</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pydantic_core</span>
@@ -1645,7 +1645,7 @@ is supported by this plugin.</p>
 <span class="k">class</span><span class="w"> </span><span class="nc">ModelInfoWithDefault</span><span class="p">(</span><span class="n">ModelInfo</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Custom ModelInfo subclass that uses FieldInfoWithDefault instead of FieldInfo.&quot;&quot;&quot;</span>
 
-    <span class="n">fields</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">FieldInfoWithDefault</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">fields</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">FieldInfoWithDefault</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">EntityRelationshipDiagramWithDefault</span><span class="p">(</span><span class="n">EntityRelationshipDiagram</span><span class="p">):</span>
@@ -1656,7 +1656,7 @@ is supported by this plugin.</p>
     <span class="n">models</span><span class="p">:</span> <span class="n">SortedDict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ModelInfoWithDefault</span><span class="p">]</span> <span class="o">=</span> <span class="n">SortedDict</span><span class="p">()</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">get_fields_from_pydantic_model_with_default</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">FieldInfoWithDefault</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_fields_from_pydantic_model_with_default</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">FieldInfoWithDefault</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Copied from erdantic.plugins.pydantic.get_fields_from_pydantic_model and modified to</span>
 <span class="sd">    extract default values of fields.</span>
 <span class="sd">    &quot;&quot;&quot;</span>

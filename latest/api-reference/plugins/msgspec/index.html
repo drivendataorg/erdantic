@@ -1183,7 +1183,7 @@
 <a href="#erdantic.plugins.msgspec.get_fields_from_msgspec_struct" class="headerlink" title="Permanent link">&para;</a></h2>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">get_fields_from_msgspec_struct</span><span class="p">(</span>
     <span class="n">model</span><span class="p">:</span> <span class="n"><span title="erdantic.plugins.msgspec.MsgspecStruct">MsgspecStruct</span></span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            FieldInfo (erdantic.core.FieldInfo)" href="../../core/#erdantic.core.FieldInfo">FieldInfo</a></span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            FieldInfo (erdantic.core.FieldInfo)" href="../../core/#erdantic.core.FieldInfo">FieldInfo</a></span><span class="p">]</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -1234,7 +1234,7 @@ struct.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-external" title="typing.List" href="https://docs.python.org/3/library/typing.html#typing.List">List</a>[<a class="autorefs autorefs-internal" title="            FieldInfo (erdantic.core.FieldInfo)" href="../../core/#erdantic.core.FieldInfo">FieldInfo</a>]</code>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-internal" title="            FieldInfo (erdantic.core.FieldInfo)" href="../../core/#erdantic.core.FieldInfo">FieldInfo</a>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1283,7 +1283,7 @@ struct.</p>
 <span class="normal">63</span>
 <span class="normal">64</span>
 <span class="normal">65</span>
-<span class="normal">66</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_fields_from_msgspec_struct</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">MsgspecStruct</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">FieldInfo</span><span class="p">]:</span>
+<span class="normal">66</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_fields_from_msgspec_struct</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">MsgspecStruct</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">FieldInfo</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Given a msgspec struct, return a list of FieldInfo instances for each field in the</span>
 <span class="sd">    struct.</span>
 
@@ -1291,7 +1291,7 @@ struct.</p>
 <span class="sd">        model (PydanticModel): The struct to get fields from.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        List[FieldInfo]: List of FieldInfo instances for each field in the struct</span>
+<span class="sd">        list[FieldInfo]: List of FieldInfo instances for each field in the struct</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">msgspec</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">get_class_annotations</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>  <span class="c1"># type: ignore [attr-defined]</span>
