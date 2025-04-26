@@ -7,7 +7,7 @@
 [![tests](https://github.com/drivendataorg/erdantic/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/drivendataorg/erdantic/actions/workflows/tests.yml?query=branch%3Amain)
 [![codecov](https://codecov.io/gh/drivendataorg/erdantic/branch/main/graph/badge.svg)](https://codecov.io/gh/drivendataorg/erdantic)
 
-**erdantic** is a simple tool for drawing [entity relationship diagrams (ERDs)](https://en.wikipedia.org/wiki/Data_modeling#Entity%E2%80%93relationship_diagrams) for Python data model classes. Diagrams are rendered using the venerable [Graphviz](https://graphviz.org/) library. Supported data modeling frameworks are:
+**erdantic** is a simple tool for drawing [entity relationship diagrams (ERDs)](https://en.wikipedia.org/wiki/Data_modeling#Entity%E2%80%93relationship_diagrams) for Python data model classes. Diagrams are rendered using the [Graphviz](https://graphviz.org/) library. Supported data modeling frameworks are:
 
 - [Pydantic V2](https://docs.pydantic.dev/latest/)
 - [Pydantic V1 legacy](https://docs.pydantic.dev/latest/migration/#continue-using-pydantic-v1-features)
@@ -18,6 +18,8 @@
 You can use erdantic either as a convenient CLI or as a Python library. Great for adding a simple and clean data model reference to your documentation.
 
 <object type="image/svg+xml" data="https://raw.githubusercontent.com/drivendataorg/erdantic/refs/heads/main/docs/docs/assets/example_diagram.svg" width="100%" typemustmatch><img alt="Example diagram created by erdantic" src="https://raw.githubusercontent.com/drivendataorg/erdantic/refs/heads/main/docs/docs/assets/example_diagram.svg"></object>
+
+Type annotations are formatted using the [typenames](https://github.com/drivendataorg/typenames) library.
 
 ## Installation
 
@@ -38,8 +40,10 @@ pip install erdantic
 You can get the development version from GitHub with:
 
 ```bash
-pip install git+https://github.com/drivendataorg/erdantic.git#egg=erdantic
+pip install "erdantic @ git+https://github.com/drivendataorg/erdantic.git"
 ```
+
+See [pip's documentation](https://pip.pypa.io/en/stable/topics/vcs-support) for more on how to specify VCS dependencies.
 
 ## Quick usage
 
