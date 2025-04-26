@@ -54,8 +54,16 @@ fix-graphviz-test:
         || pixi run -e test-py{{python_nodot}} dot -c \
         || true
 
-# Generate static test assets
-static-test-assets:
+# Generate static test and documentation assets
+generate-static-assets: generate-static-docs-assets generate-static-test-assets
+
+[private]
+generate-static-docs-assets:
+    pixi run python docs/generate_images.py
+    pixi run python docs/generate_pydantic_with_default_column_diagram.py
+
+[private]
+generate-static-test-assets:
     pixi run python tests/scripts/generate_static_assets.py
     pixi run python tests/scripts/generate_pydantic_with_defaults_assets.py
 
