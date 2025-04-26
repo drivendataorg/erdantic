@@ -1,5 +1,5 @@
 from html import escape
-from typing import Any, Dict, List
+from typing import Any
 
 import pydantic
 import pydantic_core
@@ -57,7 +57,7 @@ class FieldInfoWithDefault(FieldInfo):
 class ModelInfoWithDefault(ModelInfo):
     """Custom ModelInfo subclass that uses FieldInfoWithDefault instead of FieldInfo."""
 
-    fields: Dict[str, FieldInfoWithDefault] = {}
+    fields: dict[str, FieldInfoWithDefault] = {}
 
 
 class EntityRelationshipDiagramWithDefault(EntityRelationshipDiagram):
@@ -68,7 +68,7 @@ class EntityRelationshipDiagramWithDefault(EntityRelationshipDiagram):
     models: SortedDict[str, ModelInfoWithDefault] = SortedDict()
 
 
-def get_fields_from_pydantic_model_with_default(model) -> List[FieldInfoWithDefault]:
+def get_fields_from_pydantic_model_with_default(model) -> list[FieldInfoWithDefault]:
     """Copied from erdantic.plugins.pydantic.get_fields_from_pydantic_model and modified to
     extract default values of fields.
     """
