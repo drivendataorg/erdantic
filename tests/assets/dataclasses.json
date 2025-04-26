@@ -71,7 +71,7 @@
             "qual_name": "Party"
           },
           "name": "members",
-          "type_name": "List[Adventurer]"
+          "type_name": "list[Adventurer]"
         },
         "active_quest": {
           "model_full_name": {
@@ -82,7 +82,7 @@
           "type_name": "Optional[Quest]"
         }
       },
-      "description": "erdantic.examples.dataclasses.Party\n\nA group of adventurers finding themselves doing and saying things altogether unexpected.\n\nAttributes:\n    name (str): Name that party is known by\n    formed_datetime (datetime): Timestamp of when the party was formed\n    members (List[Adventurer]): Adventurers that belong to this party\n    active_quest (Optional[Quest]): Current quest that party is actively tackling\n"
+      "description": "erdantic.examples.dataclasses.Party\n\nA group of adventurers finding themselves doing and saying things altogether unexpected.\n\nAttributes:\n    name (str): Name that party is known by\n    formed_datetime (datetime): Timestamp of when the party was formed\n    members (list[Adventurer]): Adventurers that belong to this party\n    active_quest (Optional[Quest]): Current quest that party is actively tackling\n"
     },
     "erdantic.examples.dataclasses.Quest": {
       "full_name": {

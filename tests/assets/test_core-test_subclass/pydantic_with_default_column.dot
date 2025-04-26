@@ -17,10 +17,10 @@ digraph "Entity Relationship Diagram created by erdantic" {
 		tooltip="erdantic.examples.pydantic.Adventurer&#xA;&#xA;A person often late for dinner but with a tale or two to tell.&#xA;&#xA;Attributes:&#\
 xA;    name (str): Name of this adventurer&#xA;    profession (str): Profession of this adventurer&#xA;    alignment (Alignment): \
 Alignment of this adventurer&#xA;    level (int): Level of this adventurer&#xA;"];
-	"erdantic.examples.pydantic.Party"	[label=<<table border="0" cellborder="1" cellspacing="0"><tr><td port="_root" colspan="3"><b>Party</b></td></tr><tr><td>name</td><td>str</td><td port="name" width="36"></td></tr><tr><td>formed_datetime</td><td>datetime</td><td port="formed_datetime" width="36"></td></tr><tr><td>members</td><td>List[Adventurer]</td><td port="members" width="36">[]</td></tr><tr><td>active_quest</td><td>Optional[Quest]</td><td port="active_quest" width="36">None</td></tr></table>>,
+	"erdantic.examples.pydantic.Party"	[label=<<table border="0" cellborder="1" cellspacing="0"><tr><td port="_root" colspan="3"><b>Party</b></td></tr><tr><td>name</td><td>str</td><td port="name" width="36"></td></tr><tr><td>formed_datetime</td><td>datetime</td><td port="formed_datetime" width="36"></td></tr><tr><td>members</td><td>list[Adventurer]</td><td port="members" width="36">[]</td></tr><tr><td>active_quest</td><td>Optional[Quest]</td><td port="active_quest" width="36">None</td></tr></table>>,
 		tooltip="erdantic.examples.pydantic.Party&#xA;&#xA;A group of adventurers finding themselves doing and saying things altogether unexpected.&#\
 xA;&#xA;Attributes:&#xA;    name (str): Name that party is known by&#xA;    formed_datetime (datetime): Timestamp of when the party \
-was formed&#xA;    members (List[Adventurer]): Adventurers that belong to this party&#xA;    active_quest (Optional[Quest]): Current \
+was formed&#xA;    members (list[Adventurer]): Adventurers that belong to this party&#xA;    active_quest (Optional[Quest]): Current \
 quest that party is actively tackling&#xA;"];
 	"erdantic.examples.pydantic.Party":members:e -> "erdantic.examples.pydantic.Adventurer":_root:w	[arrowhead=crownone,
 		arrowtail=nonenone];
