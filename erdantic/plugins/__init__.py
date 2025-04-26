@@ -1,7 +1,7 @@
 import importlib.metadata
 import logging
 import sys
-from typing import TYPE_CHECKING, Any, List, Optional, Protocol, Sequence, TypeVar
+from typing import TYPE_CHECKING, Any, Optional, Protocol, Sequence, TypeVar
 
 if sys.version_info >= (3, 10):
     from typing import TypeGuard
@@ -75,7 +75,7 @@ def register_plugin(
     _dict[key] = (predicate_fn, get_fields_fn)
 
 
-def list_plugins() -> List[str]:
+def list_plugins() -> list[str]:
     """List the keys of all registered plugins."""
     return list(_dict.keys())
 

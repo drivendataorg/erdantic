@@ -1,6 +1,6 @@
 import re
 import sys
-from typing import Any, List, Type
+from typing import Any, Type
 
 if sys.version_info >= (3, 10):
     from typing import TypeGuard
@@ -28,14 +28,14 @@ def is_attrs_class(obj: Any) -> TypeGuard[AttrsClassType]:
     return isinstance(obj, type) and attrs.has(obj)
 
 
-def get_fields_from_attrs_class(model: AttrsClassType) -> List[FieldInfo]:
+def get_fields_from_attrs_class(model: AttrsClassType) -> list[FieldInfo]:
     """Given an attrs class, return a list of FieldInfo instances for each field in the class.
 
     Args:
         model (AttrsClassType): The attrs class to get fields from.
 
     Returns:
-        List[FieldInfo]: List of FieldInfo instances for each field in the class
+        list[FieldInfo]: List of FieldInfo instances for each field in the class
     """
     try:
         # Try to automatically resolve forward references

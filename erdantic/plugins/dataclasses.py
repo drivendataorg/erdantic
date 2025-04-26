@@ -1,7 +1,7 @@
 import dataclasses
 import re
 import sys
-from typing import TYPE_CHECKING, Any, List, Type, cast, get_type_hints
+from typing import TYPE_CHECKING, Any, Type, cast, get_type_hints
 
 if sys.version_info >= (3, 10):
     from typing import TypeGuard
@@ -31,14 +31,14 @@ def is_dataclass_class(obj: Any) -> TypeGuard[DataclassType]:
     return isinstance(obj, type) and dataclasses.is_dataclass(obj)
 
 
-def get_fields_from_dataclass(model: DataclassType) -> List[FieldInfo]:
+def get_fields_from_dataclass(model: DataclassType) -> list[FieldInfo]:
     """Given a dataclass, return a list of FieldInfo instances for each field in the class.
 
     Args:
         model (DataclassType): The dataclass to get fields from.
 
     Returns:
-        List[FieldInfo]: List of FieldInfo instances for each field in the class
+        list[FieldInfo]: List of FieldInfo instances for each field in the class
     """
     try:
         # Try to automatically resolve forward references
