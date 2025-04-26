@@ -1,8 +1,9 @@
+from collections.abc import Mapping
 import inspect
 import logging
 import os
 from types import ModuleType
-from typing import Any, Collection, Iterator, Mapping, Optional, Union
+from typing import Any, Collection, Iterator, Optional, Union
 import warnings
 
 from typenames import REMOVE_ALL_MODULES, typenames

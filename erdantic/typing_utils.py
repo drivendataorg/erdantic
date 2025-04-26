@@ -1,6 +1,6 @@
 import collections.abc
 import sys
-from typing import Any, ForwardRef, Iterator, List, Literal, TypeVar, Union, get_args, get_origin
+from typing import Any, ForwardRef, Iterator, Literal, TypeVar, Union, get_args, get_origin
 
 from typenames import BaseNode, GenericNode, parse_type_tree
 
@@ -60,13 +60,13 @@ def is_nullable_type(tp: _TypeForm) -> bool:
     return get_origin(tp) is Union and type(None) in get_args(tp)
 
 
-def get_depth1_bases(tp: type) -> List[type]:
+def get_depth1_bases(tp: type) -> list[type]:
     """Returns depth-1 base classes of a type."""
     bases_of_bases = {bb for b in tp.__mro__[1:] for bb in b.__mro__[1:]}
     return [b for b in tp.__mro__[1:] if b not in bases_of_bases]
 
 
-def get_recursive_args(tp: _TypeForm) -> List[_TypeForm]:
+def get_recursive_args(tp: _TypeForm) -> list[_TypeForm]:
     """Recursively finds leaf-node types of possibly-nested generic type."""
 
     def recurse(t: _TypeForm) -> Iterator[_TypeForm]:

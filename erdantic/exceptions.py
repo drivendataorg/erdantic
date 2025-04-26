@@ -1,5 +1,5 @@
 import sys
-from typing import TYPE_CHECKING, List
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from erdantic.core import FullyQualifiedName
@@ -118,10 +118,10 @@ class UnknownModelTypeError(ValueError, ErdanticException):
 
     Attributes:
         model (type): The model class that was not recognized.
-        available_plugins (List[str]): List of plugin keys that were available.
+        available_plugins (list[str]): List of plugin keys that were available.
     """
 
-    def __init__(self, *args, model: type, available_plugins: List[str]):
+    def __init__(self, *args, model: type, available_plugins: list[str]):
         mro = getattr(model, "__mro__", str(model))
         message = (
             "Given model does not match any supported types. "

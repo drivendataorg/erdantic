@@ -1,3 +1,4 @@
+from collections.abc import Mapping
 from enum import Enum
 from functools import total_ordering
 from importlib import import_module
@@ -6,7 +7,7 @@ import logging
 import os
 import sys
 import textwrap
-from typing import Any, Dict, Generic, Mapping, Optional, Type, TypeVar, Union, get_args
+from typing import Any, Dict, Generic, Optional, Type, TypeVar, Union, get_args
 
 if sys.version_info >= (3, 11):
     from typing import Self
