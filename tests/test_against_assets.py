@@ -81,3 +81,20 @@ def test_json_against_static_assets(case, outputs_dir, version_patch):
 
     expected_diagram = erd.EntityRelationshipDiagram.model_validate_json(expected_path.read_text())
     assert diagram == expected_diagram
+
+@pytest.mark.parametrize("case", CASES)
+def test_to_d2_against_static_assets(case, outputs_dir, version_patch):
+    """Uses to_d2 method to test against static assets."""
+    plugin, model_or_module = case
+    expected_path = ASSETS_DIR / f"{plugin}.d2"
+
+    # to_d2 is not a convenience function, so we always create the diagram first
+    diagram = erd.create(model_or_module)
+    out = diagram.to_d2()
+
+    # Write our own asset for inspection
+    out_path = outputs_dir / f"{plugin}.d2"
+    out_path.write_text(out)
+
+    # Compare to expected
+    assert out.strip() == expected_path.read_text().strip()

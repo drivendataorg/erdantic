@@ -678,6 +678,15 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
             edge_attr=edge_attr,
         ).string()
 
+    def to_d2(self) -> str:
+        """Generate D2 class diagram representation of the entity relationship diagram.
+
+        Returns:
+            str: D2 language representation of diagram
+        """
+        from erdantic.d2 import render_d2
+        return render_d2(self)
+
     def _repr_pretty_(self, p, cycle):
         """IPython special method to pretty-print an object."""
         try:
