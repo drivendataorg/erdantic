@@ -4053,8 +4053,8 @@ packages:
   timestamp: 1648505273975
 - pypi: .
   name: erdantic
-  version: 1.1.1.dev0
-  sha256: 0ae8331e8a085d4b44813f4a42f39220ec714b6d5f64bacd1a4b54c8faafc9e9
+  version: 1.1.1
+  sha256: 2a1ee28d0bd85264d8c8940f02ef963eacca0b2213d86b2e7e4045843d5caca6
   requires_dist:
   - pydantic>=2
   - pydantic-core
