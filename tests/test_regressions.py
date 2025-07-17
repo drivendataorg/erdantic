@@ -1,14 +1,19 @@
+from typing import Optional
+
 from pydantic import BaseModel
 
 import erdantic as erd
 
 
 class Core(BaseModel):
-    part: list["Part"]
+    """Used in test_153_child_class_forward_ref"""
+
+    data: object
+    part: Optional[list["Part"]] = None
 
 
 class Part(Core):
-    pass
+    """Used in test_153_child_class_forward_ref"""
 
 
 def test_153_child_class_forward_ref():
