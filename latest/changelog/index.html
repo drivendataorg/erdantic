@@ -324,9 +324,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#v111-unreleated" class="md-nav__link">
+  <a href="#v111-2025-07-16" class="md-nav__link">
     <span class="md-ellipsis">
-      v1.1.1 (Unreleated)
+      v1.1.1 (2025-07-16)
     </span>
   </a>
   
@@ -1369,9 +1369,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#v111-unreleated" class="md-nav__link">
+  <a href="#v111-2025-07-16" class="md-nav__link">
     <span class="md-ellipsis">
-      v1.1.1 (Unreleated)
+      v1.1.1 (2025-07-16)
     </span>
   </a>
   
@@ -1670,8 +1670,9 @@
 
 
 <h1 id="erdantic-changelog">erdantic Changelog<a class="headerlink" href="#erdantic-changelog" title="Permanent link">&para;</a></h1>
-<h2 id="v111-unreleated">v1.1.1 (Unreleated)<a class="headerlink" href="#v111-unreleated" title="Permanent link">&para;</a></h2>
+<h2 id="v111-2025-07-16">v1.1.1 (2025-07-16)<a class="headerlink" href="#v111-2025-07-16" title="Permanent link">&para;</a></h2>
 <ul>
+<li>Changed <code>plugins.pydantic.get_fields_from_pydantic_model</code> to force model rebuild. This helps address cases of unresolved forward references where Pydantic mistakenly skips rebuilding. Fixes <a href="https://github.com/drivendataorg/erdantic/issues/153">#153</a>. (<a href="https://github.com/drivendataorg/erdantic/pull/154">PR #154</a>)</li>
 <li>[Examples] Changed <code>Party</code> class in all example modules to use <code>list</code> instead of <code>typing.List</code> for the type annotation for the <code>members</code> field.</li>
 </ul>
 <h2 id="v110-2025-04-12">v1.1.0 (2025-04-12)<a class="headerlink" href="#v110-2025-04-12" title="Permanent link">&para;</a></h2>
