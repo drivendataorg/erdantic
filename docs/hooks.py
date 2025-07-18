@@ -9,7 +9,7 @@ from erdantic.cli import app
 import erdantic.plugins
 
 logger = logging.getLogger("mkdocs")
-runner = CliRunner(mix_stderr=False)
+runner = CliRunner()
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
