@@ -61,10 +61,18 @@ jobs:
 
       - uses: extractions/setup-just@v2
 
-      - uses: prefix-dev/setup-pixi@v0.8.5
+      - name: Set up Pixi (no caching)
+        uses: prefix-dev/setup-pixi@v0.8.5
+        if: ${{ github.event_name != 'pull_request' }}
         with:
-          # Only cache for pull requests
-          cache: ${{ github.event_name == 'pull_request' }}
+          run-install: false
+          cache: false
+
+      - name: Set up Pixi (with caching)
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: prefix-dev/setup-pixi@v0.8.5
+        with:
+          cache: true
           cache-key: ${{ steps.env_name.outputs.env_name }}
           environments: ${{ steps.env_name.outputs.env_name }}
 
