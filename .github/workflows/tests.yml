@@ -63,7 +63,8 @@ jobs:
 
       - uses: prefix-dev/setup-pixi@v0.8.5
         with:
-          cache: true
+          # Only cache for pull requests
+          cache: ${{ github.event_name == 'pull_request' }}
           cache-key: ${{ steps.env_name.outputs.env_name }}
           environments: ${{ steps.env_name.outputs.env_name }}
 
