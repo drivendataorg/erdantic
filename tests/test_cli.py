@@ -14,8 +14,7 @@ import erdantic.examples.pydantic as examples_pydantic
 from erdantic.examples.pydantic import Party, Quest
 from erdantic.exceptions import ModelOrModuleNotFoundError
 
-click_version = click.__version__
-if click_version.startswith("8.1."):
+if click.__version__.startswith("8.1"):
     # Click <=8.1 had different behavior, but Python 3.9 is only supported up to 8.1.8
     runner = CliRunner(mix_stderr=False)
 else:
