@@ -2,6 +2,7 @@ import filecmp
 import re
 import subprocess
 
+import click
 import pytest
 from typer.testing import CliRunner
 
@@ -13,7 +14,11 @@ import erdantic.examples.pydantic as examples_pydantic
 from erdantic.examples.pydantic import Party, Quest
 from erdantic.exceptions import ModelOrModuleNotFoundError
 
-runner = CliRunner(mix_stderr=False)
+if click.__version__.startswith("8.1"):
+    # Click <=8.1 had different behavior, but Python 3.9 is only supported up to 8.1.8
+    runner = CliRunner(mix_stderr=False)
+else:
+    runner = CliRunner()
 
 
 def test_import_object_from_name():
@@ -162,7 +167,7 @@ def test_missing_out():
     print(result.output)
     assert result.exit_code == 2
     assert "Error" in result.stderr
-    assert "Missing option '--out' / '-o'." in result.stderr
+    assert "Missing option '--out' / '-o'" in result.stderr
 
 
 def test_no_overwrite(tmp_path):

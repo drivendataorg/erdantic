@@ -42,7 +42,7 @@ def get_fields_from_pydantic_model(model: PydanticModel) -> list[FieldInfo]:
     """
     try:
         # Rebuild model schema to resolve forward references
-        model.model_rebuild()
+        model.model_rebuild(force=True)
     except pydantic.errors.PydanticUndefinedAnnotation as e:
         model_full_name = FullyQualifiedName.from_object(model)
         forward_ref = e.name

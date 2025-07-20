@@ -69,7 +69,7 @@ jobs:
         if: github.event.inputs.deploy-as == 'version'
         working-directory: docs/
         run: |
-          TITLE=$(uv run vspect read .. "v{version}")
+          TITLE=$(pixi run vspect read .. "v{version}")
           TAG=${{ steps.get-version-tag.outputs.VERSION_TAG }}
           pixi run mike deploy --push $TAG --title="${TITLE}"
 

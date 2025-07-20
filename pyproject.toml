@@ -1,6 +1,6 @@
 [project]
 name = "erdantic"
-version = "1.1.1.dev"
+version = "1.1.1"
 description = "Entity relationship diagrams for Python data model classes like Pydantic."
 readme = "README.md"
 authors = [{ name = "DrivenData", email = "info@drivendata.org" }, { name = "Jay Qi" }]
@@ -79,6 +79,7 @@ test = [
   "pytest<8",
   "pytest-cases",
   "pytest-cov",
+  "pytest-echo",
   "rich",
 ]
 typecheck = [
@@ -140,7 +141,7 @@ plugins = ["pydantic.mypy"]
 
 [tool.pytest.ini_options]
 minversion = "6.0"
-addopts = "--cov=erdantic --cov-report=term --cov-report=html --cov-report=xml --cov-append"
+addopts = "--cov=erdantic --cov-report=term --cov-report=html --cov-report=xml --cov-append --echo-version=*"
 testpaths = ["tests"]
 
 [tool.coverage.run]

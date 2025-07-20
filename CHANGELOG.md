@@ -1,7 +1,8 @@
 # erdantic Changelog
 
-## v1.1.1 (Unreleated)
+## v1.1.1 (2025-07-19)
 
+- Changed `plugins.pydantic.get_fields_from_pydantic_model` to force model rebuild. This helps address cases of unresolved forward references where Pydantic mistakenly skips rebuilding. Fixes [#153](https://github.com/drivendataorg/erdantic/issues/153). ([PR #154](https://github.com/drivendataorg/erdantic/pull/154))
 - [Examples] Changed `Party` class in all example modules to use `list` instead of `typing.List` for the type annotation for the `members` field.
 
 ## v1.1.0 (2025-04-12)
