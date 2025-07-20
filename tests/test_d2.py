@@ -1,6 +1,7 @@
 import erdantic as erd
+from erdantic.d2 import _get_visibility_prefix, _sanitize_name, render_d2
 from erdantic.examples import pydantic
-from erdantic.d2 import _get_d2_cardinality, _sanitize_name, _get_visibility_prefix, render_d2
+
 
 def test_render_d2():
     """Test full D2 rendering."""
@@ -15,7 +16,7 @@ def test_render_d2():
 
     # Check for fields
     assert "+name: str" in d2_string
-    assert "+active_quest: \"Optional[Quest]\"" in d2_string
+    assert '+active_quest: "Optional[Quest]"' in d2_string
 
     # Check for relationships
     assert "Party -> Adventurer: members" in d2_string
@@ -36,5 +37,5 @@ def test_get_visibility_prefix():
 def test_sanitize_name():
     """Test D2 name sanitization."""
     assert _sanitize_name("ValidName") == "ValidName"
-    assert _sanitize_name("name with space") == "\"name with space\""
-    assert _sanitize_name("list[Item]") == "\"list[Item]\""
+    assert _sanitize_name("name with space") == '"name with space"'
+    assert _sanitize_name("list[Item]") == '"list[Item]"'

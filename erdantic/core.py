@@ -685,6 +685,7 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
             str: D2 language representation of diagram
         """
         from erdantic.d2 import render_d2
+
         return render_d2(self)
 
     def _repr_pretty_(self, p, cycle):

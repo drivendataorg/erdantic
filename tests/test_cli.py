@@ -247,6 +247,7 @@ def test_version():
     assert result.exit_code == 0
     assert result.output.strip() == __version__
 
+
 def test_d2(tmp_path):
     """Test the --d2 flag."""
     # Test that it produces the expected output

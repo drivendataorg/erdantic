@@ -49,6 +49,7 @@ def dot_callback(ctx: typer.Context, dot: bool):
                 param.required = False
     return dot
 
+
 def d2_callback(ctx: typer.Context, d2: bool):
     """Set --out to not be required for D2 output since it prints to console."""
     if d2:

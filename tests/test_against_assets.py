@@ -82,6 +82,7 @@ def test_json_against_static_assets(case, outputs_dir, version_patch):
     expected_diagram = erd.EntityRelationshipDiagram.model_validate_json(expected_path.read_text())
     assert diagram == expected_diagram
 
+
 @pytest.mark.parametrize("case", CASES)
 def test_to_d2_against_static_assets(case, outputs_dir, version_patch):
     """Uses to_d2 method to test against static assets."""
