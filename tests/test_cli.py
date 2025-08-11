@@ -246,3 +246,22 @@ def test_version():
     print(result.output)
     assert result.exit_code == 0
     assert result.output.strip() == __version__
+
+
+def test_d2(tmp_path):
+    """Test the --d2 flag."""
+    # Test that it produces the expected output
+    result = runner.invoke(app, ["erdantic.examples.pydantic.Party", "--d2"])
+    assert result.exit_code == 0
+    expected_out = erd.create(erd.examples.pydantic.Party).to_d2()
+    assert result.stdout.strip() == expected_out.strip()
+
+    # Test that -o is ignored and no file is created
+    path = tmp_path / "diagram.d2"
+    result = runner.invoke(app, ["erdantic.examples.pydantic.Party", "--d2", "-o", str(path)])
+    assert result.exit_code == 0
+    assert not path.exists()
+
+    # Test that --dot and --d2 are mutually exclusive
+    result = runner.invoke(app, ["erdantic.examples.pydantic.Party", "--dot", "--d2"])
+    assert result.exit_code == 1
