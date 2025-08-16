@@ -19,6 +19,8 @@ def create(
     terminal_models: Collection[type] = tuple(),
     termini: Collection[type] = tuple(),
     limit_search_models_to: Optional[Collection[str]] = None,
+    skip_inherited_fields: bool = False,
+    draw_inheritance_relations: bool = False,
 ) -> EntityRelationshipDiagram:
     """Construct [`EntityRelationshipDiagram`][erdantic.core.EntityRelationshipDiagram] from given
     data model classes or modules.
@@ -53,7 +55,10 @@ def create(
             )
         terminal_models = termini
 
-    diagram = EntityRelationshipDiagram()
+    diagram = EntityRelationshipDiagram.model_validate({
+        "skip_inherited_fields": skip_inherited_fields,
+        "draw_inheritance_relations": draw_inheritance_relations
+        })
 
     # Add terminal models and don't recurse
     for model in terminal_models:
