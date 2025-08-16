@@ -670,8 +670,8 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
                         g.add_edge(
                             child_full_name,
                             full_name,
-                            tailport="_root:n", # title box, north
-                            headport="_root", # title box, center by default
+                            tailport="n", # north
+                            headport="s", # south
                             arrowhead="empty", # empty triangle from UML notation
                             arrowtail="none",
                         )
