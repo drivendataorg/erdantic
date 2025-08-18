@@ -56,7 +56,7 @@ def test_quote_identifier_escapes_double_quotes():
 
 def test_get_d2_cardinality_unspecified_combinations():
     """Explicitly cover UNSPECIFIED cardinality/modality combos."""
-    # Prendiamo un edge qualsiasi e modifichiamo i campi
+    # Take any edge and modify the fields
     diagram = erd.create(pydantic.Party)
     edge = next(iter(diagram.edges.values()))
     e = edge.model_copy()
