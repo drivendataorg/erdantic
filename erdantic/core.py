@@ -525,15 +525,16 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
             raise
         if key not in self.models:
             try:
-                if isinstance(model, type): # check that model is a class
-                    parent_model = model.mro()[1]
-                    parent_model_field_names: list[str] = get_type_hints(parent_model).keys()
-                else: # ex: NewType
-                    parent_model_field_names: list[str] = []
                 model_info = self._model_info_cls.from_raw_model(model)
-                for field_name in list(model_info.fields.keys()):
-                    if self.skip_inherited_fields and field_name in parent_model_field_names:
-                        del model_info.fields[field_name]
+                if self.skip_inherited_fields:
+                    if isinstance(model, type): # check that model is a class
+                        parent_model = model.mro()[1]
+                        parent_model_field_names: list[str] = get_type_hints(parent_model).keys()
+                    else: # ex: NewType
+                        parent_model_field_names: list[str] = []
+                    for field_name in list(model_info.fields.keys()):
+                        if field_name in parent_model_field_names:
+                            del model_info.fields[field_name]
                 self.models[key] = model_info
                 logger.debug("Successfully added model '%s'.", key)
                 if recurse:
