@@ -525,28 +525,20 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
             raise
         if key not in self.models:
             try:
-                if isinstance(model, type):
+                if isinstance(model, type): # check that model is a class
                     parent_model = model.mro()[1]
                     parent_model_field_names: list[str] = get_type_hints(parent_model).keys()
-                else:
+                else: # ex: NewType
                     parent_model_field_names: list[str] = []
                 model_info = self._model_info_cls.from_raw_model(model)
                 for field_name in list(model_info.fields.keys()):
-                    if field_name in parent_model_field_names:
+                    if self.skip_inherited_fields and field_name in parent_model_field_names:
                         del model_info.fields[field_name]
                 self.models[key] = model_info
                 logger.debug("Successfully added model '%s'.", key)
                 if recurse:
                     logger.debug("Searching fields of '%s' for other models...", key)
                     for field_info in model_info.fields.values():
-                        if self.skip_inherited_fields and field_info.name in parent_model_field_names:
-                            logger.debug(
-                            "Skip model '%s' field '%s' of type '%s'...",
-                            key,
-                            field_info.name,
-                            field_info.type_name,
-                        )
-                            continue
                         logger.debug(
                             "Analyzing model '%s' field '%s' of type '%s'...",
                             key,
@@ -670,8 +662,8 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
                         g.add_edge(
                             child_full_name,
                             full_name,
-                            tailport="n", # north
-                            headport="s", # south
+                            tailport="n", # exit at the north
+                            headport="s", # enter at the south
                             arrowhead="empty", # empty triangle from UML notation
                             arrowtail="none",
                         )
