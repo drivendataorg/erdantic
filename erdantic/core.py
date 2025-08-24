@@ -7,7 +7,7 @@ import logging
 import os
 import sys
 import textwrap
-from typing import Any, Dict, Generic, Optional, Type, TypeVar, Union, get_args
+from typing import Any, Dict, Generic, Optional, Type, TypeVar, Union, get_args, get_type_hints
 
 if sys.version_info >= (3, 11):
     from typing import Self
@@ -212,6 +212,7 @@ class ModelInfo(pydantic.BaseModel, Generic[_ModelType]):
     name: str
     fields: Dict[str, FieldInfo]
     description: str = ""
+    parent_classes: list[FullyQualifiedName]
 
     model_config = pydantic.ConfigDict(
         extra="forbid",
@@ -243,6 +244,7 @@ class ModelInfo(pydantic.BaseModel, Generic[_ModelType]):
             raise UnknownModelTypeError(model=raw_model, available_plugins=list_plugins())
 
         full_name = FullyQualifiedName.from_object(raw_model)
+        parent_classes = [FullyQualifiedName.from_object(cls) for cls in raw_model.mro()[1:]]
         description = str(full_name)
         docstring = inspect.getdoc(raw_model)
         if docstring:
@@ -253,6 +255,7 @@ class ModelInfo(pydantic.BaseModel, Generic[_ModelType]):
             name=raw_model.__name__,
             fields={field_info.name: field_info for field_info in get_fields_fn(raw_model)},
             description=description,
+            parent_classes=parent_classes,
         )
         model_info._raw_model = raw_model
         return model_info
@@ -483,6 +486,8 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
 
     models: SortedDict[str, ModelInfo] = SortedDict()
     edges: SortedDict[str, Edge] = SortedDict()
+    skip_inherited_fields: bool = False
+    draw_inheritance_relations: bool = False
 
     model_config = pydantic.ConfigDict(
         validate_default=True,
@@ -521,6 +526,19 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
         if key not in self.models:
             try:
                 model_info = self._model_info_cls.from_raw_model(model)
+                if self.skip_inherited_fields:
+                    if isinstance(model, type): # check that model is a class
+                        parent_model = model.mro()[1]
+                        try:
+                            parent_model_field_names: list[str] = get_type_hints(parent_model).keys()
+                        except:
+                            logger.warning(f"Failed to get_type_hints for {parent_model}")
+                            parent_model_field_names: list[str] = []
+                    else: # ex: NewType
+                        parent_model_field_names: list[str] = []
+                    for field_name in list(model_info.fields.keys()):
+                        if field_name in parent_model_field_names:
+                            del model_info.fields[field_name]
                 self.models[key] = model_info
                 logger.debug("Successfully added model '%s'.", key)
                 if recurse:
@@ -641,6 +659,20 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
                 label=model_info.to_dot_label(),
                 tooltip=model_info.description.replace("\n", "&#xA;"),
             )
+            if self.draw_inheritance_relations:
+                for child_full_name, child_model_info in self.models.items():
+                    if (len(child_model_info.parent_classes) # if the class has at least one parents
+                        and full_name == str(child_model_info.parent_classes[0]) # and if the parent is the current class
+                        ):
+                        g.add_edge(
+                            child_full_name,
+                            full_name,
+                            tailport="n", # exit at the north
+                            headport="s", # enter at the south
+                            arrowhead="empty", # empty triangle from UML notation
+                            arrowtail="none",
+                        )
+                        
         for edge in self.edges.values():
             g.add_edge(
                 edge.source_model_full_name,

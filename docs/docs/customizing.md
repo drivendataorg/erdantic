@@ -20,6 +20,12 @@ Some common attributes you might want to change:
 - `graph_attr["ranksep"]: float` — controls horizontal spacing between models in diagram.
 - `node_attr["fontsize"]: float` — controls font size of text in model tables.
 
+## Diagram options
+
+There are two options, available via the CLI and the `create()` function:
+
+- `skip_inherited_fields`: Don't display inherited fields (default=False)
+- `draw_inheritance_relations`: Draw inheritance relations (default=False)
 
 ## Customizing diagram content
 
