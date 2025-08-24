@@ -529,7 +529,11 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
                 if self.skip_inherited_fields:
                     if isinstance(model, type): # check that model is a class
                         parent_model = model.mro()[1]
-                        parent_model_field_names: list[str] = get_type_hints(parent_model).keys()
+                        try:
+                            parent_model_field_names: list[str] = get_type_hints(parent_model).keys()
+                        except:
+                            logger.warning(f"Failed to get_type_hints for {parent_model}")
+                            parent_model_field_names: list[str] = []
                     else: # ex: NewType
                         parent_model_field_names: list[str] = []
                     for field_name in list(model_info.fields.keys()):
