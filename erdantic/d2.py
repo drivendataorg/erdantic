@@ -63,10 +63,7 @@ def render_d2(diagram: EntityRelationshipDiagram) -> str:
             for field in model.fields.values():
                 field_type = _maybe_quote_value(field.type_name)
                 visibility = _get_visibility_prefix(field.name)
-                # Strip leading underscores from the name for a cleaner look in the diagram
-                field_name_clean = field.name.lstrip("_")
-                field_name = field_name_clean
-                class_def.append(f"  {visibility}{field_name}: {field_type}")
+                class_def.append(f"  {visibility}{field.name}: {field_type}")
 
         class_def.append("}\n")
         d2_parts.append("\n".join(class_def))
