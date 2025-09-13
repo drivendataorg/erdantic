@@ -27,11 +27,11 @@ def test_render_d2():
 
     # Check for relationships and crow's foot
     assert '"Party" -> "Adventurer": "members"' in d2_string
-    assert "target-arrowhead: cf-many" in d2_string
+    assert "target-arrowhead.shape: cf-many" in d2_string
     assert '"Party" -> "Quest": "active_quest"' in d2_string
-    assert "target-arrowhead: cf-one" in d2_string
+    assert "target-arrowhead.shape: cf-one" in d2_string
     assert '"Quest" -> "QuestGiver": "giver"' in d2_string
-    assert "target-arrowhead: cf-one-required" in d2_string
+    assert "target-arrowhead.shape: cf-one-required" in d2_string
 
 
 def test_get_visibility_prefix():

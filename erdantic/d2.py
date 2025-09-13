@@ -86,7 +86,7 @@ def render_d2(diagram: EntityRelationshipDiagram) -> str:
         d2_cardinality = _get_d2_cardinality(edge)
 
         # Use D2 crow's-foot token without quotes
-        rel_def = [f"{rel_def_line} {{", f"  target-arrowhead: {d2_cardinality}", "}\n"]
+        rel_def = [f"{rel_def_line} {{", f"  target-arrowhead.shape: {d2_cardinality}", "}\n"]
         d2_parts.append("\n".join(rel_def))
 
     return "\n".join(d2_parts)
