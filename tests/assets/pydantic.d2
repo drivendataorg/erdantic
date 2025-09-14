@@ -1,0 +1,41 @@
+"Adventurer": {
+  shape: class
+  +name: str
+  +profession: str
+  +alignment: Alignment
+  +level: int
+}
+
+"Party": {
+  shape: class
+  +name: str
+  +formed_datetime: datetime
+  +members: "list[Adventurer]"
+  +active_quest: "Optional[Quest]"
+}
+
+"Quest": {
+  shape: class
+  +name: str
+  +giver: QuestGiver
+  +reward_gold: int
+}
+
+"QuestGiver": {
+  shape: class
+  +name: str
+  +faction: "Optional[str]"
+  +location: str
+}
+
+"Party" -> "Quest": "active_quest" {
+  target-arrowhead.shape: cf-one
+}
+
+"Party" -> "Adventurer": "members" {
+  target-arrowhead.shape: cf-many
+}
+
+"Quest" -> "QuestGiver": "giver" {
+  target-arrowhead.shape: cf-one-required
+}
