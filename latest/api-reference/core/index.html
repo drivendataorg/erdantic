@@ -805,6 +805,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#erdantic.core.EntityRelationshipDiagram.to_d2" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;to_d2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#erdantic.core.EntityRelationshipDiagram.to_dot" class="md-nav__link">
     <span class="md-ellipsis">
       <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;to_dot
@@ -1525,6 +1534,15 @@
   <a href="#erdantic.core.EntityRelationshipDiagram.draw" class="md-nav__link">
     <span class="md-ellipsis">
       <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;draw
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#erdantic.core.EntityRelationshipDiagram.to_d2" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;to_d2
     </span>
   </a>
   
@@ -2950,7 +2968,20 @@ the model.</p>
 <span class="normal">717</span>
 <span class="normal">718</span>
 <span class="normal">719</span>
-<span class="normal">720</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">EntityRelationshipDiagram</span><span class="p">(</span><span class="n">pydantic</span><span class="o">.</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="normal">720</span>
+<span class="normal">721</span>
+<span class="normal">722</span>
+<span class="normal">723</span>
+<span class="normal">724</span>
+<span class="normal">725</span>
+<span class="normal">726</span>
+<span class="normal">727</span>
+<span class="normal">728</span>
+<span class="normal">729</span>
+<span class="normal">730</span>
+<span class="normal">731</span>
+<span class="normal">732</span>
+<span class="normal">733</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">EntityRelationshipDiagram</span><span class="p">(</span><span class="n">pydantic</span><span class="o">.</span><span class="n">BaseModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Holds information about an entity relationship diagram for a set of data model classes and</span>
 <span class="sd">    their relationships, and provides methods to render the diagram.</span>
 
@@ -3157,6 +3188,19 @@ the model.</p>
             <span class="n">node_attr</span><span class="o">=</span><span class="n">node_attr</span><span class="p">,</span>
             <span class="n">edge_attr</span><span class="o">=</span><span class="n">edge_attr</span><span class="p">,</span>
         <span class="p">)</span><span class="o">.</span><span class="n">string</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_d2</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate D2 class diagram representation of the entity relationship diagram.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: D2 language representation of diagram</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Lazy import to avoid a circular import: the D2 renderer refers back to core types.</span>
+        <span class="c1"># This can be refactored later as discussed in the PR review.</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">erdantic.d2</span><span class="w"> </span><span class="kn">import</span> <span class="n">render_d2</span>
+
+        <span class="k">return</span> <span class="n">render_d2</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_repr_pretty_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">cycle</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;IPython special method to pretty-print an object.&quot;&quot;&quot;</span>
@@ -3536,6 +3580,76 @@ edges on the <code>pygraphviz.AGraph</code> instance. Defaults to None.</p>
         <span class="n">node_attr</span><span class="o">=</span><span class="n">node_attr</span><span class="p">,</span>
         <span class="n">edge_attr</span><span class="o">=</span><span class="n">edge_attr</span><span class="p">,</span>
     <span class="p">)</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">prog</span><span class="o">=</span><span class="s2">&quot;dot&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="erdantic.core.EntityRelationshipDiagram.to_d2" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">to_d2</span>
+
+
+<a href="#erdantic.core.EntityRelationshipDiagram.to_d2" class="headerlink" title="Permanent link">&para;</a></h3>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">to_d2</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Generate D2 class diagram representation of the entity relationship diagram.</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>D2 language representation of diagram</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="quote">
+              <summary>Source code in <code>erdantic/core.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">681</span>
+<span class="normal">682</span>
+<span class="normal">683</span>
+<span class="normal">684</span>
+<span class="normal">685</span>
+<span class="normal">686</span>
+<span class="normal">687</span>
+<span class="normal">688</span>
+<span class="normal">689</span>
+<span class="normal">690</span>
+<span class="normal">691</span>
+<span class="normal">692</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">to_d2</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate D2 class diagram representation of the entity relationship diagram.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: D2 language representation of diagram</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Lazy import to avoid a circular import: the D2 renderer refers back to core types.</span>
+    <span class="c1"># This can be refactored later as discussed in the PR review.</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">erdantic.d2</span><span class="w"> </span><span class="kn">import</span> <span class="n">render_d2</span>
+
+    <span class="k">return</span> <span class="n">render_d2</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
