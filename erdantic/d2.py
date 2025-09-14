@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from erdantic.core import Cardinality, Edge, EntityRelationshipDiagram, Modality
+from erdantic.core import Cardinality, EntityRelationshipDiagram, Modality
 
 
 def _escape_quotes(s: str) -> str:
@@ -30,22 +30,18 @@ def _get_visibility_prefix(name: str) -> str:
         return "+"  # Public
 
 
-def _get_d2_cardinality(edge: Edge) -> str:
-    """Map (Cardinality, Modality) to D2 crow's-foot arrowheads (no quotes)."""
-    c = edge.target_cardinality
-    m = edge.target_modality
+def _get_crowsfoot_d2(cardinality: Cardinality, modality: Modality) -> str:
+    """Map (Cardinality, Modality) to a D2 arrowhead shape token.
 
-    # MANY
-    if c == Cardinality.MANY:
-        # Only four arrowheads exist for crow's foot; map unspecified to non-required
-        return "cf-many-required" if m == Modality.ONE else "cf-many"
-
-    # ONE
-    if c == Cardinality.ONE:
-        return "cf-one-required" if m == Modality.ONE else "cf-one"
-
+    D2 supports crow's-foot tokens: cf-one, cf-one-required, cf-many, cf-many-required.
+    For cardinality UNSPECIFIED, we fall back to ONE and use modality to choose required vs not.
+    """
+    if cardinality == Cardinality.MANY:
+        return "cf-many-required" if modality == Modality.ONE else "cf-many"
+    if cardinality == Cardinality.ONE:
+        return "cf-one-required" if modality == Modality.ONE else "cf-one"
     # UNSPECIFIED cardinality -> treat as ONE by default
-    return "cf-one-required" if m == Modality.ONE else "cf-one"
+    return "cf-one-required" if modality == Modality.ONE else "cf-one"
 
 
 def render_d2(diagram: EntityRelationshipDiagram) -> str:
@@ -80,10 +76,17 @@ def render_d2(diagram: EntityRelationshipDiagram) -> str:
         label = _quote_identifier(edge.source_field_name)
 
         rel_def_line = f"{source_model_name} -> {target_model_name}: {label}"
-        d2_cardinality = _get_d2_cardinality(edge)
+        target_shape = _get_crowsfoot_d2(edge.target_cardinality, edge.target_modality)
 
-        # Use D2 crow's-foot token without quotes
-        rel_def = [f"{rel_def_line} {{", f"  target-arrowhead.shape: {d2_cardinality}", "}\n"]
+        # Source side: omit entirely when both are UNSPECIFIED. Otherwise, map and include.
+        rel_def = [f"{rel_def_line} {{", f"  target-arrowhead.shape: {target_shape}"]
+        if not (
+            edge.source_cardinality == Cardinality.UNSPECIFIED
+            and edge.source_modality == Modality.UNSPECIFIED
+        ):
+            source_shape = _get_crowsfoot_d2(edge.source_cardinality, edge.source_modality)
+            rel_def.append(f"  source-arrowhead.shape: {source_shape}")
+        rel_def.append("}\n")
         d2_parts.append("\n".join(rel_def))
 
     return "\n".join(d2_parts)
