@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from textwrap import dedent, indent
+
 from erdantic.core import Cardinality, EntityRelationshipDiagram, Modality
 
 
@@ -44,6 +46,15 @@ def _get_crowsfoot_d2(cardinality: Cardinality, modality: Modality) -> str:
     return "cf-one-required" if modality == Modality.ONE else "cf-one"
 
 
+_REL_DEF_TEMPLATE = dedent(
+    """\
+    {source_model_name} {connection} {target_model_name}: {label} {{
+    {attributes}
+    }}
+    """
+)
+
+
 def render_d2(diagram: EntityRelationshipDiagram) -> str:
     """Renders an EntityRelationshipDiagram into the D2 class diagram format."""
     d2_parts: list[str] = []
@@ -75,18 +86,28 @@ def render_d2(diagram: EntityRelationshipDiagram) -> str:
         target_model_name = _quote_identifier(target_model.name)
         label = _quote_identifier(edge.source_field_name)
 
-        rel_def_line = f"{source_model_name} -> {target_model_name}: {label}"
+        connection = "->"  # Directed from source to target
+
         target_shape = _get_crowsfoot_d2(edge.target_cardinality, edge.target_modality)
+        attributes = [f"target-arrowhead.shape: {target_shape}"]
 
         # Source side: omit entirely when both are UNSPECIFIED. Otherwise, map and include.
-        rel_def = [f"{rel_def_line} {{", f"  target-arrowhead.shape: {target_shape}"]
         if not (
             edge.source_cardinality == Cardinality.UNSPECIFIED
             and edge.source_modality == Modality.UNSPECIFIED
         ):
             source_shape = _get_crowsfoot_d2(edge.source_cardinality, edge.source_modality)
-            rel_def.append(f"  source-arrowhead.shape: {source_shape}")
-        rel_def.append("}\n")
-        d2_parts.append("\n".join(rel_def))
+            attributes.append(f"source-arrowhead.shape: {source_shape}")
+            connection = "<->"  # Bidirectional if source side is specified
+
+        d2_parts.append(
+            _REL_DEF_TEMPLATE.format(
+                source_model_name=source_model_name,
+                connection=connection,
+                target_model_name=target_model_name,
+                label=label,
+                attributes=indent("\n".join(attributes), " " * 2),
+            )
+        )
 
     return "\n".join(d2_parts)

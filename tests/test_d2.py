@@ -78,6 +78,6 @@ def test_render_d2_with_source_markers():
     edge.source_modality = Modality.ONE
 
     out = render_d2(diagram)
-    assert '"Party" -> "Adventurer": "members"' in out
+    assert '"Party" <-> "Adventurer": "members"' in out
     assert "target-arrowhead.shape: cf-many" in out
     assert "source-arrowhead.shape: cf-one-required" in out
