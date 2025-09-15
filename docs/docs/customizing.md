@@ -71,7 +71,4 @@ When setting manually, you can use any possible combination to indicate a relati
 > [!NOTE]
 > **Limitation for D2 output format** — D2 only supports four arrowhead styles: `cf-one`, `cf-one-required`, `cf-many`, `cf-many-required`. We map `Cardinality.UNSPECIFIED` to `one` and `Modality.UNSPECIFIED` to _not_ `required`.
 
-cf-one, cf-one-required (cf stands for crows foot)
-cf-many, cf-many-required
-
 `Edge` instances also have fields `source_cardinality` and `source_modality` that you can use to indicate the cardinality and modality of the _source_ model. Edges created by erdantic will always set these to `Cardinality.UNSPECIFIED` and `Modality.UNSPECIFIED`, but you can use your own knowledge to set them to other values.
