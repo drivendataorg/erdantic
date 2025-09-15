@@ -480,6 +480,29 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../output-formats/d2.ipynb" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    D2 Output
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -732,6 +755,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../api-reference/d2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    erdantic.d2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../api-reference/exceptions/" class="md-nav__link">
         
   
@@ -765,10 +811,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_5" >
         
           
-          <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6_5" id="__nav_6_5_label" tabindex="0">
             
   
   
@@ -781,8 +827,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_4">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5">
             <span class="md-nav__icon md-icon"></span>
             erdantic.examples
           </label>
@@ -928,10 +974,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_6" >
         
           
-          <label class="md-nav__link" for="__nav_6_5" id="__nav_6_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6_6" id="__nav_6_6_label" tabindex="0">
             
   
   
@@ -944,8 +990,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_6">
             <span class="md-nav__icon md-icon"></span>
             erdantic.plugins
           </label>
@@ -1228,9 +1274,9 @@
 <h2 id="customizing-diagram-content">Customizing diagram content<a class="headerlink" href="#customizing-diagram-content" title="Permanent link">&para;</a></h2>
 <p>Behind the scenes, all of the information that erdantic extracts from data model classes is stored as data on Pydantic models. Because everything is represented as just data, you can do any of the following:</p>
 <ul>
-<li>Edit any of the fields directly to change information. </li>
+<li>Edit any of the fields directly to change information.</li>
 <li>Serialize the model to JSON and save to disk.</li>
-<li>Deserialize JSON data back into instances of erdantic's models. </li>
+<li>Deserialize JSON data back into instances of erdantic's models.</li>
 </ul>
 <h3 id="data-model">Data model<a class="headerlink" href="#data-model" title="Permanent link">&para;</a></h3>
 <p>The data model for erdantic has the following classes:</p>
@@ -1238,16 +1284,16 @@
 <li><a class="autorefs autorefs-internal" title="            EntityRelationshipDiagram" href="../api-reference/core/#erdantic.core.EntityRelationshipDiagram"><code>EntityRelationshipDiagram</code></a> — overall container for everything in the diagram.</li>
 <li><a class="autorefs autorefs-internal" title="            ModelInfo" href="../api-reference/core/#erdantic.core.ModelInfo"><code>ModelInfo</code></a> — stores the information of one model. Each instance gets rendered as one node in the diagram.</li>
 <li><a class="autorefs autorefs-internal" title="            FieldInfo" href="../api-reference/core/#erdantic.core.FieldInfo"><code>FieldInfo</code></a> — stores the information of one field on a model. Each instance gets rendered as one row in the table of a node in the diagram.</li>
-<li><a class="autorefs autorefs-internal" title="            Edge" href="../api-reference/core/#erdantic.core.Edge"><code>Edge</code></a> — stores the information about the relationship between a model field and another model. </li>
+<li><a class="autorefs autorefs-internal" title="            Edge" href="../api-reference/core/#erdantic.core.Edge"><code>Edge</code></a> — stores the information about the relationship between a model field and another model.</li>
 </ul>
-<p>Additionally, there is a utility model <a class="autorefs autorefs-internal" title="            FullyQualifiedName" href="../api-reference/core/#erdantic.core.FullyQualifiedName"><code>FullyQualifiedName</code></a> that stores the <a href="https://stackoverflow.com/a/17403972">"fully qualified name"</a>, a precise reference to a model class as a Python object. This allows us to reimport that object if needed. </p>
+<p>Additionally, there is a utility model <a class="autorefs autorefs-internal" title="            FullyQualifiedName" href="../api-reference/core/#erdantic.core.FullyQualifiedName"><code>FullyQualifiedName</code></a> that stores the <a href="https://stackoverflow.com/a/17403972">"fully qualified name"</a>, a precise reference to a model class as a Python object. This allows us to reimport that object if needed.</p>
 <p>An entity relationship diagram for the these models is shown below.</p>
 <object type="image/svg+xml" data="../assets/erdantic_diagram.svg" width="100%" typemustmatch><img alt="Example diagram created by erdantic" src="../assets/erdantic_diagram.svg"></object>
 
-<p>erdantic fills in these fields at the time that a model is added to a diagram and the respective instance is created. After that, the values in these fields are all just static data. You can directly edit any of these fields to override the values that erdantic extracted. </p>
-<p>The <code>SortedDict</code> class on <code>EntityRelationshipDiagram</code> is from <a href="https://github.com/drivendataorg/sortedcontainers-pydantic">sortedcontainers-pydantic</a> and allows erdantic to store models and edges in a stable ordering no matter the order that they were added to the diagram. </p>
+<p>erdantic fills in these fields at the time that a model is added to a diagram and the respective instance is created. After that, the values in these fields are all just static data. You can directly edit any of these fields to override the values that erdantic extracted.</p>
+<p>The <code>SortedDict</code> class on <code>EntityRelationshipDiagram</code> is from <a href="https://github.com/drivendataorg/sortedcontainers-pydantic">sortedcontainers-pydantic</a> and allows erdantic to store models and edges in a stable ordering no matter the order that they were added to the diagram.</p>
 <h3 id="customizing-edges">Customizing edges<a class="headerlink" href="#customizing-edges" title="Permanent link">&para;</a></h3>
-<p>erdantic uses <a href="https://www.gleek.io/blog/crows-foot-notation">crow's foot notation</a> to represent the cardinality and modality of the relationships between models. Cardinality refers to the maximum number of instances of the target that can be related, with possible values of "one" or "many". Modality refers to the minimum number of instances of the target, i.e., whether it is optional, with values of "zero" or "one". </p>
+<p>erdantic uses <a href="https://www.gleek.io/blog/crows-foot-notation">crow's foot notation</a> to represent the cardinality and modality of the relationships between models. Cardinality refers to the maximum number of instances of the target that can be related, with possible values of "one" or "many". Modality refers to the minimum number of instances of the target, i.e., whether it is optional, with values of "zero" or "one".</p>
 <p>Here are the four possible cases that erdantic will extract by default:</p>
 <table>
 <thead>
@@ -1290,8 +1336,12 @@
 <li><code>Cardinality.UNSPECIFIED</code>, <code>Cardinality.ONE</code>, <code>Cardinality.MANY</code></li>
 <li><code>Modality.UNSPECIFIED</code>, <code>Modality.ZERO</code>, <code>Modality.ONE</code></li>
 </ul>
-<p>When setting manually, you can use any possible combination to indicate a relationship of your choice. </p>
-<p><code>Edge</code> instances also have fields <code>source_cardinality</code> and <code>source_modality</code> that you can use to indicate the cardinality and modality of the <em>source</em> model. Edges created by erdantic will always set these to <code>Cardinality.UNSPECIFIED</code> and <code>Modality.UNSPECIFIED</code>, but you can use your own knowledge to set them to other values.  </p>
+<p>When setting manually, you can use any possible combination to indicate a relationship of your choice.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Limitation for D2 output format</strong> — D2 only supports four arrowhead styles: <code>cf-one</code>, <code>cf-one-required</code>, <code>cf-many</code>, <code>cf-many-required</code>. We map <code>Cardinality.UNSPECIFIED</code> to <code>one</code> and <code>Modality.UNSPECIFIED</code> to <em>not</em> <code>required</code>.</p>
+</div>
+<p><code>Edge</code> instances also have fields <code>source_cardinality</code> and <code>source_modality</code> that you can use to indicate the cardinality and modality of the <em>source</em> model. Edges created by erdantic will always set these to <code>Cardinality.UNSPECIFIED</code> and <code>Modality.UNSPECIFIED</code>, but you can use your own knowledge to set them to other values.</p>
 
 
 

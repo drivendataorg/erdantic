@@ -10,23 +10,25 @@
       
       
       
-        <link rel="canonical" href="https://erdantic.drivendata.org/stable/">
+        <link rel="canonical" href="https://erdantic.drivendata.org/stable/api-reference/d2/">
       
       
+        <link rel="prev" href="../core/">
       
-        <link rel="next" href="cli/">
+      
+        <link rel="next" href="../exceptions/">
       
       
-      <link rel="icon" href="assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
     
     
       
-        <title>erdantic</title>
+        <title>erdantic.d2 - erdantic</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.342714a4.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
       
       
 
@@ -45,11 +47,11 @@
       
     
     
-      <link rel="stylesheet" href="assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="css/mkdocs-jupyter-extra.css">
+      <link rel="stylesheet" href="../../css/mkdocs-jupyter-extra.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -68,7 +70,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#erdantic-entity-relationship-diagrams" class="md-skip">
+        <a href="#erdanticd2" class="md-skip">
           Skip to content
         </a>
       
@@ -88,7 +90,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="erdantic" class="md-header__button md-logo" aria-label="erdantic" data-md-component="logo">
+    <a href="../.." title="erdantic" class="md-header__button md-logo" aria-label="erdantic" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -108,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              erdantic.d2
             
           </span>
         </div>
@@ -198,7 +200,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="erdantic" class="md-nav__button md-logo" aria-label="erdantic" data-md-component="logo">
+    <a href="../.." title="erdantic" class="md-nav__button md-logo" aria-label="erdantic" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -225,32 +227,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Home
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -261,59 +241,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Installation
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Installation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#development-version" class="md-nav__link">
-    <span class="md-ellipsis">
-      Development version
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quick-usage" class="md-nav__link">
-    <span class="md-ellipsis">
-      Quick usage
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -325,7 +252,7 @@
   
   
     <li class="md-nav__item">
-      <a href="cli/" class="md-nav__link">
+      <a href="../../cli/" class="md-nav__link">
         
   
   
@@ -347,7 +274,7 @@
   
   
     <li class="md-nav__item">
-      <a href="changelog/" class="md-nav__link">
+      <a href="../../changelog/" class="md-nav__link">
         
   
   
@@ -412,7 +339,7 @@
   
   
     <li class="md-nav__item">
-      <a href="examples/attrs.ipynb" class="md-nav__link">
+      <a href="../../examples/attrs.ipynb" class="md-nav__link">
         
   
   
@@ -435,7 +362,7 @@
   
   
     <li class="md-nav__item">
-      <a href="examples/dataclasses.ipynb" class="md-nav__link">
+      <a href="../../examples/dataclasses.ipynb" class="md-nav__link">
         
   
   
@@ -458,7 +385,7 @@
   
   
     <li class="md-nav__item">
-      <a href="examples/msgspec.ipynb" class="md-nav__link">
+      <a href="../../examples/msgspec.ipynb" class="md-nav__link">
         
   
   
@@ -481,7 +408,7 @@
   
   
     <li class="md-nav__item">
-      <a href="examples/pydantic.ipynb" class="md-nav__link">
+      <a href="../../examples/pydantic.ipynb" class="md-nav__link">
         
   
   
@@ -554,7 +481,7 @@
   
   
     <li class="md-nav__item">
-      <a href="output-formats/d2.ipynb" class="md-nav__link">
+      <a href="../../output-formats/d2.ipynb" class="md-nav__link">
         
   
   
@@ -577,7 +504,7 @@
   
   
     <li class="md-nav__item">
-      <a href="customizing/" class="md-nav__link">
+      <a href="../../customizing/" class="md-nav__link">
         
   
   
@@ -600,7 +527,7 @@
   
   
     <li class="md-nav__item">
-      <a href="extending/" class="md-nav__link">
+      <a href="../../extending/" class="md-nav__link">
         
   
   
@@ -623,7 +550,7 @@
   
   
     <li class="md-nav__item">
-      <a href="forward-references/" class="md-nav__link">
+      <a href="../../forward-references/" class="md-nav__link">
         
   
   
@@ -650,8 +577,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -662,11 +591,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
         
           
           <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
@@ -682,7 +611,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             API Reference
@@ -696,7 +625,7 @@
   
   
     <li class="md-nav__item">
-      <a href="api-reference/convenience/" class="md-nav__link">
+      <a href="../convenience/" class="md-nav__link">
         
   
   
@@ -719,7 +648,7 @@
   
   
     <li class="md-nav__item">
-      <a href="api-reference/core/" class="md-nav__link">
+      <a href="../core/" class="md-nav__link">
         
   
   
@@ -739,10 +668,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="api-reference/d2/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    erdantic.d2
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -753,6 +704,35 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#erdantic.d2.render_d2" class="md-nav__link">
+    <span class="md-ellipsis">
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;render_d2
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -765,7 +745,7 @@
   
   
     <li class="md-nav__item">
-      <a href="api-reference/exceptions/" class="md-nav__link">
+      <a href="../exceptions/" class="md-nav__link">
         
   
   
@@ -828,7 +808,7 @@
   
   
     <li class="md-nav__item">
-      <a href="api-reference/examples/attrs/" class="md-nav__link">
+      <a href="../examples/attrs/" class="md-nav__link">
         
   
   
@@ -851,7 +831,7 @@
   
   
     <li class="md-nav__item">
-      <a href="api-reference/examples/dataclasses/" class="md-nav__link">
+      <a href="../examples/dataclasses/" class="md-nav__link">
         
   
   
@@ -874,7 +854,7 @@
   
   
     <li class="md-nav__item">
-      <a href="api-reference/examples/msgspec/" class="md-nav__link">
+      <a href="../examples/msgspec/" class="md-nav__link">
         
   
   
@@ -897,7 +877,7 @@
   
   
     <li class="md-nav__item">
-      <a href="api-reference/examples/pydantic/" class="md-nav__link">
+      <a href="../examples/pydantic/" class="md-nav__link">
         
   
   
@@ -920,7 +900,7 @@
   
   
     <li class="md-nav__item">
-      <a href="api-reference/examples/pydantic_v1/" class="md-nav__link">
+      <a href="../examples/pydantic_v1/" class="md-nav__link">
         
   
   
@@ -991,7 +971,7 @@
   
   
     <li class="md-nav__item">
-      <a href="api-reference/plugins/" class="md-nav__link">
+      <a href="../plugins/" class="md-nav__link">
         
   
   
@@ -1014,7 +994,7 @@
   
   
     <li class="md-nav__item">
-      <a href="api-reference/plugins/attrs/" class="md-nav__link">
+      <a href="../plugins/attrs/" class="md-nav__link">
         
   
   
@@ -1037,7 +1017,7 @@
   
   
     <li class="md-nav__item">
-      <a href="api-reference/plugins/dataclasses/" class="md-nav__link">
+      <a href="../plugins/dataclasses/" class="md-nav__link">
         
   
   
@@ -1060,7 +1040,7 @@
   
   
     <li class="md-nav__item">
-      <a href="api-reference/plugins/msgspec/" class="md-nav__link">
+      <a href="../plugins/msgspec/" class="md-nav__link">
         
   
   
@@ -1083,7 +1063,7 @@
   
   
     <li class="md-nav__item">
-      <a href="api-reference/plugins/pydantic/" class="md-nav__link">
+      <a href="../plugins/pydantic/" class="md-nav__link">
         
   
   
@@ -1114,7 +1094,7 @@
   
   
     <li class="md-nav__item">
-      <a href="api-reference/typing_utils/" class="md-nav__link">
+      <a href="../typing_utils/" class="md-nav__link">
         
   
   
@@ -1164,33 +1144,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
+  <a href="#erdantic.d2.render_d2" class="md-nav__link">
     <span class="md-ellipsis">
-      Installation
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Installation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#development-version" class="md-nav__link">
-    <span class="md-ellipsis">
-      Development version
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quick-usage" class="md-nav__link">
-    <span class="md-ellipsis">
-      Quick usage
+      <code class="doc-symbol doc-symbol-toc doc-symbol-function"></code>&nbsp;render_d2
     </span>
   </a>
   
@@ -1215,60 +1171,176 @@
   
 
 
-<h1 id="erdantic-entity-relationship-diagrams">erdantic: Entity Relationship Diagrams<a class="headerlink" href="#erdantic-entity-relationship-diagrams" title="Permanent link">&para;</a></h1>
-<p><a href="https://erdantic.drivendata.org/"><img alt="Docs Status" src="https://img.shields.io/badge/docs-stable-informational" /></a>
-<a href="https://pypi.org/project/erdantic/"><img alt="PyPI" src="https://img.shields.io/pypi/v/erdantic.svg" /></a>
-<a href="https://anaconda.org/conda-forge/erdantic"><img alt="conda-forge" src="https://img.shields.io/conda/vn/conda-forge/erdantic.svg" /></a>
-<a href="https://github.com/conda-forge/erdantic-feedstock"><img alt="conda-forge feedstock" src="https://img.shields.io/badge/conda--forge-feedstock-yellowgreen" /></a>
-<a href="https://github.com/drivendataorg/erdantic/actions/workflows/tests.yml?query=branch%3Amain"><img alt="tests" src="https://github.com/drivendataorg/erdantic/actions/workflows/tests.yml/badge.svg?branch=main" /></a>
-<a href="https://codecov.io/gh/drivendataorg/erdantic"><img alt="codecov" src="https://codecov.io/gh/drivendataorg/erdantic/branch/main/graph/badge.svg" /></a></p>
-<p><strong>erdantic</strong> is a simple tool for drawing <a href="https://en.wikipedia.org/wiki/Data_modeling#Entity%E2%80%93relationship_diagrams">entity relationship diagrams (ERDs)</a> for Python data model classes. Diagrams are rendered using the <a href="https://graphviz.org/">Graphviz</a> library. Supported data modeling frameworks are:</p>
-<ul>
-<li><a href="https://docs.pydantic.dev/latest/">Pydantic V2</a></li>
-<li><a href="https://docs.pydantic.dev/latest/migration/#continue-using-pydantic-v1-features">Pydantic V1 legacy</a></li>
-<li><a href="https://www.attrs.org/en/stable/">attrs</a></li>
-<li><a href="https://jcristharif.com/msgspec/">msgspec</a></li>
-<li><a href="https://docs.python.org/3/library/dataclasses.html">dataclasses</a> from the Python standard library</li>
-</ul>
-<p>We also support <a href="https://d2lang.com/">D2</a> as an alternative output format.</p>
-<p>You can use erdantic either as a convenient CLI or as a Python library. Great for adding a simple and clean data model reference to your documentation.</p>
-<object type="image/svg+xml" data="assets/example_diagram.svg" width="100%" typemustmatch><img alt="Example diagram created by erdantic" src="assets/example_diagram.svg"></object>
+<h1 id="erdanticd2">erdantic.d2<a class="headerlink" href="#erdanticd2" title="Permanent link">&para;</a></h1>
 
-<p>Type annotations are formatted using the <a href="https://github.com/drivendataorg/typenames">typenames</a> library.</p>
-<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
-<p>erdantic's graph modeling depends on <a href="https://pygraphviz.github.io/documentation/stable/index.html">pygraphviz</a> and <a href="https://graphviz.org/">Graphviz</a>, an open-source C library. If you are on Linux or macOS, the easiest way to install everything together is to use conda and conda-forge:</p>
-<div class="highlight"><pre><span></span><code>conda<span class="w"> </span>install<span class="w"> </span>erdantic<span class="w"> </span>-c<span class="w"> </span>conda-forge
-</code></pre></div>
-<p>If not using conda, Graphviz must be installed first (before you can install pygraphviz). For recommended options and installation troubleshooting, see the <a href="https://pygraphviz.github.io/documentation/stable/install.html">pygraphviz docs</a>. Then to install erdantic and its Python dependencies from PyPI:</p>
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>erdantic
-</code></pre></div>
-<h3 id="development-version">Development version<a class="headerlink" href="#development-version" title="Permanent link">&para;</a></h3>
-<p>You can get the development version from GitHub with:</p>
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;erdantic @ git+https://github.com/drivendataorg/erdantic.git&quot;</span>
-</code></pre></div>
-<p>See <a href="https://pip.pypa.io/en/stable/topics/vcs-support">pip's documentation</a> for more on how to specify VCS dependencies.</p>
-<h2 id="quick-usage">Quick usage<a class="headerlink" href="#quick-usage" title="Permanent link">&para;</a></h2>
-<p>First, make sure that the data model classes that you want to include in your diagram are importable. This means the code with your models should either be available on your <a href="https://docs.python.org/3/library/sys_path_init.html"><code>sys.path</code></a> or installed into the same virtual environment as erdantic.</p>
-<p>The fastest way to produce a diagram like the above example is to use the erdantic CLI. Simply specify the full dotted import path to your model and an output file path. The rendered format is interpreted from the filename extension.</p>
-<div class="highlight"><pre><span></span><code>erdantic<span class="w"> </span>erdantic.examples.pydantic.Party<span class="w"> </span>-o<span class="w"> </span>diagram.png
-</code></pre></div>
-<p>You can also import the erdantic Python library. This lets you inspect the diagram data and potentially modify it. You will have greater ability to customize the diagram in Python.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">erdantic</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">erd</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">erdantic.examples.pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">Party</span>
 
-<span class="c1"># Easy one-liner</span>
-<span class="n">erd</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">Party</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="s2">&quot;diagram.png&quot;</span><span class="p">)</span>
+<div class="doc doc-object doc-module">
 
-<span class="c1"># Or create a diagram object that you can inspect and do stuff with</span>
-<span class="n">diagram</span> <span class="o">=</span> <span class="n">erd</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">Party</span><span class="p">)</span>
-<span class="nb">list</span><span class="p">(</span><span class="n">diagram</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-<span class="c1">#&gt; [ &#39;erdantic.examples.pydantic.Adventurer&#39;,</span>
-<span class="c1">#&gt;   &#39;erdantic.examples.pydantic.Party&#39;,</span>
-<span class="c1">#&gt;   &#39;erdantic.examples.pydantic.Quest&#39;,</span>
-<span class="c1">#&gt;   &#39;erdantic.examples.pydantic.QuestGiver&#39;]</span>
-<span class="n">diagram</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="s2">&quot;diagram.png&quot;</span><span class="p">)</span>
+
+
+
+    <div class="doc doc-contents first">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="erdantic.d2.render_d2" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-function"></code>            <span class="doc doc-object-name doc-function-name">render_d2</span>
+
+
+<a href="#erdantic.d2.render_d2" class="headerlink" title="Permanent link">&para;</a></h2>
+<div class="doc-signature highlight"><pre><span></span><code><span class="nf">render_d2</span><span class="p">(</span><span class="n">diagram</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            EntityRelationshipDiagram (erdantic.core.EntityRelationshipDiagram)" href="../core/#erdantic.core.EntityRelationshipDiagram">EntityRelationshipDiagram</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span>
 </code></pre></div>
-<p>Check out the "Usage Examples" section of our <a href="https://erdantic.drivendata.org/">docs</a> to see more.</p>
+
+    <div class="doc doc-contents ">
+
+        <p>Renders an EntityRelationshipDiagram into the D2 class diagram format.</p>
+
+
+            <details class="quote">
+              <summary>Source code in <code>erdantic/d2.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">render_d2</span><span class="p">(</span><span class="n">diagram</span><span class="p">:</span> <span class="n">EntityRelationshipDiagram</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Renders an EntityRelationshipDiagram into the D2 class diagram format.&quot;&quot;&quot;</span>
+    <span class="n">d2_parts</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Define all class shapes first</span>
+    <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">diagram</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">class_name</span> <span class="o">=</span> <span class="n">_quote_identifier</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">class_def</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">class_name</span><span class="si">}</span><span class="s2">: </span><span class="se">{{</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;  shape: class&quot;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">model</span><span class="o">.</span><span class="n">fields</span><span class="p">:</span>
+            <span class="n">class_def</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;  # This class has no fields to display in the diagram.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="n">field_type</span> <span class="o">=</span> <span class="n">_maybe_quote_value</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">type_name</span><span class="p">)</span>
+                <span class="n">visibility</span> <span class="o">=</span> <span class="n">_get_visibility_prefix</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="n">class_def</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">visibility</span><span class="si">}{</span><span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">field_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">class_def</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">d2_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">class_def</span><span class="p">))</span>
+
+    <span class="c1"># Define all relationships between classes</span>
+    <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">diagram</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">source_model</span> <span class="o">=</span> <span class="n">diagram</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">edge</span><span class="o">.</span><span class="n">source_model_full_name</span><span class="p">))</span>
+        <span class="n">target_model</span> <span class="o">=</span> <span class="n">diagram</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">edge</span><span class="o">.</span><span class="n">target_model_full_name</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">source_model</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">target_model</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">source_model_name</span> <span class="o">=</span> <span class="n">_quote_identifier</span><span class="p">(</span><span class="n">source_model</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">target_model_name</span> <span class="o">=</span> <span class="n">_quote_identifier</span><span class="p">(</span><span class="n">target_model</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">_quote_identifier</span><span class="p">(</span><span class="n">edge</span><span class="o">.</span><span class="n">source_field_name</span><span class="p">)</span>
+
+        <span class="n">connection</span> <span class="o">=</span> <span class="s2">&quot;-&gt;&quot;</span>  <span class="c1"># Directed from source to target</span>
+
+        <span class="n">target_shape</span> <span class="o">=</span> <span class="n">_get_crowsfoot_d2</span><span class="p">(</span><span class="n">edge</span><span class="o">.</span><span class="n">target_cardinality</span><span class="p">,</span> <span class="n">edge</span><span class="o">.</span><span class="n">target_modality</span><span class="p">)</span>
+        <span class="n">attributes</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;target-arrowhead.shape: </span><span class="si">{</span><span class="n">target_shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span>
+
+        <span class="c1"># Source side: omit entirely when both are UNSPECIFIED. Otherwise, map and include.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span>
+            <span class="n">edge</span><span class="o">.</span><span class="n">source_cardinality</span> <span class="o">==</span> <span class="n">Cardinality</span><span class="o">.</span><span class="n">UNSPECIFIED</span>
+            <span class="ow">and</span> <span class="n">edge</span><span class="o">.</span><span class="n">source_modality</span> <span class="o">==</span> <span class="n">Modality</span><span class="o">.</span><span class="n">UNSPECIFIED</span>
+        <span class="p">):</span>
+            <span class="n">source_shape</span> <span class="o">=</span> <span class="n">_get_crowsfoot_d2</span><span class="p">(</span><span class="n">edge</span><span class="o">.</span><span class="n">source_cardinality</span><span class="p">,</span> <span class="n">edge</span><span class="o">.</span><span class="n">source_modality</span><span class="p">)</span>
+            <span class="n">attributes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;source-arrowhead.shape: </span><span class="si">{</span><span class="n">source_shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">connection</span> <span class="o">=</span> <span class="s2">&quot;&lt;-&gt;&quot;</span>  <span class="c1"># Bidirectional if source side is specified</span>
+
+        <span class="n">d2_parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">_REL_DEF_TEMPLATE</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">source_model_name</span><span class="o">=</span><span class="n">source_model_name</span><span class="p">,</span>
+                <span class="n">connection</span><span class="o">=</span><span class="n">connection</span><span class="p">,</span>
+                <span class="n">target_model_name</span><span class="o">=</span><span class="n">target_model_name</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+                <span class="n">attributes</span><span class="o">=</span><span class="n">indent</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">attributes</span><span class="p">),</span> <span class="s2">&quot; &quot;</span> <span class="o">*</span> <span class="mi">2</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">d2_parts</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
 
 
 
@@ -1323,10 +1395,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": ".", "features": ["navigation.top", "navigation.sections"], "search": "assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "navigation.sections"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="assets/javascripts/bundle.56ea9cef.min.js"></script>
+      <script src="../../assets/javascripts/bundle.56ea9cef.min.js"></script>
       
     
   </body>
