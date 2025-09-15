@@ -1,7 +1,7 @@
 import erdantic as erd
 from erdantic.core import Cardinality, Modality
 from erdantic.d2 import (
-    _get_d2_cardinality,
+    _get_crowsfoot_d2,
     _get_visibility_prefix,
     _maybe_quote_value,
     _quote_identifier,
@@ -57,33 +57,27 @@ def test_quote_identifier_escapes_double_quotes():
 
 def test_get_d2_cardinality_unspecified_combinations():
     """Explicitly cover UNSPECIFIED cardinality/modality combos."""
-    # Take any edge and modify the fields
-    diagram = erd.create(pydantic.Party)
-    edge = next(iter(diagram.edges.values()))
-    e = edge.model_copy()
 
     # UNSPECIFIED cardinality behaves like ONE; required only if Modality.ONE
-    e.target_cardinality = Cardinality.UNSPECIFIED
-    e.target_modality = Modality.UNSPECIFIED
-    assert _get_d2_cardinality(e) == "cf-one"
-
-    e.target_cardinality = Cardinality.UNSPECIFIED
-    e.target_modality = Modality.ZERO
-    assert _get_d2_cardinality(e) == "cf-one"
-
-    e.target_cardinality = Cardinality.UNSPECIFIED
-    e.target_modality = Modality.ONE
-    assert _get_d2_cardinality(e) == "cf-one-required"
+    assert _get_crowsfoot_d2(Cardinality.UNSPECIFIED, Modality.UNSPECIFIED) == "cf-one"
+    assert _get_crowsfoot_d2(Cardinality.UNSPECIFIED, Modality.ZERO) == "cf-one"
+    assert _get_crowsfoot_d2(Cardinality.UNSPECIFIED, Modality.ONE) == "cf-one-required"
 
     # Sanity checks for explicit ONE/MANY remain consistent
-    e.target_cardinality = Cardinality.ONE
-    e.target_modality = Modality.ZERO
-    assert _get_d2_cardinality(e) == "cf-one"
+    assert _get_crowsfoot_d2(Cardinality.ONE, Modality.ZERO) == "cf-one"
+    assert _get_crowsfoot_d2(Cardinality.MANY, Modality.UNSPECIFIED) == "cf-many"
+    assert _get_crowsfoot_d2(Cardinality.MANY, Modality.ONE) == "cf-many-required"
 
-    e.target_cardinality = Cardinality.MANY
-    e.target_modality = Modality.UNSPECIFIED
-    assert _get_d2_cardinality(e) == "cf-many"
 
-    e.target_cardinality = Cardinality.MANY
-    e.target_modality = Modality.ONE
-    assert _get_d2_cardinality(e) == "cf-many-required"
+def test_render_d2_with_source_markers():
+    """When source cardinality/modality are set, a source arrowhead is rendered."""
+    diagram = erd.create(pydantic.Party)
+    # Pick the Party.members -> Adventurer edge and set source side explicitly
+    edge = next(e for e in diagram.edges.values() if e.source_field_name == "members")
+    edge.source_cardinality = Cardinality.ONE
+    edge.source_modality = Modality.ONE
+
+    out = render_d2(diagram)
+    assert '"Party" <-> "Adventurer": "members"' in out
+    assert "target-arrowhead.shape: cf-many" in out
+    assert "source-arrowhead.shape: cf-one-required" in out

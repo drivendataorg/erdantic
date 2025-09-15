@@ -15,6 +15,8 @@
 - [msgspec](https://jcristharif.com/msgspec/)
 - [dataclasses](https://docs.python.org/3/library/dataclasses.html) from the Python standard library
 
+We also support [D2](https://d2lang.com/) as an alternative output format.
+
 You can use erdantic either as a convenient CLI or as a Python library. Great for adding a simple and clean data model reference to your documentation.
 
 <object type="image/svg+xml" data="https://raw.githubusercontent.com/drivendataorg/erdantic/refs/heads/main/docs/docs/assets/example_diagram.svg" width="100%" typemustmatch><img alt="Example diagram created by erdantic" src="https://raw.githubusercontent.com/drivendataorg/erdantic/refs/heads/main/docs/docs/assets/example_diagram.svg"></object>

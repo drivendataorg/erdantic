@@ -1,6 +1,7 @@
 docs/docs/examples/
-docs/notebooks/diagram.png
-docs/notebooks/diagram.svg
+docs/docs/output-formats/
+docs/notebooks/examples/diagram.png
+docs/notebooks/examples/diagram.svg
 docs/site
 
 tests/_outputs

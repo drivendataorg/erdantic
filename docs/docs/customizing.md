@@ -25,9 +25,9 @@ Some common attributes you might want to change:
 
 Behind the scenes, all of the information that erdantic extracts from data model classes is stored as data on Pydantic models. Because everything is represented as just data, you can do any of the following:
 
-- Edit any of the fields directly to change information. 
+- Edit any of the fields directly to change information.
 - Serialize the model to JSON and save to disk.
-- Deserialize JSON data back into instances of erdantic's models. 
+- Deserialize JSON data back into instances of erdantic's models.
 
 ### Data model
 
@@ -36,21 +36,21 @@ The data model for erdantic has the following classes:
 - [`EntityRelationshipDiagram`][erdantic.core.EntityRelationshipDiagram] — overall container for everything in the diagram.
 - [`ModelInfo`][erdantic.core.ModelInfo] — stores the information of one model. Each instance gets rendered as one node in the diagram.
 - [`FieldInfo`][erdantic.core.FieldInfo] — stores the information of one field on a model. Each instance gets rendered as one row in the table of a node in the diagram.
-- [`Edge`][erdantic.core.Edge] — stores the information about the relationship between a model field and another model. 
+- [`Edge`][erdantic.core.Edge] — stores the information about the relationship between a model field and another model.
 
-Additionally, there is a utility model [`FullyQualifiedName`][erdantic.core.FullyQualifiedName] that stores the ["fully qualified name"](https://stackoverflow.com/a/17403972), a precise reference to a model class as a Python object. This allows us to reimport that object if needed. 
+Additionally, there is a utility model [`FullyQualifiedName`][erdantic.core.FullyQualifiedName] that stores the ["fully qualified name"](https://stackoverflow.com/a/17403972), a precise reference to a model class as a Python object. This allows us to reimport that object if needed.
 
 An entity relationship diagram for the these models is shown below.
 
 <object type="image/svg+xml" data="../assets/erdantic_diagram.svg" width="100%" typemustmatch><img alt="Example diagram created by erdantic" src="../assets/erdantic_diagram.svg"></object>
 
-erdantic fills in these fields at the time that a model is added to a diagram and the respective instance is created. After that, the values in these fields are all just static data. You can directly edit any of these fields to override the values that erdantic extracted. 
+erdantic fills in these fields at the time that a model is added to a diagram and the respective instance is created. After that, the values in these fields are all just static data. You can directly edit any of these fields to override the values that erdantic extracted.
 
-The `SortedDict` class on `EntityRelationshipDiagram` is from [sortedcontainers-pydantic](https://github.com/drivendataorg/sortedcontainers-pydantic) and allows erdantic to store models and edges in a stable ordering no matter the order that they were added to the diagram. 
+The `SortedDict` class on `EntityRelationshipDiagram` is from [sortedcontainers-pydantic](https://github.com/drivendataorg/sortedcontainers-pydantic) and allows erdantic to store models and edges in a stable ordering no matter the order that they were added to the diagram.
 
 ### Customizing edges
 
-erdantic uses [crow's foot notation](https://www.gleek.io/blog/crows-foot-notation) to represent the cardinality and modality of the relationships between models. Cardinality refers to the maximum number of instances of the target that can be related, with possible values of "one" or "many". Modality refers to the minimum number of instances of the target, i.e., whether it is optional, with values of "zero" or "one". 
+erdantic uses [crow's foot notation](https://www.gleek.io/blog/crows-foot-notation) to represent the cardinality and modality of the relationships between models. Cardinality refers to the maximum number of instances of the target that can be related, with possible values of "one" or "many". Modality refers to the minimum number of instances of the target, i.e., whether it is optional, with values of "zero" or "one".
 
 Here are the four possible cases that erdantic will extract by default:
 
@@ -66,6 +66,9 @@ You will notice that, for example, that we only have a (many, unspecified) case 
 - `Cardinality.UNSPECIFIED`, `Cardinality.ONE`, `Cardinality.MANY`
 - `Modality.UNSPECIFIED`, `Modality.ZERO`, `Modality.ONE`
 
-When setting manually, you can use any possible combination to indicate a relationship of your choice. 
+When setting manually, you can use any possible combination to indicate a relationship of your choice.
 
-`Edge` instances also have fields `source_cardinality` and `source_modality` that you can use to indicate the cardinality and modality of the _source_ model. Edges created by erdantic will always set these to `Cardinality.UNSPECIFIED` and `Modality.UNSPECIFIED`, but you can use your own knowledge to set them to other values.  
+> [!NOTE]
+> **Limitation for D2 output format** — D2 only supports four arrowhead styles: `cf-one`, `cf-one-required`, `cf-many`, `cf-many-required`. We map `Cardinality.UNSPECIFIED` to `one` and `Modality.UNSPECIFIED` to _not_ `required`.
+
+`Edge` instances also have fields `source_cardinality` and `source_modality` that you can use to indicate the cardinality and modality of the _source_ model. Edges created by erdantic will always set these to `Cardinality.UNSPECIFIED` and `Modality.UNSPECIFIED`, but you can use your own knowledge to set them to other values.
