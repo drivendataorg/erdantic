@@ -70,8 +70,12 @@ generate-static-test-assets:
 # Run example documents
 run-notebooks:
     mkdir -p docs/docs/examples
-    for notebook in docs/notebooks/*.ipynb; do \
-        pixi run jupyter execute --output ../docs/examples/$(basename $notebook) $notebook; \
+    for notebook in docs/notebooks/examples/*.ipynb; do \
+        pixi run jupyter execute --output ../../docs/examples/$(basename $notebook) $notebook; \
+    done
+    mkdir -p docs/docs/output-formats
+    for notebook in docs/notebooks/output-formats/*.ipynb; do \
+        pixi run jupyter execute --output ../../docs/output-formats/$(basename $notebook) $notebook; \
     done
 
 # Generate docs
