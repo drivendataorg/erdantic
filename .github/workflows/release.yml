@@ -66,7 +66,7 @@ jobs:
           name: Packages
           path: dist
 
-      - uses: pypa/gh-action-pypi-publish@v1.12.4
+      - uses: pypa/gh-action-pypi-publish@v1.13.0
         with:
           repository-url: https://test.pypi.org/legacy/
           skip-existing: true
@@ -87,7 +87,7 @@ jobs:
           name: Packages
           path: dist
 
-      - uses: pypa/gh-action-pypi-publish@v1.12.4
+      - uses: pypa/gh-action-pypi-publish@v1.13.0
 
   create-github-release:
     name: Create GitHub release
