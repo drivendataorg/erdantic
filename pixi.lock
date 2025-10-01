@@ -4082,7 +4082,7 @@ packages:
 - pypi: .
   name: erdantic
   version: 1.2.0
-  sha256: 4856ece178cad060ad717e09527425a3b777dcb14224b93c0002fe2c7d0664b2
+  sha256: 60e0895f8d4b8c009f3da0bfb91f7a0037997f164d986f94b97d5599d27a4b6a
   requires_dist:
   - pydantic>=2
   - pydantic-core

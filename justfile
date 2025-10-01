@@ -38,7 +38,7 @@ test-all:
 # Fix graphviz plugin registration. Needed for osx-arm64
 fix-graphviz:
     just fix-graphviz-default
-    for python in 3.9 3.10 3.11 3.12 3.13; do \
+    for python in 3.9 3.10 3.11 3.12 3.13 3.14; do \
         just python=$python fix-graphviz-test; \
     done
 
