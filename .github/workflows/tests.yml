@@ -49,6 +49,8 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest]
         python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+    permissions:
+      id-token: write  # Permission for workflow to request OIDC token
 
     steps:
       - uses: actions/checkout@v4
@@ -116,7 +118,7 @@ jobs:
       - name: Upload coverage to codecov
         uses: codecov/codecov-action@v5
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          use_oidc: true
           files: ./coverage.xml
           fail_ci_if_error: ${{ (github.event_name == 'push' && true) || (github.event_name == 'pull_request' && true) || false }}
         if: ${{ matrix.os == 'ubuntu-latest' }}
