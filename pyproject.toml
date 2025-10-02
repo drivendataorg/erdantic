@@ -108,6 +108,8 @@ python = "3.11.*"
 python = "3.12.*"
 [tool.pixi.feature.py313.dependencies]
 python = "3.13.*"
+[tool.pixi.feature.py314.dependencies]
+python = "3.14.*"
 
 [tool.pixi.environments]
 default = ["py313", "dev"]
@@ -116,6 +118,7 @@ test-py310 = ["py310", "test"]
 test-py311 = ["py311", "test"]
 test-py312 = ["py312", "test"]
 test-py313 = ["py313", "test"]
+test-py314 = ["py314", "test"]
 typecheck = ["py313", "typecheck"]
 
 ## TOOLS
