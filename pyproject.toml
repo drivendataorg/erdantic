@@ -89,7 +89,7 @@ typecheck = [
 ]
 
 [tool.pixi.project]
-channels = ["conda-forge", "conda-forge/label/python_rc"]
+channels = ["conda-forge"]
 platforms = ["linux-64", "osx-64", "osx-arm64", "win-64"]
 
 [tool.pixi.dependencies]
