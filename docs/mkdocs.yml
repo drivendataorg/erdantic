@@ -18,12 +18,14 @@ nav:
       - "Usage Example: msgspec": "examples/msgspec.ipynb"
       - "Usage Example: Pydantic": "examples/pydantic.ipynb"
   - Advanced Usage:
+      - D2 Output: "output-formats/d2.ipynb"
       - Customizing Diagrams: "customizing.md"
       - Extending or Modifying: "extending.md"
       - Handling Forward References: "forward-references.md"
   - API Reference:
       - erdantic.convenience: "api-reference/convenience.md"
       - erdantic.core: "api-reference/core.md"
+      - erdantic.d2: "api-reference/d2.md"
       - erdantic.exceptions: "api-reference/exceptions.md"
       - erdantic.examples:
           - erdantic.examples.attrs: "api-reference/examples/attrs.md"

@@ -1,5 +1,9 @@
 # erdantic Changelog
 
+## v1.2.0 (2025-09-15)
+
+- Added support for the D2 diagramming language for class diagrams. Use `EntityRelationshipDiagram.to_d2()` to get the D2 representation programmatically, or the CLI flag `--d2` to print it to stdout. The `--dot` and `--d2` options are mutually exclusive, and `-o`/`--out` is ignored when `--d2` is used. ([PR #152](https://github.com/drivendataorg/erdantic/pull/152) and [PR #162](https://github.com/drivendataorg/erdantic/pull/162), contribution thanks to [@Else00](https://github.com/Else00))
+
 ## v1.1.1 (2025-07-19)
 
 - Changed `plugins.pydantic.get_fields_from_pydantic_model` to force model rebuild. This helps address cases of unresolved forward references where Pydantic mistakenly skips rebuilding. Fixes [#153](https://github.com/drivendataorg/erdantic/issues/153). ([PR #154](https://github.com/drivendataorg/erdantic/pull/154))
