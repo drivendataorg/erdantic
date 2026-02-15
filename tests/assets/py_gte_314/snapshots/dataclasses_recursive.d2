@@ -1,0 +1,13 @@
+"DataclassRecursive": {
+  shape: class
+  +parent: "DataclassRecursive | None"
+  +children: "list[DataclassRecursive]"
+}
+
+"DataclassRecursive" -> "DataclassRecursive": "children" {
+  target-arrowhead.shape: cf-many
+}
+
+"DataclassRecursive" -> "DataclassRecursive": "parent" {
+  target-arrowhead.shape: cf-one
+}

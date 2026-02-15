@@ -1,4 +1,5 @@
 from pathlib import Path
+import sys
 
 import tests.pydantic_with_default_column
 
@@ -19,8 +20,8 @@ erd.__version__ = erdantic.core.__version__ = erdantic._version.__version__ = "T
 
 if __name__ == "__main__":
     filename = "pydantic_with_default_column"
-    out_dir = ASSETS_DIR / "test_core-test_subclass"
-    (out_dir).mkdir(exist_ok=True)
+    out_dir = ASSETS_DIR / sys.argv[1] / "test_core-test_subclass"
+    out_dir.mkdir(exist_ok=True)
     diagram = tests.pydantic_with_default_column.EntityRelationshipDiagramWithDefault()
     diagram.add_model(erdantic.examples.pydantic.Party)
 

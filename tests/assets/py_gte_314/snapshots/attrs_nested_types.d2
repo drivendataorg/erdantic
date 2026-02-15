@@ -1,0 +1,18 @@
+"AttrsNestedTypes": {
+  shape: class
+  +node_map: "dict[str, AttrsRelatedNode | None]"
+  +node_groups: "list[list[AttrsRelatedNode]]"
+}
+
+"AttrsRelatedNode": {
+  shape: class
+  +name: str
+}
+
+"AttrsNestedTypes" -> "AttrsRelatedNode": "node_groups" {
+  target-arrowhead.shape: cf-many
+}
+
+"AttrsNestedTypes" -> "AttrsRelatedNode": "node_map" {
+  target-arrowhead.shape: cf-many
+}

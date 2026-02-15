@@ -73,9 +73,14 @@ def get_recursive_args(tp: _TypeForm) -> list[_TypeForm]:
         if isinstance(t, str):
             raise _UnevaluatedForwardRefError(forward_ref=t)
         elif isinstance(t, ForwardRef):
-            if t.__forward_evaluated__:
-                t = t.__forward_value__  # type: ignore [assignment]
+            # Python < 3.14 caches an "evaluated" state on ForwardRef
+            if hasattr(t, "__forward_evaluated__"):
+                if t.__forward_evaluated__:
+                    t = t.__forward_value__  # type: ignore [assignment]
+                else:
+                    raise _UnevaluatedForwardRefError(forward_ref=t.__forward_arg__)
             else:
+                # Python 3.14+ no longer exposes this evaluated state
                 raise _UnevaluatedForwardRefError(forward_ref=t.__forward_arg__)
 
         if get_origin(t) is Literal:

@@ -1,0 +1,31 @@
+"PydanticAltNode": {
+  shape: class
+  +name: str
+}
+
+"PydanticRelatedNode": {
+  shape: class
+  +name: str
+}
+
+"PydanticUnionSemantics": {
+  shape: class
+  +union_node: "Union[PydanticRelatedNode, PydanticAltNode]"
+  +optional_union_node: "Optional[Union[PydanticRelatedNode, PydanticAltNode]]"
+}
+
+"PydanticUnionSemantics" -> "PydanticAltNode": "optional_union_node" {
+  target-arrowhead.shape: cf-one
+}
+
+"PydanticUnionSemantics" -> "PydanticRelatedNode": "optional_union_node" {
+  target-arrowhead.shape: cf-one
+}
+
+"PydanticUnionSemantics" -> "PydanticAltNode": "union_node" {
+  target-arrowhead.shape: cf-one-required
+}
+
+"PydanticUnionSemantics" -> "PydanticRelatedNode": "union_node" {
+  target-arrowhead.shape: cf-one-required
+}

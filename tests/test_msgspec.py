@@ -46,7 +46,7 @@ def test_get_fields_from_msgspec_struct():
     # active_quest
     assert fields[3].model_full_name == FullyQualifiedName.from_object(msgspec_examples.Party)
     assert fields[3].name == "active_quest"
-    assert fields[3].type_name == "Optional[Quest]"
+    assert fields[3].raw_type == Optional[msgspec_examples.Quest]
 
 
 class GlobalOtherClassBefore(msgspec.Struct):
@@ -86,19 +86,15 @@ def test_forward_refs_global_scope():
     # Resolved by resolve_types_on_dataclass in get_fields_from_msgspec_struct
     assert fields["imported_ref"].type_name == "Party"
     assert fields["imported_ref"].raw_type == msgspec_examples.Party
-    assert fields["nested_imported_ref"].type_name == "Optional[Quest]"
     assert fields["nested_imported_ref"].raw_type == Optional[msgspec_examples.Quest]
     assert fields["self_ref"].type_name == "GlobalWithFwdRefs"
     assert fields["self_ref"].raw_type == GlobalWithFwdRefs
-    assert fields["nested_self_ref"].type_name == "Optional[GlobalWithFwdRefs]"
     assert fields["nested_self_ref"].raw_type == Optional[GlobalWithFwdRefs]
     assert fields["global_ref_before"].type_name == "GlobalOtherClassBefore"
     assert fields["global_ref_before"].raw_type == GlobalOtherClassBefore
-    assert fields["nested_global_ref_before"].type_name == "Optional[GlobalOtherClassBefore]"
     assert fields["nested_global_ref_before"].raw_type == Optional[GlobalOtherClassBefore]
     assert fields["global_ref_after"].type_name == "GlobalOtherClassAfter"
     assert fields["global_ref_after"].raw_type == GlobalOtherClassAfter
-    assert fields["nested_global_ref_after"].type_name == "Optional[GlobalOtherClassAfter]"
     assert fields["nested_global_ref_after"].raw_type == Optional[GlobalOtherClassAfter]
 
     # Can add to diagram without error
@@ -120,11 +116,9 @@ def test_forward_refs_fn_scope_auto_resolvable():
     pprint({name: (fi.type_name, fi.raw_type) for name, fi in fields.items()})
     assert fields["imported_ref"].type_name == "Party"
     assert fields["imported_ref"].raw_type == msgspec_examples.Party
-    assert fields["nested_imported_ref"].type_name == "Optional[Quest]"
     assert fields["nested_imported_ref"].raw_type == Optional[msgspec_examples.Quest]
     assert fields["global_ref"].type_name == "GlobalOtherClassBefore"
     assert fields["global_ref"].raw_type == GlobalOtherClassBefore
-    assert fields["nested_global_ref"].type_name == "Optional[GlobalOtherClassBefore]"
     assert fields["nested_global_ref"].raw_type == Optional[GlobalOtherClassBefore]
 
     # Can add to diagram without error

@@ -1,0 +1,23 @@
+"MsgspecRelatedNode": {
+  shape: class
+  +name: str
+}
+
+"MsgspecRelationSemantics": {
+  shape: class
+  +required_node: MsgspecRelatedNode
+  +optional_node: "Optional[MsgspecRelatedNode]"
+  +related_nodes: "list[MsgspecRelatedNode]"
+}
+
+"MsgspecRelationSemantics" -> "MsgspecRelatedNode": "optional_node" {
+  target-arrowhead.shape: cf-one
+}
+
+"MsgspecRelationSemantics" -> "MsgspecRelatedNode": "related_nodes" {
+  target-arrowhead.shape: cf-many
+}
+
+"MsgspecRelationSemantics" -> "MsgspecRelatedNode": "required_node" {
+  target-arrowhead.shape: cf-one-required
+}

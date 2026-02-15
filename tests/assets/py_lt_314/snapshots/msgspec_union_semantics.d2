@@ -1,0 +1,31 @@
+"MsgspecAltNode": {
+  shape: class
+  +name: str
+}
+
+"MsgspecRelatedNode": {
+  shape: class
+  +name: str
+}
+
+"MsgspecUnionSemantics": {
+  shape: class
+  +union_node: "Union[MsgspecRelatedNode, MsgspecAltNode]"
+  +optional_union_node: "Optional[Union[MsgspecRelatedNode, MsgspecAltNode]]"
+}
+
+"MsgspecUnionSemantics" -> "MsgspecAltNode": "optional_union_node" {
+  target-arrowhead.shape: cf-one
+}
+
+"MsgspecUnionSemantics" -> "MsgspecRelatedNode": "optional_union_node" {
+  target-arrowhead.shape: cf-one
+}
+
+"MsgspecUnionSemantics" -> "MsgspecAltNode": "union_node" {
+  target-arrowhead.shape: cf-one-required
+}
+
+"MsgspecUnionSemantics" -> "MsgspecRelatedNode": "union_node" {
+  target-arrowhead.shape: cf-one-required
+}

@@ -48,7 +48,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
 
     steps:
       - uses: actions/checkout@v4
@@ -96,11 +96,6 @@ jobs:
           }}
         run: |
           pixi update -e ${{ steps.env_name.outputs.env_name }}
-
-      - name: Fix graphviz for macos-latest
-        if: ${{ matrix.os == 'macos-latest' }}
-        run: |
-          just python=${{ matrix.python-version }} fix-graphviz-test
 
       - name: Run tests
         run: |

@@ -1,0 +1,18 @@
+"PydanticNestedTypes": {
+  shape: class
+  +node_map: "dict[str, Optional[PydanticRelatedNode]]"
+  +node_groups: "list[list[PydanticRelatedNode]]"
+}
+
+"PydanticRelatedNode": {
+  shape: class
+  +name: str
+}
+
+"PydanticNestedTypes" -> "PydanticRelatedNode": "node_groups" {
+  target-arrowhead.shape: cf-many
+}
+
+"PydanticNestedTypes" -> "PydanticRelatedNode": "node_map" {
+  target-arrowhead.shape: cf-many
+}

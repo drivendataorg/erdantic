@@ -1,0 +1,23 @@
+"AttrsRelatedNode": {
+  shape: class
+  +name: str
+}
+
+"AttrsRelationSemantics": {
+  shape: class
+  +required_node: AttrsRelatedNode
+  +optional_node: "AttrsRelatedNode | None"
+  +related_nodes: "list[AttrsRelatedNode]"
+}
+
+"AttrsRelationSemantics" -> "AttrsRelatedNode": "optional_node" {
+  target-arrowhead.shape: cf-one
+}
+
+"AttrsRelationSemantics" -> "AttrsRelatedNode": "related_nodes" {
+  target-arrowhead.shape: cf-many
+}
+
+"AttrsRelationSemantics" -> "AttrsRelatedNode": "required_node" {
+  target-arrowhead.shape: cf-one-required
+}

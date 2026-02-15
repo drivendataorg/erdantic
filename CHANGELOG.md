@@ -1,5 +1,11 @@
 # erdantic Changelog
 
+## v1.2.1 (2026-02-15)
+
+- Added official support for Python 3.14. ([PR #164](https://github.com/drivendataorg/erdantic/pull/164))
+    - _Note_: The `pydantic_v1` plugin is disabled when running on Python 3.14+, as Pydantic has dropped support for its V1 legacy module.
+    - _Note_: Python 3.14's internal representation of `typing.Union` and `typing.Optional` have changed, such that they will always render using the `|` operator.
+
 ## v1.2.0 (2025-09-15)
 
 - Added support for the D2 diagramming language for class diagrams. Use `EntityRelationshipDiagram.to_d2()` to get the D2 representation programmatically, or the CLI flag `--d2` to print it to stdout. The `--dot` and `--d2` options are mutually exclusive, and `-o`/`--out` is ignored when `--d2` is used. ([PR #152](https://github.com/drivendataorg/erdantic/pull/152) and [PR #162](https://github.com/drivendataorg/erdantic/pull/162), contribution thanks to [@Else00](https://github.com/Else00))

@@ -17,13 +17,15 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
-CORE_PLUGINS = (
+CORE_PLUGINS: tuple[tuple[str, str], ...] = (
     ("pydantic", "erdantic.plugins.pydantic"),
-    ("pydantic_v1", "erdantic.plugins.pydantic"),
     ("attrs", "erdantic.plugins.attrs"),
     ("dataclasses", "erdantic.plugins.dataclasses"),
     ("msgspec", "erdantic.plugins.msgspec"),
 )
+
+if sys.version_info < (3, 14):
+    CORE_PLUGINS += (("pydantic_v1", "erdantic.plugins.pydantic"),)
 
 _ModelType = TypeVar("_ModelType", bound=type)
 _ModelType_co = TypeVar("_ModelType_co", bound=type, covariant=True)

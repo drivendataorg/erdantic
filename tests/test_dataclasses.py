@@ -48,7 +48,7 @@ def test_get_fields_from_dataclass():
     # active_quest
     assert fields[3].model_full_name == FullyQualifiedName.from_object(dataclasses_examples.Party)
     assert fields[3].name == "active_quest"
-    assert fields[3].type_name == "Optional[Quest]"
+    assert fields[3].raw_type == Optional[dataclasses_examples.Quest]
 
 
 @dataclass
@@ -91,19 +91,15 @@ def test_forward_refs_global_scope():
     # Resolved by resolve_types_on_dataclass in get_fields_from_dataclass
     assert fields["imported_ref"].type_name == "Party"
     assert fields["imported_ref"].raw_type == dataclasses_examples.Party
-    assert fields["nested_imported_ref"].type_name == "Optional[Quest]"
     assert fields["nested_imported_ref"].raw_type == Optional[dataclasses_examples.Quest]
     assert fields["self_ref"].type_name == "GlobalWithFwdRefs"
     assert fields["self_ref"].raw_type == GlobalWithFwdRefs
-    assert fields["nested_self_ref"].type_name == "Optional[GlobalWithFwdRefs]"
     assert fields["nested_self_ref"].raw_type == Optional[GlobalWithFwdRefs]
     assert fields["global_ref_before"].type_name == "GlobalOtherClassBefore"
     assert fields["global_ref_before"].raw_type == GlobalOtherClassBefore
-    assert fields["nested_global_ref_before"].type_name == "Optional[GlobalOtherClassBefore]"
     assert fields["nested_global_ref_before"].raw_type == Optional[GlobalOtherClassBefore]
     assert fields["global_ref_after"].type_name == "GlobalOtherClassAfter"
     assert fields["global_ref_after"].raw_type == GlobalOtherClassAfter
-    assert fields["nested_global_ref_after"].type_name == "Optional[GlobalOtherClassAfter]"
     assert fields["nested_global_ref_after"].raw_type == Optional[GlobalOtherClassAfter]
 
     # Can add to diagram without error
@@ -126,11 +122,9 @@ def test_forward_refs_fn_scope_auto_resolvable():
     pprint({name: (fi.type_name, fi.raw_type) for name, fi in fields.items()})
     assert fields["imported_ref"].type_name == "Party"
     assert fields["imported_ref"].raw_type == dataclasses_examples.Party
-    assert fields["nested_imported_ref"].type_name == "Optional[Quest]"
     assert fields["nested_imported_ref"].raw_type == Optional[dataclasses_examples.Quest]
     assert fields["global_ref"].type_name == "GlobalOtherClassBefore"
     assert fields["global_ref"].raw_type == GlobalOtherClassBefore
-    assert fields["nested_global_ref"].type_name == "Optional[GlobalOtherClassBefore]"
     assert fields["nested_global_ref"].raw_type == Optional[GlobalOtherClassBefore]
 
     # Can add to diagram without error
@@ -183,15 +177,12 @@ def test_forward_refs_fn_scope_manual_resolvable():
     pprint({name: (fi.type_name, fi.raw_type) for name, fi in fields.items()})
     assert fields["self_ref"].type_name == "FnScopeManuallyResolvable"
     assert fields["self_ref"].raw_type == FnScopeManuallyResolvable
-    assert fields["nested_self_ref"].type_name == "Optional[FnScopeManuallyResolvable]"
     assert fields["nested_self_ref"].raw_type == Optional[FnScopeManuallyResolvable]
     assert fields["sibling_ref_before"].type_name == "FnScopeOtherClassBefore"
     assert fields["sibling_ref_before"].raw_type == FnScopeOtherClassBefore
-    assert fields["nested_sibling_ref_before"].type_name == "Optional[FnScopeOtherClassBefore]"
     assert fields["nested_sibling_ref_before"].raw_type == Optional[FnScopeOtherClassBefore]
     assert fields["sibling_ref_after"].type_name == "FnScopeOtherClassAfter"
     assert fields["sibling_ref_after"].raw_type == FnScopeOtherClassAfter
-    assert fields["nested_sibling_ref_after"].type_name == "Optional[FnScopeOtherClassAfter]"
     assert fields["nested_sibling_ref_after"].raw_type == Optional[FnScopeOtherClassAfter]
 
 
