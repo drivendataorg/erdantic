@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
-CORE_PLUGINS = (
+CORE_PLUGINS: tuple[tuple[str, str], ...] = (
     ("pydantic", "erdantic.plugins.pydantic"),
     ("attrs", "erdantic.plugins.attrs"),
     ("dataclasses", "erdantic.plugins.dataclasses"),
