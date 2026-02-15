@@ -3,6 +3,7 @@
 ## v1.2.1 (2026-02-15)
 
 - Added official support for Python 3.14. ([PR #164](https://github.com/drivendataorg/erdantic/pull/164))
+    - _Note_: Python 3.14's internal representation of `typing.Union` and `typing.Optional` have changed, such that they will always render using the `|` operator.
 
 ## v1.2.0 (2025-09-15)
 
