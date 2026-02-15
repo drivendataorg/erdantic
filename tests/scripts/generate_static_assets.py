@@ -27,6 +27,8 @@ def create_assets(examples: ModuleType, out_dir: Path):
         fp.write(diagram.to_dot())
     with (out_dir / f"{plugin}.json").open("w") as fp:
         fp.write(diagram.model_dump_json(indent=2))
+    with (out_dir / f"{plugin}.d2").open("w") as fp:
+        fp.write(diagram.to_d2())
 
 
 if __name__ == "__main__":
