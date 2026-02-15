@@ -34,26 +34,6 @@ test-all *args:
         just python=$python test {{args}}; \
     done
 
-# https://github.com/conda-forge/graphviz-feedstock/issues/152
-# Fix graphviz plugin registration. Needed for osx-arm64
-fix-graphviz:
-    just fix-graphviz-default
-    for python in 3.9 3.10 3.11 3.12 3.13 3.14; do \
-        just python=$python fix-graphviz-test; \
-    done
-
-[private]
-fix-graphviz-default:
-    compgen -G .pixi/envs/default/lib/graphviz/config* > /dev/null \
-            || pixi run -e default dot -c \
-            || true
-
-[private]
-fix-graphviz-test:
-    compgen -G .pixi/envs/test-py{{python_nodot}}/lib/graphviz/config* > /dev/null \
-        || pixi run -e test-py{{python_nodot}} dot -c \
-        || true
-
 # Generate static test and documentation assets
 generate-static-assets: generate-static-docs-assets generate-static-test-assets
 
@@ -64,8 +44,10 @@ generate-static-docs-assets:
 
 [private]
 generate-static-test-assets:
-    pixi run python tests/scripts/generate_static_assets.py
-    pixi run python tests/scripts/generate_pydantic_with_defaults_assets.py
+    pixi run -e test-py313 python tests/scripts/generate_static_assets.py py_lt_314
+    pixi run -e test-py313 python tests/scripts/generate_pydantic_with_defaults_assets.py py_lt_314
+    pixi run -e test-py314 python tests/scripts/generate_static_assets.py py_gte_314
+    pixi run -e test-py314 python tests/scripts/generate_pydantic_with_defaults_assets.py py_gte_314
 
 # Run example documents
 run-notebooks:

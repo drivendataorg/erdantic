@@ -121,6 +121,11 @@ test-py313 = ["py313", "test"]
 test-py314 = ["py314", "test"]
 typecheck = ["py313", "typecheck"]
 
+[tool.pixi.activation]
+scripts = [
+  "scripts/fix_graphviz.sh", # Generate Graphviz plugin config files if missing
+]
+
 ## TOOLS
 
 [tool.ruff]
