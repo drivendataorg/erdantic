@@ -26,6 +26,7 @@
 
 ## Commands
 
+- Use `pixi run` or `just` for project commands; avoid direct `python`/`python3`/`pytest`/`ruff`/`mypy` unless explicitly requested.
 - Setup/sync: `just sync`
 - Lint: `just lint`
 - Format: `just format`
