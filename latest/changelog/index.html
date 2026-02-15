@@ -324,6 +324,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#v121-2026-02-15" class="md-nav__link">
+    <span class="md-ellipsis">
+      v1.2.1 (2026-02-15)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#v120-2025-09-15" class="md-nav__link">
     <span class="md-ellipsis">
       v1.2.0 (2025-09-15)
@@ -1424,6 +1433,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#v121-2026-02-15" class="md-nav__link">
+    <span class="md-ellipsis">
+      v1.2.1 (2026-02-15)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#v120-2025-09-15" class="md-nav__link">
     <span class="md-ellipsis">
       v1.2.0 (2025-09-15)
@@ -1734,6 +1752,14 @@
 
 
 <h1 id="erdantic-changelog">erdantic Changelog<a class="headerlink" href="#erdantic-changelog" title="Permanent link">&para;</a></h1>
+<h2 id="v121-2026-02-15">v1.2.1 (2026-02-15)<a class="headerlink" href="#v121-2026-02-15" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Added official support for Python 3.14. (<a href="https://github.com/drivendataorg/erdantic/pull/164">PR #164</a>)<ul>
+<li><em>Note</em>: The <code>pydantic_v1</code> plugin is disabled when running on Python 3.14+, as Pydantic has dropped support for its V1 legacy module.</li>
+<li><em>Note</em>: Python 3.14's internal representation of <code>typing.Union</code> and <code>typing.Optional</code> have changed, such that they will always render using the <code>|</code> operator.</li>
+</ul>
+</li>
+</ul>
 <h2 id="v120-2025-09-15">v1.2.0 (2025-09-15)<a class="headerlink" href="#v120-2025-09-15" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Added support for the D2 diagramming language for class diagrams. Use <code>EntityRelationshipDiagram.to_d2()</code> to get the D2 representation programmatically, or the CLI flag <code>--d2</code> to print it to stdout. The <code>--dot</code> and <code>--d2</code> options are mutually exclusive, and <code>-o</code>/<code>--out</code> is ignored when <code>--d2</code> is used. (<a href="https://github.com/drivendataorg/erdantic/pull/152">PR #152</a> and <a href="https://github.com/drivendataorg/erdantic/pull/162">PR #162</a>, contribution thanks to <a href="https://github.com/Else00">@Else00</a>)</li>
