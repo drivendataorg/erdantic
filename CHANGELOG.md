@@ -1,8 +1,8 @@
 # erdantic Changelog
 
-## v1.2.1 (2025-10-01)
+## v1.2.1 (2026-02-15)
 
-- Added support for Python 3.14. ([PR #164](https://github.com/drivendataorg/erdantic/pull/164))
+- Added official support for Python 3.14. ([PR #164](https://github.com/drivendataorg/erdantic/pull/164))
 
 ## v1.2.0 (2025-09-15)
 
