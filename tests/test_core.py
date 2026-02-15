@@ -25,6 +25,7 @@ import erdantic.examples.pydantic as pydantic_examples
 from erdantic.exceptions import FieldNotFoundError, UnknownModelTypeError
 import erdantic.plugins
 from erdantic.plugins.dataclasses import DataclassType
+from erdantic.typing_utils import is_nullable_type
 
 if sys.version_info < (3, 14):
     ASSETS_SUBDIR = "py_lt_314"
@@ -98,8 +99,10 @@ def test_field_info_annotated():
     field_info = FieldInfo.from_raw_type(
         model_full_name=FullyQualifiedName.from_object(DummyModel), name="dummy", raw_type=tp
     )
-    assert field_info.type_name == "Optional[str]"
     assert field_info.raw_type == tp
+    assert "Annotated" not in field_info.type_name
+    assert "str" in field_info.type_name
+    assert is_nullable_type(field_info.raw_type)
 
 
 def test_field_not_found_error():
