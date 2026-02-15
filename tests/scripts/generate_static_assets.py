@@ -1,10 +1,11 @@
 from pathlib import Path
 import sys
 
+from tests.snapshot_cases import SNAPSHOT_CASES
+
 import erdantic as erd
 import erdantic._version
 import erdantic.examples
-from tests.snapshot_cases import SNAPSHOT_CASES
 
 ASSETS_DIR = Path(__file__).resolve().parents[1] / "assets"
 

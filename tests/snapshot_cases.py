@@ -1,8 +1,10 @@
-from dataclasses import dataclass, field as dc_field
+from dataclasses import dataclass
+from dataclasses import field as dc_field
 import sys
 from typing import Optional, Union
 
-from attrs import define, field as attrs_field
+from attrs import define
+from attrs import field as attrs_field
 import msgspec
 import pydantic
 
