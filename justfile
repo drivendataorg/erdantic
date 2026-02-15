@@ -29,9 +29,9 @@ test *args:
     pixi run -e test-py{{python_nodot}} python -I -m pytest {{args}}
 
 # Run all tests with Python version matrix
-test-all:
+test-all *args:
     for python in 3.9 3.10 3.11 3.12 3.13; do \
-        just python=$python test; \
+        just python=$python test {{args}}; \
     done
 
 # https://github.com/conda-forge/graphviz-feedstock/issues/152
