@@ -25,7 +25,7 @@ CORE_PLUGINS = (
 )
 
 if sys.version_info < (3, 14):
-    CORE_PLUGINS.append(("pydantic_v1", "erdantic.plugins.pydantic"))
+    CORE_PLUGINS += (("pydantic_v1", "erdantic.plugins.pydantic"),)
 
 _ModelType = TypeVar("_ModelType", bound=type)
 _ModelType_co = TypeVar("_ModelType_co", bound=type, covariant=True)
