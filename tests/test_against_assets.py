@@ -1,6 +1,7 @@
 import filecmp
 import os
 from pathlib import Path
+import sys
 
 import filetype
 import pytest
@@ -14,16 +15,22 @@ from tests.utils import assert_dot_equals
 ASSETS_DIR = Path(__file__).resolve().parent / "assets"
 
 
-CASES = (
+CASES = [
     ("attrs", erdantic.examples.attrs),
     ("dataclasses", erdantic.examples.dataclasses),
     ("pydantic", erdantic.examples.pydantic),
-    ("pydantic_v1", erdantic.examples.pydantic_v1),
     ("attrs", erdantic.examples.attrs.Party),
     ("dataclasses", erdantic.examples.dataclasses.Party),
     ("pydantic", erdantic.examples.pydantic.Party),
-    ("pydantic_v1", erdantic.examples.pydantic_v1.Party),
-)
+]
+
+if sys.version_info < (3, 14):
+    CASES.extend(
+        [
+            ("pydantic_v1", erdantic.examples.pydantic_v1),
+            ("pydantic_v1", erdantic.examples.pydantic_v1.Party),
+        ]
+    )
 
 
 @pytest.mark.parametrize("case", CASES)

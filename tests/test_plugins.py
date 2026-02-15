@@ -1,4 +1,5 @@
 import subprocess
+import sys
 import textwrap
 
 import pytest
@@ -37,12 +38,14 @@ def test_register_plugin(custom_plugin):
 
 
 def test_get_predicate_fn():
-    for key, predicate_fn in [
+    cases = [
         ("attrs", erdantic.plugins.attrs.is_attrs_class),
         ("dataclasses", erdantic.plugins.dataclasses.is_dataclass_class),
         ("pydantic", erdantic.plugins.pydantic.is_pydantic_model),
-        ("pydantic_v1", erdantic.plugins.pydantic.is_pydantic_v1_model),
-    ]:
+    ]
+    if sys.version_info < (3, 14):
+        cases.append(("pydantic_v1", erdantic.plugins.pydantic.is_pydantic_v1_model))
+    for key, predicate_fn in cases:
         assert get_predicate_fn(key) == predicate_fn
 
     with pytest.raises(PluginNotFoundError):
@@ -50,12 +53,16 @@ def test_get_predicate_fn():
 
 
 def test_get_field_extractor_fn():
-    for key, get_fields_fn in [
+    cases = [
         ("attrs", erdantic.plugins.attrs.get_fields_from_attrs_class),
         ("dataclasses", erdantic.plugins.dataclasses.get_fields_from_dataclass),
         ("pydantic", erdantic.plugins.pydantic.get_fields_from_pydantic_model),
-        ("pydantic_v1", erdantic.plugins.pydantic.get_fields_from_pydantic_v1_model),
-    ]:
+    ]
+
+    if sys.version_info < (3, 14):
+        cases.append(("pydantic_v1", erdantic.plugins.pydantic.get_fields_from_pydantic_v1_model))
+
+    for key, get_fields_fn in cases:
         assert get_field_extractor_fn(key) == get_fields_fn
 
     with pytest.raises(PluginNotFoundError):
@@ -63,15 +70,20 @@ def test_get_field_extractor_fn():
 
 
 def test_identify_field_extractor_fn():
-    for example_module, get_fields_fn in [
+    cases = [
         (erdantic.examples.attrs, erdantic.plugins.attrs.get_fields_from_attrs_class),
         (erdantic.examples.dataclasses, erdantic.plugins.dataclasses.get_fields_from_dataclass),
         (erdantic.examples.pydantic, erdantic.plugins.pydantic.get_fields_from_pydantic_model),
-        (
-            erdantic.examples.pydantic_v1,
-            erdantic.plugins.pydantic.get_fields_from_pydantic_v1_model,
-        ),
-    ]:
+    ]
+    if sys.version_info < (3, 14):
+        cases.append(
+            (
+                erdantic.examples.pydantic_v1,
+                erdantic.plugins.pydantic.get_fields_from_pydantic_v1_model,
+            )
+        )
+
+    for example_module, get_fields_fn in cases:
         assert identify_field_extractor_fn(example_module.Party) == get_fields_fn
 
     class NotAModel: ...
@@ -81,7 +93,10 @@ def test_identify_field_extractor_fn():
 
 def test_core_plugins():
     """Core plugins are loaded when erdantic is imported."""
-    for key in ("attrs", "dataclasses", "msgspec", "pydantic", "pydantic_v1"):
+    expected_keys = ["attrs", "dataclasses", "pydantic", "msgspec"]
+    if sys.version_info < (3, 14):
+        expected_keys.append("pydantic_v1")
+    for key in expected_keys:
         script = textwrap.dedent(
             f"""\
             from erdantic.plugins import list_plugins

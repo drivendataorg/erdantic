@@ -1,13 +1,17 @@
 from pprint import pprint
+import sys
 from typing import Optional
 
 import pydantic
-import pydantic.v1
 import pytest
+
+if sys.version_info < (3, 14):
+    import pydantic.v1
+
+    import erdantic.examples.pydantic_v1 as pydantic_v1_examples
 
 from erdantic.core import EntityRelationshipDiagram, FullyQualifiedName
 import erdantic.examples.pydantic as pydantic_examples
-import erdantic.examples.pydantic_v1 as pydantic_v1_examples
 from erdantic.exceptions import UnresolvableForwardRefError
 from erdantic.plugins.pydantic import (
     get_fields_from_pydantic_model,
@@ -27,7 +31,8 @@ def test_is_pydantic_model():
     assert not is_pydantic_model("Hello")
     assert not is_pydantic_model(str)
     assert not is_pydantic_model(NotAPydanticModel)
-    assert not is_pydantic_model(pydantic_v1_examples.Party)
+    if sys.version_info < (3, 14):
+        assert not is_pydantic_model(pydantic_v1_examples.Party)
 
 
 def test_get_fields_from_pydantic_model():

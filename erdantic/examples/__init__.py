@@ -1,9 +1,15 @@
 """Example data model classes."""
 
-from erdantic.examples import dataclasses, pydantic, pydantic_v1
+import sys
+
+from erdantic.examples import dataclasses, msgspec, pydantic
+
+if sys.version_info < (3, 14):
+    from erdantic.examples import pydantic_v1
 
 __all__ = [
     "dataclasses",
+    "msgspec",
     "pydantic",
     "pydantic_v1",
 ]

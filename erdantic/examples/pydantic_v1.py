@@ -3,9 +3,13 @@
 
 from datetime import datetime
 from enum import Enum
+import sys
 from typing import Optional
 
 from pydantic.v1 import BaseModel
+
+if sys.version_info >= (3, 14):
+    raise ImportError("Pydantic V1 does not support Python 3.14+")
 
 
 class Alignment(str, Enum):

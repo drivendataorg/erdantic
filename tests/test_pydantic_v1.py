@@ -1,4 +1,5 @@
 from pprint import pprint
+import sys
 from typing import Optional
 
 import pydantic
@@ -7,12 +8,16 @@ import pytest
 
 from erdantic.core import EntityRelationshipDiagram, FullyQualifiedName
 import erdantic.examples.pydantic as pydantic_examples
-import erdantic.examples.pydantic_v1 as pydantic_v1_examples
 from erdantic.exceptions import UnresolvableForwardRefError
-from erdantic.plugins.pydantic import (
-    get_fields_from_pydantic_v1_model,
-    is_pydantic_v1_model,
-)
+
+if sys.version_info < (3, 14):
+    from erdantic.examples import pydantic_v1 as pydantic_v1_examples
+    from erdantic.plugins.pydantic import (
+        get_fields_from_pydantic_v1_model,
+        is_pydantic_v1_model,
+    )
+else:
+    pytest.skip("Pydantic v1 is not supported on Python 3.14 and above", allow_module_level=True)
 
 
 def test_is_pydantic_v1_model():
