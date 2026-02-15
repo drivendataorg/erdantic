@@ -68,9 +68,8 @@ def test_get_recursive_args():
         get_recursive_args(Model.__annotations__["field"])
 
     # Resolve forward reference
-    typing.get_type_hints(Model, localns=locals())
-
-    assert get_recursive_args(Model.__annotations__["field"]) == [SomeForwardRef]
+    resolved_annotations = typing.get_type_hints(Model, localns=locals())
+    assert get_recursive_args(resolved_annotations["field"]) == [SomeForwardRef]
 
 
 def test_get_depth1_bases():
