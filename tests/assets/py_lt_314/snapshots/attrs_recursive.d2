@@ -1,0 +1,13 @@
+"AttrsRecursive": {
+  shape: class
+  +parent: "Optional[AttrsRecursive]"
+  +children: "list[AttrsRecursive]"
+}
+
+"AttrsRecursive" -> "AttrsRecursive": "children" {
+  target-arrowhead.shape: cf-many
+}
+
+"AttrsRecursive" -> "AttrsRecursive": "parent" {
+  target-arrowhead.shape: cf-one
+}

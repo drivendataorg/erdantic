@@ -1,0 +1,22 @@
+digraph "Entity Relationship Diagram created by erdantic" {
+	graph [fontcolor=gray66,
+		fontname="Times New Roman,Times,Liberation Serif,serif",
+		fontsize=9,
+		label="Created by erdantic vTEST <https://github.com/drivendataorg/erdantic>",
+		nodesep=0.5,
+		rankdir=LR,
+		ranksep=1.5
+	];
+	node [fontname="Times New Roman,Times,Liberation Serif,serif",
+		fontsize=14,
+		label="\N",
+		shape=plain
+	];
+	edge [dir=both];
+	"tests.snapshot_cases.AttrsRecursive"	[label=<<table border="0" cellborder="1" cellspacing="0"><tr><td port="_root" colspan="2"><b>AttrsRecursive</b></td></tr><tr><td>parent</td><td port="parent">AttrsRecursive | None</td></tr><tr><td>children</td><td port="children">list[AttrsRecursive]</td></tr></table>>,
+		tooltip="tests.snapshot_cases.AttrsRecursive"];
+	"tests.snapshot_cases.AttrsRecursive":children:e -> "tests.snapshot_cases.AttrsRecursive":_root:w	[arrowhead=crownone,
+		arrowtail=nonenone];
+	"tests.snapshot_cases.AttrsRecursive":parent:e -> "tests.snapshot_cases.AttrsRecursive":_root:w	[arrowhead=noneteeodot,
+		arrowtail=nonenone];
+}

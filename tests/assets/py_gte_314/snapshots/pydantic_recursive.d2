@@ -1,0 +1,13 @@
+"PydanticRecursive": {
+  shape: class
+  +parent: "PydanticRecursive | None"
+  +children: "list[PydanticRecursive]"
+}
+
+"PydanticRecursive" -> "PydanticRecursive": "children" {
+  target-arrowhead.shape: cf-many
+}
+
+"PydanticRecursive" -> "PydanticRecursive": "parent" {
+  target-arrowhead.shape: cf-one
+}

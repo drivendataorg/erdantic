@@ -1,0 +1,23 @@
+"PydanticRelatedNode": {
+  shape: class
+  +name: str
+}
+
+"PydanticRelationSemantics": {
+  shape: class
+  +required_node: PydanticRelatedNode
+  +optional_node: "PydanticRelatedNode | None"
+  +related_nodes: "list[PydanticRelatedNode]"
+}
+
+"PydanticRelationSemantics" -> "PydanticRelatedNode": "optional_node" {
+  target-arrowhead.shape: cf-one
+}
+
+"PydanticRelationSemantics" -> "PydanticRelatedNode": "related_nodes" {
+  target-arrowhead.shape: cf-many
+}
+
+"PydanticRelationSemantics" -> "PydanticRelatedNode": "required_node" {
+  target-arrowhead.shape: cf-one-required
+}

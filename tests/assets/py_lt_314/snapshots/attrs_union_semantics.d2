@@ -1,0 +1,31 @@
+"AttrsAltNode": {
+  shape: class
+  +name: str
+}
+
+"AttrsRelatedNode": {
+  shape: class
+  +name: str
+}
+
+"AttrsUnionSemantics": {
+  shape: class
+  +union_node: "Union[AttrsRelatedNode, AttrsAltNode]"
+  +optional_union_node: "Optional[Union[AttrsRelatedNode, AttrsAltNode]]"
+}
+
+"AttrsUnionSemantics" -> "AttrsAltNode": "optional_union_node" {
+  target-arrowhead.shape: cf-one
+}
+
+"AttrsUnionSemantics" -> "AttrsRelatedNode": "optional_union_node" {
+  target-arrowhead.shape: cf-one
+}
+
+"AttrsUnionSemantics" -> "AttrsAltNode": "union_node" {
+  target-arrowhead.shape: cf-one-required
+}
+
+"AttrsUnionSemantics" -> "AttrsRelatedNode": "union_node" {
+  target-arrowhead.shape: cf-one-required
+}

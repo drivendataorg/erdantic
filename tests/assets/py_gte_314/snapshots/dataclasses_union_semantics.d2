@@ -1,0 +1,31 @@
+"DataclassAltNode": {
+  shape: class
+  +name: str
+}
+
+"DataclassRelatedNode": {
+  shape: class
+  +name: str
+}
+
+"DataclassUnionSemantics": {
+  shape: class
+  +union_node: "DataclassRelatedNode | DataclassAltNode"
+  +optional_union_node: "DataclassRelatedNode | DataclassAltNode | None"
+}
+
+"DataclassUnionSemantics" -> "DataclassAltNode": "optional_union_node" {
+  target-arrowhead.shape: cf-one
+}
+
+"DataclassUnionSemantics" -> "DataclassRelatedNode": "optional_union_node" {
+  target-arrowhead.shape: cf-one
+}
+
+"DataclassUnionSemantics" -> "DataclassAltNode": "union_node" {
+  target-arrowhead.shape: cf-one-required
+}
+
+"DataclassUnionSemantics" -> "DataclassRelatedNode": "union_node" {
+  target-arrowhead.shape: cf-one-required
+}

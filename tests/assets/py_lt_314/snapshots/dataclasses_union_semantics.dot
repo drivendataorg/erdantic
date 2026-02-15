@@ -1,0 +1,32 @@
+digraph "Entity Relationship Diagram created by erdantic" {
+	graph [fontcolor=gray66,
+		fontname="Times New Roman,Times,Liberation Serif,serif",
+		fontsize=9,
+		label="Created by erdantic vTEST <https://github.com/drivendataorg/erdantic>",
+		nodesep=0.5,
+		rankdir=LR,
+		ranksep=1.5
+	];
+	node [fontname="Times New Roman,Times,Liberation Serif,serif",
+		fontsize=14,
+		label="\N",
+		shape=plain
+	];
+	edge [dir=both];
+	"tests.snapshot_cases.DataclassAltNode"	[label=<<table border="0" cellborder="1" cellspacing="0"><tr><td port="_root" colspan="2"><b>DataclassAltNode</b></td></tr><tr><td>name</td><td port="name">str</td></tr></table>>,
+		tooltip="tests.snapshot_cases.DataclassAltNode&#xA;&#xA;DataclassAltNode(name: str)&#xA;"];
+	"tests.snapshot_cases.DataclassRelatedNode"	[label=<<table border="0" cellborder="1" cellspacing="0"><tr><td port="_root" colspan="2"><b>DataclassRelatedNode</b></td></tr><tr><td>name</td><td port="name">str</td></tr></table>>,
+		tooltip="tests.snapshot_cases.DataclassRelatedNode&#xA;&#xA;DataclassRelatedNode(name: str)&#xA;"];
+	"tests.snapshot_cases.DataclassUnionSemantics"	[label=<<table border="0" cellborder="1" cellspacing="0"><tr><td port="_root" colspan="2"><b>DataclassUnionSemantics</b></td></tr><tr><td>union_node</td><td port="union_node">Union[DataclassRelatedNode, DataclassAltNode]</td></tr><tr><td>optional_union_node</td><td port="optional_union_node">Optional[Union[DataclassRelatedNode, DataclassAltNode]]</td></tr></table>>,
+		tooltip="tests.snapshot_cases.DataclassUnionSemantics&#xA;&#xA;DataclassUnionSemantics(union_node: Union[tests.snapshot_cases.DataclassRelatedNode, \
+tests.snapshot_cases.DataclassAltNode], optional_union_node: Union[tests.snapshot_cases.DataclassRelatedNode, tests.snapshot_cases.DataclassAltNode, \
+NoneType] = None)&#xA;"];
+	"tests.snapshot_cases.DataclassUnionSemantics":optional_union_node:e -> "tests.snapshot_cases.DataclassAltNode":_root:w	[arrowhead=noneteeodot,
+		arrowtail=nonenone];
+	"tests.snapshot_cases.DataclassUnionSemantics":union_node:e -> "tests.snapshot_cases.DataclassAltNode":_root:w	[arrowhead=noneteetee,
+		arrowtail=nonenone];
+	"tests.snapshot_cases.DataclassUnionSemantics":optional_union_node:e -> "tests.snapshot_cases.DataclassRelatedNode":_root:w	[arrowhead=noneteeodot,
+		arrowtail=nonenone];
+	"tests.snapshot_cases.DataclassUnionSemantics":union_node:e -> "tests.snapshot_cases.DataclassRelatedNode":_root:w	[arrowhead=noneteetee,
+		arrowtail=nonenone];
+}

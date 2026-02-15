@@ -1,0 +1,13 @@
+"MsgspecRecursive": {
+  shape: class
+  +parent: "MsgspecRecursive | None"
+  +children: "list[MsgspecRecursive]"
+}
+
+"MsgspecRecursive" -> "MsgspecRecursive": "children" {
+  target-arrowhead.shape: cf-many
+}
+
+"MsgspecRecursive" -> "MsgspecRecursive": "parent" {
+  target-arrowhead.shape: cf-one
+}

@@ -1,0 +1,23 @@
+"DataclassRelatedNode": {
+  shape: class
+  +name: str
+}
+
+"DataclassRelationSemantics": {
+  shape: class
+  +required_node: DataclassRelatedNode
+  +optional_node: "Optional[DataclassRelatedNode]"
+  +related_nodes: "list[DataclassRelatedNode]"
+}
+
+"DataclassRelationSemantics" -> "DataclassRelatedNode": "optional_node" {
+  target-arrowhead.shape: cf-one
+}
+
+"DataclassRelationSemantics" -> "DataclassRelatedNode": "related_nodes" {
+  target-arrowhead.shape: cf-many
+}
+
+"DataclassRelationSemantics" -> "DataclassRelatedNode": "required_node" {
+  target-arrowhead.shape: cf-one-required
+}

@@ -1,0 +1,39 @@
+digraph "Entity Relationship Diagram created by erdantic" {
+	graph [fontcolor=gray66,
+		fontname="Times New Roman,Times,Liberation Serif,serif",
+		fontsize=9,
+		label="Created by erdantic vTEST <https://github.com/drivendataorg/erdantic>",
+		nodesep=0.5,
+		rankdir=LR,
+		ranksep=1.5
+	];
+	node [fontname="Times New Roman,Times,Liberation Serif,serif",
+		fontsize=14,
+		label="\N",
+		shape=plain
+	];
+	edge [dir=both];
+	"tests.snapshot_cases.PydanticRecursive"	[label=<<table border="0" cellborder="1" cellspacing="0"><tr><td port="_root" colspan="2"><b>PydanticRecursive</b></td></tr><tr><td>parent</td><td port="parent">Optional[PydanticRecursive]</td></tr><tr><td>children</td><td port="children">list[PydanticRecursive]</td></tr></table>>,
+		tooltip="tests.snapshot_cases.PydanticRecursive&#xA;&#xA;!!! abstract \"Usage Documentation\"&#xA;    [Models](../concepts/models.md)&#xA;&#\
+xA;A base class for creating Pydantic models.&#xA;&#xA;Attributes:&#xA;    __class_vars__: The names of the class variables defined \
+on the model.&#xA;    __private_attributes__: Metadata about the private attributes of the model.&#xA;    __signature__: The synthesized `__\
+init__` [`Signature`][inspect.Signature] of the model.&#xA;&#xA;    __pydantic_complete__: Whether model building is completed, \
+or if there are still undefined fields.&#xA;    __pydantic_core_schema__: The core schema of the model.&#xA;    __pydantic_custom_\
+init__: Whether the model has a custom `__init__` function.&#xA;    __pydantic_decorators__: Metadata containing the decorators \
+defined on the model.&#xA;        This replaces `Model.__validators__` and `Model.__root_validators__` from Pydantic V1.&#xA;    __\
+pydantic_generic_metadata__: Metadata for generic models; contains data used for a similar purpose to&#xA;        __args__, __origin__, __\
+parameters__ in typing-module generics. May eventually be replaced by these.&#xA;    __pydantic_parent_namespace__: Parent namespace \
+of the model, used for automatic rebuilding of models.&#xA;    __pydantic_post_init__: The name of the post-init method for the \
+model, if defined.&#xA;    __pydantic_root_model__: Whether the model is a [`RootModel`][pydantic.root_model.RootModel].&#xA;    __\
+pydantic_serializer__: The `pydantic-core` `SchemaSerializer` used to dump instances of the model.&#xA;    __pydantic_validator__: \
+The `pydantic-core` `SchemaValidator` used to validate instances of the model.&#xA;&#xA;    __pydantic_fields__: A dictionary of \
+field names and their corresponding [`FieldInfo`][pydantic.fields.FieldInfo] objects.&#xA;    __pydantic_computed_fields__: A dictionary \
+of computed field names and their corresponding [`ComputedFieldInfo`][pydantic.fields.ComputedFieldInfo] objects.&#xA;&#xA;    __\
+pydantic_extra__: A dictionary containing extra values, if [`extra`][pydantic.config.ConfigDict.extra]&#xA;        is set to `'allow'`\
+.&#xA;    __pydantic_fields_set__: The names of fields explicitly set during instantiation.&#xA;    __pydantic_private__: Values \
+of private attributes set on the model instance.&#xA;"];
+	"tests.snapshot_cases.PydanticRecursive":children:e -> "tests.snapshot_cases.PydanticRecursive":_root:w	[arrowhead=crownone,
+		arrowtail=nonenone];
+	"tests.snapshot_cases.PydanticRecursive":parent:e -> "tests.snapshot_cases.PydanticRecursive":_root:w	[arrowhead=noneteeodot,
+		arrowtail=nonenone];
+}

@@ -1,0 +1,114 @@
+digraph "Entity Relationship Diagram created by erdantic" {
+	graph [fontcolor=gray66,
+		fontname="Times New Roman,Times,Liberation Serif,serif",
+		fontsize=9,
+		label="Created by erdantic vTEST <https://github.com/drivendataorg/erdantic>",
+		nodesep=0.5,
+		rankdir=LR,
+		ranksep=1.5
+	];
+	node [fontname="Times New Roman,Times,Liberation Serif,serif",
+		fontsize=14,
+		label="\N",
+		shape=plain
+	];
+	edge [dir=both];
+	"tests.snapshot_cases.MsgspecNestedTypes"	[label=<<table border="0" cellborder="1" cellspacing="0"><tr><td port="_root" colspan="2"><b>MsgspecNestedTypes</b></td></tr><tr><td>node_map</td><td port="node_map">dict[str, Optional[MsgspecRelatedNode]]</td></tr><tr><td>node_groups</td><td port="node_groups">list[list[MsgspecRelatedNode]]</td></tr></table>>,
+		tooltip="tests.snapshot_cases.MsgspecNestedTypes&#xA;&#xA;A base class for defining efficient serializable objects.&#xA;&#xA;Fields are defined \
+using type annotations. Fields may optionally have&#xA;default values, which result in keyword parameters to the constructor.&#xA;&#\
+xA;Structs automatically define ``__init__``, ``__eq__``, ``__repr__``, and&#xA;``__copy__`` methods. Additional methods can be \
+defined on the class as&#xA;needed. Note that ``__init__``/``__new__`` cannot be overridden, but other&#xA;methods can. A tuple \
+of the field names is available on the class via the&#xA;``__struct_fields__`` attribute if needed.&#xA;&#xA;Additional class options \
+can be enabled by passing keywords to the class&#xA;definition (see example below). These configuration options may also be&#xA;\
+inspected at runtime through the ``__struct_config__`` attribute.&#xA;&#xA;Configuration&#xA;-------------&#xA;frozen: bool, default \
+False&#xA;   Whether instances of this type are pseudo-immutable. If true, attribute&#xA;   assignment is disabled and a corresponding ``__\
+hash__`` is defined.&#xA;order: bool, default False&#xA;   If True, ``__lt__``, `__le__``, ``__gt__``, and ``__ge__`` methods&#xA;   \
+will be generated for this type.&#xA;eq: bool, default True&#xA;   If True (the default), an ``__eq__`` method will be generated \
+for this&#xA;   type. Set to False to compare based on instance identity alone.&#xA;kw_only: bool, default False&#xA;   If True, \
+all fields will be treated as keyword-only arguments in the&#xA;   generated ``__init__`` method. Default is False.&#xA;omit_defaults: \
+bool, default False&#xA;   Whether fields should be omitted from encoding if the corresponding value&#xA;   is the default for that \
+field. Enabling this may reduce message size, and&#xA;   often also improve encoding & decoding performance.&#xA;forbid_unknown_\
+fields: bool, default False&#xA;   If True, an error is raised if an unknown field is encountered while&#xA;   decoding structs \
+of this type. If False (the default), no error is raised&#xA;   and the unknown field is skipped.&#xA;tag: str, int, bool, callable, \
+or None, default None&#xA;   Used along with ``tag_field`` for configuring tagged union support. If&#xA;   either are non-None, \
+then the struct is considered \"tagged\". In this case,&#xA;   an extra field (the ``tag_field``) and value (the ``tag``) are added \
+to the&#xA;   encoded message, which can be used to differentiate message types during&#xA;   decoding.&#xA;&#xA;   Set ``tag=True`` \
+to enable the default tagged configuration (``tag_field``&#xA;   is ``\"type\"``, ``tag`` is the class name). Alternatively, you can \
+provide&#xA;   a string (or less commonly int) value directly to be used as the tag&#xA;   (e.g. ``tag=\"my-tag-value\"``).``tag`` \
+can also be passed a callable that&#xA;   takes the class qualname and returns a valid tag value (e.g.&#xA;   ``tag=str.lower``)\
+. See the docs for more information.&#xA;tag_field: str or None, default None&#xA;   The field name to use for tagged union support. \
+If ``tag`` is non-None,&#xA;   then this defaults to ``\"type\"``. See the ``tag`` docs above for more&#xA;   information.&#xA;rename: \
+str, mapping, callable, or None, default None&#xA;   Controls renaming the field names used when encoding/decoding the struct.&#\
+xA;   May be one of ``\"lower\"``, ``\"upper\"``, ``\"camel\"``, ``\"pascal\"``, or&#xA;   ``\"kebab\"`` to rename in lowercase, UPPERCASE, \
+camelCase, PascalCase,&#xA;   or kebab-case respectively. May also be a mapping from field names to the&#xA;   renamed names (missing \
+fields are not renamed). Alternatively, may be a&#xA;   callable that takes the field name and returns a new name or ``None`` to&#\
+xA;   not rename that field. Default is ``None`` for no field renaming.&#xA;repr_omit_defaults: bool, default False&#xA;   Whether \
+fields should be omitted from the generated repr if the&#xA;   corresponding value is the default for that field.&#xA;array_like: \
+bool, default False&#xA;   If True, this struct type will be treated as an array-like type during&#xA;   encoding/decoding, rather \
+than a dict-like type (the default). This may&#xA;   improve performance, at the cost of a more inscrutable message encoding.&#xA;\
+gc: bool, default True&#xA;   Whether garbage collection is enabled for this type. Disabling this *may*&#xA;   help reduce GC pressure, \
+but will prevent reference cycles composed of only&#xA;   ``gc=False`` from being collected. It is the user's responsibility to \
+ensure&#xA;   that reference cycles don't occur when setting ``gc=False``.&#xA;weakref: bool, default False&#xA;   Whether instances \
+of this type support weak references. Defaults to False.&#xA;dict: bool, default False&#xA;   Whether instances of this type will \
+include a ``__dict__``. Setting this to&#xA;   True will allow adding additional undeclared attributes to a struct instance,&#xA;   \
+which may be useful for holding private runtime state. Defaults to False.&#xA;cache_hash: bool, default False&#xA;   If enabled, \
+the hash of a frozen struct instance will be computed at most&#xA;   once, and then cached on the instance for further reuse. For \
+expensive&#xA;   hash values this can improve performance at the cost of a small amount of&#xA;   memory usage.&#xA;&#xA;Examples&#\
+xA;--------&#xA;Here we define a new `Struct` type for describing a dog. It has three fields;&#xA;two required and one optional.&#\
+xA;&#xA;>>> class Dog(Struct):&#xA;...     name: str&#xA;...     breed: str&#xA;...     is_good_boy: bool = True&#xA;...&#xA;>>> \
+Dog('snickers', breed='corgi')&#xA;Dog(name='snickers', breed='corgi', is_good_boy=True)&#xA;&#xA;Additional struct options can \
+be set as part of the class definition. Here&#xA;we define a new `Struct` type for a frozen `Point` object.&#xA;&#xA;>>> class Point(\
+Struct, frozen=True):&#xA;...     x: float&#xA;...     y: float&#xA;...&#xA;>>> {Point(1.5, 2.0): 1}  # frozen structs are hashable&#\
+xA;{Point(x=1.5, y=2.0): 1}&#xA;"];
+	"tests.snapshot_cases.MsgspecRelatedNode"	[label=<<table border="0" cellborder="1" cellspacing="0"><tr><td port="_root" colspan="2"><b>MsgspecRelatedNode</b></td></tr><tr><td>name</td><td port="name">str</td></tr></table>>,
+		tooltip="tests.snapshot_cases.MsgspecRelatedNode&#xA;&#xA;A base class for defining efficient serializable objects.&#xA;&#xA;Fields are defined \
+using type annotations. Fields may optionally have&#xA;default values, which result in keyword parameters to the constructor.&#xA;&#\
+xA;Structs automatically define ``__init__``, ``__eq__``, ``__repr__``, and&#xA;``__copy__`` methods. Additional methods can be \
+defined on the class as&#xA;needed. Note that ``__init__``/``__new__`` cannot be overridden, but other&#xA;methods can. A tuple \
+of the field names is available on the class via the&#xA;``__struct_fields__`` attribute if needed.&#xA;&#xA;Additional class options \
+can be enabled by passing keywords to the class&#xA;definition (see example below). These configuration options may also be&#xA;\
+inspected at runtime through the ``__struct_config__`` attribute.&#xA;&#xA;Configuration&#xA;-------------&#xA;frozen: bool, default \
+False&#xA;   Whether instances of this type are pseudo-immutable. If true, attribute&#xA;   assignment is disabled and a corresponding ``__\
+hash__`` is defined.&#xA;order: bool, default False&#xA;   If True, ``__lt__``, `__le__``, ``__gt__``, and ``__ge__`` methods&#xA;   \
+will be generated for this type.&#xA;eq: bool, default True&#xA;   If True (the default), an ``__eq__`` method will be generated \
+for this&#xA;   type. Set to False to compare based on instance identity alone.&#xA;kw_only: bool, default False&#xA;   If True, \
+all fields will be treated as keyword-only arguments in the&#xA;   generated ``__init__`` method. Default is False.&#xA;omit_defaults: \
+bool, default False&#xA;   Whether fields should be omitted from encoding if the corresponding value&#xA;   is the default for that \
+field. Enabling this may reduce message size, and&#xA;   often also improve encoding & decoding performance.&#xA;forbid_unknown_\
+fields: bool, default False&#xA;   If True, an error is raised if an unknown field is encountered while&#xA;   decoding structs \
+of this type. If False (the default), no error is raised&#xA;   and the unknown field is skipped.&#xA;tag: str, int, bool, callable, \
+or None, default None&#xA;   Used along with ``tag_field`` for configuring tagged union support. If&#xA;   either are non-None, \
+then the struct is considered \"tagged\". In this case,&#xA;   an extra field (the ``tag_field``) and value (the ``tag``) are added \
+to the&#xA;   encoded message, which can be used to differentiate message types during&#xA;   decoding.&#xA;&#xA;   Set ``tag=True`` \
+to enable the default tagged configuration (``tag_field``&#xA;   is ``\"type\"``, ``tag`` is the class name). Alternatively, you can \
+provide&#xA;   a string (or less commonly int) value directly to be used as the tag&#xA;   (e.g. ``tag=\"my-tag-value\"``).``tag`` \
+can also be passed a callable that&#xA;   takes the class qualname and returns a valid tag value (e.g.&#xA;   ``tag=str.lower``)\
+. See the docs for more information.&#xA;tag_field: str or None, default None&#xA;   The field name to use for tagged union support. \
+If ``tag`` is non-None,&#xA;   then this defaults to ``\"type\"``. See the ``tag`` docs above for more&#xA;   information.&#xA;rename: \
+str, mapping, callable, or None, default None&#xA;   Controls renaming the field names used when encoding/decoding the struct.&#\
+xA;   May be one of ``\"lower\"``, ``\"upper\"``, ``\"camel\"``, ``\"pascal\"``, or&#xA;   ``\"kebab\"`` to rename in lowercase, UPPERCASE, \
+camelCase, PascalCase,&#xA;   or kebab-case respectively. May also be a mapping from field names to the&#xA;   renamed names (missing \
+fields are not renamed). Alternatively, may be a&#xA;   callable that takes the field name and returns a new name or ``None`` to&#\
+xA;   not rename that field. Default is ``None`` for no field renaming.&#xA;repr_omit_defaults: bool, default False&#xA;   Whether \
+fields should be omitted from the generated repr if the&#xA;   corresponding value is the default for that field.&#xA;array_like: \
+bool, default False&#xA;   If True, this struct type will be treated as an array-like type during&#xA;   encoding/decoding, rather \
+than a dict-like type (the default). This may&#xA;   improve performance, at the cost of a more inscrutable message encoding.&#xA;\
+gc: bool, default True&#xA;   Whether garbage collection is enabled for this type. Disabling this *may*&#xA;   help reduce GC pressure, \
+but will prevent reference cycles composed of only&#xA;   ``gc=False`` from being collected. It is the user's responsibility to \
+ensure&#xA;   that reference cycles don't occur when setting ``gc=False``.&#xA;weakref: bool, default False&#xA;   Whether instances \
+of this type support weak references. Defaults to False.&#xA;dict: bool, default False&#xA;   Whether instances of this type will \
+include a ``__dict__``. Setting this to&#xA;   True will allow adding additional undeclared attributes to a struct instance,&#xA;   \
+which may be useful for holding private runtime state. Defaults to False.&#xA;cache_hash: bool, default False&#xA;   If enabled, \
+the hash of a frozen struct instance will be computed at most&#xA;   once, and then cached on the instance for further reuse. For \
+expensive&#xA;   hash values this can improve performance at the cost of a small amount of&#xA;   memory usage.&#xA;&#xA;Examples&#\
+xA;--------&#xA;Here we define a new `Struct` type for describing a dog. It has three fields;&#xA;two required and one optional.&#\
+xA;&#xA;>>> class Dog(Struct):&#xA;...     name: str&#xA;...     breed: str&#xA;...     is_good_boy: bool = True&#xA;...&#xA;>>> \
+Dog('snickers', breed='corgi')&#xA;Dog(name='snickers', breed='corgi', is_good_boy=True)&#xA;&#xA;Additional struct options can \
+be set as part of the class definition. Here&#xA;we define a new `Struct` type for a frozen `Point` object.&#xA;&#xA;>>> class Point(\
+Struct, frozen=True):&#xA;...     x: float&#xA;...     y: float&#xA;...&#xA;>>> {Point(1.5, 2.0): 1}  # frozen structs are hashable&#\
+xA;{Point(x=1.5, y=2.0): 1}&#xA;"];
+	"tests.snapshot_cases.MsgspecNestedTypes":node_groups:e -> "tests.snapshot_cases.MsgspecRelatedNode":_root:w	[arrowhead=crownone,
+		arrowtail=nonenone];
+	"tests.snapshot_cases.MsgspecNestedTypes":node_map:e -> "tests.snapshot_cases.MsgspecRelatedNode":_root:w	[arrowhead=crownone,
+		arrowtail=nonenone];
+}

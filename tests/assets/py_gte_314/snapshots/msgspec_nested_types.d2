@@ -1,0 +1,18 @@
+"MsgspecNestedTypes": {
+  shape: class
+  +node_map: "dict[str, MsgspecRelatedNode | None]"
+  +node_groups: "list[list[MsgspecRelatedNode]]"
+}
+
+"MsgspecRelatedNode": {
+  shape: class
+  +name: str
+}
+
+"MsgspecNestedTypes" -> "MsgspecRelatedNode": "node_groups" {
+  target-arrowhead.shape: cf-many
+}
+
+"MsgspecNestedTypes" -> "MsgspecRelatedNode": "node_map" {
+  target-arrowhead.shape: cf-many
+}

@@ -1,0 +1,28 @@
+digraph "Entity Relationship Diagram created by erdantic" {
+	graph [fontcolor=gray66,
+		fontname="Times New Roman,Times,Liberation Serif,serif",
+		fontsize=9,
+		label="Created by erdantic vTEST <https://github.com/drivendataorg/erdantic>",
+		nodesep=0.5,
+		rankdir=LR,
+		ranksep=1.5
+	];
+	node [fontname="Times New Roman,Times,Liberation Serif,serif",
+		fontsize=14,
+		label="\N",
+		shape=plain
+	];
+	edge [dir=both];
+	"tests.snapshot_cases.DataclassRelatedNode"	[label=<<table border="0" cellborder="1" cellspacing="0"><tr><td port="_root" colspan="2"><b>DataclassRelatedNode</b></td></tr><tr><td>name</td><td port="name">str</td></tr></table>>,
+		tooltip="tests.snapshot_cases.DataclassRelatedNode&#xA;&#xA;DataclassRelatedNode(name: str)&#xA;"];
+	"tests.snapshot_cases.DataclassRelationSemantics"	[label=<<table border="0" cellborder="1" cellspacing="0"><tr><td port="_root" colspan="2"><b>DataclassRelationSemantics</b></td></tr><tr><td>required_node</td><td port="required_node">DataclassRelatedNode</td></tr><tr><td>optional_node</td><td port="optional_node">Optional[DataclassRelatedNode]</td></tr><tr><td>related_nodes</td><td port="related_nodes">list[DataclassRelatedNode]</td></tr></table>>,
+		tooltip="tests.snapshot_cases.DataclassRelationSemantics&#xA;&#xA;DataclassRelationSemantics(required_node: tests.snapshot_cases.DataclassRelatedNode, \
+optional_node: Optional[tests.snapshot_cases.DataclassRelatedNode] = None, related_nodes: list[tests.snapshot_cases.DataclassRelatedNode] = <\
+factory>)&#xA;"];
+	"tests.snapshot_cases.DataclassRelationSemantics":optional_node:e -> "tests.snapshot_cases.DataclassRelatedNode":_root:w	[arrowhead=noneteeodot,
+		arrowtail=nonenone];
+	"tests.snapshot_cases.DataclassRelationSemantics":related_nodes:e -> "tests.snapshot_cases.DataclassRelatedNode":_root:w	[arrowhead=crownone,
+		arrowtail=nonenone];
+	"tests.snapshot_cases.DataclassRelationSemantics":required_node:e -> "tests.snapshot_cases.DataclassRelatedNode":_root:w	[arrowhead=noneteetee,
+		arrowtail=nonenone];
+}
