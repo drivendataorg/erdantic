@@ -57,6 +57,12 @@ To run tests on all supported Python versions, run:
 just test-all
 ```
 
+All test commands can be passed arguments, e.g.,
+
+```bash
+just test-all tests/test_against_assets.py
+```
+
 ### Code quality
 
 We use [ruff](https://docs.astral.sh/ruff/) for linting and formatting, and we use [mypy](https://github.com/python/mypy) for static type checking. You can run them with the following commands:
