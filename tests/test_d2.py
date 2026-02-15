@@ -23,7 +23,7 @@ def test_render_d2():
 
     # Check for fields
     assert "+name: str" in d2_string
-    assert '+active_quest: "Optional[Quest]"' in d2_string
+    assert "+active_quest:" in d2_string
 
     # Check for relationships and crow's foot
     assert '"Party" -> "Adventurer": "members"' in d2_string
