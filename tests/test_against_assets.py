@@ -12,8 +12,12 @@ import erdantic.core
 import erdantic.examples
 from tests.utils import assert_dot_equals
 
-ASSETS_DIR = Path(__file__).resolve().parent / "assets"
+if sys.version_info < (3, 14):
+    ASSETS_SUBDIR = "py_lt_314"
+else:
+    ASSETS_SUBDIR = "py_gte_314"
 
+ASSETS_DIR = Path(__file__).resolve().parent / "assets" / ASSETS_SUBDIR
 
 CASES = [
     ("attrs", erdantic.examples.attrs),
