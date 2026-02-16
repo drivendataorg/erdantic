@@ -141,6 +141,21 @@ def main(
             ),
         ),
     ] = False,
+    skip_inherited_fields: Annotated[
+        bool,
+        typer.Option(
+            "--skip_inherited_fields",
+            help=(
+                "Don't display inherited fields (default=False)"
+            ),
+        ),
+    ] = False,
+    draw_inheritance_relations: Annotated[
+        bool,
+        typer.Option(
+            "--draw_inheritance_relations",
+            help=(
+                "Draw inheritance relations (default=False)"
     d2: Annotated[
         bool,
         typer.Option(
@@ -218,6 +233,8 @@ def main(
     logger.debug("terminal_models: %s", terminal_models)
     logger.debug("termini: %s", termini)
     logger.debug("limit_search_models_to: %s", limit_search_models_to)
+    logger.debug("skip_inherited_fields: %s", skip_inherited_fields)
+    logger.debug("draw_inheritance_relations: %s", draw_inheritance_relations)
     logger.debug("dot: %s", dot)
     logger.debug("no_overwrite: %s", no_overwrite)
 
@@ -232,6 +249,8 @@ def main(
         terminal_models=terminal_model_classes,  # type: ignore [arg-type]
         termini=termini_classes,  # type: ignore [arg-type]
         limit_search_models_to=limit_search_models_to_str,
+        skip_inherited_fields=skip_inherited_fields,
+        draw_inheritance_relations=draw_inheritance_relations,
     )
     if dot:
         typer.echo(diagram.to_dot())
