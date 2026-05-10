@@ -41,8 +41,7 @@ class UnresolvableForwardRefError(NameError, ErdanticException):
     ) -> None:
         self.model_full_name = model_full_name
         if sys.version_info >= (3, 10):
-            # typeshed is wrong; NameError does have keyword argument 'name'
-            super().__init__(*args, name=name)  # type: ignore [call-arg]
+            super().__init__(*args, name=name)
         else:
             super().__init__(*args)
             self.name = name
