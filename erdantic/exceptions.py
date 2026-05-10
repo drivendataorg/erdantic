@@ -1,5 +1,5 @@
 import sys
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 if TYPE_CHECKING:
     from erdantic.core import FullyQualifiedName
@@ -36,7 +36,7 @@ class UnresolvableForwardRefError(NameError, ErdanticException):
     def __init__(
         self,
         *args: object,
-        name: str,
+        name: Optional[str],
         model_full_name: "FullyQualifiedName",
     ) -> None:
         self.model_full_name = model_full_name
