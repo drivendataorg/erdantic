@@ -21,17 +21,18 @@ init__` [`Signature`][inspect.Signature] of the model.&#xA;&#xA;    __pydantic_c
 or if there are still undefined fields.&#xA;    __pydantic_core_schema__: The core schema of the model.&#xA;    __pydantic_custom_\
 init__: Whether the model has a custom `__init__` function.&#xA;    __pydantic_decorators__: Metadata containing the decorators \
 defined on the model.&#xA;        This replaces `Model.__validators__` and `Model.__root_validators__` from Pydantic V1.&#xA;    __\
-pydantic_generic_metadata__: Metadata for generic models; contains data used for a similar purpose to&#xA;        __args__, __origin__, __\
-parameters__ in typing-module generics. May eventually be replaced by these.&#xA;    __pydantic_parent_namespace__: Parent namespace \
-of the model, used for automatic rebuilding of models.&#xA;    __pydantic_post_init__: The name of the post-init method for the \
-model, if defined.&#xA;    __pydantic_root_model__: Whether the model is a [`RootModel`][pydantic.root_model.RootModel].&#xA;    __\
-pydantic_serializer__: The `pydantic-core` `SchemaSerializer` used to dump instances of the model.&#xA;    __pydantic_validator__: \
-The `pydantic-core` `SchemaValidator` used to validate instances of the model.&#xA;&#xA;    __pydantic_fields__: A dictionary of \
-field names and their corresponding [`FieldInfo`][pydantic.fields.FieldInfo] objects.&#xA;    __pydantic_computed_fields__: A dictionary \
-of computed field names and their corresponding [`ComputedFieldInfo`][pydantic.fields.ComputedFieldInfo] objects.&#xA;&#xA;    __\
-pydantic_extra__: A dictionary containing extra values, if [`extra`][pydantic.config.ConfigDict.extra]&#xA;        is set to `'allow'`\
-.&#xA;    __pydantic_fields_set__: The names of fields explicitly set during instantiation.&#xA;    __pydantic_private__: Values \
-of private attributes set on the model instance.&#xA;"];
+pydantic_generic_metadata__: A dictionary containing metadata about generic Pydantic models.&#xA;        The `origin` and `args` \
+items map to the [`__origin__`][genericalias.__origin__]&#xA;        and [`__args__`][genericalias.__args__] attributes of [generic \
+aliases][types-genericalias],&#xA;        and the `parameter` item maps to the `__parameter__` attribute of generic classes.&#xA;    __\
+pydantic_parent_namespace__: Parent namespace of the model, used for automatic rebuilding of models.&#xA;    __pydantic_post_init__: \
+The name of the post-init method for the model, if defined.&#xA;    __pydantic_root_model__: Whether the model is a [`RootModel`][\
+pydantic.root_model.RootModel].&#xA;    __pydantic_serializer__: The `pydantic-core` `SchemaSerializer` used to dump instances of \
+the model.&#xA;    __pydantic_validator__: The `pydantic-core` `SchemaValidator` used to validate instances of the model.&#xA;&#\
+xA;    __pydantic_fields__: A dictionary of field names and their corresponding [`FieldInfo`][pydantic.fields.FieldInfo] objects.&#\
+xA;    __pydantic_computed_fields__: A dictionary of computed field names and their corresponding [`ComputedFieldInfo`][pydantic.fields.ComputedFieldInfo] \
+objects.&#xA;&#xA;    __pydantic_extra__: A dictionary containing extra values, if [`extra`][pydantic.config.ConfigDict.extra]&#\
+xA;        is set to `'allow'`.&#xA;    __pydantic_fields_set__: The names of fields explicitly set during instantiation.&#xA;    __\
+pydantic_private__: Values of private attributes set on the model instance.&#xA;"];
 	"tests.snapshot_cases.PydanticRelationSemantics"	[label=<<table border="0" cellborder="1" cellspacing="0"><tr><td port="_root" colspan="2"><b>PydanticRelationSemantics</b></td></tr><tr><td>required_node</td><td port="required_node">PydanticRelatedNode</td></tr><tr><td>optional_node</td><td port="optional_node">Optional[PydanticRelatedNode]</td></tr><tr><td>related_nodes</td><td port="related_nodes">list[PydanticRelatedNode]</td></tr></table>>,
 		tooltip="tests.snapshot_cases.PydanticRelationSemantics&#xA;&#xA;!!! abstract \"Usage Documentation\"&#xA;    [Models](../concepts/models.md)&#\
 xA;&#xA;A base class for creating Pydantic models.&#xA;&#xA;Attributes:&#xA;    __class_vars__: The names of the class variables \
@@ -40,17 +41,18 @@ The synthesized `__init__` [`Signature`][inspect.Signature] of the model.&#xA;&#
 is completed, or if there are still undefined fields.&#xA;    __pydantic_core_schema__: The core schema of the model.&#xA;    __\
 pydantic_custom_init__: Whether the model has a custom `__init__` function.&#xA;    __pydantic_decorators__: Metadata containing \
 the decorators defined on the model.&#xA;        This replaces `Model.__validators__` and `Model.__root_validators__` from Pydantic \
-V1.&#xA;    __pydantic_generic_metadata__: Metadata for generic models; contains data used for a similar purpose to&#xA;        __\
-args__, __origin__, __parameters__ in typing-module generics. May eventually be replaced by these.&#xA;    __pydantic_parent_namespace__: \
-Parent namespace of the model, used for automatic rebuilding of models.&#xA;    __pydantic_post_init__: The name of the post-init \
-method for the model, if defined.&#xA;    __pydantic_root_model__: Whether the model is a [`RootModel`][pydantic.root_model.RootModel]\
-.&#xA;    __pydantic_serializer__: The `pydantic-core` `SchemaSerializer` used to dump instances of the model.&#xA;    __pydantic_\
-validator__: The `pydantic-core` `SchemaValidator` used to validate instances of the model.&#xA;&#xA;    __pydantic_fields__: A \
-dictionary of field names and their corresponding [`FieldInfo`][pydantic.fields.FieldInfo] objects.&#xA;    __pydantic_computed_\
-fields__: A dictionary of computed field names and their corresponding [`ComputedFieldInfo`][pydantic.fields.ComputedFieldInfo] \
-objects.&#xA;&#xA;    __pydantic_extra__: A dictionary containing extra values, if [`extra`][pydantic.config.ConfigDict.extra]&#\
-xA;        is set to `'allow'`.&#xA;    __pydantic_fields_set__: The names of fields explicitly set during instantiation.&#xA;    __\
-pydantic_private__: Values of private attributes set on the model instance.&#xA;"];
+V1.&#xA;    __pydantic_generic_metadata__: A dictionary containing metadata about generic Pydantic models.&#xA;        The `origin` \
+and `args` items map to the [`__origin__`][genericalias.__origin__]&#xA;        and [`__args__`][genericalias.__args__] attributes \
+of [generic aliases][types-genericalias],&#xA;        and the `parameter` item maps to the `__parameter__` attribute of generic \
+classes.&#xA;    __pydantic_parent_namespace__: Parent namespace of the model, used for automatic rebuilding of models.&#xA;    __\
+pydantic_post_init__: The name of the post-init method for the model, if defined.&#xA;    __pydantic_root_model__: Whether the model \
+is a [`RootModel`][pydantic.root_model.RootModel].&#xA;    __pydantic_serializer__: The `pydantic-core` `SchemaSerializer` used \
+to dump instances of the model.&#xA;    __pydantic_validator__: The `pydantic-core` `SchemaValidator` used to validate instances \
+of the model.&#xA;&#xA;    __pydantic_fields__: A dictionary of field names and their corresponding [`FieldInfo`][pydantic.fields.FieldInfo] \
+objects.&#xA;    __pydantic_computed_fields__: A dictionary of computed field names and their corresponding [`ComputedFieldInfo`][\
+pydantic.fields.ComputedFieldInfo] objects.&#xA;&#xA;    __pydantic_extra__: A dictionary containing extra values, if [`extra`][\
+pydantic.config.ConfigDict.extra]&#xA;        is set to `'allow'`.&#xA;    __pydantic_fields_set__: The names of fields explicitly \
+set during instantiation.&#xA;    __pydantic_private__: Values of private attributes set on the model instance.&#xA;"];
 	"tests.snapshot_cases.PydanticRelationSemantics":optional_node:e -> "tests.snapshot_cases.PydanticRelatedNode":_root:w	[arrowhead=noneteeodot,
 		arrowtail=nonenone];
 	"tests.snapshot_cases.PydanticRelationSemantics":related_nodes:e -> "tests.snapshot_cases.PydanticRelatedNode":_root:w	[arrowhead=crownone,
