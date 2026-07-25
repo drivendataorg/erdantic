@@ -1,5 +1,9 @@
 # erdantic Changelog
 
+## v1.3.0 (2026-07-25)
+
+- Removed support for Python 3.9. ([PR #171](https://github.com/drivendataorg/erdantic/pull/171))
+
 ## v1.2.1 (2026-02-15)
 
 - Added official support for Python 3.14. ([PR #164](https://github.com/drivendataorg/erdantic/pull/164))
