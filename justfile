@@ -30,7 +30,7 @@ test *args:
 
 # Run all tests with Python version matrix
 test-all *args:
-    for python in 3.10 3.11 3.12 3.13; do \
+    for python in 3.10 3.11 3.12 3.13 3.14; do \
         just python=$python test {{args}}; \
     done
 
