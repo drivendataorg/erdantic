@@ -1295,32 +1295,27 @@
 <span class="c1"># or</span>
 python<span class="w"> </span>-m<span class="w"> </span>erdantic<span class="w"> </span>--help
 </code></pre></div>
-<div class="highlight"><pre><span></span><code> Usage: erdantic [OPTIONS] MODELS_OR_MODULES...                                 
+<div class="highlight"><pre><span></span><code> Usage: erdantic [OPTIONS] {models_or_modules}...                               
 
  Draw entity relationship diagrams (ERDs) for Python data model classes.        
  Diagrams are rendered using the Graphviz library. Currently supported data     
  modeling frameworks are Pydantic, attrs, and standard library dataclasses.     
 
 ╭─ Arguments ──────────────────────────────────────────────────────────────────╮
-│ *    models_or_modules      MODELS_OR_MODULES...  One or more full dotted    │
-│                                                   paths for data model       │
-│                                                   classes, or modules        │
-│                                                   containing data model      │
-│                                                   classes, to include in     │
-│                                                   diagram, e.g.,             │
-│                                                   &#39;erdantic.examples.pydant… │
-│                                                   Only the root models of    │
-│                                                   composition trees are      │
-│                                                   needed; erdantic will      │
-│                                                   traverse the composition   │
-│                                                   tree to find component     │
-│                                                   classes.                   │
-│                                                   [required]                 │
+│ *    models_or_modules      &lt;str&gt;  One or more full dotted paths for data    │
+│                                    model classes, or modules containing data │
+│                                    model classes, to include in diagram,     │
+│                                    e.g., &#39;erdantic.examples.pydantic.Party&#39;. │
+│                                    Only the root models of composition trees │
+│                                    are needed; erdantic will traverse the    │
+│                                    composition tree to find component        │
+│                                    classes.                                  │
+│                                    [required]                                │
 ╰──────────────────────────────────────────────────────────────────────────────╯
 ╭─ Options ────────────────────────────────────────────────────────────────────╮
-│ *  --out                 -o      PATH                  Output filename.      │
+│ *  --out                 -o      &lt;path&gt;                Output filename.      │
 │                                                        [required]            │
-│    --terminal-model      -t      TEXT                  Full dotted paths for │
+│    --terminal-model      -t      &lt;str&gt;                 Full dotted paths for │
 │                                                        data model classes to │
 │                                                        set as terminal nodes │
 │                                                        in the diagram.       │
@@ -1331,12 +1326,12 @@ python<span class="w"> </span>-m<span class="w"> </span>erdantic<span class="w">
 │                                                        models. Repeat this   │
 │                                                        option if more than   │
 │                                                        one.                  │
-│    --terminus                    TEXT                  Deprecated. Use       │
+│    --terminus                    &lt;str&gt;                 Deprecated. Use       │
 │                                                        --terminal-model      │
 │                                                        instead.              │
-│    --limit-search-mode…  -m      [pydantic|pydantic_v  Plugin identifiers.   │
+│    --limit-search-mode…  -m      &lt;pydantic|pydantic_v  Plugin identifiers.   │
 │                                  1|attrs|dataclasses|  If any are specified, │
-│                                  msgspec]              when searching a      │
+│                                  msgspec&gt;              when searching a      │
 │                                                        module, limit data    │
 │                                                        model classes to      │
 │                                                        those ones. Repeat    │
@@ -1363,10 +1358,10 @@ python<span class="w"> </span>-m<span class="w"> </span>erdantic<span class="w">
 │                                                        be ignored.           │
 │    --no-overwrite                                      Prevent overwriting   │
 │                                                        an existing file.     │
-│    --quiet               -q      INTEGER               Use to decrease log   │
+│    --quiet               -q      &lt;int&gt;                 Use to decrease log   │
 │                                                        verbosity. Can use    │
 │                                                        multiple times.       │
-│    --verbose             -v      INTEGER               Use to increase log   │
+│    --verbose             -v      &lt;int&gt;                 Use to increase log   │
 │                                                        verbosity. Can use    │
 │                                                        multiple times.       │
 │    --list-plugins                                      List active plugins   │
