@@ -27,7 +27,6 @@ Type annotations are formatted using the [typenames](https://github.com/drivenda
 
 erdantic creates **entity relationship diagrams (ERDs)** which show the compositional relationship between data model classes. These are classes whose primary purpose is to be a structured typed container of key–value data. They are the nodes in the diagram. The edges represent the type annotation of a field on one class referencing another class (i.e., the first class ["contains"](https://en.wikipedia.org/wiki/Object_composition#Programming_technique) the second class). Edges use [crow's foot notation](https://erdantic.drivendata.org/stable/customizing/#customizing-edges) for representing the cardinality and modality of the relationships.
 
-
 ## Installation
 
 erdantic's graph modeling depends on [pygraphviz](https://pygraphviz.github.io/documentation/stable/index.html) and [Graphviz](https://graphviz.org/), an open-source C library. If you are on Linux or macOS, the easiest way to install everything together is to use conda and conda-forge:
