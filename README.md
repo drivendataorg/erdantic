@@ -23,7 +23,7 @@ You can use erdantic either as a convenient CLI or as a Python library. Great fo
 
 Type annotations are formatted using the [typenames](https://github.com/drivendataorg/typenames) library.
 
-## What gets diagrammed
+## How to read the diagram
 
 erdantic creates **entity relationship diagrams (ERDs)** which show the compositional relationship between data model classes. These are classes whose primary purpose is to be a structured typed container of key–value data. They are the nodes in the diagram. The edges represent the type annotation of a field on one class referencing another class (i.e., the first class ["contains"](https://en.wikipedia.org/wiki/Object_composition#Programming_technique) the second class). Edges use [crow's foot notation](https://erdantic.drivendata.org/stable/customizing/#customizing-edges) for representing the cardinality and modality of the relationships.
 
