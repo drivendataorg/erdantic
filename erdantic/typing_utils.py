@@ -6,6 +6,11 @@ from typenames import BaseNode, GenericNode, parse_type_tree
 
 from erdantic.exceptions import _UnevaluatedForwardRefError
 
+if sys.version_info >= (3, 12):
+    from typing import TypeAliasType
+else:
+    from typing_extensions import TypeAliasType
+
 # TypeVar for type annotations
 # Most typing special forms have type 'object'
 # There is a stalled proposal for TypeForm: https://github.com/python/mypy/issues/9773
@@ -17,8 +22,19 @@ else:
     _TypeForm = TypeVar("_TypeForm", bound=Union[type, str, object])
 
 
+def _resolve_type_alias(tp: Any) -> Any:
+    """Unwrap a PEP 695 type alias (``type X = ...``) to the type it stands for. Aliases can be
+    chained, so unwrap repeatedly. Non-alias annotations are returned unchanged."""
+    while isinstance(tp, TypeAliasType):
+        tp = tp.__value__
+    return tp
+
+
 def _walk_type_tree(node: BaseNode, target: type) -> bool:
     """Recursively walk a type tree to check if type is many in target type."""
+    resolved = _resolve_type_alias(node.tp)
+    if resolved is not node.tp:
+        node = parse_type_tree(resolved)
     if isinstance(node, GenericNode):
         if isinstance(node.origin, type) and (
             issubclass(node.origin, collections.abc.Container)
@@ -57,6 +73,7 @@ def is_nullable_type(tp: _TypeForm) -> bool:
     Returns:
         bool: Result of check.
     """
+    tp = _resolve_type_alias(tp)
     return get_origin(tp) is Union and type(None) in get_args(tp)
 
 
@@ -70,6 +87,7 @@ def get_recursive_args(tp: _TypeForm) -> list[_TypeForm]:
     """Recursively finds leaf-node types of possibly-nested generic type."""
 
     def recurse(t: _TypeForm) -> Iterator[_TypeForm]:
+        t = _resolve_type_alias(t)
         if isinstance(t, str):
             raise _UnevaluatedForwardRefError(forward_ref=t)
         elif isinstance(t, ForwardRef):

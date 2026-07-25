@@ -1,3 +1,4 @@
+import sys
 import typing
 
 import pytest
@@ -10,6 +11,11 @@ from erdantic.typing_utils import (
     is_nullable_type,
     repr_type_with_mro,
 )
+
+if sys.version_info >= (3, 12):
+    from typing import TypeAliasType
+else:
+    from typing_extensions import TypeAliasType
 
 
 def test_is_collection_type_of():
@@ -70,6 +76,31 @@ def test_get_recursive_args():
     # Resolve forward reference
     resolved_annotations = typing.get_type_hints(Model, localns=locals())
     assert get_recursive_args(resolved_annotations["field"]) == [SomeForwardRef]
+
+
+class _AliasTarget: ...
+
+
+_many_alias = TypeAliasType("_many_alias", typing.List[_AliasTarget])
+_chained_alias = TypeAliasType("_chained_alias", _many_alias)
+_optional_alias = TypeAliasType("_optional_alias", typing.Optional[_AliasTarget])
+
+
+def test_pep695_type_aliases():
+    """Type aliases declared with PEP 695's `type` statement should be transparent.
+
+    https://github.com/drivendataorg/erdantic/issues/118
+    """
+    assert get_recursive_args(_many_alias) == [_AliasTarget]
+    assert get_recursive_args(_chained_alias) == [_AliasTarget]
+    assert get_recursive_args(typing.List[_many_alias]) == [_AliasTarget]
+
+    assert is_collection_type_of(_many_alias, _AliasTarget)
+    assert is_collection_type_of(_chained_alias, _AliasTarget)
+    assert not is_collection_type_of(_optional_alias, _AliasTarget)
+
+    assert is_nullable_type(_optional_alias)
+    assert not is_nullable_type(_many_alias)
 
 
 def test_get_depth1_bases():
