@@ -147,7 +147,7 @@ def main(
             "--d2",
             callback=d2_callback,
             help=(
-                "Print out D2 language representation for a class diagram to console "
+                "Print out D2 language representation to console "
                 "instead of rendering an image. The --out option will be ignored."
             ),
         ),

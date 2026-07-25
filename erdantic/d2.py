@@ -56,7 +56,7 @@ _REL_DEF_TEMPLATE = dedent(
 
 
 def render_d2(diagram: EntityRelationshipDiagram) -> str:
-    """Renders an EntityRelationshipDiagram into the D2 class diagram format."""
+    """Renders an EntityRelationshipDiagram into the D2 diagram format."""
     d2_parts: list[str] = []
 
     # Define all class shapes first

@@ -7,7 +7,7 @@
 [![tests](https://github.com/drivendataorg/erdantic/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/drivendataorg/erdantic/actions/workflows/tests.yml?query=branch%3Amain)
 [![codecov](https://codecov.io/gh/drivendataorg/erdantic/branch/main/graph/badge.svg)](https://codecov.io/gh/drivendataorg/erdantic)
 
-**erdantic** is a simple tool for drawing [entity relationship diagrams (ERDs)](https://en.wikipedia.org/wiki/Data_modeling#Entity%E2%80%93relationship_diagrams) for Python data model classes. Diagrams are rendered using the [Graphviz](https://graphviz.org/) library. Supported data modeling frameworks are:
+**erdantic** is a simple tool for drawing [entity relationship diagrams (ERDs)](https://en.wikipedia.org/wiki/Data_modeling#Entity%E2%80%93relationship_diagrams) for Python data model classes. Supported data modeling frameworks are:
 
 - [Pydantic V2](https://docs.pydantic.dev/latest/)
 - [Pydantic V1 legacy](https://docs.pydantic.dev/latest/migration/#continue-using-pydantic-v1-features)
@@ -15,13 +15,17 @@
 - [msgspec](https://jcristharif.com/msgspec/)
 - [dataclasses](https://docs.python.org/3/library/dataclasses.html) from the Python standard library
 
-We also support [D2](https://d2lang.com/) as an alternative output format.
+Diagrams are rendered using the [Graphviz](https://graphviz.org/) library. We also support [D2](https://d2lang.com/) as an alternative output format.
 
 You can use erdantic either as a convenient CLI or as a Python library. Great for adding a simple and clean data model reference to your documentation.
 
 <object type="image/svg+xml" data="https://raw.githubusercontent.com/drivendataorg/erdantic/refs/heads/main/docs/docs/assets/example_diagram.svg" width="100%" typemustmatch><img alt="Example diagram created by erdantic" src="https://raw.githubusercontent.com/drivendataorg/erdantic/refs/heads/main/docs/docs/assets/example_diagram.svg"></object>
 
 Type annotations are formatted using the [typenames](https://github.com/drivendataorg/typenames) library.
+
+## How to read the diagram
+
+Each **node** in the diagram is a data model class: a class whose primary purpose is to hold data in a declared set of typed fields. Each **edge** is a compositional relationship, meaning a field on one class has a type annotation referencing another class, so that the first class ["contains"](https://en.wikipedia.org/wiki/Object_composition#Programming_technique) the second. Edges use [crow's foot notation](https://erdantic.drivendata.org/stable/customizing/#customizing-edges) to represent the cardinality and modality of each relationship.
 
 ## Installation
 

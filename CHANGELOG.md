@@ -4,6 +4,12 @@
 
 - Removed support for Python 3.9. ([PR #171](https://github.com/drivendataorg/erdantic/pull/171))
 
+### Documentation
+
+- Added "How to read the diagram" section to the README. ([PR #172](https://github.com/drivendataorg/erdantic/pull/172))
+- Removed misleading "class diagram" language from D2 output docstrings and help text. ([PR #172](https://github.com/drivendataorg/erdantic/pull/172))
+
+
 ## v1.2.1 (2026-02-15)
 
 - Added official support for Python 3.14. ([PR #164](https://github.com/drivendataorg/erdantic/pull/164))
@@ -12,7 +18,7 @@
 
 ## v1.2.0 (2025-09-15)
 
-- Added support for the D2 diagramming language for class diagrams. Use `EntityRelationshipDiagram.to_d2()` to get the D2 representation programmatically, or the CLI flag `--d2` to print it to stdout. The `--dot` and `--d2` options are mutually exclusive, and `-o`/`--out` is ignored when `--d2` is used. ([PR #152](https://github.com/drivendataorg/erdantic/pull/152) and [PR #162](https://github.com/drivendataorg/erdantic/pull/162), contribution thanks to [@Else00](https://github.com/Else00))
+- Added support for the [D2 diagramming language](https://d2lang.com/). Use `EntityRelationshipDiagram.to_d2()` to get the D2 representation programmatically, or the CLI flag `--d2` to print it to stdout. The `--dot` and `--d2` options are mutually exclusive, and `-o`/`--out` is ignored when `--d2` is used. ([PR #152](https://github.com/drivendataorg/erdantic/pull/152) and [PR #162](https://github.com/drivendataorg/erdantic/pull/162), contribution thanks to [@Else00](https://github.com/Else00))
 
 ## v1.1.1 (2025-07-19)
 
