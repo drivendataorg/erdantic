@@ -679,7 +679,7 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
         ).string()
 
     def to_d2(self) -> str:
-        """Generate D2 class diagram representation of the entity relationship diagram.
+        """Generate D2 diagramming language representation of the entity relationship diagram.
 
         Returns:
             str: D2 language representation of diagram
