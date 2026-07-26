@@ -54,7 +54,7 @@ jobs:
 
       - name: Build notebook artifacts
         run: |
-          run-notebooks
+          just run-notebooks
 
       - name: Deploy as latest
         if: github.event.inputs.deploy-as == 'latest' || github.event_name == 'push'
