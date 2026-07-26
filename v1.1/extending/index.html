@@ -339,7 +339,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../examples/attrs.ipynb" class="md-nav__link">
+      <a href="../examples/attrs/" class="md-nav__link">
         
   
   
@@ -362,7 +362,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../examples/dataclasses.ipynb" class="md-nav__link">
+      <a href="../examples/dataclasses/" class="md-nav__link">
         
   
   
@@ -385,7 +385,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../examples/msgspec.ipynb" class="md-nav__link">
+      <a href="../examples/msgspec/" class="md-nav__link">
         
   
   
@@ -408,7 +408,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../examples/pydantic.ipynb" class="md-nav__link">
+      <a href="../examples/pydantic/" class="md-nav__link">
         
   
   
@@ -1314,7 +1314,7 @@
 </code></pre></div>
 </div>
 <p>Example implementations of field extractor functions include <a class="autorefs autorefs-internal" title="            get_fields_from_pydantic_model" href="../api-reference/plugins/pydantic/#erdantic.plugins.pydantic.get_fields_from_pydantic_model"><code>get_fields_from_pydantic_model</code></a> and <a class="autorefs autorefs-internal" title="            get_fields_from_dataclass" href="../api-reference/plugins/dataclasses/#erdantic.plugins.dataclasses.get_fields_from_dataclass"><code>get_fields_from_dataclass</code></a>.</p>
-<p>The field extractor function is the place where you should try to resolve forward references. Some frameworks provide utility functions to resolve forward references, like Pydantic's <a class="autorefs autorefs-external" href="https://docs.pydantic.dev/latest/api/base_model/#pydantic.BaseModel.model_rebuild"><code>model_rebuild</code></a> and attr's <a class="autorefs autorefs-external" href="https://www.attrs.org/en/stable/api.html#attrs.resolve_types"><code>resolve_types</code></a>. If there isn't one, you should write your own using erdantic's <a class="autorefs autorefs-internal" title="            resolve_types_on_dataclass" href="../api-reference/plugins/dataclasses/#erdantic.plugins.dataclasses.resolve_types_on_dataclass"><code>resolve_types_on_dataclass</code></a> as a reference implementation.</p>
+<p>The field extractor function is the place where you should try to resolve forward references. Some frameworks provide utility functions to resolve forward references, like Pydantic's <a class="autorefs autorefs-external" href="https://docs.pydantic.dev/latest/api/pydantic/base_model/#pydantic.BaseModel.model_rebuild"><code>model_rebuild</code></a> and attr's <a class="autorefs autorefs-external" href="https://www.attrs.org/en/stable/api.html#attrs.resolve_types"><code>resolve_types</code></a>. If there isn't one, you should write your own using erdantic's <a class="autorefs autorefs-internal" title="            resolve_types_on_dataclass" href="../api-reference/plugins/dataclasses/#erdantic.plugins.dataclasses.resolve_types_on_dataclass"><code>resolve_types_on_dataclass</code></a> as a reference implementation.</p>
 <h3 id="registering-a-plugin">Registering a plugin<a class="headerlink" href="#registering-a-plugin" title="Permanent link">&para;</a></h3>
 <p>A plugin must be registered by calling the <a class="autorefs autorefs-internal" title="            register_plugin" href="#erdantic.plugins.register_plugin"><code>register_plugin</code></a> function with a key identifier and the two functions. If you use a key that already exists, it will overwrite the existing plugin.</p>
 <div class="admonition info">
