@@ -84,4 +84,24 @@
          <loc>https://erdantic.drivendata.org/stable/api-reference/plugins/pydantic/</loc>
          <lastmod>2026-07-26</lastmod>
     </url>
+    <url>
+         <loc>https://erdantic.drivendata.org/stable/examples/attrs/</loc>
+         <lastmod>2026-07-26</lastmod>
+    </url>
+    <url>
+         <loc>https://erdantic.drivendata.org/stable/examples/dataclasses/</loc>
+         <lastmod>2026-07-26</lastmod>
+    </url>
+    <url>
+         <loc>https://erdantic.drivendata.org/stable/examples/msgspec/</loc>
+         <lastmod>2026-07-26</lastmod>
+    </url>
+    <url>
+         <loc>https://erdantic.drivendata.org/stable/examples/pydantic/</loc>
+         <lastmod>2026-07-26</lastmod>
+    </url>
+    <url>
+         <loc>https://erdantic.drivendata.org/stable/output-formats/d2/</loc>
+         <lastmod>2026-07-26</lastmod>
+    </url>
 </urlset>
