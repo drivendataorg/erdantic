@@ -137,3 +137,29 @@ def test_repr_type_with_mro():
         == "<mro (tests.test_typing_utils.test_repr_type_with_mro.<locals>.FancyInt, int, object)>"
     )
     assert repr_type_with_mro(FancyInt()) == repr(FancyInt())
+
+
+@pytest.mark.skipif(
+    sys.version_info < (3, 12), reason="PEP 695 `type` statement requires Python 3.12"
+)
+def test_pep695_cyclic_type_aliases():
+    """Cyclic and self-referential aliases should terminate instead of hanging.
+
+    Only the `type` statement produces lazily evaluated values, so these cannot be built with
+    the `TypeAliasType(...)` constructor.
+    """
+    namespace: dict = {}
+    exec(
+        "type _cycle_a = _cycle_b\n"
+        "type _cycle_b = _cycle_a\n"
+        "type _self_ref = list[_self_ref]\n",
+        namespace,
+    )
+    cycle_a = namespace["_cycle_a"]
+    self_ref = namespace["_self_ref"]
+
+    assert get_recursive_args(cycle_a) == [cycle_a]
+    assert get_recursive_args(self_ref) == [self_ref]
+    assert not is_nullable_type(cycle_a)
+    assert not is_collection_type_of(cycle_a, _AliasTarget)
+    assert is_collection_type_of(self_ref, self_ref)

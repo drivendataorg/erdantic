@@ -1,6 +1,16 @@
 import collections.abc
 import sys
-from typing import Any, ForwardRef, Iterator, Literal, TypeVar, Union, get_args, get_origin
+from typing import (
+    Any,
+    ForwardRef,
+    Iterator,
+    Literal,
+    Optional,
+    TypeVar,
+    Union,
+    get_args,
+    get_origin,
+)
 
 from typenames import BaseNode, GenericNode, parse_type_tree
 
@@ -22,10 +32,19 @@ else:
     _TypeForm = TypeVar("_TypeForm", bound=Union[type, str, object])
 
 
-def _resolve_type_alias(tp: Any) -> Any:
+def _resolve_type_alias(tp: Any, seen: Optional[set[int]] = None) -> Any:
     """Unwrap a PEP 695 type alias (``type X = ...``) to the type it stands for. Aliases can be
-    chained, so unwrap repeatedly. Non-alias annotations are returned unchanged."""
+    chained, so unwrap repeatedly. Non-alias annotations are returned unchanged.
+
+    Aliases can also be cyclic (``type A = B`` / ``type B = A``) or self-referential
+    (``type Rec = list[Rec]``). Track the aliases already unwrapped and stop at the first repeat,
+    returning that alias unresolved, so resolution always terminates.
+    """
+    local_seen = seen if seen is not None else set()
     while isinstance(tp, TypeAliasType):
+        if id(tp) in local_seen:
+            return tp
+        local_seen.add(id(tp))
         tp = tp.__value__
     return tp
 
@@ -86,8 +105,16 @@ def get_depth1_bases(tp: type) -> list[type]:
 def get_recursive_args(tp: _TypeForm) -> list[_TypeForm]:
     """Recursively finds leaf-node types of possibly-nested generic type."""
 
-    def recurse(t: _TypeForm) -> Iterator[_TypeForm]:
-        t = _resolve_type_alias(t)
+    def recurse(t: _TypeForm, seen: set[int]) -> Iterator[_TypeForm]:
+        # Copy so that sibling branches do not share the alias path of one another.
+        seen = set(seen)
+        resolved = _resolve_type_alias(t, seen)
+        if isinstance(resolved, TypeAliasType):
+            # Cyclic or self-referential alias already unwrapped on this path; stop here rather
+            # than recursing forever.
+            yield resolved  # type: ignore [misc]
+            return
+        t = resolved
         if isinstance(t, str):
             raise _UnevaluatedForwardRefError(forward_ref=t)
         elif isinstance(t, ForwardRef):
@@ -108,11 +135,11 @@ def get_recursive_args(tp: _TypeForm) -> list[_TypeForm]:
         args = get_args(t)
         if args:
             for arg in args:
-                yield from recurse(arg)
+                yield from recurse(arg, seen)
         else:
             yield t
 
-    return list(recurse(tp))
+    return list(recurse(tp, set()))
 
 
 def repr_type_with_mro(obj: Any) -> str:
