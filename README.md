@@ -80,4 +80,15 @@ list(diagram.models.keys())
 diagram.draw("diagram.png")
 ```
 
+To generate Mermaid ER diagram source instead of an image, use the `--mermaid` CLI option or
+the diagram object's `to_mermaid()` method:
+
+```bash
+erdantic erdantic.examples.pydantic.Party --mermaid > diagram.mmd
+```
+
+```python
+mermaid = diagram.to_mermaid()
+```
+
 Check out the "Usage Examples" section of our [docs](https://erdantic.drivendata.org/) to see more.
