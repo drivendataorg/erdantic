@@ -59,6 +59,15 @@ def d2_callback(ctx: typer.Context, d2: bool):
     return d2
 
 
+def mermaid_callback(ctx: typer.Context, mermaid: bool):
+    """Set --out to not be required for Mermaid output since it prints to console."""
+    if mermaid:
+        for param in ctx.command.params:
+            if param.name == "out":
+                param.required = False
+    return mermaid
+
+
 def list_plugins_callback(list_plugins: bool):
     if list_plugins:
         active_plugins = erdantic.plugins.list_plugins()
@@ -152,6 +161,17 @@ def main(
             ),
         ),
     ] = False,
+    mermaid: Annotated[
+        bool,
+        typer.Option(
+            "--mermaid",
+            callback=mermaid_callback,
+            help=(
+                "Print out Mermaid ER diagram representation to console instead of rendering an "
+                "image. The --out option will be ignored."
+            ),
+        ),
+    ] = False,
     no_overwrite: Annotated[
         bool,
         typer.Option("--no-overwrite", help="Prevent overwriting an existing file."),
@@ -200,8 +220,8 @@ def main(
     attrs, and standard library dataclasses.
     """
 
-    if dot and d2:
-        logger.error("The --dot and --d2 options are mutually exclusive.")
+    if sum([dot, d2, mermaid]) > 1:
+        logger.error("The --dot, --d2, and --mermaid options are mutually exclusive.")
         raise typer.Exit(code=1)
     # Set up logger
     log_level = logging.INFO + 10 * quiet - 10 * verbose
@@ -237,6 +257,8 @@ def main(
         typer.echo(diagram.to_dot())
     elif d2:
         typer.echo(diagram.to_d2())
+    elif mermaid:
+        typer.echo(diagram.to_mermaid())
     else:
         if out.exists() and no_overwrite:
             logger.error(f"{out} already exists, and you specified --no-overwrite.")
