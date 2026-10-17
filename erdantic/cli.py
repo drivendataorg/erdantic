@@ -1,15 +1,18 @@
 from enum import Enum
+import importlib.util
 from importlib import import_module
 import logging
 from pathlib import Path
 from types import ModuleType
 from typing import TYPE_CHECKING, Annotated, Optional, Union
+import uuid
 
 import typer
 
 from erdantic._logging import package_logger
 from erdantic._version import __version__
 from erdantic.convenience import create
+from erdantic.diff import compare_diagrams, render_json, render_markdown, render_mermaid
 from erdantic.exceptions import ModelOrModuleNotFoundError
 import erdantic.plugins
 
@@ -94,9 +97,23 @@ def main(
         ),
     ],
     out: Annotated[
-        Path,
+        Optional[Path],
         typer.Option("--out", "-o", help="Output filename."),
-    ],
+    ] = None,
+    output_format: Annotated[
+        str,
+        typer.Option(
+            "--format",
+            help="Diff output format: markdown, json, or mermaid.",
+        ),
+    ] = "markdown",
+    fail_on_breaking: Annotated[
+        bool,
+        typer.Option(
+            "--fail-on-breaking",
+            help="Exit with status 1 when breaking schema changes are detected.",
+        ),
+    ] = False,
     terminal_models: Annotated[
         list[str],
         typer.Option(
@@ -200,6 +217,14 @@ def main(
     attrs, and standard library dataclasses.
     """
 
+    if models_or_modules and models_or_modules[0] == "diff":
+        run_diff(
+            models_or_modules[1:],
+            output_format=output_format,
+            fail_on_breaking=fail_on_breaking,
+        )
+        return
+
     if dot and d2:
         logger.error("The --dot and --d2 options are mutually exclusive.")
         raise typer.Exit(code=1)
@@ -238,6 +263,9 @@ def main(
     elif d2:
         typer.echo(diagram.to_d2())
     else:
+        if out is None:
+            typer.echo("Error: Missing option '--out' / '-o'.", err=True)
+            raise typer.Exit(code=2)
         if out.exists() and no_overwrite:
             logger.error(f"{out} already exists, and you specified --no-overwrite.")
             raise typer.Exit(code=1)
@@ -247,6 +275,17 @@ def main(
 
 def import_object_from_name(full_obj_name: str) -> Union[ModuleType, object]:
     """Import an object from a fully qualified name."""
+    path = Path(full_obj_name)
+    if path.suffix == ".py" and path.is_file():
+        module_name = f"erdantic_diff_{uuid.uuid4().hex}"
+        spec = importlib.util.spec_from_file_location(module_name, path)
+        if spec is None or spec.loader is None:
+            raise ModelOrModuleNotFoundError(
+                f"Unable to import '{full_obj_name}'.", name=full_obj_name, path=__file__
+            )
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        return module
     try:
         # Try to import as a module
         return import_module(full_obj_name)
@@ -271,3 +310,30 @@ def import_object_from_name(full_obj_name: str) -> Union[ModuleType, object]:
                 )
             else:
                 raise e
+
+
+def run_diff(
+    model_names: list[str], output_format: str, fail_on_breaking: bool
+) -> None:
+    """Compare two model modules/classes and print a schema diff."""
+    if len(model_names) != 2:
+        typer.echo("Error: 'diff' requires exactly two model or module paths.", err=True)
+        raise typer.Exit(code=2)
+    if output_format not in {"markdown", "json", "mermaid"}:
+        typer.echo(
+            "Error: --format must be one of: markdown, json, mermaid.",
+            err=True,
+        )
+        raise typer.Exit(code=2)
+
+    before = create(import_object_from_name(model_names[0]))
+    after = create(import_object_from_name(model_names[1]))
+    changes = compare_diagrams(before, after)
+    renderers = {
+        "markdown": render_markdown,
+        "json": render_json,
+        "mermaid": render_mermaid,
+    }
+    typer.echo(renderers[output_format](changes), nl=False)
+    if fail_on_breaking and any(change.breaking for change in changes):
+        raise typer.Exit(code=1)

@@ -80,4 +80,27 @@ list(diagram.models.keys())
 diagram.draw("diagram.png")
 ```
 
+## Compare schemas
+
+Compare two model modules in a CI job and report added, removed, or changed models, fields, and
+relationships:
+
+```bash
+erdantic diff old_models.py new_models.py --format markdown
+erdantic diff old_models.py new_models.py --format json
+erdantic diff old_models.py new_models.py --format mermaid
+erdantic diff old_models.py new_models.py --fail-on-breaking
+```
+
+The last command exits with status 1 when it finds a breaking change, including removed models or
+fields, type changes, required fields added, and narrowing relationship cardinality.
+
+The same comparison is available in Python:
+
+```python
+from erdantic import compare_diagrams, create
+
+changes = compare_diagrams(create(OldModel), create(NewModel))
+```
+
 Check out the "Usage Examples" section of our [docs](https://erdantic.drivendata.org/) to see more.

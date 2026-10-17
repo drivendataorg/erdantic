@@ -3,6 +3,8 @@
 ## v1.3.0 (Unreleased)
 
 - Removed support for Python 3.9. ([PR #171](https://github.com/drivendataorg/erdantic/pull/171))
+- Added schema comparison through `compare_diagrams()` and the `erdantic diff` CLI mode, with
+  Markdown, JSON, and Mermaid reports and `--fail-on-breaking` for CI.
 
 ### Documentation
 

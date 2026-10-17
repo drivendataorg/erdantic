@@ -260,3 +260,17 @@ def test_d2(tmp_path):
     # Test that --dot and --d2 are mutually exclusive
     result = runner.invoke(app, ["erdantic.examples.pydantic.Party", "--dot", "--d2"])
     assert result.exit_code == 1
+
+
+def test_diff(tmp_path):
+    before = tmp_path / "before.py"
+    after = tmp_path / "after.py"
+    before.write_text("from pydantic import BaseModel\n\nclass User(BaseModel):\n    name: str\n")
+    after.write_text("from pydantic import BaseModel\n\nclass User(BaseModel):\n    name: int\n")
+
+    result = runner.invoke(
+        app,
+        ["diff", str(before), str(after), "--format", "json", "--fail-on-breaking"],
+    )
+    assert result.exit_code == 1
+    assert '"field_type_changed"' in result.stdout
