@@ -691,6 +691,16 @@ class EntityRelationshipDiagram(pydantic.BaseModel):
 
         return render_d2(self)
 
+    def to_mermaid(self) -> str:
+        """Generate Mermaid ER diagram representation of the entity relationship diagram.
+
+        Returns:
+            str: Mermaid diagram source
+        """
+        from erdantic.mermaid import render_mermaid
+
+        return render_mermaid(self)
+
     def _repr_pretty_(self, p, cycle):
         """IPython special method to pretty-print an object."""
         try:

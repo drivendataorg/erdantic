@@ -260,3 +260,22 @@ def test_d2(tmp_path):
     # Test that --dot and --d2 are mutually exclusive
     result = runner.invoke(app, ["erdantic.examples.pydantic.Party", "--dot", "--d2"])
     assert result.exit_code == 1
+
+
+def test_mermaid(tmp_path):
+    result = runner.invoke(app, ["erdantic.examples.pydantic.Party", "--mermaid"])
+    assert result.exit_code == 0
+    expected_out = erd.create(erd.examples.pydantic.Party).to_mermaid()
+    assert result.stdout.strip() == expected_out.strip()
+
+    path = tmp_path / "diagram.mmd"
+    result = runner.invoke(
+        app, ["erdantic.examples.pydantic.Party", "--mermaid", "-o", str(path)]
+    )
+    assert result.exit_code == 0
+    assert not path.exists()
+
+    result = runner.invoke(
+        app, ["erdantic.examples.pydantic.Party", "--dot", "--mermaid"]
+    )
+    assert result.exit_code == 1

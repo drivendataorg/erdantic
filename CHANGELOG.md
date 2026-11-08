@@ -3,6 +3,8 @@
 ## v1.3.0 (Unreleased)
 
 - Removed support for Python 3.9. ([PR #171](https://github.com/drivendataorg/erdantic/pull/171))
+- Added Mermaid ER diagram output via `EntityRelationshipDiagram.to_mermaid()` and the CLI
+  `--mermaid` option. ([Issue #163](https://github.com/drivendataorg/erdantic/issues/163))
 
 ### Documentation
 
