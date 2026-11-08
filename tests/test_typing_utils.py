@@ -1,3 +1,4 @@
+import sys
 import typing
 
 import pytest
@@ -10,6 +11,11 @@ from erdantic.typing_utils import (
     is_nullable_type,
     repr_type_with_mro,
 )
+
+if sys.version_info >= (3, 12):
+    from typing import TypeAliasType
+else:
+    from typing_extensions import TypeAliasType
 
 
 def test_is_collection_type_of():
@@ -72,6 +78,31 @@ def test_get_recursive_args():
     assert get_recursive_args(resolved_annotations["field"]) == [SomeForwardRef]
 
 
+class _AliasTarget: ...
+
+
+_many_alias = TypeAliasType("_many_alias", typing.List[_AliasTarget])
+_chained_alias = TypeAliasType("_chained_alias", _many_alias)
+_optional_alias = TypeAliasType("_optional_alias", typing.Optional[_AliasTarget])
+
+
+def test_pep695_type_aliases():
+    """Type aliases declared with PEP 695's `type` statement should be transparent.
+
+    https://github.com/drivendataorg/erdantic/issues/118
+    """
+    assert get_recursive_args(_many_alias) == [_AliasTarget]
+    assert get_recursive_args(_chained_alias) == [_AliasTarget]
+    assert get_recursive_args(typing.List[_many_alias]) == [_AliasTarget]
+
+    assert is_collection_type_of(_many_alias, _AliasTarget)
+    assert is_collection_type_of(_chained_alias, _AliasTarget)
+    assert not is_collection_type_of(_optional_alias, _AliasTarget)
+
+    assert is_nullable_type(_optional_alias)
+    assert not is_nullable_type(_many_alias)
+
+
 def test_get_depth1_bases():
     class A0:
         pass
@@ -106,3 +137,29 @@ def test_repr_type_with_mro():
         == "<mro (tests.test_typing_utils.test_repr_type_with_mro.<locals>.FancyInt, int, object)>"
     )
     assert repr_type_with_mro(FancyInt()) == repr(FancyInt())
+
+
+@pytest.mark.skipif(
+    sys.version_info < (3, 12), reason="PEP 695 `type` statement requires Python 3.12"
+)
+def test_pep695_cyclic_type_aliases():
+    """Cyclic and self-referential aliases should terminate instead of hanging.
+
+    Only the `type` statement produces lazily evaluated values, so these cannot be built with
+    the `TypeAliasType(...)` constructor.
+    """
+    namespace: dict = {}
+    exec(
+        "type _cycle_a = _cycle_b\n"
+        "type _cycle_b = _cycle_a\n"
+        "type _self_ref = list[_self_ref]\n",
+        namespace,
+    )
+    cycle_a = namespace["_cycle_a"]
+    self_ref = namespace["_self_ref"]
+
+    assert get_recursive_args(cycle_a) == [cycle_a]
+    assert get_recursive_args(self_ref) == [self_ref]
+    assert not is_nullable_type(cycle_a)
+    assert not is_collection_type_of(cycle_a, _AliasTarget)
+    assert is_collection_type_of(self_ref, self_ref)

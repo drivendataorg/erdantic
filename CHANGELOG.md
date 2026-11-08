@@ -3,6 +3,7 @@
 ## v1.3.0 (Unreleased)
 
 - Removed support for Python 3.9. ([PR #171](https://github.com/drivendataorg/erdantic/pull/171))
+- Fixed type aliases declared with Python 3.12's `type` statement (PEP 695) not being resolved, which meant models referenced through such an alias were missing from the diagram. ([Issue #118](https://github.com/drivendataorg/erdantic/issues/118))
 
 ### Documentation
 
